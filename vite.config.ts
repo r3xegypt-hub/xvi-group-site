@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import compression from 'vite-plugin-compression2'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -8,8 +9,14 @@ export default defineConfig({
   // emit the absolute HTML source path as an asset when the project path
   // contains non-ASCII characters.
   base: '/',
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    compression({ algorithms: ['gzip', 'brotliCompress'] }),
+  ],
   build: {
+    cssCodeSplit: true,
+    target: 'es2020',
     rollupOptions: {
       output: {
         manualChunks(id) {
