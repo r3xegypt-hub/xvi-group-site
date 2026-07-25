@@ -1,0 +1,28 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT 12: THE CIPHER -->
+  <!-- Philosophy: Encrypted intelligence — XVI as a cryptographic symbol of knowledge -->
+  <!-- Reference: Palantir mystery × Anthropic depth — abstract, intellectual, profound -->
+  
+  <!-- Abstract cipher mark — geometric intelligence symbol -->
+  <g fill="#C9A96E">
+    <!-- Outer hexagonal frame -->
+    <path d="M 56,4 L 104,4 L 128,32 L 128,88 L 104,116 L 56,116 L 32,88 L 32,32 Z" fill="none" stroke="#C9A96E" stroke-width="2"/>
+    
+    <!-- Inner geometric pattern — abstract XVI -->
+    <path d="M 56,24 L 80,24 L 96,60 L 80,96 L 56,96 L 40,60 Z" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+    
+    <!-- Central intelligence point -->
+    <circle cx="68" cy="60" r="4" fill="#C9A96E"/>
+    
+    <!-- Connecting lines — suggest neural pathways -->
+    <line x1="56" y1="24" x2="68" y2="60" stroke="#C9A96E" stroke-width="1"/>
+    <line x1="80" y1="24" x2="68" y2="60" stroke="#C9A96E" stroke-width="1"/>
+    <line x1="96" y1="60" x2="68" y2="60" stroke="#C9A96E" stroke-width="1"/>
+    <line x1="80" y1="96" x2="68" y2="60" stroke="#C9A96E" stroke-width="1"/>
+    <line x1="56" y1="96" x2="68" y2="60" stroke="#C9A96E" stroke-width="1"/>
+    <line x1="40" y1="60" x2="68" y2="60" stroke="#C9A96E" stroke-width="1"/>
+  </g>
+  
+  <!-- GROUP wordmark -->
+  <text x="148" y="72" fill="#C9A96E" font-family="Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="300" letter-spacing="10">GROUP</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT 03: THE MONOLITH -->
+  <!-- Philosophy: Power through mass — solid form with precision cuts revealing XVI -->
+  <!-- Reference: Porsche solidity × Notion boldness — architectural weight -->
+  
+  <!-- Solid monolithic block -->
+  <rect x="8" y="4" width="112" height="112" fill="#C9A96E" rx="2"/>
+  
+  <!-- XVI precision cuts — negative space carved through -->
+  <g fill="#060A10">
+    <!-- X cut -->
+    <path d="M 20,16 L 32,16 L 56,104 L 44,104 Z"/>
+    <path d="M 44,16 L 56,16 L 32,104 L 20,104 Z"/>
+    <!-- V cut -->
+    <path d="M 64,16 L 76,16 L 84,104 L 72,104 Z"/>
+    <path d="M 96,16 L 108,16 L 100,104 L 88,104 Z"/>
+    <!-- I cut -->
+    <rect x="108" y="16" width="6" height="88"/>
+  </g>
+  
+  <!-- GROUP wordmark -->
+  <text x="140" y="72" fill="#C9A96E" font-family="Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="300" letter-spacing="10">GROUP</text>
+</svg>

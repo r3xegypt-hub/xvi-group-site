@@ -1,0 +1,25 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT 08: THE TYPE -->
+  <!-- Philosophy: Pure typography — exceptional letterforms, no symbol needed -->
+  <!-- Reference: Apple wordmark × Notion clarity — the type IS the brand -->
+  
+  <!-- XVI — precision letterforms with mathematical kerning -->
+  <g fill="#C9A96E">
+    <!-- X: Constructed from two precise strokes -->
+    <path d="M 8,8 L 24,8 L 56,112 L 40,112 Z"/>
+    <path d="M 40,8 L 56,8 L 24,112 L 8,112 Z"/>
+    
+    <!-- V: Two converging strokes -->
+    <path d="M 72,8 L 88,8 L 104,112 L 88,112 Z"/>
+    <path d="M 120,8 L 136,8 L 120,112 L 104,112 Z"/>
+    
+    <!-- I: Single vertical stroke -->
+    <rect x="152" y="8" width="12" height="104"/>
+  </g>
+  
+  <!-- Precise vertical divider -->
+  <line x1="180" y1="24" x2="180" y2="96" stroke="#C9A96E" stroke-width="1"/>
+  
+  <!-- GROUP — lighter weight for hierarchy -->
+  <text x="196" y="72" fill="#C9A96E" font-family="Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="300" letter-spacing="10">GROUP</text>
+</svg>

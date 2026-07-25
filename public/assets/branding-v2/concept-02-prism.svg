@@ -1,0 +1,24 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT 02: THE PRISM -->
+  <!-- Philosophy: Light refraction — XVI emerges from a faceted geometric form -->
+  <!-- Reference: Apple logo simplicity × Linear precision — one shape, many facets -->
+  
+  <!-- Faceted prism mark containing XVI -->
+  <g fill="#C9A96E">
+    <!-- Main prism body — hexagonal faceted shape -->
+    <path d="M 60,4 L 100,4 L 120,32 L 120,88 L 100,116 L 60,116 L 40,88 L 40,32 Z"/>
+    
+    <!-- XVI carved through — negative space -->
+    <path d="M 52,20 L 60,20 L 76,100 L 68,100 Z" fill="#060A10"/>
+    <path d="M 68,20 L 76,20 L 60,100 L 52,100 Z" fill="#060A10"/>
+    <path d="M 84,20 L 92,20 L 100,100 L 92,100 Z" fill="#060A10"/>
+    <path d="M 100,20 L 108,20 L 108,100 L 100,100 Z" fill="#060A10"/>
+    
+    <!-- Facet lines — subtle geometry -->
+    <line x1="60" y1="4" x2="80" y2="60" stroke="#060A10" stroke-width="1"/>
+    <line x1="100" y1="4" x2="80" y2="60" stroke="#060A10" stroke-width="1"/>
+  </g>
+  
+  <!-- GROUP wordmark -->
+  <text x="140" y="72" fill="#C9A96E" font-family="Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="300" letter-spacing="10">GROUP</text>
+</svg>

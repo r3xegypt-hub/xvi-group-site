@@ -1,0 +1,10 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoDarkTitle">
+  <title id="logoDarkTitle">XVI Group — dark</title>
+  <rect width="256" height="256" rx="40" fill="#06111f" />
+  <g transform="translate(32,32)" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <line x1="160" y1="20" x2="160" y2="192" stroke="#FFD47B" opacity="0.98"/>
+    <path d="M40 28 L96 160 L152 28" fill="none" stroke="#A78D4A" opacity="0.95"/>
+    <path d="M16 192 L120 56" stroke="#7A6CFF"/>
+    <path d="M120 192 L16 56" stroke="#7A6CFF"/>
+  </g>
+</svg>

@@ -1,0 +1,428 @@
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM POLISH — XVI GROUP v5
+   Ultra-luxury refinement layer
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Premium Typography — Luxury Arabic-first ── */
+h1 {
+  font-family: var(--font-family-display) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.05 !important;
+  margin-bottom: 1.5em !important;
+}
+
+h2 {
+  font-family: var(--font-family-display) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.1 !important;
+  margin-bottom: 1.25em !important;
+}
+
+h3 {
+  font-family: var(--font-family-display) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1em !important;
+}
+
+/* ── 2. Premium Spacing — Generous ── */
+.xvi-hero-stage {
+  min-height: min(920px, calc(100dvh - 5rem)) !important;
+  padding: clamp(2.5rem, 5vw, 5rem) !important;
+}
+
+.xvi-hero-title {
+  font-size: clamp(3.5rem, 8vw, 6rem) !important;
+  line-height: 1 !important;
+  margin-bottom: 2em !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.xvi-hero-bottom {
+  gap: 2rem !important;
+  padding-top: 2rem !important;
+}
+
+.xvi-hero-bottom p {
+  line-height: 1.7 !important;
+  font-size: 1.05rem !important;
+}
+
+/* ── 3. Premium Section Spacing ── */
+.xvi-page-section {
+  padding-top: 8rem !important;
+  padding-bottom: 8rem !important;
+}
+
+.xvi-room-heading {
+  margin-bottom: 4rem !important;
+}
+
+.xvi-room-heading h2 {
+  margin-bottom: 1.25em !important;
+}
+
+/* ── 4. Premium Card Spacing ── */
+.xvi-service-card-inner {
+  padding: 2.5rem !important;
+  gap: 0 !important;
+}
+
+.xvi-service-card-title {
+  margin-bottom: 1.25rem !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-service-card-desc {
+  line-height: 1.7 !important;
+  font-size: 0.95rem !important;
+}
+
+.xvi-service-card-tags {
+  margin-top: 2rem !important;
+  padding-top: 1.5rem !important;
+}
+
+.xvi-service-card-tag {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ── 5. Premium Card Interactions — Hover Micro-interactions ── */
+.xvi-service-card-inner,
+.xvi-feature-card-inner,
+.xvi-about-story-inner {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@media (hover: hover) {
+  .xvi-service-card:hover .xvi-service-card-inner,
+  .xvi-feature-card:hover .xvi-feature-card-inner,
+  .xvi-about-story:hover .xvi-about-story-inner {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+    border-color: rgba(184, 142, 47, 0.15) !important;
+  }
+}
+
+/* ── 6. Premium Button Polish — Gold accent gradient ── */
+.xvi-premium-button,
+.xvi-cta-btn--primary {
+  letter-spacing: 0.03em !important;
+  font-weight: 600 !important;
+  padding: 1.125rem 2rem !important;
+}
+
+/* ── 7. Premium Glass Effect — Frosted glass ── */
+.xvi-nav {
+  background: rgba(251, 249, 245, 0.85) !important;
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+}
+
+.xvi-nav--scrolled {
+  background: rgba(251, 249, 245, 0.95) !important;
+}
+
+.xvi-nav-inner {
+  padding: 1rem 1.5rem !important;
+}
+
+.xvi-nav-link {
+  padding: 0.625rem 1rem !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* ── 8. Premium Hero Lens ── */
+.xvi-hero-lens {
+  border-radius: 32px !important;
+}
+
+.xvi-lens-centre {
+  box-shadow: 0 0 0 20px rgba(184, 142, 47, 0.04), 0 0 60px rgba(184, 142, 47, 0.1) !important;
+}
+
+.xvi-lens-signals strong {
+  font-weight: 300 !important;
+  font-size: 2rem !important;
+}
+
+.xvi-lens-signals span {
+  font-size: 0.75rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* ── 9. Premium Footer ── */
+.xvi-footer {
+  background: #060608 !important;
+}
+
+.xvi-footer-inner {
+  padding-top: 6rem !important;
+  padding-bottom: 4rem !important;
+}
+
+.xvi-footer-hero {
+  gap: 5rem !important;
+  padding-bottom: 4rem !important;
+}
+
+.xvi-footer-title {
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+  margin-bottom: 1em !important;
+}
+
+.xvi-footer-desc {
+  line-height: 1.7 !important;
+  font-size: 0.95rem !important;
+}
+
+.xvi-footer-links {
+  gap: 0.5rem !important;
+}
+
+.xvi-footer-link {
+  padding: 0.75rem 0 !important;
+  font-size: 0.9rem !important;
+}
+
+/* ── 10. Premium Scroll Experience ── */
+html {
+  scroll-behavior: smooth !important;
+}
+
+/* ── 11. Premium Focus States ── */
+:focus-visible {
+  outline: 2px solid #B88E2F !important;
+  outline-offset: 3px !important;
+}
+
+/* ── 12. Premium Selection ── */
+::selection {
+  background: rgba(184, 142, 47, 0.18) !important;
+  color: #111111 !important;
+}
+
+/* ── 13. Premium Image Rendering ── */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* ── 14. Premium Text Rendering ── */
+body {
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* ── 15. Premium Link Transitions ── */
+a {
+  transition: color 0.3s ease, opacity 0.3s ease !important;
+}
+
+/* ── 16. Premium Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(184, 142, 47, 0.25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 142, 47, 0.45);
+}
+
+/* ── 17. Premium Hero Monogram ── */
+.xvi-hero-monogram {
+  font-weight: 600 !important;
+  letter-spacing: -0.2em !important;
+  opacity: 0.025 !important;
+}
+
+/* ── 18. Premium CTA Section ── */
+.xvi-cta-headline {
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 1.5em !important;
+}
+
+.xvi-cta-sub {
+  line-height: 1.7 !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 2.5em !important;
+}
+
+/* ── 19. Premium About Section ── */
+.xvi-about-manifesto-title {
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 1.25em !important;
+}
+
+.xvi-about-story-title {
+  margin-bottom: 0.85em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-about-story-body {
+  line-height: 1.7 !important;
+  font-size: 0.95rem !important;
+}
+
+/* ── 20. Premium Testimonials ── */
+.xvi-testimonial-quote {
+  line-height: 1.7 !important;
+  font-size: 1.15rem !important;
+}
+
+.xvi-testimonial-name {
+  font-size: 1rem !important;
+  margin-bottom: 0.25em !important;
+}
+
+.xvi-testimonial-role {
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* ── 21. Premium Pricing ── */
+.xvi-pricing-card-name {
+  margin-bottom: 0.85em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-pricing-card-desc {
+  line-height: 1.7 !important;
+}
+
+.xvi-pricing-feature {
+  line-height: 1.7 !important;
+  font-size: 0.9rem !important;
+}
+
+/* ── 22. Premium Features Grid ── */
+.xvi-feature-card-title {
+  margin-bottom: 0.85em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-features-column-title {
+  margin-bottom: 0.85em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-features-column-text {
+  line-height: 1.7 !important;
+  font-size: 0.95rem !important;
+}
+
+/* ── 23. Premium Practice Ledger ── */
+.xvi-practice-title h3 {
+  line-height: 1.1 !important;
+  margin-bottom: 0.5em !important;
+}
+
+.xvi-practice-ledger article > p {
+  line-height: 1.7 !important;
+  font-size: 0.95rem !important;
+}
+
+.xvi-practice-ledger article > ul li {
+  padding: 0.55rem 0.9rem !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* ── 24. Premium Timeline ── */
+.xvi-timeline-title {
+  margin-bottom: 0.75em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-timeline-desc {
+  line-height: 1.7 !important;
+}
+
+/* ── 25. Premium Technology Section ── */
+.xvi-tech-premium-title {
+  margin-bottom: 1.25em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-tech-premium-desc {
+  line-height: 1.7 !important;
+  margin-bottom: 1.5em !important;
+}
+
+.xvi-tech-premium-stack b {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ── 26. Premium Kicker (eyebrow text) ── */
+.xvi-kicker {
+  margin-bottom: 2rem !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.3em !important;
+  text-transform: uppercase !important;
+}
+
+/* ── 27. Premium Hero Bottom Border ── */
+.xvi-hero-bottom {
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* ── 28. Premium Story Cards ── */
+.xvi-about-story-inner {
+  padding: 2rem !important;
+}
+
+.xvi-about-story-eyebrow {
+  margin-bottom: 0.5em !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.25em !important;
+}
+
+/* ── 29. Premium Stats Grid ── */
+.xvi-about-stat {
+  padding: 2rem !important;
+}
+
+.xvi-about-stat-label {
+  margin-top: 0.85em !important;
+  line-height: 1.2 !important;
+}
+
+.xvi-about-stat-text {
+  margin-top: 0.5em !important;
+  line-height: 1.7 !important;
+}
+
+/* ── 30. Premium Dropdown Menu ── */
+.xvi-nav-dropdown-title {
+  line-height: 1.4 !important;
+  margin-top: 1em !important;
+}
+
+.xvi-nav-dropdown-item-title {
+  line-height: 1.2 !important;
+}
+
+.xvi-nav-dropdown-item-note {
+  line-height: 1.7 !important;
+  margin-top: 0.5em !important;
+}

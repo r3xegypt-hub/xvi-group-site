@@ -1,0 +1,126 @@
+:root {
+  /* XVI GROUP — Ultra-Luxury Design System v5 */
+
+  /* ── Typography — Luxury Arabic-first pairing ── */
+  --font-arabic: 'Readex Pro', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
+  --font-family-display: 'Readex Pro', 'DM Serif Display', 'Noto Sans Arabic', Georgia, serif;
+  --font-family-body: 'IBM Plex Sans Arabic', 'Readex Pro', 'Noto Sans Arabic', system-ui, sans-serif;
+  --font-family-english: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-family-ui: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-family-serif: 'Readex Pro', 'DM Serif Display', Georgia, serif;
+  --font-family-mono: 'SF Mono', 'Cascadia Code', Consolas, monospace;
+
+  /* ── Colors — Refined luxury palette ── */
+  --color-xvi-warm: #FBF9F5;        /* Warm off-white luxury background */
+  --color-xvi-paper: #F5F2EC;
+  --color-xvi-ink: #111111;          /* Deep near-black for headings */
+  --color-xvi-ink-soft: #4A4A4A;     /* Refined body text */
+  --color-xvi-muted: #8C8C8C;        /* Muted secondary text */
+  --color-xvi-grey-1: #EEEAE3;
+  --color-xvi-grey-2: #E2DED6;
+  --color-xvi-grey-3: #C2BEB5;
+
+  /* ── Surfaces — Glassmorphism ── */
+  --color-xvi-glass: rgba(255, 255, 255, 0.75);
+  --color-xvi-glass-strong: rgba(255, 255, 255, 0.88);
+  --color-xvi-line: rgba(0, 0, 0, 0.06);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-accent: rgba(184, 142, 47, 0.3);  /* Executive Gold */
+
+  /* ── Accent — Executive Gold (luxury champagne) ── */
+  --color-xvi-bronze: #B88E2F;
+  --color-xvi-bronze-light: #D4AF37;
+  --color-xvi-bronze-soft: rgba(184, 142, 47, 0.08);
+  --color-xvi-bronze-glow: rgba(184, 142, 47, 0.15);
+
+  /* ── Navy — Deep executive dark ── */
+  --color-xvi-navy: #111111;
+  --color-xvi-navy-deep: #060608;
+  --color-xvi-navy-light: #1A1F2C;
+
+  /* ── Surface Cards ── */
+  --surface-card: #FFFFFF;
+  --surface-glass: linear-gradient(155deg, rgba(255,255,255,.82), rgba(255,255,255,.6), rgba(245,242,236,.74));
+
+  /* ── Type Scale — Fluid, hierarchical ── */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+
+  /* ── Line Heights — Luxury readability ── */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.7;
+  --leading-relaxed: 2;
+  --leading-loose: 2.25;
+
+  /* ── Letter Spacing — Modern elegance ── */
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0.01em;
+  --tracking-wide: 0.03em;
+  --tracking-wider: 0.06em;
+  --tracking-widest: 0.1em;
+  --tracking-2xl: 0.15em;
+  --tracking-3xl: 0.2em;
+
+  /* ── Spacing — Consistent 8px base ── */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1.25rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 3.5rem;
+  --spacing-3xl: 5rem;
+  --spacing-4xl: 7rem;
+  --spacing-5xl: 9rem;
+  --spacing-6xl: 13rem;
+
+  /* ── Component spacing ── */
+  --spacing-room-gap: clamp(60px, 8vw, 96px);
+  --spacing-section-gap: 8rem;
+  --spacing-card-gap: 1.5rem;
+  --spacing-card-padding: 2.5rem;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --spacing-page-inline: 2rem;
+  --header-offset: 7rem;
+
+  /* ── Shadows — Refined, ambient ── */
+  --shadow-room: 0 40px 80px rgba(0,0,0,0.03), 0 12px 32px rgba(0,0,0,0.015), inset 0 1px 0 rgba(255,255,255,0.92);
+  --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.015);
+  --shadow-card-hover: 0 20px 50px -10px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.025);
+  --shadow-elevated: 0 40px 100px rgba(0,0,0,0.08), 0 12px 40px rgba(0,0,0,0.04);
+
+  /* ── Motion — Smooth, premium ── */
+  --duration-fast: 200ms;
+  --duration-normal: 350ms;
+  --duration-slow: 500ms;
+  --duration-reveal: 700ms;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Pointer ── */
+  --xvi-pointer-x: 50%;
+  --xvi-pointer-y: 20%;
+
+  /* ── Glass ── */
+  --glass-blur: 20px;
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.40);
+  --glass-shadow: 0 6px 24px rgba(0,0,0,0.04);
+
+  /* ── Surface Rooms ── */
+  --surface-room-warm: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,242,236,0.98));
+  --surface-room-paper: linear-gradient(180deg, rgba(245,242,236,0.98), rgba(255,255,255,0.98));
+}

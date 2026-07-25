@@ -1,0 +1,28 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT 01: THE NEXUS — Network Intelligence Mark -->
+  <!-- Philosophy: Interconnected nodes forming XVI — suggests neural network, AI, connectivity -->
+  <!-- Quality target: Anthropic × OpenAI — abstract, mathematical, intelligent -->
+  
+  <!-- Abstract XVI constructed from connected nodes -->
+  <g fill="#C9A96E">
+    <!-- X: Two diagonal lines connecting nodes -->
+    <line x1="10" y1="10" x2="50" y2="110" stroke="#C9A96E" stroke-width="4"/>
+    <line x1="50" y1="10" x2="10" y2="110" stroke="#C9A96E" stroke-width="4"/>
+    
+    <!-- V: Two lines converging -->
+    <line x1="65" y1="10" x2="85" y2="110" stroke="#C9A96E" stroke-width="4"/>
+    <line x1="105" y1="10" x2="85" y2="110" stroke="#C9A96E" stroke-width="4"/>
+    
+    <!-- I: Vertical line -->
+    <line x1="125" y1="10" x2="125" y2="110" stroke="#C9A96E" stroke-width="4"/>
+    
+    <!-- Nodes at intersections -->
+    <circle cx="30" cy="60" r="6" fill="#C9A96E"/>
+    <circle cx="85" cy="60" r="6" fill="#C9A96E"/>
+    <circle cx="125" cy="10" r="6" fill="#C9A96E"/>
+    <circle cx="125" cy="110" r="6" fill="#C9A96E"/>
+  </g>
+  
+  <!-- GROUP wordmark -->
+  <text x="155" y="72" fill="#C9A96E" font-family="Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="300" letter-spacing="12">GROUP</text>
+</svg>

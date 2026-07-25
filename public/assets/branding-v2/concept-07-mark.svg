@@ -1,0 +1,23 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT 07: THE MARK -->
+  <!-- Philosophy: Singular abstraction — one geometric shape representing intelligence -->
+  <!-- Reference: Anthropic asterisk × Linear precision — abstract, iconic, ownable -->
+  
+  <!-- Abstract intelligence mark — three converging elements -->
+  <g fill="#C9A96E">
+    <!-- Central triangle — represents convergence -->
+    <path d="M 56,8 L 104,8 L 80,96 Z"/>
+    
+    <!-- Inverted triangle — creates balance -->
+    <path d="M 32,104 L 80,104 L 56,16 Z" fill="#060A10"/>
+    
+    <!-- Precision cut revealing XVI through negative space -->
+    <path d="M 44,32 L 52,32 L 60,88 L 52,88 Z" fill="#060A10"/>
+    <path d="M 56,32 L 64,32 L 56,88 L 48,88 Z" fill="#060A10"/>
+    <path d="M 68,32 L 76,32 L 80,88 L 72,88 Z" fill="#060A10"/>
+    <path d="M 84,32 L 92,32 L 92,88 L 84,88 Z" fill="#060A10"/>
+  </g>
+  
+  <!-- GROUP wordmark -->
+  <text x="128" y="72" fill="#C9A96E" font-family="Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="300" letter-spacing="10">GROUP</text>
+</svg>

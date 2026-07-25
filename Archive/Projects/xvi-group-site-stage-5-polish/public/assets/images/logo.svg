@@ -1,0 +1,27 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">XVI GROUP</title>
+  <!-- XVI SIGNATURE MARK — Tubular Architectural Geometry -->
+  <g transform="translate(40, 20)">
+    <!-- XVI Mark — Premium Tubular Construction -->
+    <g fill="none" stroke="#C9A96E" stroke-width="14" stroke-linecap="round" stroke-linejoin="miter">
+      <!-- X: Primary stroke -->
+      <line x1="0" y1="0" x2="48" y2="120"/>
+      <!-- X: Secondary stroke — offset for signature tension -->
+      <line x1="6" y1="0" x2="54" y2="120"/>
+      <!-- V: Precise angular construction -->
+      <path d="M72,0 L108,120 L144,0"/>
+      <!-- I: Vertically balanced -->
+      <line x1="168" y1="0" x2="168" y2="120"/>
+    </g>
+    <!-- Signature accent diamond -->
+    <g fill="#C9A96E">
+      <rect x="24" y="56" width="6" height="6" transform="rotate(45 27 59)"/>
+    </g>
+  </g>
+  
+  <!-- GROUP text — Premium typography -->
+  <text x="260" y="108" fill="#C9A96E" font-family="'Helvetica Neue', 'Arial', sans-serif" font-size="52" font-weight="300" letter-spacing="18">GROUP</text>
+  
+  <!-- Subtitle — Refined, minimal -->
+  <text x="300" y="165" text-anchor="middle" fill="#C9A96E" font-family="'Helvetica Neue', 'Arial', sans-serif" font-size="11" font-weight="400" letter-spacing="4" opacity="0.7">INTELLIGENCE. INTEGRATED. IMPACT.</text>
+</svg>
