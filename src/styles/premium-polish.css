@@ -28,30 +28,6 @@ h3 {
   margin-bottom: 1em !important;
 }
 
-/* ── 2. Premium Spacing — Generous ── */
-.xvi-hero-stage {
-  min-height: min(920px, calc(100dvh - 5rem)) !important;
-  padding: clamp(2.5rem, 5vw, 5rem) !important;
-}
-
-.xvi-hero-title {
-  font-size: clamp(3.5rem, 8vw, 6rem) !important;
-  line-height: 1 !important;
-  margin-bottom: 2em !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.03em !important;
-}
-
-.xvi-hero-bottom {
-  gap: 2rem !important;
-  padding-top: 2rem !important;
-}
-
-.xvi-hero-bottom p {
-  line-height: 1.7 !important;
-  font-size: 1.05rem !important;
-}
-
 /* ── 3. Premium Section Spacing ── */
 .xvi-page-section {
   padding-top: 8rem !important;
@@ -119,25 +95,6 @@ h3 {
 }
 
 /* ── 7. Premium Glass Effect — Frosted glass ── (moved to navigation.css) */
-
-/* ── 8. Premium Hero Lens ── */
-.xvi-hero-lens {
-  border-radius: 32px !important;
-}
-
-.xvi-lens-centre {
-  box-shadow: 0 0 0 20px rgba(184, 142, 47, 0.04), 0 0 60px rgba(184, 142, 47, 0.1) !important;
-}
-
-.xvi-lens-signals strong {
-  font-weight: 300 !important;
-  font-size: 2rem !important;
-}
-
-.xvi-lens-signals span {
-  font-size: 0.75rem !important;
-  letter-spacing: 0.08em !important;
-}
 
 /* ── 9. Premium Footer ── */
 .xvi-footer {
@@ -225,13 +182,6 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(184, 142, 47, 0.45);
-}
-
-/* ── 17. Premium Hero Monogram ── */
-.xvi-hero-monogram {
-  font-weight: 600 !important;
-  letter-spacing: -0.2em !important;
-  opacity: 0.025 !important;
 }
 
 /* ── 18. Premium CTA Section ── */
@@ -353,19 +303,6 @@ a {
   padding: 0.5rem 1rem !important;
   font-size: 0.8rem !important;
   letter-spacing: 0.06em !important;
-}
-
-/* ── 26. Premium Kicker (eyebrow text) ── */
-.xvi-kicker {
-  margin-bottom: 2rem !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 0.3em !important;
-  text-transform: uppercase !important;
-}
-
-/* ── 27. Premium Hero Bottom Border ── */
-.xvi-hero-bottom {
-  border-top: 1px solid rgba(0,0,0,0.06) !important;
 }
 
 /* ── 28. Premium Story Cards ── */

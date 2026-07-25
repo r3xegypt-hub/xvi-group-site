@@ -1,0 +1,574 @@
+/* ═══════════════════════════════════════════════════════════════
+   HERO SECTION — Cinematic Premium
+   ═══════════════════════════════════════════════════════════════ */
+
+.xvi-flagship-hero { padding-top: clamp(0.5rem, 1.25vw, 1.25rem); }
+
+.xvi-hero-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(880px, calc(100dvh - 6.5rem));
+  border: 1px solid rgba(10,15,24,.035);
+  border-radius: clamp(20px, 2.5vw, 40px);
+  padding: clamp(1.5rem, 3vw, 3.5rem);
+  background: linear-gradient(135deg, #faf8f4 0%, #fdfcf9 40%, #f5f7f4 70%, #f9f5ed 100%);
+  box-shadow:
+    0 32px 80px rgba(10,15,24,.02),
+    0 8px 24px rgba(10,15,24,.01),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+/* ── 2. Premium Spacing — Generous ── */
+.xvi-hero-stage {
+  min-height: min(920px, calc(100dvh - 5rem)) !important;
+  padding: clamp(2.5rem, 5vw, 5rem) !important;
+}
+
+.xvi-hero-title {
+  font-size: clamp(3.5rem, 8vw, 6rem) !important;
+  line-height: 1 !important;
+  margin-bottom: 2em !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.xvi-hero-bottom {
+  gap: 2rem !important;
+  padding-top: 2rem !important;
+}
+
+.xvi-hero-bottom p {
+  line-height: 1.7 !important;
+  font-size: 1.05rem !important;
+}
+
+.xvi-hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: .5;
+  background:
+    linear-gradient(90deg, transparent 49.9%, rgba(11,27,51,.05) 50%, transparent 50.1%),
+    linear-gradient(180deg, transparent 76%, rgba(201,169,110,.15) 76.1%, transparent 76.2%);
+  pointer-events: none;
+}
+
+/* ── Vignette — cinematic depth framing ── */
+.xvi-hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 50%, rgba(11,27,51,.04) 100%);
+}
+
+.xvi-hero-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .12;
+  background-image: radial-gradient(rgba(11,15,20,.2) .5px, transparent .5px);
+  background-size: 6px 6px;
+  mask-image: linear-gradient(120deg, black, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Mesh gradient — static base ── */
+.xvi-hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .5;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 80%, rgba(201,169,110,.07), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(11,27,51,.05), transparent),
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(201,169,110,.03), transparent);
+}
+
+/* ── Animated mesh gradient light — slow drift ── */
+.xvi-hero-mesh-light {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 45% 40% at 30% 45%, rgba(201,169,110,.06), transparent 70%);
+  animation: xvi-mesh-drift 24s ease-in-out infinite alternate;
+}
+
+.xvi-hero-mesh-light--warm {
+  background: radial-gradient(ellipse 40% 35% at 70% 55%, rgba(201,169,110,.05), transparent 70%);
+  animation: xvi-mesh-drift-warm 28s ease-in-out infinite alternate;
+  animation-delay: -12s;
+}
+
+@keyframes xvi-mesh-drift {
+  0%   { transform: translate(0, 0) scale(1); opacity: .45; }
+  50%  { transform: translate(5%, -3%) scale(1.05); opacity: .6; }
+  100% { transform: translate(-3%, 4%) scale(.98); opacity: .45; }
+}
+
+@keyframes xvi-mesh-drift-warm {
+  0%   { transform: translate(0, 0) scale(1); opacity: .4; }
+  50%  { transform: translate(-4%, 2%) scale(1.03); opacity: .55; }
+  100% { transform: translate(3%, -2%) scale(.97); opacity: .4; }
+}
+
+/* ── Subtle animated grid lines ── */
+.xvi-hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    linear-gradient(rgba(11,27,51,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,27,51,.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, black, transparent);
+  animation: xvi-grid-breathe 10s ease-in-out infinite alternate;
+}
+
+@keyframes xvi-grid-breathe {
+  0%   { opacity: .12; }
+  50%  { opacity: .22; }
+  100% { opacity: .12; }
+}
+
+/* ── Floating light particles — pure CSS, 60fps ── */
+.xvi-hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.xvi-hero-particle {
+  position: absolute;
+  left: var(--px);
+  top: var(--py);
+  width: var(--psize);
+  height: var(--psize);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,.7) 0%, rgba(201,169,110,.2) 40%, transparent 70%);
+  box-shadow: 0 0 calc(var(--psize) * 2) rgba(201,169,110,.15);
+  opacity: 0;
+  filter: blur(var(--pblur));
+  animation: xvi-float var(--pdur) ease-in-out var(--pdelay) infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes xvi-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.8);
+  }
+  15% {
+    opacity: var(--popacity);
+  }
+  50% {
+    opacity: var(--popacity);
+    transform: translate(calc(var(--pdrift) * .5), calc(var(--pdrift) * -1)) scale(1);
+  }
+  85% {
+    opacity: var(--popacity);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--pdrift), calc(var(--pdrift) * -.4)) scale(.9);
+  }
+}
+
+/* ── Floating monogram ── */
+.xvi-hero-monogram {
+  position: absolute;
+  z-index: 0;
+  left: -.07em;
+  bottom: -.2em;
+  font-family: var(--font-family-display);
+  font-size: clamp(15rem, 35vw, 40rem);
+  font-weight: 700;
+  line-height: .7;
+  letter-spacing: -.16em;
+  color: rgba(11,27,51,.035);
+  user-select: none;
+}
+
+/* ── 17. Premium Hero Monogram ── */
+.xvi-hero-monogram {
+  font-weight: 600 !important;
+  letter-spacing: -0.2em !important;
+  opacity: 0.025 !important;
+}
+
+/* ── Premium orbs — layered depth ── */
+.xvi-hero-orb {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(2px);
+  will-change: transform;
+}
+
+.xvi-hero-orb--one {
+  width: min(52vw, 720px);
+  aspect-ratio: 1;
+  left: -18%;
+  top: -26%;
+  background: radial-gradient(circle, rgba(201,169,110,.22), rgba(201,169,110,.04) 42%, transparent 67%);
+}
+
+.xvi-hero-orb--two {
+  width: min(38vw, 520px);
+  aspect-ratio: 1;
+  right: -10%;
+  bottom: -18%;
+  background: radial-gradient(circle, rgba(11,27,51,.1), transparent 66%);
+}
+
+.xvi-hero-orb--accent {
+  width: min(28vw, 380px);
+  aspect-ratio: 1;
+  right: 15%;
+  top: 10%;
+  background: radial-gradient(circle, rgba(201,169,110,.1), rgba(201,169,110,.02) 50%, transparent 70%);
+  filter: blur(3px);
+}
+
+/* Soft radial glow — animated pulse */
+.xvi-hero-orb--glow {
+  width: min(60vw, 820px);
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(201,169,110,.04), transparent 55%);
+  filter: blur(4px);
+  animation: xvi-glow-pulse 12s ease-in-out infinite alternate;
+}
+
+@keyframes xvi-glow-pulse {
+  0%   { opacity: .5; transform: translate(-50%, -50%) scale(1); }
+  50%  { opacity: .8; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: .5; transform: translate(-50%, -50%) scale(1); }
+}
+
+.xvi-hero-topline {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--color-xvi-ink-soft);
+  font-size: 10px;
+  letter-spacing: .21em;
+}
+
+.xvi-live-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  letter-spacing: .12em;
+}
+
+.xvi-live-mark i {
+  width: .45rem;
+  height: .45rem;
+  border-radius: 50%;
+  background: var(--color-xvi-bronze);
+  box-shadow: 0 0 0 6px rgba(201,169,110,.12);
+  animation: xvi-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes xvi-pulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(201,169,110,.12); }
+  50% { box-shadow: 0 0 0 10px rgba(201,169,110,.06); }
+}
+
+.xvi-hero-layout {
+  position: relative;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: minmax(0, 1.16fr) minmax(290px, .84fr);
+  align-items: stretch;
+}
+
+.xvi-kicker {
+  margin-bottom: clamp(1.25rem, 3vw, 3.5rem);
+  color: var(--color-xvi-bronze);
+  font-family: var(--font-family-english);
+  font-size: 8.5px;
+  letter-spacing: .22em;
+  font-weight: 600;
+}
+
+/* ── 26. Premium Kicker (eyebrow text) ── */
+.xvi-kicker {
+  margin-bottom: 2rem !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.3em !important;
+  text-transform: uppercase !important;
+}
+
+.xvi-hero-title {
+  max-width: 9ch;
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(2.75rem, 6.5vw, 7.5rem);
+  font-weight: 800;
+  line-height: .86;
+  letter-spacing: -0.04em;
+  color: var(--color-xvi-ink);
+}
+
+.xvi-hero-title em {
+  color: var(--color-xvi-bronze);
+  font-style: normal;
+}
+
+.xvi-hero-bottom {
+  display: grid;
+  max-width: 40rem;
+  gap: 1.4rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--color-xvi-line);
+}
+
+/* ── 27. Premium Hero Bottom Border ── */
+.xvi-hero-bottom {
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+.xvi-hero-bottom p {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--color-xvi-ink-soft);
+  font-size: 14.5px;
+  line-height: 1.9;
+}
+
+/* Hero Lens — Premium dark panel */
+.xvi-hero-lens {
+  position: relative;
+  align-self: center;
+  display: flex;
+  min-height: clamp(440px, 52vw, 600px);
+  flex-direction: column;
+  padding: clamp(1rem, 1.75vw, 1.75rem);
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 24px 24px 24px 88px;
+  color: white;
+  background: linear-gradient(155deg, rgba(8,18,32,.98), rgba(12,28,48,.94));
+  box-shadow:
+    0 28px 70px rgba(8,18,32,.18),
+    0 8px 24px rgba(8,18,32,.08),
+    inset 0 1px 0 rgba(255,255,255,.07);
+  overflow: hidden;
+}
+
+/* ── 8. Premium Hero Lens ── */
+.xvi-hero-lens {
+  border-radius: 32px !important;
+}
+
+.xvi-hero-lens::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at 55% 42%, black, transparent 75%);
+}
+
+/* Premium lens glow */
+.xvi-hero-lens::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 50% at 50% 20%, rgba(201,169,110,.08), transparent 60%);
+}
+
+.xvi-lens-head,
+.xvi-lens-foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255,255,255,.55);
+  font-size: 9px;
+  letter-spacing: .2em;
+}
+
+.xvi-lens-core {
+  position: relative;
+  display: grid;
+  flex: 1;
+  min-height: 270px;
+  place-items: center;
+}
+
+.xvi-lens-rings,
+.xvi-lens-rings::before,
+.xvi-lens-rings::after {
+  position: absolute;
+  border: 1px solid rgba(201,169,110,.42);
+  border-radius: 50%;
+  content: "";
+}
+
+.xvi-lens-rings {
+  width: min(74%, 320px);
+  aspect-ratio: 1;
+  animation: xvi-spin 28s linear infinite;
+}
+
+.xvi-lens-rings--inner {
+  width: min(52%, 220px);
+  border-color: rgba(255,255,255,.15);
+  animation: xvi-spin 22s linear infinite reverse;
+  animation-delay: -8s;
+}
+
+.xvi-lens-rings::before {
+  inset: 13%;
+  border-color: rgba(255,255,255,.18);
+}
+
+.xvi-lens-rings::after {
+  inset: 29%;
+  border-style: dashed;
+}
+
+.xvi-lens-centre {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 105px;
+  aspect-ratio: 1;
+  place-items: center;
+  align-content: center;
+  border: 1px solid var(--color-xvi-bronze);
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  text-align: center;
+  box-shadow: 0 0 0 17px rgba(201,169,110,.05), 0 0 40px rgba(201,169,110,.12);
+  backdrop-filter: blur(12px);
+}
+
+/* ── 8. Premium Hero Lens (centre) ── */
+.xvi-lens-centre {
+  box-shadow: 0 0 0 20px rgba(184, 142, 47, 0.04), 0 0 60px rgba(184, 142, 47, 0.1) !important;
+}
+
+.xvi-lens-centre span {
+  font-family: var(--font-family-display);
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.08em;
+}
+
+.xvi-lens-centre small {
+  margin-top: 3px;
+  color: rgba(255,255,255,.48);
+  font-size: 7px;
+  letter-spacing: .17em;
+  line-height: 1.5;
+}
+
+.xvi-lens-label {
+  position: absolute;
+  z-index: 2;
+  padding: .48rem .65rem;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 99px;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.72);
+  font-size: 9px;
+  letter-spacing: .16em;
+  backdrop-filter: blur(10px);
+}
+
+.xvi-lens-label--a { right: 9%; top: 18%; }
+.xvi-lens-label--b { left: 8%; bottom: 23%; }
+.xvi-lens-label--c { right: 12%; bottom: 14%; }
+
+.xvi-lens-signals {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .6rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+/* ── 8. Premium Hero Lens (signals) ── */
+.xvi-lens-signals strong {
+  font-weight: 300 !important;
+  font-size: 2rem !important;
+}
+
+.xvi-lens-signals span {
+  font-size: 0.75rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+.xvi-lens-signals div { min-width: 0; }
+.xvi-lens-signals strong {
+  display: block;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  letter-spacing: -.07em;
+}
+.xvi-lens-signals span {
+  display: block;
+  margin-top: .35rem;
+  color: rgba(255,255,255,.52);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.xvi-lens-foot {
+  width: 100%;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  text-align: right;
+  transition: color .35s ease;
+}
+
+.xvi-lens-foot:hover { color: var(--color-xvi-bronze); }
+
+@keyframes xvi-spin { to { transform: rotate(360deg); } }
+
+/* ── Reduced motion: hero animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .xvi-hero-particle {
+    animation: none !important;
+    opacity: var(--popacity) !important;
+    transform: none !important;
+  }
+
+  .xvi-hero-mesh-light,
+  .xvi-hero-mesh-light--warm {
+    animation: none !important;
+    opacity: .45 !important;
+  }
+
+  .xvi-hero-grid-overlay {
+    animation: none !important;
+    opacity: .18 !important;
+  }
+
+  .xvi-hero-orb--glow {
+    animation: none !important;
+    opacity: .6 !important;
+  }
+}
