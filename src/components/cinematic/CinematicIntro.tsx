@@ -1,5 +1,8 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+
+const FOCUSABLE_SELECTOR =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 type CinematicIntroProps = {
   onFinish: () => void
@@ -15,6 +18,8 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
   const reducedMotion = useReducedMotion()
   const [phase, setPhase] = useState<IntroPhase>('draw')
   const [progress, setProgress] = useState(0)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const previouslyFocused = useRef<HTMLElement | null>(null)
 
   const timings = useMemo(() => {
     if (reducedMotion) return { draw: 60, highlight: 60, settle: 60, exit: 60 }
@@ -24,6 +29,7 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
   useEffect(() => {
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    previouslyFocused.current = document.activeElement as HTMLElement
     const total = Object.values(timings).reduce((a, b) => a + b, 0)
     const phases: IntroPhase[] = ['draw', 'highlight', 'settle', 'exit']
     const timeouts: number[] = []
@@ -43,7 +49,43 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
     }
     raf = window.requestAnimationFrame(tick)
 
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onFinish() }
+    // Focus first focusable element on mount
+    requestAnimationFrame(() => {
+      const dialog = dialogRef.current
+      if (!dialog) return
+      const focusable = dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+      if (focusable.length) focusable[0].focus()
+    })
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        onFinish()
+        return
+      }
+
+      // Trap Tab within dialog
+      if (e.key === 'Tab') {
+        const dialog = dialogRef.current
+        if (!dialog) return
+        const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault()
+            last.focus()
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault()
+            first.focus()
+          }
+        }
+      }
+    }
     window.addEventListener('keydown', onKey)
 
     return () => {
@@ -51,6 +93,8 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
       cancelAnimationFrame(raf)
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
+      // Return focus to previously focused element
+      previouslyFocused.current?.focus()
     }
   }, [onFinish, timings])
 
@@ -58,6 +102,7 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
 
   return (
     <motion.div
+      ref={dialogRef}
       className="xvi-intro"
       exit={{ opacity: 0 }}
       transition={{ duration: .4, ease: [.16, 1, .3, 1] }}
