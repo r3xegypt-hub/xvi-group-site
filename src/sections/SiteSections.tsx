@@ -73,7 +73,7 @@ export function StorytellingPanelsRoom({ onNavigate }: RoomProps) {
           {storyPanels.map((panel, index) => (
             <motion.article key={panel.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .7, delay: index * .1, ease }} className="xvi-about-story">
               <div className="xvi-about-story-glow" aria-hidden="true" />
-              <div className="xvi-about-story-inner">
+              <div className="xvi-glass-card xvi-about-story-inner">
                 <div className="xvi-about-story-header">
                   <span className="xvi-about-story-num">0{index + 1}</span>
                   <span className="xvi-about-story-eyebrow">{panel.eyebrow}</span>
@@ -93,7 +93,7 @@ export function StorytellingPanelsRoom({ onNavigate }: RoomProps) {
       {/* Glass statistics — full width */}
       <div className="xvi-about-stats">
         {aboutPillars.map((pillar, index) => (
-          <motion.div key={pillar.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .6, delay: index * .1, ease }} className="xvi-about-stat">
+          <motion.div key={pillar.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .6, delay: index * .1, ease }} className="xvi-glass-card xvi-about-stat">
             <div className="xvi-about-stat-glow" aria-hidden="true" />
             <div className="xvi-about-stat-num">0{index + 1}</div>
             <h4 className="xvi-about-stat-label">{pillar.label}</h4>
@@ -162,7 +162,7 @@ function FeatureCard({ industry, index, icon }: { industry: string; index: numbe
       <div className="xvi-feature-card-glow" aria-hidden="true" />
       <div className="xvi-feature-card-sweep" aria-hidden="true" />
       <div className="xvi-feature-card-reflection" aria-hidden="true" />
-      <div className="xvi-feature-card-inner">
+      <div className="xvi-glass-card xvi-feature-card-inner">
         <div className="xvi-feature-card-header">
           <span className="xvi-feature-card-num">0{index + 1}</span>
           <div className="xvi-feature-card-icon">{icon}</div>
@@ -287,12 +287,45 @@ export function LuxuryTestimonialsRoom({ onNavigate }: RoomProps) {
   const [active, setActive] = useState(0)
   const reduced = useReducedMotion()
   const cardRef = useRef<HTMLDivElement>(null)
+  const dotsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (reduced) return
     const timer = setInterval(() => setActive((c) => (c + 1) % testimonials.length), 7000)
     return () => clearInterval(timer)
   }, [reduced])
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      setActive((c) => (c + 1) % testimonials.length)
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      setActive((c) => (c - 1 + testimonials.length) % testimonials.length)
+    }
+  }, [testimonials.length])
+
+  const handleDotKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
+    let nextIndex = index
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault()
+      nextIndex = (index + 1) % testimonials.length
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      nextIndex = (index - 1 + testimonials.length) % testimonials.length
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      nextIndex = 0
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      nextIndex = testimonials.length - 1
+    }
+    if (nextIndex !== index) {
+      setActive(nextIndex)
+      const dots = dotsRef.current?.querySelectorAll<HTMLElement>('.xvi-testimonials-dot')
+      dots?.[nextIndex]?.focus()
+    }
+  }, [testimonials.length])
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const card = cardRef.current
@@ -331,7 +364,14 @@ export function LuxuryTestimonialsRoom({ onNavigate }: RoomProps) {
 
       {/* Main testimonial card */}
       <div className="xvi-testimonials-stage">
-        <div ref={cardRef} onMouseMove={handleMouseMove} className="xvi-testimonials-main">
+        <div
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onKeyDown={handleKeyDown}
+          className="xvi-testimonials-main"
+          role="tablist"
+          aria-label="شهادات العملاء"
+        >
           <div className="xvi-testimonials-main-border" aria-hidden="true" />
           <div className="xvi-testimonials-main-glow" aria-hidden="true" />
           <div className="xvi-testimonials-main-sweep" aria-hidden="true" />
@@ -349,8 +389,12 @@ export function LuxuryTestimonialsRoom({ onNavigate }: RoomProps) {
               }}
               transition={{ duration: .7, ease: [.16, 1, .3, 1] }}
               className="xvi-testimonial-slide"
+              role="tabpanel"
+              aria-label={`شهادة ${index + 1} من ${testimonials.length}`}
+              id={`testimonial-panel-${index}`}
+              hidden={active !== index}
             >
-              <div className="xvi-testimonial-slide-inner">
+              <div className="xvi-glass-card xvi-testimonial-slide-inner">
                 <div className="xvi-testimonial-big-quote" aria-hidden="true">"</div>
                 <blockquote className="xvi-testimonial-quote">{t.quote}</blockquote>
                 <div className="xvi-testimonial-identity">
@@ -394,15 +438,20 @@ export function LuxuryTestimonialsRoom({ onNavigate }: RoomProps) {
       </div>
 
       {/* Navigation with progress */}
-      <div className="xvi-testimonials-nav">
-        <div className="xvi-testimonials-dots">
+      <div className="xvi-testimonials-nav" role="group" aria-label="التنقل بين الشهادات">
+        <div className="xvi-testimonials-dots" ref={dotsRef} role="tablist" aria-label="قائمة الشهادات">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => setActive(index)}
+              onKeyDown={(e) => handleDotKeyDown(e, index)}
               className={clsx('xvi-testimonials-dot', active === index && 'xvi-testimonials-dot--active')}
-              aria-label={`Testimonial ${index + 1}`}
+              role="tab"
+              aria-selected={active === index}
+              aria-controls={`testimonial-panel-${index}`}
+              tabIndex={active === index ? 0 : -1}
             >
+              <span className="sr-only">شهادة {index + 1}</span>
               {active === index && <motion.div className="xvi-testimonials-dot-progress" layoutId="testimonial-progress" transition={{ duration: .7, ease: [.16, 1, .3, 1] }} />}
             </button>
           ))}
@@ -626,7 +675,7 @@ export function PricingRoom({ onNavigate }: RoomProps) {
 
             {plan.highlighted && <div className="xvi-pricing-card-badge">المسار الموصى به</div>}
 
-            <div className="xvi-pricing-card-inner">
+            <div className="xvi-glass-card xvi-pricing-card-inner">
               <div className="xvi-pricing-card-header">
                 <span className="xvi-pricing-card-eyebrow">{plan.nameEn}</span>
                 <h3 className="xvi-pricing-card-name">{plan.name}</h3>
