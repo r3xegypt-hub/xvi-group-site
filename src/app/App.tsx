@@ -50,9 +50,13 @@ function App() {
     if (!showIntro) return
 
     let mounted = true
-    loadIntro().then((mod) => {
-      if (mounted) setIntroComp(() => mod.CinematicIntro)
-    })
+    loadIntro()
+      .then((mod) => {
+        if (mounted) setIntroComp(() => mod.CinematicIntro)
+      })
+      .catch(() => {
+        if (mounted) finishIntro()
+      })
     return () => {
       mounted = false
     }
@@ -61,9 +65,13 @@ function App() {
   // Keep below-the-fold homepage rooms out of the initial application chunk.
   useEffect(() => {
     let mounted = true
-    loadSections().then((mod) => {
-      if (mounted) setSectionsModule(mod)
-    })
+    loadSections()
+      .then((mod) => {
+        if (mounted) setSectionsModule(mod)
+      })
+      .catch((err) => {
+        console.error('[App] Failed to load site sections:', err)
+      })
     return () => {
       mounted = false
     }
