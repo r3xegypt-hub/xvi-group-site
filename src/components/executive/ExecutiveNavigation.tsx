@@ -20,6 +20,7 @@ export const ExecutiveNavigation = memo(function ExecutiveNavigation() {
   const [scrolled, setScrolled] = useState(false)
   const [atTop, setAtTop] = useState(true)
   const navRef = useRef<HTMLElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const pathIsPractice = practices.some((item) => item.path === location.pathname)
 
   const { scrollY } = useScroll()
@@ -35,6 +36,19 @@ export const ExecutiveNavigation = memo(function ExecutiveNavigation() {
   useEffect(() => {
     setOpen(false)
   }, [location.pathname])
+
+  // Close practice directory on Escape key
+  useEffect(() => {
+    if (!open) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        triggerRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open])
 
   return (
     <header
@@ -52,7 +66,7 @@ export const ExecutiveNavigation = memo(function ExecutiveNavigation() {
       <Container className="xvi-nav-inner">
         {/* Logo */}
         <Link to="/" className="xvi-nav-logo" aria-label="العودة إلى الرئيسية">
-          <img src="/assets/images/logo.png" alt="XVI Group" className="xvi-nav-logo-img" />
+          <img src="/assets/images/logo.svg" alt="XVI Group" className="xvi-nav-logo-img" />
         </Link>
 
         {/* Primary navigation */}
@@ -81,6 +95,7 @@ export const ExecutiveNavigation = memo(function ExecutiveNavigation() {
 
           {/* Practices dropdown trigger */}
           <button
+            ref={triggerRef}
             type="button"
             onClick={() => setOpen((c) => !c)}
             onMouseEnter={() => setOpen(true)}
