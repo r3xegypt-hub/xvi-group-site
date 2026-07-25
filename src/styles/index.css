@@ -8,6 +8,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   scroll-padding-top: var(--header-offset);
   scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -213,84 +214,3 @@ select:focus-visible {
   box-shadow: 0 0 0 4px rgba(184, 142, 47, 0.12);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PREMIUM POLISH — Migrated overrides
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── 1. Premium Typography — Luxury Arabic-first ── */
-h1 {
-  font-family: var(--font-family-display) !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.025em !important;
-  line-height: 1.05 !important;
-  margin-bottom: 1.5em !important;
-}
-
-h2 {
-  font-family: var(--font-family-display) !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
-  line-height: 1.1 !important;
-  margin-bottom: 1.25em !important;
-}
-
-h3 {
-  font-family: var(--font-family-display) !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.015em !important;
-  line-height: 1.2 !important;
-  margin-bottom: 1em !important;
-}
-
-/* ── 10. Premium Scroll Experience ── */
-html {
-  scroll-behavior: smooth !important;
-}
-
-/* ── 11. Premium Focus States ── */
-:focus-visible {
-  outline: 2px solid #B88E2F !important;
-  outline-offset: 3px !important;
-}
-
-/* ── 12. Premium Selection ── */
-::selection {
-  background: rgba(184, 142, 47, 0.18) !important;
-  color: #111111 !important;
-}
-
-/* ── 13. Premium Image Rendering ── */
-img {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-}
-
-/* ── 14. Premium Text Rendering ── */
-body {
-  text-rendering: optimizeLegibility !important;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-}
-
-/* ── 15. Premium Link Transitions ── */
-a {
-  transition: color 0.3s ease, opacity 0.3s ease !important;
-}
-
-/* ── 16. Premium Scrollbar ── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(184, 142, 47, 0.25);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(184, 142, 47, 0.45);
-}
