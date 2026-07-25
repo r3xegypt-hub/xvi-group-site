@@ -42,7 +42,7 @@ export const SiteFooter = memo(function SiteFooter() {
         {/* Navigation grid */}
         <div className="xvi-footer-nav">
           <div className="xvi-footer-brand">
-            <img src="/assets/images/logo-light.png" alt="XVI Group" className="xvi-footer-logo" />
+            <img src="/assets/images/logo-light.svg" alt="XVI Group" className="xvi-footer-logo" loading="lazy" />
             <div className="xvi-footer-location">AL AIN · UNITED ARAB EMIRATES</div>
             {/* Social-style icons */}
             <div className="xvi-footer-social">
