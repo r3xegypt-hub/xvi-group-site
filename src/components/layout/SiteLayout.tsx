@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ExecutiveNavigation } from '../../components/executive/ExecutiveNavigation'
@@ -14,10 +14,12 @@ const pageVariants = {
 export function SiteLayout() {
   const location = useLocation()
   const reducedMotion = useReducedMotion()
+  const mainRef = useRef<HTMLDivElement>(null)
 
-  // Restore the top position after every routed page transition.
+  // Restore the top position and move focus after every routed page transition.
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
+    mainRef.current?.focus()
   }, [location.pathname])
 
   return (
@@ -28,10 +30,10 @@ export function SiteLayout() {
       >
         تخطي إلى المحتوى
       </a>
-      <ViewportExperience />
+      {location.pathname !== '/privacy' && location.pathname !== '/terms' && <ViewportExperience />}
       <ExecutiveNavigation />
 
-      <main id="main" tabIndex={-1}>
+      <main id="main" tabIndex={-1} ref={mainRef}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
