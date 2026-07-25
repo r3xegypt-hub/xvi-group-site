@@ -2,6 +2,8 @@ import { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import SiteLayout from '../components/layout/SiteLayout'
+import ErrorBoundary from '../components/common/ErrorBoundary'
+import RouteErrorFallback from '../components/common/RouteErrorFallback'
 import App from './App'
 
 function RouteLoading() {
@@ -25,25 +27,27 @@ const LazyTerms = lazy(() => import('../pages/Terms'))
 export default function AppRoutes() {
   return (
     <Suspense fallback={<RouteLoading />}>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route element={<SiteLayout />}>
-          <Route path="/about" element={<LazyAbout />} />
-          <Route path="/services" element={<LazyServices />} />
-          <Route path="/industries" element={<LazyIndustries />} />
-          <Route path="/technology" element={<LazyTechnology />} />
-          <Route path="/ai-transformation" element={<LazyAiTransformation />} />
-          <Route path="/business-consulting" element={<LazyBusinessConsulting />} />
-          <Route path="/technology-consulting" element={<LazyTechnologyConsulting />} />
-          <Route path="/executive-training" element={<LazyExecutiveTraining />} />
-          <Route path="/insights" element={<LazyInsights />} />
-          <Route path="/leadership" element={<LazyLeadership />} />
-          <Route path="/contact" element={<LazyContact />} />
-          <Route path="/privacy" element={<LazyPrivacy />} />
-          <Route path="/terms" element={<LazyTerms />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <ErrorBoundary fallbackRender={({ error, reset }) => <RouteErrorFallback error={error} reset={reset} />}>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route element={<SiteLayout />}>
+            <Route path="/about" element={<LazyAbout />} />
+            <Route path="/services" element={<LazyServices />} />
+            <Route path="/industries" element={<LazyIndustries />} />
+            <Route path="/technology" element={<LazyTechnology />} />
+            <Route path="/ai-transformation" element={<LazyAiTransformation />} />
+            <Route path="/business-consulting" element={<LazyBusinessConsulting />} />
+            <Route path="/technology-consulting" element={<LazyTechnologyConsulting />} />
+            <Route path="/executive-training" element={<LazyExecutiveTraining />} />
+            <Route path="/insights" element={<LazyInsights />} />
+            <Route path="/leadership" element={<LazyLeadership />} />
+            <Route path="/contact" element={<LazyContact />} />
+            <Route path="/privacy" element={<LazyPrivacy />} />
+            <Route path="/terms" element={<LazyTerms />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </ErrorBoundary>
     </Suspense>
   )
 }
