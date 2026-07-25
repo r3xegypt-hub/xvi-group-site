@@ -122,7 +122,7 @@ function App() {
         </AnimatePresence>
 
         <a
-          className="sr-only rounded-full bg-white px-4 py-2 shadow focus:not-sr-only focus:fixed focus:right-4 focus:top-4"
+          className="sr-only rounded-full bg-white px-4 py-2 shadow focus:not-sr-only focus:fixed focus:right-4 focus:top-4 focus:z-50"
           href="#main"
         >
           تخطي إلى المحتوى
@@ -144,12 +144,12 @@ function App() {
             ) : (
               // lightweight placeholder while sections load
               <div role="status" aria-live="polite" className="mx-auto max-w-[1280px] px-6 py-10 text-center text-sm text-[color:var(--color-xvi-ink-soft)]">
-                Loading...
+                جارٍ التحميل...
               </div>
             )}
           </main>
 
-          <div className="pointer-events-none fixed bottom-6 left-6 z-30 hidden lg:block">
+          <div className="pointer-events-none fixed bottom-6 left-6 z-30 hidden lg:block" aria-hidden="true">
             <div className="rounded-[24px] border border-[color:var(--color-xvi-line)] bg-white/72 px-5 py-3 shadow-[0_20px_50px_rgba(11,15,20,0.08)] backdrop-blur-xl">
               <div className="flex items-center justify-between gap-4 text-[11px] tracking-[0.24em] text-[color:var(--color-xvi-ink-soft)]">
                 <span>CURRENT ROOM</span>
