@@ -1,6 +1,8 @@
 import '../styles/App.css'
 import { AnimatePresence, MotionConfig, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useState, type ComponentType } from 'react'
+import { ErrorBoundary } from '../components/common/ErrorBoundary'
+import { SectionErrorFallback } from '../components/common/SectionErrorFallback'
 import { ExecutiveNavigation } from '../components/executive/ExecutiveNavigation'
 import { ExecutiveHero } from '../components/executive/ExecutiveHero'
 import { SiteFooter } from '../components/layout/SiteFooter'
@@ -134,13 +136,19 @@ function App() {
 
         <div className="min-h-dvh bg-[color:var(--color-xvi-warm)]">
           <ViewportExperience />
-          <ExecutiveNavigation />
+          <ErrorBoundary fallback={<div role="alert" className="p-4 text-center text-sm text-[color:var(--color-xvi-ink-soft)]">حدث خطأ في التنقل</div>}>
+            <ExecutiveNavigation />
+          </ErrorBoundary>
 
           <main id="main" className="xvi-room-flow" aria-label="التجربة المعمارية لموقع XVI Group">
             <ExecutiveHero onNavigate={scrollToRoom} />
 
             {sectionsModule ? (
-              <sectionsModule.HomeSections onNavigate={scrollToRoom} />
+              <ErrorBoundary
+                fallbackRender={({ error, reset }) => <SectionErrorFallback sectionName="المحتوى الرئيسي" error={error} reset={reset} />}
+              >
+                <sectionsModule.HomeSections onNavigate={scrollToRoom} />
+              </ErrorBoundary>
             ) : (
               // lightweight placeholder while sections load
               <div role="status" aria-live="polite" className="mx-auto max-w-[1280px] px-6 py-10 text-center text-sm text-[color:var(--color-xvi-ink-soft)]">
@@ -167,7 +175,9 @@ function App() {
             </div>
           </div>
 
-          <SiteFooter />
+          <ErrorBoundary fallback={<div role="alert" className="p-4 text-center text-sm text-[color:var(--color-xvi-ink-soft)]">حدث خطأ في التذييل</div>}>
+            <SiteFooter />
+          </ErrorBoundary>
         </div>
       </>
     </MotionConfig>

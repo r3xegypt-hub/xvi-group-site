@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { ErrorBoundary } from '../common/ErrorBoundary'
 import { ExecutiveNavigation } from '../../components/executive/ExecutiveNavigation'
 import { SiteFooter } from './SiteFooter'
 import { ViewportExperience } from '../executive/ViewportExperience'
@@ -31,7 +32,9 @@ export function SiteLayout() {
         تخطي إلى المحتوى
       </a>
       {location.pathname !== '/privacy' && location.pathname !== '/terms' && <ViewportExperience />}
-      <ExecutiveNavigation />
+      <ErrorBoundary fallback={<div role="alert" className="p-4 text-center text-sm text-[color:var(--color-xvi-ink-soft)]">حدث خطأ في التنقل</div>}>
+        <ExecutiveNavigation />
+      </ErrorBoundary>
 
       <main id="main" tabIndex={-1} ref={mainRef}>
         <AnimatePresence mode="wait">
@@ -51,7 +54,9 @@ export function SiteLayout() {
         {!reducedMotion ? <motion.div key={location.pathname} aria-hidden="true" initial={{ scaleX: 1, transformOrigin: 'right' }} animate={{ scaleX: 0 }} exit={{ scaleX: 1, transformOrigin: 'left' }} transition={{ duration: .62, ease: [0.76, 0, 0.24, 1] }} className="pointer-events-none fixed inset-0 z-30 bg-[linear-gradient(90deg,rgba(11,27,51,.96),rgba(11,27,51,.8),rgba(201,169,110,.7))]" /> : null}
       </AnimatePresence>
 
-      <SiteFooter />
+      <ErrorBoundary fallback={<div role="alert" className="p-4 text-center text-sm text-[color:var(--color-xvi-ink-soft)]">حدث خطأ في التذييل</div>}>
+        <SiteFooter />
+      </ErrorBoundary>
     </>
   )
 }
