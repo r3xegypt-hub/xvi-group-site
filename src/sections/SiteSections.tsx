@@ -9,22 +9,22 @@ import { PremiumServiceCard } from '../components/executive/PremiumServiceCard'
 
 /* SVG icons for each service */
 const serviceIcons: ReactNode[] = [
-  <svg key="ai" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg"><circle cx="24" cy="24" r="6" /><path d="M24 4v6M24 38v6M4 24h6M38 24h6" /><path d="M9.86 9.86l4.24 4.24M33.9 33.9l4.24 4.24M9.86 38.14l4.24-4.24M33.9 14.1l4.24-4.24" /><circle cx="24" cy="24" r="14" strokeDasharray="4 4" opacity=".4" /></svg>,
-  <svg key="proj" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg"><rect x="6" y="10" width="36" height="28" rx="4" /><path d="M6 18h36" /><path d="M16 26h8M16 32h12" /><circle cx="36" cy="32" r="3" /></svg>,
-  <svg key="it" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg"><rect x="8" y="6" width="32" height="22" rx="3" /><path d="M18 34h12" /><path d="M24 28v6" /><path d="M14 38h20" /><path d="M16 14h4M28 14h4" opacity=".5" /></svg>,
-  <svg key="mgt" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg"><path d="M8 38V14a2 2 0 012-2h28a2 2 0 012 2v24" /><path d="M8 38h32" /><path d="M14 20h20M14 26h14M14 32h8" /><circle cx="36" cy="18" r="4" /></svg>,
+  <svg key="ai" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg" aria-hidden="true"><circle cx="24" cy="24" r="6" /><path d="M24 4v6M24 38v6M4 24h6M38 24h6" /><path d="M9.86 9.86l4.24 4.24M33.9 33.9l4.24 4.24M9.86 38.14l4.24-4.24M33.9 14.1l4.24-4.24" /><circle cx="24" cy="24" r="14" strokeDasharray="4 4" opacity=".4" /></svg>,
+  <svg key="proj" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg" aria-hidden="true"><rect x="6" y="10" width="36" height="28" rx="4" /><path d="M6 18h36" /><path d="M16 26h8M16 32h12" /><circle cx="36" cy="32" r="3" /></svg>,
+  <svg key="it" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg" aria-hidden="true"><rect x="8" y="6" width="32" height="22" rx="3" /><path d="M18 34h12" /><path d="M24 28v6" /><path d="M14 38h20" /><path d="M16 14h4M28 14h4" opacity=".5" /></svg>,
+  <svg key="mgt" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="xvi-service-icon-svg" aria-hidden="true"><path d="M8 38V14a2 2 0 012-2h28a2 2 0 012 2v24" /><path d="M8 38h32" /><path d="M14 20h20M14 26h14M14 32h8" /><circle cx="36" cy="18" r="4" /></svg>,
 ]
 
 const serviceAccents = ['rgba(201,169,110,0.18)', 'rgba(11,27,51,0.15)', 'rgba(94,74,194,0.15)', 'rgba(201,169,110,0.12)']
 
 /* Industry icons */
 const industryIcons: ReactNode[] = [
-  <svg key="gov" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon"><path d="M20 4L4 14v4h32v-4L20 4z" /><path d="M8 18v14M14 18v14M20 18v14M26 18v14M32 18v14" /><path d="M4 36h32" /></svg>,
-  <svg key="fin" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon"><circle cx="20" cy="20" r="14" /><path d="M20 10v20M14 16h12M14 24h12" /><path d="M12 20h16" /></svg>,
-  <svg key="health" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon"><path d="M20 8v24M8 20h24" /><circle cx="20" cy="20" r="14" /></svg>,
-  <svg key="edu" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon"><path d="M6 16l14-8 14 8-14 8-14-8z" /><path d="M6 24l14 8 14-8" /><path d="M34 16v10" /></svg>,
-  <svg key="mfg" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon"><rect x="6" y="14" width="28" height="18" rx="2" /><path d="M14 14V8h12v6" /><path d="M14 20h4v4h-4zM22 20h4v4h-4z" /></svg>,
-  <svg key="real" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon"><path d="M6 36V18l14-10 14 10v18" /><path d="M16 36V26h8v10" /><path d="M6 36h28" /></svg>,
+  <svg key="gov" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon" aria-hidden="true"><path d="M20 4L4 14v4h32v-4L20 4z" /><path d="M8 18v14M14 18v14M20 18v14M26 18v14M32 18v14" /><path d="M4 36h32" /></svg>,
+  <svg key="fin" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon" aria-hidden="true"><circle cx="20" cy="20" r="14" /><path d="M20 10v20M14 16h12M14 24h12" /><path d="M12 20h16" /></svg>,
+  <svg key="health" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon" aria-hidden="true"><path d="M20 8v24M8 20h24" /><circle cx="20" cy="20" r="14" /></svg>,
+  <svg key="edu" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon" aria-hidden="true"><path d="M6 16l14-8 14 8-14 8-14-8z" /><path d="M6 24l14 8 14-8" /><path d="M34 16v10" /></svg>,
+  <svg key="mfg" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon" aria-hidden="true"><rect x="6" y="14" width="28" height="18" rx="2" /><path d="M14 14V8h12v6" /><path d="M14 20h4v4h-4zM22 20h4v4h-4z" /></svg>,
+  <svg key="real" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" className="xvi-industry-icon" aria-hidden="true"><path d="M6 36V18l14-10 14 10v18" /><path d="M16 36V26h8v10" /><path d="M6 36h28" /></svg>,
 ]
 
 type RoomProps = { onNavigate?: (roomId: string) => void }
@@ -402,7 +402,7 @@ export function LuxuryTestimonialsRoom({ onNavigate }: RoomProps) {
                     <span>{t.name.charAt(0)}</span>
                     {customerMeta[index]?.verified && (
                       <div className="xvi-testimonial-verified" aria-label="Verified">
-                        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="var(--color-xvi-bronze)" /><path d="M5 8l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--color-xvi-bronze)" /><path d="M5 8l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                       </div>
                     )}
                   </div>
@@ -560,17 +560,17 @@ export function PremiumCTARoom({ onNavigate }: RoomProps) {
           className="xvi-cta-trust"
         >
           <span className="xvi-cta-trust-item">
-            <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1" /><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1" /><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             بدون التزام
           </span>
           <span className="xvi-cta-trust-sep">·</span>
           <span className="xvi-cta-trust-item">
-            <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1" /><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1" /><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             استشارة مجانية
           </span>
           <span className="xvi-cta-trust-sep">·</span>
           <span className="xvi-cta-trust-item">
-            <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1" /><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1" /><path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             رد خلال 24 ساعة
           </span>
         </motion.div>
@@ -642,7 +642,7 @@ const pricingPlans = [
 ]
 
 const checkIcon = (
-  <svg viewBox="0 0 20 20" fill="none" className="xvi-pricing-check-icon">
+  <svg viewBox="0 0 20 20" fill="none" className="xvi-pricing-check-icon" aria-hidden="true">
     <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1" opacity=".15" />
     <path d="M6 10.5l2.5 2.5L14 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
