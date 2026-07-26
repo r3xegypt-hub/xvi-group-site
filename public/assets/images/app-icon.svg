@@ -1,59 +1,19 @@
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="appIconTitle">
-  <title id="appIconTitle">XVI GROUP</title>
-  
-  <defs>
-    <linearGradient id="appBronze" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E8C98A"/>
-      <stop offset="25%" stop-color="#C9A96E"/>
-      <stop offset="50%" stop-color="#E8C98A"/>
-      <stop offset="75%" stop-color="#C9A96E"/>
-      <stop offset="100%" stop-color="#8A6A36"/>
-    </linearGradient>
-    
-    <linearGradient id="appHighlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E8C98A"/>
-      <stop offset="100%" stop-color="#C9A96E"/>
-    </linearGradient>
-    
-    <linearGradient id="appShadow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#C9A96E"/>
-      <stop offset="100%" stop-color="#6D532A"/>
-    </linearGradient>
-    
-    <linearGradient id="appLeftDiag" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#E8C98A"/>
-      <stop offset="50%" stop-color="#C9A96E"/>
-      <stop offset="100%" stop-color="#8A6A36"/>
-    </linearGradient>
-    
-    <linearGradient id="appRightDiag" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E8C98A"/>
-      <stop offset="50%" stop-color="#C9A96E"/>
-      <stop offset="100%" stop-color="#8A6A36"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Background -->
-  <rect width="512" height="512" rx="112" fill="#060A10"/>
-  
-  <!-- XVI Mark — Centered with perfect padding -->
-  <g transform="translate(88, 128)">
-    <!-- X: Left diagonal -->
-    <path d="M 0,0 L 36,0 L 165,240 L 129,240 Z" fill="url(#appLeftDiag)"/>
-    <!-- X: Right diagonal -->
-    <path d="M 150,0 L 186,0 L 57,240 L 21,240 Z" fill="url(#appRightDiag)"/>
-    
-    <!-- V: Left diagonal -->
-    <path d="M 234,0 L 270,0 L 330,240 L 294,240 Z" fill="url(#appLeftDiag)"/>
-    <!-- V: Right diagonal -->
-    <path d="M 402,0 L 438,0 L 378,240 L 342,240 Z" fill="url(#appRightDiag)"/>
-    
-    <!-- I: Vertical bar -->
-    <path d="M 486,15 L 522,15 L 522,225 L 486,225 Z" fill="url(#appBronze)"/>
-    <!-- I: Top bevel -->
-    <path d="M 486,15 L 504,0 L 522,15 L 504,30 Z" fill="url(#appHighlight)"/>
-    <!-- I: Bottom bevel -->
-    <path d="M 486,225 L 504,240 L 522,225 L 504,210 Z" fill="url(#appShadow)"/>
-  </g>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="XVI Group app icon">
+<defs>
+<linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#F0DFC1"/>
+<stop offset="100%" stop-color="#C9A96E"/>
+</linearGradient>
+</defs>
+<rect width="512" height="512" rx="112" fill="#060A10"/>
+<path d="M136 72H376L440 136V376L376 440H136L72 376V136L136 72Z" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="6"/>
+<path d="M168 112H344L400 168V344L344 400H168L112 344V168L168 112Z" fill="none" stroke="rgba(201,169,110,0.34)" stroke-width="4"/>
+<rect x="241" y="112" width="30" height="288" rx="15" fill="url(#gold)"/>
+<path d="M132 144H184L266 256H214L132 144Z" fill="url(#gold)"/>
+<path d="M214 268H266L184 380H132L214 268Z" fill="url(#gold)"/>
+<path d="M328 144H380L298 256H246L328 144Z" fill="url(#gold)"/>
+<path d="M246 268H298L380 380H328L246 268Z" fill="url(#gold)"/>
+<path d="M120 256H392" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" opacity=".92"/>
+<circle cx="256" cy="86" r="8" fill="#C9A96E"/>
+<circle cx="256" cy="426" r="8" fill="#C9A96E"/>
 </svg>

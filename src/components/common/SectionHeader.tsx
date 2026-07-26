@@ -10,15 +10,19 @@ export type SectionHeaderProps = {
 
 export function SectionHeader({ eyebrow, title, description, titleId, descriptionId }: SectionHeaderProps) {
   return (
-    <div className="max-w-[680px]">
+    <div className="max-w-[720px]">
       {eyebrow ? (
-        <div className="text-[9px] tracking-[0.2em] text-[color:var(--color-xvi-bronze)] font-semibold uppercase" style={{ fontFamily: 'var(--font-family-english)' }}>
+        <div
+          className="inline-flex items-center gap-3 text-[0.62rem] tracking-[0.32em] text-[color:var(--color-xvi-bronze)] font-[700] uppercase mb-1"
+          style={{ fontFamily: 'var(--font-family-english)' }}
+        >
+          <span className="inline-block w-5 h-px bg-[color:var(--color-xvi-bronze)] opacity-70 flex-shrink-0" />
           {eyebrow}
         </div>
       ) : null}
       <h2
         id={titleId}
-        className="mt-3 text-[clamp(26px,3.25vw,48px)] font-[700] leading-[1.08] tracking-[-0.03em] text-[color:var(--color-xvi-ink)]"
+        className="mt-4 text-[clamp(2.4rem,5.5vw,4.5rem)] font-[700] leading-[0.97] tracking-[-0.04em] text-[color:var(--color-xvi-ink)]"
         style={{ fontFamily: 'var(--font-family-display)' }}
       >
         {title}
@@ -26,7 +30,7 @@ export function SectionHeader({ eyebrow, title, description, titleId, descriptio
       {description ? (
         <p
           id={descriptionId}
-          className="mt-4 text-[14.5px] leading-[1.85] text-[color:var(--color-xvi-ink-soft)] sm:text-[15px]"
+          className="mt-5 text-[15px] leading-[1.8] text-[color:var(--color-xvi-ink-soft)] sm:text-[15.5px] max-w-[52ch]"
         >
           {description}
         </p>

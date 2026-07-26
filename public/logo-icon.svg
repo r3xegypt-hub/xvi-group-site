@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="XVI GROUP Icon">
+  <defs>
+    <linearGradient id="bronze-primary-icon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="25%" stop-color="#C9A96E"/>
+      <stop offset="50%" stop-color="#E8C98A"/>
+      <stop offset="75%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8A6A36"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-diagonal-left-icon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="50%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8A6A36"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-diagonal-right-icon" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="50%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8A6A36"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-highlight-icon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="100%" stop-color="#C9A96E"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-shadow-icon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#6D532A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- XVI Mark Only - Centered -->
+  <g transform="translate(8, 8)">
+    <!-- X Letter - Bar 1 -->
+    <path d="M8 8 L48 48 L56 40 L16 0 Z" fill="url(#bronze-diagonal-left-icon)"/>
+    
+    <!-- X Letter - Bar 2 -->
+    <path d="M52 8 L12 48 L20 56 L60 16 Z" fill="url(#bronze-diagonal-right-icon)"/>
+    
+    <!-- V Letter - Bar 1 -->
+    <path d="M64 8 L104 48 L112 40 L72 0 Z" fill="url(#bronze-diagonal-left-icon)"/>
+    
+    <!-- V Letter - Bar 2 -->
+    <path d="M108 8 L68 48 L76 56 L116 16 Z" fill="url(#bronze-diagonal-right-icon)"/>
+    
+    <!-- I Letter - Main vertical bar -->
+    <rect x="128" y="0" width="16" height="56" fill="url(#bronze-primary-icon)"/>
+    
+    <!-- I Letter - Top bevel -->
+    <path d="M128 0 L144 0 L144 4 L128 4 Z" fill="url(#bronze-highlight-icon)"/>
+    
+    <!-- I Letter - Bottom bevel -->
+    <path d="M128 52 L144 52 L144 56 L128 56 Z" fill="url(#bronze-shadow-icon)"/>
+  </g>
+</svg>

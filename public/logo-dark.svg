@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-label="XVI GROUP — Premium AI, Technology & Strategy Advisory">
+  <defs>
+    <!-- Dark Bronze Gradient for light backgrounds -->
+    <linearGradient id="bronze-primary-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A36"/>
+      <stop offset="25%" stop-color="#6D532A"/>
+      <stop offset="50%" stop-color="#8A6A36"/>
+      <stop offset="75%" stop-color="#6D532A"/>
+      <stop offset="100%" stop-color="#4A3A1E"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-diagonal-left-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A36"/>
+      <stop offset="50%" stop-color="#6D532A"/>
+      <stop offset="100%" stop-color="#4A3A1E"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-diagonal-right-dark" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A36"/>
+      <stop offset="50%" stop-color="#6D532A"/>
+      <stop offset="100%" stop-color="#4A3A1E"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-highlight-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A36"/>
+      <stop offset="100%" stop-color="#6D532A"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-shadow-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6D532A"/>
+      <stop offset="100%" stop-color="#3A2A15"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- XVI Mark Construction -->
+  <g transform="translate(20, 20)">
+    <!-- X Letter - Bar 1 -->
+    <path d="M24 24 L144 124 L168 100 L48 0 Z" fill="url(#bronze-diagonal-left-dark)"/>
+    
+    <!-- X Letter - Bar 2 -->
+    <path d="M150 24 L30 124 L54 148 L174 48 Z" fill="url(#bronze-diagonal-right-dark)"/>
+    
+    <!-- V Letter - Bar 1 -->
+    <path d="M184 24 L264 124 L288 100 L208 0 Z" fill="url(#bronze-diagonal-left-dark)"/>
+    
+    <!-- V Letter - Bar 2 -->
+    <path d="M294 24 L214 124 L238 148 L318 48 Z" fill="url(#bronze-diagonal-right-dark)"/>
+    
+    <!-- I Letter - Main vertical bar -->
+    <rect x="344" y="0" width="24" height="148" fill="url(#bronze-primary-dark)"/>
+    
+    <!-- I Letter - Top bevel -->
+    <path d="M344 0 L368 0 L368 8 L344 8 Z" fill="url(#bronze-highlight-dark)"/>
+    
+    <!-- I Letter - Bottom bevel -->
+    <path d="M344 140 L368 140 L368 148 L344 148 Z" fill="url(#bronze-shadow-dark)"/>
+  </g>
+  
+  <!-- GROUP Text -->
+  <text x="400" y="95" 
+        font-family="'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif" 
+        font-weight="300" 
+        font-size="64" 
+        letter-spacing="8" 
+        fill="url(#bronze-primary-dark)">
+    GROUP
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="125" 
+        font-family="'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif" 
+        font-weight="300" 
+        font-size="11" 
+        letter-spacing="4" 
+        fill="#6D532A" 
+        opacity="0.7">
+    INTELLIGENCE. INTEGRATED. IMPACT.
+  </text>
+</svg>

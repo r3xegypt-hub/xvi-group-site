@@ -43,7 +43,7 @@ export const PremiumServiceCard = memo(function PremiumServiceCard({
       <div className="xvi-service-card-glow" aria-hidden="true" />
       <div className="xvi-service-card-sweep" aria-hidden="true" />
       <div className="xvi-service-card-reflection" aria-hidden="true" />
-      <div className="xvi-service-card-inner">
+      <div className="xvi-glass-card xvi-service-card-inner">
         <div className="xvi-service-card-header">
           <span className="xvi-service-card-num">{number}</span>
           <div className="xvi-service-card-icon">{icon}</div>

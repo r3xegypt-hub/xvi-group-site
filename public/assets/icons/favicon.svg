@@ -1,24 +1,18 @@
-<svg width="32" height="32" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="XVI">
-  <defs>
-    <linearGradient id="fG1" x1="0.1" y1="0" x2="0.9" y2="1">
-      <stop offset="0%" stop-color="#F2DCA0"/>
-      <stop offset="42%" stop-color="#D4AF37"/>
-      <stop offset="100%" stop-color="#7A5C28"/>
-    </linearGradient>
-    <linearGradient id="fG2" x1="0" y1="0" x2="0.6" y2="1">
-      <stop offset="0%" stop-color="#FAF0D4"/>
-      <stop offset="30%" stop-color="#E8C98A"/>
-      <stop offset="100%" stop-color="#B8955A"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="240" height="240" rx="48" fill="#060A10"/>
-
-  <g>
-    <path d="M 50,20 L 120,200 L 120,176 L 64,20 Z" fill="url(#fG1)"/>
-    <path d="M 190,20 L 120,200 L 120,176 L 176,20 Z" fill="url(#fG2)"/>
-    <path d="M 8,20 L 34,20 L 68,110 L 42,110 Z" fill="url(#fG2)"/>
-    <path d="M 42,110 L 68,110 L 34,200 L 8,200 Z" fill="url(#fG1)"/>
-    <path d="M 200,20 L 218,20 L 218,220 L 200,220 Z" fill="url(#fG2)"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="XVI Group icon">
+<defs>
+<linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#F0DFC1"/>
+<stop offset="100%" stop-color="#C9A96E"/>
+</linearGradient>
+</defs>
+<rect x="22" y="22" width="196" height="196" rx="40" fill="#060A10"/>
+<path d="M64 34H176L206 64V176L176 206H64L34 176V64L64 34Z" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
+<rect x="113" y="42" width="14" height="156" rx="7" fill="url(#gold)"/>
+<path d="M58 58H82L122 118H98L58 58Z" fill="url(#gold)"/>
+<path d="M98 122H122L82 182H58L98 122Z" fill="url(#gold)"/>
+<path d="M158 58H182L142 118H118L158 58Z" fill="url(#gold)"/>
+<path d="M118 122H142L182 182H158L118 122Z" fill="url(#gold)"/>
+<path d="M52 120H188" stroke="url(#gold)" stroke-width="2" stroke-linecap="round" opacity=".92"/>
+<circle cx="120" cy="34" r="3.5" fill="#C9A96E"/>
+<circle cx="120" cy="206" r="3.5" fill="#C9A96E"/>
 </svg>

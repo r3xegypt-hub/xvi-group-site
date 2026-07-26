@@ -19,7 +19,7 @@ describe('Button', () => {
     render(<Button variant="secondary">Secondary</Button>)
     const button = screen.getByRole('button')
     expect(button.className).toContain('border')
-    expect(button.className).toContain('bg-white/72')
+    expect(button.className).toContain('bg-white/75')
   })
 
   it('applies ghost variant classes', () => {

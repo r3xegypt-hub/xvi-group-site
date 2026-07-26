@@ -4,6 +4,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { siteNavigation } from '../../data/siteNavigation'
 import { Container } from '../common/Container'
+import { LuxuryLogo } from '../common/LuxuryLogo'
 
 const practices = [
   { label: 'الاستشارات الإدارية', path: '/business-consulting', note: 'استراتيجية، تشغيل، وحوكمة.' },
@@ -66,7 +67,7 @@ export const ExecutiveNavigation = memo(function ExecutiveNavigation() {
       <Container className="xvi-nav-inner">
         {/* Logo */}
         <Link to="/" className="xvi-nav-logo" aria-label="العودة إلى الرئيسية">
-          <img src="/assets/images/logo.svg" alt="XVI Group" className="xvi-nav-logo-img" />
+          <LuxuryLogo size="md" variant="dark" animated showWordmark />
         </Link>
 
         {/* Primary navigation */}

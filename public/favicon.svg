@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="XVI GROUP Icon">
+  <defs>
+    <linearGradient id="bronze-primary-fav" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="25%" stop-color="#C9A96E"/>
+      <stop offset="50%" stop-color="#E8C98A"/>
+      <stop offset="75%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8A6A36"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-diagonal-left-fav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="50%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8A6A36"/>
+    </linearGradient>
+    
+    <linearGradient id="bronze-diagonal-right-fav" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8C98A"/>
+      <stop offset="50%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8A6A36"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- XVI Mark Only - Simplified for 32x32 -->
+  <g transform="translate(2, 4)">
+    <!-- X Letter - Bar 1 -->
+    <path d="M2 2 L10 10 L12 8 L4 0 Z" fill="url(#bronze-diagonal-left-fav)"/>
+    
+    <!-- X Letter - Bar 2 -->
+    <path d="M12 2 L4 10 L6 12 L14 4 Z" fill="url(#bronze-diagonal-right-fav)"/>
+    
+    <!-- V Letter - Bar 1 -->
+    <path d="M16 2 L24 10 L26 8 L18 0 Z" fill="url(#bronze-diagonal-left-fav)"/>
+    
+    <!-- V Letter - Bar 2 -->
+    <path d="M26 2 L18 10 L20 12 L28 4 Z" fill="url(#bronze-diagonal-right-fav)"/>
+    
+    <!-- I Letter - Simplified vertical bar -->
+    <rect x="30" y="0" width="2" height="12" fill="url(#bronze-primary-fav)"/>
+  </g>
+</svg>

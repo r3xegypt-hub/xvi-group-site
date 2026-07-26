@@ -1,4 +1,4 @@
-import '../styles/App.css'
+import '../styles/index.css'
 import { AnimatePresence, MotionConfig, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useState, type ComponentType } from 'react'
 import { ErrorBoundary } from '../components/common/ErrorBoundary'

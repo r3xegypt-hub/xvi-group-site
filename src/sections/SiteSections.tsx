@@ -6,6 +6,9 @@ import { aboutPillars, industries, magazineColumns, networkNodes, processSteps, 
 import { Container, SectionHeader } from '../components/common'
 import { Button } from '../components/ui/Button'
 import { PremiumServiceCard } from '../components/executive/PremiumServiceCard'
+import { InteractiveGlobe } from '../components/three/InteractiveGlobe'
+import { AnimateCounter } from '../components/ux/AnimateCounter'
+import { MagneticButton } from '../components/ux/MagneticButton'
 
 /* SVG icons for each service */
 const serviceIcons: ReactNode[] = [
@@ -37,7 +40,7 @@ function RoomShell({ id, index, eyebrow, title, description, children, nextRoom,
   const { scrollYProgress } = useScroll({ target: roomRef, offset: ['start end', 'end start'] })
   const lightY = useTransform(scrollYProgress, [0, 1], [-55, 62])
   const titleId = `${id}-title`
-  return <motion.section id={id} data-room ref={roomRef} className={`room-section room-section--${id}`} aria-labelledby={titleId} initial={reduced ? false : { opacity: 0, y: 34, clipPath: 'inset(0 0 8% 0)' }} whileInView={reduced ? undefined : { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }} viewport={{ once: true, amount: .12 }} transition={{ duration: 1, ease }}><Container className="room-shell"><div className={clsx('room-surface room-surface--atelier xvi-room-rebuild rounded-[40px] p-6 sm:p-9 lg:p-12', tone === 'paper' && 'room-surface--paper', tone === 'ink' && 'room-surface--ink')}><motion.div className="xvi-room-light" aria-hidden="true" style={reduced ? undefined : { y: lightY }} /><div className="xvi-room-number" aria-hidden="true">{index}</div><div className="relative"><div className="xvi-room-heading"><SectionHeader eyebrow={eyebrow} title={title} description={description} titleId={titleId} />{nextRoom && nextLabel ? <button type="button" onClick={() => onNavigate?.(nextRoom)} className="xvi-next-room"><span>CONTINUE</span> إلى {nextLabel} <b>←</b></button> : null}</div><div className="mt-10 lg:mt-14">{children}</div>{nextRoom && nextLabel ? <div className="mt-8 lg:hidden"><Button onClick={() => onNavigate?.(nextRoom)}>إلى {nextLabel} <span>←</span></Button></div> : null}</div></div></Container></motion.section>
+  return <motion.section id={id} data-room ref={roomRef} className={`room-section room-section--${id}`} aria-labelledby={titleId} initial={reduced ? false : { opacity: 0, y: 48, clipPath: 'inset(0 0 12% 0)', filter: 'blur(4px)' }} whileInView={reduced ? undefined : { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', filter: 'blur(0px)' }} viewport={{ once: true, amount: .1 }} transition={{ duration: 1.1, ease }}><Container className="room-shell"><div className={clsx('room-surface room-surface--atelier xvi-room-rebuild rounded-[40px] p-6 sm:p-9 lg:p-12', tone === 'paper' && 'room-surface--paper', tone === 'ink' && 'room-surface--ink')}><motion.div className="xvi-room-light" aria-hidden="true" style={reduced ? undefined : { y: lightY }} /><div className="xvi-room-number" aria-hidden="true">{index}</div><div className="relative"><div className="xvi-room-heading"><SectionHeader eyebrow={eyebrow} title={title} description={description} titleId={titleId} />{nextRoom && nextLabel ? <button type="button" onClick={() => onNavigate?.(nextRoom)} className="xvi-next-room"><span>CONTINUE</span> إلى {nextLabel} <b>←</b></button> : null}</div><div className="mt-10 lg:mt-14">{children}</div>{nextRoom && nextLabel ? <div className="mt-8 lg:hidden"><Button onClick={() => onNavigate?.(nextRoom)}>إلى {nextLabel} <span>←</span></Button></div> : null}</div></div></Container></motion.section>
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -240,7 +243,7 @@ export function TechnologyNetworkRoom({ onNavigate }: RoomProps) {
   return <RoomShell id="technology-network" index="06" eyebrow="TECHNOLOGY ORCHESTRATION" title={<>منظومة واحدة،<br />تعمل بهدوء.</>} description="ذكاء اصطناعي وبيانات وأمن وتشغيل؛ طبقات مترابطة تظهر للقيادة كصورة واحدة." nextRoom="luxury-testimonials" nextLabel="أصوات العملاء" onNavigate={onNavigate}>
     <div className="xvi-tech-premium">
       <div className="xvi-tech-premium-visual">
-        {/* Animated network background */}
+        {/* Animated network background + Interactive Globe */}
         <div className="xvi-tech-network-bg" aria-hidden="true">
           <div className="xvi-tech-network-line xvi-tech-network-line--1" />
           <div className="xvi-tech-network-line xvi-tech-network-line--2" />
@@ -251,8 +254,15 @@ export function TechnologyNetworkRoom({ onNavigate }: RoomProps) {
         <div className="xvi-tech-axis xvi-tech-axis--one" />
         <div className="xvi-tech-axis xvi-tech-axis--two" />
         <div className="xvi-tech-core">
-          <span>XVI</span>
-          <small>CONNECTED<br />SYSTEM</small>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-[92%] h-[92%]">
+              <InteractiveGlobe />
+            </div>
+          </div>
+          <div className="relative z-[2] pointer-events-none select-none text-center">
+            <span>XVI</span>
+            <small>GLOBAL<br />NETWORK</small>
+          </div>
         </div>
         {networkNodes.map((node, index) => (
           <motion.div key={node.label} initial={{ opacity: 0, scale: .6 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * .12, duration: .6, ease }} className={clsx('xvi-tech-node', node.accent === 'bronze' && 'is-bronze', node.accent === 'navy' && 'is-paper')} style={{ left: `${node.x}%`, top: `${node.y}%` }}>
@@ -267,6 +277,20 @@ export function TechnologyNetworkRoom({ onNavigate }: RoomProps) {
         <p className="xvi-tech-premium-desc">نختار البنية التي تخدم العمل، ثم نصلها بطريقة تجعل التشغيل أكثر وضوحًا وأمانًا.</p>
         <div className="xvi-tech-premium-stack">
           {technologies.map(tech => <b key={tech}>{tech}</b>)}
+        </div>
+        <div className="mt-10 grid grid-cols-3 gap-5 w-full max-w-[460px]">
+          <div className="flex flex-col items-start gap-1">
+            <AnimateCounter to={12} as="h4" suffix="+" className="text-[2.4rem] font-[700] leading-none tracking-[-0.03em] text-[color:var(--color-xvi-ink)]" duration={2000} />
+            <span className="text-[10px] tracking-[0.24em] uppercase font-[600] text-[color:var(--color-xvi-ink-soft)]">MARKETS</span>
+          </div>
+          <div className="flex flex-col items-start gap-1">
+            <AnimateCounter to={240} as="h4" suffix="%" className="text-[2.4rem] font-[700] leading-none tracking-[-0.03em] text-[color:var(--color-xvi-bronze)]" duration={2200} />
+            <span className="text-[10px] tracking-[0.24em] uppercase font-[600] text-[color:var(--color-xvi-ink-soft)]">GROWTH 3Y</span>
+          </div>
+          <div className="flex flex-col items-start gap-1">
+            <AnimateCounter to={98.6} as="h4" decimals={1} suffix="%" className="text-[2.4rem] font-[700] leading-none tracking-[-0.03em] text-[color:var(--color-xvi-navy)]" duration={2400} />
+            <span className="text-[10px] tracking-[0.24em] uppercase font-[600] text-[color:var(--color-xvi-ink-soft)]">CLIENT NPS</span>
+          </div>
         </div>
       </div>
     </div>
@@ -540,15 +564,14 @@ export function PremiumCTARoom({ onNavigate }: RoomProps) {
           transition={{ duration: .7, delay: .3, ease: [.16, 1, .3, 1] }}
           className="xvi-cta-actions"
         >
-          <Link to="/contact" className="xvi-cta-btn xvi-cta-btn--primary">
-            <span className="xvi-cta-btn-shine" aria-hidden="true" />
-            <span className="xvi-cta-btn-glow" aria-hidden="true" />
-            <span>رتّب اجتماعًا استكشافيًا</span>
-            <span aria-hidden="true">←</span>
+          <Link to="/contact" className="inline-flex">
+            <MagneticButton variant="dark" size="xl" strength={1.4} iconRight={<span aria-hidden="true">←</span>}>
+              رتّب اجتماعًا استكشافيًا
+            </MagneticButton>
           </Link>
-          <button type="button" onClick={() => onNavigate?.('arrival')} className="xvi-cta-btn xvi-cta-btn--secondary">
-            <span>العودة إلى البداية ↑</span>
-          </button>
+          <MagneticButton variant="ghost" size="xl" strength={0.8} onClick={() => onNavigate?.('arrival')}>
+            العودة إلى البداية ↑
+          </MagneticButton>
         </motion.div>
 
         {/* Trust indicators */}

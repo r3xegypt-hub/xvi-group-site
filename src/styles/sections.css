@@ -79,22 +79,31 @@
 }
 
 .xvi-room-heading h2 {
-  margin-bottom: 1.25em !important;
+  margin-bottom: 1em !important;
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.0 !important;
+}
+
+.xvi-room-heading h1 {
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
 }
 
 /* ── 23. Premium Practice Ledger ── */
 .xvi-practice-title h3 {
-  line-height: 1.1 !important;
-  margin-bottom: 0.5em !important;
+  line-height: 1.05 !important;
+  margin-bottom: 0.4em !important;
 }
 
 .xvi-practice-ledger article > p {
-  line-height: 1.7 !important;
-  font-size: 0.95rem !important;
+  line-height: 1.75 !important;
+  font-size: 0.93rem !important;
 }
 
 .xvi-practice-ledger article > ul li {
   padding: 0.55rem 0.9rem !important;
-  font-size: 0.75rem !important;
+  font-size: 0.73rem !important;
   letter-spacing: 0.05em !important;
 }

@@ -21,7 +21,7 @@ describe('CinematicIntro', () => {
   it('calls onFinish when skip button is clicked', () => {
     const onFinish = vi.fn()
     render(<CinematicIntro onFinish={onFinish} />)
-    fireEvent.click(screen.getByRole('button', { name: /skip/i }))
+    fireEvent.click(screen.getByRole('button', { name: /تخطي/i }))
     expect(onFinish).toHaveBeenCalledTimes(1)
   })
 

@@ -1,66 +1,31 @@
-<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="oG1" x1="0.1" y1="0" x2="0.9" y2="1">
-      <stop offset="0%" stop-color="#F2DCA0"/>
-      <stop offset="18%" stop-color="#E8C98A"/>
-      <stop offset="42%" stop-color="#D4AF37"/>
-      <stop offset="65%" stop-color="#C9A96E"/>
-      <stop offset="85%" stop-color="#A8853A"/>
-      <stop offset="100%" stop-color="#7A5C28"/>
-    </linearGradient>
-    <linearGradient id="oG2" x1="0" y1="0" x2="0.6" y2="1">
-      <stop offset="0%" stop-color="#FAF0D4"/>
-      <stop offset="30%" stop-color="#E8C98A"/>
-      <stop offset="100%" stop-color="#B8955A"/>
-    </linearGradient>
-    <linearGradient id="oG3" x1="0.4" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#C9A96E"/>
-      <stop offset="60%" stop-color="#8A6A36"/>
-      <stop offset="100%" stop-color="#5C4220"/>
-    </linearGradient>
-    <linearGradient id="oG4" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FFF5DC"/>
-      <stop offset="50%" stop-color="#D4AF37"/>
-      <stop offset="100%" stop-color="#9A7A42"/>
-    </linearGradient>
-    <linearGradient id="oGText" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E8C98A"/>
-      <stop offset="40%" stop-color="#D4AF37"/>
-      <stop offset="70%" stop-color="#C9A96E"/>
-      <stop offset="100%" stop-color="#9A7A42"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="1200" height="630" fill="#060A10"/>
-  <rect x="24" y="24" width="1152" height="582" rx="8" stroke="#C9A96E" stroke-opacity="0.06" stroke-width="1"/>
-
-  <!-- Monogram — large, centered -->
-  <g transform="translate(420, 60) scale(2)">
-    <path d="M 50,20 L 120,200 L 120,176 L 64,20 Z" fill="url(#oG1)"/>
-    <path d="M 190,20 L 120,200 L 120,176 L 176,20 Z" fill="url(#oG2)"/>
-    <path d="M 50,20 L 64,20 L 120,176 L 120,200 Z" fill="url(#oG4)" opacity="0.85"/>
-    <path d="M 120,200 L 120,176" stroke="#F5E4B0" stroke-width="1" opacity="0.4"/>
-    <path d="M 8,20 L 34,20 L 68,110 L 42,110 Z" fill="url(#oG2)"/>
-    <path d="M 42,110 L 68,110 L 34,200 L 8,200 Z" fill="url(#oG1)"/>
-    <path d="M 42,110 L 68,110 L 50,20 L 24,20 Z" fill="url(#oG3)" opacity="0.2"/>
-    <path d="M 200,20 L 218,20 L 218,220 L 200,220 Z" fill="url(#oG2)"/>
-    <path d="M 200,20 L 209,20 L 209,220 L 200,220 Z" fill="url(#oG4)" opacity="0.65"/>
-    <path d="M 209,20 L 218,20 L 218,220 L 209,220 Z" fill="url(#oG3)" opacity="0.35"/>
-    <path d="M 112,8 Q 120,0 128,8 Q 120,16 112,8 Z" fill="#C9A96E" opacity="0.55"/>
-    <path d="M 22,62 L 27,56 L 32,62 L 27,68 Z" fill="#C9A96E" opacity="0.45"/>
-    <path d="M 208,62 L 213,56 L 218,62 L 213,68 Z" fill="#C9A96E" opacity="0.45"/>
-  </g>
-
-  <!-- XVI GROUP -->
-  <text x="600" y="440" text-anchor="middle" fill="url(#oGText)" font-family="'Georgia', 'Times New Roman', serif" font-size="72" font-weight="400" letter-spacing="10">XVI GROUP</text>
-
-  <!-- Divider -->
-  <line x1="400" y1="475" x2="800" y2="475" stroke="#C9A96E" stroke-opacity="0.2" stroke-width="1"/>
-  <path d="M 598,471 L 602,467 L 606,471 L 602,475 Z" fill="#C9A96E" opacity="0.4"/>
-
-  <!-- Tagline -->
-  <text x="600" y="515" text-anchor="middle" fill="#C9A96E" font-family="'Helvetica Neue', 'Arial', sans-serif" font-size="13" font-weight="400" letter-spacing="5.5" opacity="0.5">INTELLIGENCE  ·  STRATEGY  ·  TRANSFORMATION</text>
-
-  <!-- URL -->
-  <text x="600" y="590" text-anchor="middle" fill="#C9A96E" font-family="'Helvetica Neue', 'Arial', sans-serif" font-size="14" font-weight="300" letter-spacing="3" opacity="0.25">xvi-group.net</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="XVI Group social preview">
+<defs>
+<linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#F0DFC1"/>
+<stop offset="100%" stop-color="#C9A96E"/>
+</linearGradient>
+<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#060A10"/>
+<stop offset="100%" stop-color="#0C1320"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<path d="M0 0H1200V630H0Z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+<path d="M0 0L420 630" stroke="rgba(201,169,110,0.14)" stroke-width="2"/>
+<path d="M790 90H964L1038 164V338L964 412H790L716 338V164L790 90Z" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="4"/>
+<path d="M812 124H942L1004 186V316L942 378H812L750 316V186L812 124Z" fill="none" stroke="rgba(201,169,110,0.4)" stroke-width="3"/>
+<rect x="871" y="124" width="24" height="254" rx="12" fill="url(#gold)"/>
+<path d="M774 146H818L889 251H845L774 146Z" fill="url(#gold)"/>
+<path d="M845 265H889L818 370H774L845 265Z" fill="url(#gold)"/>
+<path d="M924 146H968L897 251H853L924 146Z" fill="url(#gold)"/>
+<path d="M853 265H897L968 370H924L853 265Z" fill="url(#gold)"/>
+<path d="M764 252H990" stroke="url(#gold)" stroke-width="3" stroke-linecap="round"/>
+<circle cx="883" cy="108" r="6" fill="#C9A96E"/>
+<circle cx="883" cy="394" r="6" fill="#C9A96E"/>
+<g transform="translate(120 180)" fill="#FFFFFF" font-family="Inter, Arial, sans-serif">
+<text x="0" y="0" font-size="24" font-weight="700" letter-spacing="10" fill="#C9A96E">XVI GROUP</text>
+<text x="0" y="110" font-size="78" font-weight="700" letter-spacing="-2">Executive Clarity.</text>
+<text x="0" y="196" font-size="78" font-weight="700" letter-spacing="-2">Systemic Precision.</text>
+<text x="0" y="278" font-size="28" font-weight="500" fill="rgba(255,255,255,0.72)">Intelligence, strategy, and transformation expressed through one disciplined brand language.</text>
+</g>
 </svg>

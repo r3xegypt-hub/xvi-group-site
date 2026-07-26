@@ -2,12 +2,26 @@ import { memo, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { heroSignals } from '../../data/siteContent'
 import { Container } from '../common/Container'
-import { Button } from '../ui/Button'
+import { MagneticButton } from '../ux/MagneticButton'
 import { HeroParticles } from './HeroParticles'
+import { IntelligenceSphere } from '../three/IntelligenceSphere'
+import { NeuralNetworkBackground } from '../three/NeuralNetworkBackground'
+import { LightBeams } from '../ux/LightBeams'
+import { NoiseGrainLayer, VignetteLayer } from '../ux/AmbientLayers'
 
 type ExecutiveHeroProps = { onNavigate: (roomId: string) => void }
 
 const ease = [0.16, 1, 0.3, 1] as const
+
+function IntensitySphereWrapper() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-[92%] h-[92%]">
+        <IntelligenceSphere intensity={1.15} />
+      </div>
+    </div>
+  )
+}
 
 export const ExecutiveHero = memo(function ExecutiveHero({ onNavigate }: ExecutiveHeroProps) {
   const heroRef = useRef<HTMLElement>(null)
@@ -21,6 +35,24 @@ export const ExecutiveHero = memo(function ExecutiveHero({ onNavigate }: Executi
     <section ref={heroRef} id="arrival" data-room className="xvi-flagship-hero room-section room-section--arrival">
       <Container className="relative">
         <div className="xvi-hero-stage">
+          {/* Executive corner brackets — ornamental frame */}
+          <span className="hero-corner hero-corner--tl" aria-hidden="true" />
+          <span className="hero-corner hero-corner--tr" aria-hidden="true" />
+          <span className="hero-corner hero-corner--bl" aria-hidden="true" />
+          <span className="hero-corner hero-corner--br" aria-hidden="true" />
+
+          {/* Soft ambient glow orb */}
+          <div className="xvi-hero-orb xvi-hero-orb--glow" aria-hidden="true" />
+
+          {/* Neural network premium background + light beams + grain */}
+          <NeuralNetworkBackground className="xvi-hero-neural" color="#B88E2F" secondaryColor="#0B1B33" nodeCount={110} />
+          <LightBeams count={7} color="#C9A96E" className="xvi-hero-beams" />
+          <NoiseGrainLayer opacity={0.075} className="xvi-hero-grain" />
+          <VignetteLayer intensity={0.55} className="xvi-hero-vignette" />
+
+          {/* Animated grid overlay */}
+          <div className="xvi-hero-grid-overlay" aria-hidden="true" />
+
           {/* Cinematic atmosphere — reduced, focused */}
           <div className="xvi-hero-noise" aria-hidden="true" />
           <div className="xvi-hero-mesh" aria-hidden="true" />
@@ -81,10 +113,10 @@ export const ExecutiveHero = memo(function ExecutiveHero({ onNavigate }: Executi
                 </motion.div>
                 <motion.h1
                   variants={{
-                    hidden: { opacity: 0, y: 38, clipPath: 'inset(0 0 100% 0)' },
+                    hidden: { opacity: 0, y: 48, clipPath: 'inset(0 0 100% 0)' },
                     visible: { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' },
                   }}
-                  transition={{ duration: 1.15, ease }}
+                  transition={{ duration: 1.2, ease }}
                   className="xvi-hero-title"
                 >
                   نُعيد تعريف<br />
@@ -102,13 +134,13 @@ export const ExecutiveHero = memo(function ExecutiveHero({ onNavigate }: Executi
                 <p>
                   نحوّل الاستراتيجية والتقنية والتنفيذ إلى مساحة قرار هادئة — مصممة للمؤسسات التي تتحرك بثقة.
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button onClick={() => onNavigate('advisory-suite')} className="px-6 py-3.5">
-                    استكشف الممارسات <span aria-hidden="true">←</span>
-                  </Button>
-                  <Button onClick={() => onNavigate('premium-cta')} variant="secondary" className="px-6 py-3.5">
+                <div className="xvi-hero-ctas flex flex-wrap gap-3">
+                  <MagneticButton variant="primary" size="lg" onClick={() => onNavigate('advisory-suite')} className="xvi-premium-cta" iconRight={<span aria-hidden="true">←</span>}>
+                    استكشف الممارسات
+                  </MagneticButton>
+                  <MagneticButton variant="secondary" size="lg" onClick={() => onNavigate('premium-cta')} className="xvi-premium-cta">
                     ابدأ حوارًا
-                  </Button>
+                  </MagneticButton>
                 </div>
               </motion.div>
             </div>
@@ -126,11 +158,14 @@ export const ExecutiveHero = memo(function ExecutiveHero({ onNavigate }: Executi
                 <span>2026 / AL AIN</span>
               </div>
               <div className="xvi-lens-core">
-                <div className="xvi-lens-rings" />
-                <div className="xvi-lens-rings xvi-lens-rings--inner" />
-                <div className="xvi-lens-centre">
-                  <span>XVI</span>
-                  <small>CLARITY<br />IN MOTION</small>
+                <div className="relative w-full h-full flex items-center justify-center px-5 py-6">
+                  <div className="absolute inset-[10%] rounded-[24px] bg-gradient-to-br from-[rgba(11,27,51,0.55)] via-[rgba(11,27,51,0.82)] to-[rgba(184,142,47,0.22)] border border-[rgba(184,142,47,0.18)] backdrop-blur-md overflow-hidden shadow-[inset_0_0_60px_rgba(11,27,51,0.6)]">
+                    <IntensitySphereWrapper />
+                  </div>
+                  <div className="relative z-[2] flex flex-col items-center gap-1 pointer-events-none select-none">
+                    <span className="font-[700] tracking-[-0.02em] text-[1.1rem] text-[color:var(--color-xvi-warm)] drop-shadow-[0_0_12px_rgba(201,169,110,0.45)]">XVI</span>
+                    <small className="text-[9px] tracking-[0.32em] text-[color:var(--color-xvi-bright-gold)] font-[700] leading-[1.6] text-center opacity-90">CLARITY<br />IN MOTION</small>
+                  </div>
                 </div>
                 <span className="xvi-lens-label xvi-lens-label--a">STRATEGY</span>
                 <span className="xvi-lens-label xvi-lens-label--b">SYSTEMS</span>

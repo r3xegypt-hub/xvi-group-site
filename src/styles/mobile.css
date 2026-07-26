@@ -1,0 +1,391 @@
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE — Premium Native Mobile Experience
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Mobile Navigation — Native app feel ── */
+@media (max-width: 1023px) {
+  .xvi-nav {
+    border-bottom: 1px solid var(--border-premium);
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.4);
+  }
+
+  .xvi-nav-inner {
+    padding: 0.85rem 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .xvi-nav-logo {
+    padding: 0.6rem 1.1rem;
+    gap: 0.9rem;
+  }
+
+  /* Mobile practices strip — premium horizontal scroll */
+  .xvi-nav-mobile-practices {
+    display: block;
+    border-top: 1px solid var(--border-premium);
+    padding: 0.75rem 0;
+    background: linear-gradient(180deg, var(--glass-bg) 0%, var(--glass-bg-strong) 100%);
+  }
+
+  .xvi-nav-mobile-scroll {
+    gap: 0.75rem;
+    padding: 0 1.25rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .xvi-nav-mobile-pill {
+    padding: 0.6rem 1.15rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    scroll-snap-align: start;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-premium);
+    box-shadow: 0 2px 8px rgba(6, 10, 16, 0.04);
+  }
+
+  .xvi-nav-mobile-pill--active {
+    background: linear-gradient(135deg, var(--color-xvi-bronze-light), var(--color-xvi-bronze));
+    border-color: var(--color-xvi-bronze);
+    color: var(--color-xvi-ink);
+    box-shadow: 0 4px 16px rgba(201, 169, 110, 0.25);
+  }
+}
+
+/* ── Mobile Hero — Cinematic native feel ── */
+@media (max-width: 768px) {
+  .xvi-flagship-hero {
+    padding-top: 0.5rem;
+  }
+
+  .xvi-hero-stage {
+    min-height: calc(100dvh - 4rem);
+    border-radius: clamp(20px, 4vw, 32px);
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .xvi-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .xvi-hero-title {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .xvi-kicker {
+    font-size: 0.58rem;
+    letter-spacing: 0.32em;
+    margin-bottom: 1.5rem;
+  }
+
+  .xvi-hero-bottom {
+    max-width: 100%;
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+  }
+
+  .xvi-hero-bottom p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+  }
+
+  /* Mobile lens panel — simplified */
+  .xvi-hero-lens {
+    min-height: auto;
+    padding: 1.5rem;
+    border-radius: 24px;
+  }
+
+  .xvi-lens-core {
+    min-height: 200px;
+  }
+
+  .xvi-lens-signals {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    padding-top: 0.85rem;
+  }
+
+  .xvi-lens-signals strong {
+    font-size: 1.4rem;
+  }
+
+  .xvi-lens-signals span {
+    font-size: 0.65rem;
+  }
+}
+
+/* ── Mobile Cards — Touch-optimized ── */
+@media (max-width: 768px) {
+  .xvi-services-premium {
+    gap: 2.5rem;
+  }
+
+  .xvi-services-premium-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding-bottom: 2rem;
+  }
+
+  .xvi-services-editorial {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .xvi-service-card {
+    border-radius: 20px;
+  }
+
+  .xvi-service-card-inner {
+    padding: 2rem;
+    min-height: 280px;
+  }
+
+  .xvi-service-card-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .xvi-service-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+  }
+
+  .xvi-service-card-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .xvi-service-card-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+
+  .xvi-service-card-tags {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    gap: 0.4rem;
+  }
+
+  .xvi-service-card-tag {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.64rem;
+  }
+}
+
+/* ── Mobile Typography — Optimized for touch reading ── */
+@media (max-width: 640px) {
+  h1 {
+    font-size: clamp(2.4rem, 14vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  :lang(ar) h1 {
+    font-size: clamp(2.2rem, 12vw, 3.5rem);
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    line-height: 1.1;
+  }
+
+  :lang(ar) h2 {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+  }
+
+  :lang(ar) h3 {
+    font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+  }
+
+  :lang(ar) p {
+    font-size: 0.95rem;
+    line-height: 1.95;
+  }
+}
+
+/* ── Mobile Buttons — Touch-optimized sizing ── */
+@media (max-width: 640px) {
+  .xvi-premium-button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .xvi-premium-button[size="sm"] {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .xvi-premium-button[size="md"] {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .xvi-premium-button[size="lg"] {
+    padding: 0.9rem 1.75rem;
+    font-size: 0.95rem;
+  }
+
+  .xvi-hero-ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .xvi-hero-ctas .xvi-premium-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Mobile Spacing — Generous touch targets ── */
+@media (max-width: 640px) {
+  .room-section {
+    padding: clamp(3rem, 10vw, 5rem) 0;
+  }
+
+  .xvi-services-premium {
+    gap: 2rem;
+  }
+
+  .xvi-service-card-inner {
+    padding: 1.75rem;
+  }
+}
+
+/* ── Mobile Dropdown — Full-screen experience ── */
+@media (max-width: 1023px) {
+  .xvi-nav-dropdown {
+    position: fixed;
+    inset: 0;
+    top: auto;
+    bottom: 0;
+    border-top: 1px solid var(--border-premium);
+    border-bottom: none;
+    border-radius: 24px 24px 0 0;
+    background: var(--surface-room-warm);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.3);
+    transform: translateY(100%);
+    transition: transform 0.5s var(--ease-premium);
+  }
+
+  .xvi-nav-dropdown[aria-hidden="false"] {
+    transform: translateY(0);
+  }
+
+  .xvi-nav-dropdown-inner {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem 3rem;
+    gap: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .xvi-nav-dropdown-intro {
+    border-left: none;
+    border-bottom: 1px solid var(--border-premium);
+    padding-left: 0;
+    padding-bottom: 1.5rem;
+  }
+
+  .xvi-nav-dropdown-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .xvi-nav-dropdown-item {
+    padding: 1rem;
+  }
+}
+
+/* ── Mobile Safe Areas — Notch and home indicator support ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media (max-width: 640px) {
+    .xvi-nav {
+      padding-top: env(safe-area-inset-top);
+    }
+
+    .xvi-nav-dropdown {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .xvi-hero-stage {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+  }
+}
+
+/* ── Mobile Performance — Hardware acceleration ── */
+@media (max-width: 768px) {
+
+  .xvi-service-card,
+  .xvi-nav-link,
+  .xvi-nav-mobile-pill,
+  .xvi-premium-button {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* ── Mobile Text Selection — Premium feel ── */
+@media (max-width: 768px) {
+  ::selection {
+    background: rgba(201, 169, 110, 0.25);
+    color: var(--color-xvi-ink);
+  }
+
+  ::-moz-selection {
+    background: rgba(201, 169, 110, 0.25);
+    color: var(--color-xvi-ink);
+  }
+}
+
+/* ── Mobile Scroll — Smooth native feel ── */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .xvi-nav-mobile-scroll::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .xvi-nav-mobile-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
+
+/* ── Mobile Focus — Accessible touch focus ── */
+@media (max-width: 768px) {
+  :focus-visible {
+    outline: 2.5px solid var(--color-xvi-bronze);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .xvi-premium-button:focus-visible {
+    outline-offset: 4px;
+  }
+}
