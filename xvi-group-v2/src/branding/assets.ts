@@ -3,31 +3,33 @@
 
 import type { Language } from '../types';
 
+const BASE = import.meta.env.BASE_URL;
+
 // ============================================
 // LOGO SYSTEM
 // ============================================
 
 export const LOGO = {
   horizontal: {
-    dark: '/logo/logo-horizontal.svg',
-    light: '/logo/logo-horizontal-dark.svg',
-    gold: '/logo/logo-horizontal-gold.svg',
+    dark: `${BASE}logo/logo-horizontal.svg`,
+    light: `${BASE}logo/logo-horizontal-dark.svg`,
+    gold: `${BASE}logo/logo-horizontal.svg`,
   },
   vertical: {
-    dark: '/logo/logo-square.svg',
-    light: '/logo/logo-square-dark.svg',
+    dark: `${BASE}logo/logo-square.svg`,
+    light: `${BASE}logo/logo-square-dark.svg`,
   },
   icon: {
-    dark: '/logo/logo-mark.svg',
-    light: '/logo/logo-mark-dark.svg',
-    gold: '/logo/logo-mark-gold.svg',
+    dark: `${BASE}logo/logo-mark.svg`,
+    light: `${BASE}logo/logo-mark-dark.svg`,
+    gold: `${BASE}logo/logo-mark.svg`,
   },
   favicon: {
-    dark: '/logo/favicon.svg',
-    light: '/logo/favicon-light.svg',
+    dark: `${BASE}logo/favicon.svg`,
+    light: `${BASE}logo/favicon-light.svg`,
   },
-  appIcon: '/logo/logo-square.svg',
-  loader: '/logo/logo-mark.svg',
+  appIcon: `${BASE}logo/logo-square.svg`,
+  loader: `${BASE}logo/logo-mark.svg`,
 } as const;
 
 // ============================================
@@ -36,19 +38,19 @@ export const LOGO = {
 
 export const LOGO_CONCEPTS = {
   architectural: {
-    dark: '/logo/concept-01-architectural-dark.svg',
-    light: '/logo/concept-01-architectural-light.svg',
+    dark: `${BASE}logo/concept-01-architectural-dark.svg`,
+    light: `${BASE}logo/concept-01-architectural-light.svg`,
   },
   sovereign: {
-    dark: '/logo/concept-02-sovereign-dark.svg',
-    light: '/logo/concept-02-sovereign-light.svg',
+    dark: `${BASE}logo/concept-02-sovereign-dark.svg`,
+    light: `${BASE}logo/concept-01-architectural-light.svg`,
   },
-  monogram: '/logo/concept-03-precision-monogram.svg',
+  monogram: `${BASE}logo/concept-03-precision-monogram.svg`,
   meridian: {
-    dark: '/logo/concept-04-meridian-dark.svg',
-    gold: '/logo/concept-04-meridian-gold.svg',
+    dark: `${BASE}logo/concept-04-meridian-dark.svg`,
+    gold: `${BASE}logo/concept-04-meridian-gold.svg`,
   },
-  nexus: '/logo/concept-05-kinetic-nexus.svg',
+  nexus: `${BASE}logo/concept-05-kinetic-nexus.svg`,
 } as const;
 
 // ============================================
@@ -56,12 +58,12 @@ export const LOGO_CONCEPTS = {
 // ============================================
 
 export const PATTERNS = {
-  diamond: '/brand/pattern-diamond.svg',
-  meridian: '/brand/pattern-meridian.svg',
-  nexus: '/brand/pattern-nexus.svg',
-  dot: '/brand/pattern-dot.svg',
-  base: '/brand/pattern.svg',
-  divider: '/brand/divider.svg',
+  diamond: `${BASE}brand/pattern-diamond.svg`,
+  meridian: `${BASE}brand/pattern-meridian.svg`,
+  nexus: `${BASE}brand/pattern-nexus.svg`,
+  dot: `${BASE}brand/pattern-dot.svg`,
+  base: `${BASE}brand/pattern.svg`,
+  divider: `${BASE}brand/divider.svg`,
 } as const;
 
 // ============================================
@@ -114,18 +116,18 @@ export const ICONS = {
 
 export const ILLUSTRATIONS = {
   // Service illustrations (SVG, geometric)
-  network: '/illustrations/network.svg',
-  nodes: '/illustrations/nodes.svg',
-  connections: '/illustrations/connections.svg',
-  intelligence: '/illustrations/intelligence.svg',
+  network: `${BASE}brand/pattern-nexus.svg`,
+  nodes: `${BASE}brand/pattern-dot.svg`,
+  connections: `${BASE}brand/pattern-meridian.svg`,
+  intelligence: `${BASE}brand/pattern-diamond.svg`,
 
   // Empty states
-  empty: '/illustrations/empty.svg',
-  error404: '/illustrations/404.svg',
+  empty: `${BASE}brand/pattern.svg`,
+  error404: `${BASE}brand/pattern.svg`,
 
   // Background geometry
-  heroGeometry: '/illustrations/hero-geometry.svg',
-  sectionGeometry: '/illustrations/section-geometry.svg',
+  heroGeometry: `${BASE}brand/pattern-diamond.svg`,
+  sectionGeometry: `${BASE}brand/pattern-nexus.svg`,
 } as const;
 
 // ============================================

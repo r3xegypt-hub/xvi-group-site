@@ -2,6 +2,7 @@
 // All button variants and states per COMPONENT_LIBRARY.md
 
 import { type ButtonHTMLAttributes, type AnchorHTMLAttributes, type ReactNode, forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
 // ============================================
@@ -70,6 +71,20 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 
     if (props.as === 'a' || props.href) {
       const { as: _as, href, ...anchorProps } = props;
+      const isInternal = href && href.startsWith('/');
+      if (isInternal) {
+        return (
+          <Link
+            to={href}
+            ref={ref as React.Ref<HTMLAnchorElement>}
+            className={classes}
+            aria-disabled={disabled}
+            {...(anchorProps as any)}
+          >
+            {content}
+          </Link>
+        );
+      }
       return (
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}

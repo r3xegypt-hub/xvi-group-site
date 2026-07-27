@@ -136,11 +136,11 @@ export default function Preview() {
             <PreviewSection id="logo" title="Logo Placement">
               <div className={styles.logoGrid}>
                 <div className={styles.logoItem}>
-                  <img src="/logo/logo-horizontal.svg" alt="XVI GROUP" className={styles.logoDark} />
+                  <img src={`${import.meta.env.BASE_URL}logo/logo-horizontal.svg`} alt="XVI GROUP" className={styles.logoDark} />
                   <span className={styles.logoLabel}>Dark (on light bg)</span>
                 </div>
                 <div className={[styles.logoItem, styles.logoItemDark].join(' ')}>
-                  <img src="/logo/logo-horizontal-light.svg" alt="XVI GROUP" className={styles.logoLight} />
+                  <img src={`${import.meta.env.BASE_URL}logo/logo-horizontal-dark.svg`} alt="XVI GROUP" className={styles.logoLight} />
                   <span className={styles.logoLabelLight}>Light (on dark bg)</span>
                 </div>
               </div>

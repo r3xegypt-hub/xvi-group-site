@@ -490,6 +490,7 @@
   z-index: 499;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  display: none;
   
   // Premium top accent
   &::before {
@@ -521,6 +522,10 @@
   @media (min-width: 768px) {
     top: 72px;
   }
+}
+
+.mobileMenuOpen {
+  display: block;
 }
 
 .mobileMenuContent {
