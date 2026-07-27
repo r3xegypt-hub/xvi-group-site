@@ -8,7 +8,7 @@ export default defineConfig({
   // Use a root-relative public base. A relative base makes Vite 8 attempt to
   // emit the absolute HTML source path as an asset when the project path
   // contains non-ASCII characters.
-  base: '/',
+  base: './',
   plugins: [
     react(),
     tailwindcss(),
