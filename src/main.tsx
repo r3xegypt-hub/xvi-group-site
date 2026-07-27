@@ -24,7 +24,7 @@ function Bootstrap() {
       <ScrollEngine enabled>
         <PremiumCursor />
         {!loaded ? <LuxuryLoader onFinish={() => setLoaded(true)} /> : null}
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
           <AppRoutes />
         </BrowserRouter>
       </ScrollEngine>
