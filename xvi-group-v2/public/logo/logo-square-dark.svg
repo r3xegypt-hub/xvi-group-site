@@ -1,17 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="XVI GROUP">
-  <!-- XVI GROUP — Square Lockup (Dark Mode) — Path-based letterforms -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-label="XVI GROUP">
+  <!-- XVI GROUP — Square Lockup (Dark Background) — Premium -->
   
-  <path d="M24 4 L44 24 L24 44 L4 24 Z" 
+  <path d="M32 6 L58 32 L32 58 L6 32 Z" 
         stroke="#FFFFFF" 
-        stroke-width="2" 
-        fill="none"/>
+        stroke-width="1.8" 
+        fill="none"
+        stroke-linejoin="miter"/>
   
-  <!-- XVI letterforms — white -->
-  <!-- X -->
-  <path d="M14.5 21.5 L18 26" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M18 21.5 L14.5 26" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
-  <!-- V -->
-  <path d="M19.5 21.5 L22 26 L24.5 21.5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- I -->
-  <path d="M28 21.5 L28 26" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M32 15 L49 32 L32 49 L15 32 Z" 
+        stroke="#FFFFFF" 
+        stroke-width="0.6" 
+        fill="none" 
+        opacity="0.18"/>
+  
+  <path d="M22 28 L28 32" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M28 28 L22 32" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M32 28 L35 32 L38 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="miter"/>
+  <line x1="42" y1="26.5" x2="42" y2="33.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40.7" y1="26.5" x2="43.3" y2="26.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
+  <line x1="40.7" y1="33.5" x2="43.3" y2="33.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"/>
 </svg>

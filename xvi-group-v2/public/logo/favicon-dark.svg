@@ -1,8 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-label="XVI GROUP">
-  <!-- XVI GROUP — Favicon (Dark Mode) -->
+  <!-- XVI GROUP — Favicon (Dark Background) — Premium -->
   
   <path d="M16 2 L30 16 L16 30 L2 16 Z" 
         stroke="#FFFFFF" 
         stroke-width="1.5" 
-        fill="none"/>
+        fill="none"
+        stroke-linejoin="miter"/>
+  
+  <path d="M10 14 L13.5 16.5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M13.5 14 L10 16.5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M16 14 L18 16.5 L20 14" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="miter"/>
+  <line x1="23" y1="13" x2="23" y2="17.5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
 </svg>

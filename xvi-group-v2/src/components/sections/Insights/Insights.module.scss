@@ -124,6 +124,12 @@
     }
   }
 
+  &:focus-visible {
+    outline: 2px solid #C9A96E;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.15);
+  }
+
   @include large-mobile {
     padding: 32px;
   }

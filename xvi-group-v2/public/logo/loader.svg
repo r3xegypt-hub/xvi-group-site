@@ -1,65 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-label="XVI GROUP">
-  <!-- XVI GROUP — Loading Animation — Path-based letterforms -->
+  <!-- XVI GROUP — Loader / Splash — Premium animated diamond -->
   
-  <!-- Diamond outline draws in -->
+  <!-- Outer diamond — draws in -->
   <path d="M60 12 L108 60 L60 108 L12 60 Z" 
         stroke="#C9A96E" 
         stroke-width="2" 
         fill="none"
+        stroke-linejoin="miter"
         stroke-dasharray="320"
-        stroke-dashoffset="320">
-    <animate attributeName="stroke-dashoffset" 
-             values="320;0" 
-             dur="0.6s" 
-             fill="freeze"
-             calcMode="spline"
-             keySplines="0.16 1 0.3 1"/>
-  </path>
+        stroke-dashoffset="320"
+        class="loader-diamond"/>
   
-  <!-- XVI letterforms fade in -->
-  <g opacity="0">
-    <!-- X -->
-    <path d="M43.5 57.5 L48 64" stroke="#0A1628" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M48 57.5 L43.5 64" stroke="#0A1628" stroke-width="2.2" stroke-linecap="round"/>
-    <!-- V -->
-    <path d="M49.5 57.5 L54 64 L58.5 57.5" stroke="#0A1628" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- I -->
-    <path d="M64 57.5 L64 64" stroke="#0A1628" stroke-width="2.2" stroke-linecap="round"/>
-    <animate attributeName="opacity" 
-             values="0;1" 
-             dur="0.3s" 
-             begin="0.2s"
-             fill="freeze"/>
-  </g>
-  
-  <!-- Meridian line extends left-to-right -->
-  <line x1="30" y1="85" x2="90" y2="85" 
+  <!-- Inner diamond — draws in delayed -->
+  <path d="M60 30 L90 60 L60 90 L30 60 Z" 
         stroke="#C9A96E" 
-        stroke-width="1.5"
-        stroke-linecap="round"
-        transform="translate(30, 85) scale(0, 1) translate(-30, -85)">
-    <animateTransform attributeName="transform" 
-                      type="scale"
-                      values="0 1;1 1"
-                      dur="0.4s" 
-                      begin="0.4s"
-                      fill="freeze"
-                      additive="replace"/>
-  </line>
+        stroke-width="1" 
+        fill="none" 
+        opacity="0.3"
+        stroke-dasharray="180"
+        stroke-dashoffset="180"
+        class="loader-diamond-inner"/>
   
-  <!-- GROUP fades in — Inter Medium -->
-  <text x="60" y="100" 
-        text-anchor="middle"
-        font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" 
-        font-size="10" 
-        font-weight="500" 
-        fill="#5A6472" 
-        letter-spacing="0.15em"
-        opacity="0">
-    <animate attributeName="opacity" 
-             values="0;1" 
-             dur="0.3s" 
-             begin="0.6s"
-             fill="freeze"/>
-  </text>
+  <!-- XVI — fades in -->
+  <g opacity="0" class="loader-text">
+    <path d="M42 54 L52 60" stroke="#C9A96E" stroke-width="3" stroke-linecap="round"/>
+    <path d="M52 54 L42 60" stroke="#C9A96E" stroke-width="3" stroke-linecap="round"/>
+    <path d="M60 54 L65 60 L70 54" stroke="#C9A96E" stroke-width="3" stroke-linecap="round" stroke-linejoin="miter"/>
+    <line x1="80" y1="52" x2="80" y2="62" stroke="#C9A96E" stroke-width="3" stroke-linecap="round"/>
+  </g>
 </svg>

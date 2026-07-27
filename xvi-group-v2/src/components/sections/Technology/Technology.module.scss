@@ -107,6 +107,12 @@
     }
   }
 
+  &:focus-visible {
+    outline: 2px solid #C9A96E;
+    outline-offset: 2px;
+    border-radius: 12px;
+  }
+
   @include large-mobile {
     gap: 16px;
     padding: 16px;
