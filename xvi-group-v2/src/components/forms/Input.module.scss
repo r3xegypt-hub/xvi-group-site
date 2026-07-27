@@ -1,10 +1,10 @@
-// XVI GROUP — Input SCSS Module (v2)
-// 7 device categories with per-device sizing
+// XVI GROUP — Premium Input SCSS Module (v2)
+// Luxury form inputs with premium effects
 
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .inputWrapper {
@@ -12,27 +12,27 @@
 }
 
 // ============================================
-// LABEL — Per-device
+// LABEL — Premium
 // ============================================
 
 .label {
   position: absolute;
-  left: 16px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 400;
-  color: #5a6472;
+  color: #5A6472;
   pointer-events: none;
-  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
   transform-origin: left center;
 
   // Small Mobile
-  font-size: 14px;
+  font-size: 15px;
 
   // Medium Mobile+
   @media (min-width: 375px) {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   // Large Mobile+
@@ -42,155 +42,166 @@
 }
 
 .labelActive {
-  top: 8px;
+  top: 10px;
   transform: translateY(0);
   font-size: 12px;
   font-weight: 500;
-  color: #c9a96e;
+  color: #C9A96E;
+  letter-spacing: 0.03em;
 }
 
 [dir="rtl"] .label {
   left: auto;
-  right: 16px;
+  right: 18px;
   transform-origin: right center;
 }
 
 // ============================================
-// INPUT — Per-device
+// INPUT — Premium
 // ============================================
 
 .input {
   width: 100%;
-  color: #0a1628;
-  background-color: #ffffff;
-  border: 1px solid #c8cdd5;
-  border-radius: 8px;
+  color: #0A1628;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.95) 100%);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: 12px;
   outline: none;
-  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
   font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 400;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   // Small Mobile: Compact
-  height: 48px;
-  padding: 20px 12px 6px;
-  font-size: 14px;
+  height: 52px;
+  padding: 22px 18px 8px;
+  font-size: 15px;
 
   // Medium Mobile
   @media (min-width: 375px) {
-    height: 50px;
-    padding: 22px 14px 6px;
-    font-size: 15px;
+    height: 54px;
+    padding: 24px 20px 8px;
+    font-size: 16px;
   }
 
   // Large Mobile
   @media (min-width: 429px) {
-    height: 52px;
-    padding: 22px 16px 6px;
+    height: 56px;
+    padding: 24px 22px 8px;
     font-size: 16px;
   }
 
   // Tablet Portrait
   @media (min-width: 768px) {
-    height: 54px;
-    padding: 24px 16px 8px;
+    height: 58px;
+    padding: 26px 22px 10px;
   }
 
   // Tablet Landscape+
   @media (min-width: 1024px) {
-    height: 56px;
-    padding: 24px 16px 8px;
+    height: 60px;
+    padding: 26px 22px 10px;
   }
 
   &::placeholder {
     color: transparent;
   }
 
+  // Premium focus effect
   &:focus {
-    border-color: #c9a96e;
-    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+    border-color: #C9A96E;
+    box-shadow: 
+      0 0 0 3px rgba(201, 169, 110, 0.12),
+      0 4px 16px rgba(201, 169, 110, 0.08);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 250, 1) 100%);
   }
 
   &:disabled {
-    background-color: #f4f5f7;
-    border-color: #eceef2;
-    color: #c8cdd5;
+    background: linear-gradient(135deg, rgba(244, 245, 247, 0.9) 0%, rgba(236, 238, 242, 0.95) 100%);
+    border-color: rgba(200, 205, 213, 0.5);
+    color: #C8CDD5;
     cursor: not-allowed;
   }
 }
 
 // ============================================
-// ERROR STATE
+// ERROR STATE — Premium
 // ============================================
 
 .error .input {
-  border-color: #c4392d;
-  box-shadow: 0 0 0 3px rgba(196, 57, 45, 0.1);
+  border-color: #C4392D;
+  box-shadow: 0 0 0 3px rgba(196, 57, 45, 0.08);
 
   &:focus {
-    border-color: #c4392d;
-    box-shadow: 0 0 0 3px rgba(196, 57, 45, 0.15);
+    border-color: #C4392D;
+    box-shadow: 
+      0 0 0 3px rgba(196, 57, 45, 0.12),
+      0 4px 16px rgba(196, 57, 45, 0.08);
   }
 }
 
 .error .labelActive {
-  color: #c4392d;
+  color: #C4392D;
 }
 
 // ============================================
-// SUCCESS STATE
+// SUCCESS STATE — Premium
 // ============================================
 
 .success .input {
-  border-color: #2d8a56;
+  border-color: #2D8A56;
 
   &:focus {
-    border-color: #2d8a56;
-    box-shadow: 0 0 0 3px rgba(45, 138, 86, 0.15);
+    border-color: #2D8A56;
+    box-shadow: 
+      0 0 0 3px rgba(45, 138, 86, 0.12),
+      0 4px 16px rgba(45, 138, 86, 0.08);
   }
 }
 
 .success .labelActive {
-  color: #2d8a56;
+  color: #2D8A56;
 }
 
 // ============================================
-// HELPER TEXTS
+// HELPER TEXTS — Premium
 // ============================================
 
 .errorText {
   font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 400;
-  color: #c4392d;
+  color: #C4392D;
 
   // Small Mobile
-  font-size: 11px;
+  font-size: 12px;
 
   // Medium Mobile+
   @media (min-width: 375px) {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
 .successText {
   font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 400;
-  color: #2d8a56;
+  color: #2D8A56;
 
-  font-size: 11px;
+  font-size: 12px;
 
   @media (min-width: 375px) {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
 .helperText {
   font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 400;
-  color: #5a6472;
+  color: #5A6472;
 
-  font-size: 11px;
+  font-size: 12px;
 
   @media (min-width: 375px) {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
