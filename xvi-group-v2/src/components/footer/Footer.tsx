@@ -3,6 +3,7 @@
 
 import { Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
+import { LOGO } from '../../branding/assets';
 
 // Brand icons removed from lucide-react — inline SVGs
 function LinkedinIcon({ size = 18 }: { size?: number }) {
@@ -48,7 +49,7 @@ export function Footer() {
         <div className={styles.brand}>
           <Link to="/" className={styles.logoLink}>
             <img
-              src="/logo/logo-horizontal-light.svg"
+              src={LOGO.horizontal.light}
               alt="XVI GROUP"
               className={styles.logo}
               height={32}

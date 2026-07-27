@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" fill="none">
-  <!-- XVI GROUP — Premium Horizontal Logo (Light Mode) -->
+  <!-- XVI GROUP — Premium Horizontal Logo (Dark Mode) -->
   
   <!-- XVI Mark with premium hexagon -->
   <path d="M40 8 L64 16 L64 40 L40 48 L16 40 L16 16 Z" 
-        stroke="#0A1628" 
+        stroke="#F8F9FA" 
         stroke-width="1.5" 
         fill="none"
         opacity="0.8"/>
   
   <!-- XVI Letters -->
-  <line x1="22" y1="18" x2="34" y2="38" stroke="#0A1628" stroke-width="2" stroke-linecap="round"/>
-  <line x1="34" y1="18" x2="22" y2="38" stroke="#0A1628" stroke-width="2" stroke-linecap="round"/>
-  <line x1="40" y1="18" x2="52" y2="38" stroke="#0A1628" stroke-width="2" stroke-linecap="round"/>
-  <line x1="52" y1="18" x2="40" y2="38" stroke="#0A1628" stroke-width="2" stroke-linecap="round"/>
-  <line x1="58" y1="18" x2="58" y2="38" stroke="#0A1628" stroke-width="2" stroke-linecap="round"/>
+  <line x1="22" y1="18" x2="34" y2="38" stroke="#F8F9FA" stroke-width="2" stroke-linecap="round"/>
+  <line x1="34" y1="18" x2="22" y2="38" stroke="#F8F9FA" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="18" x2="52" y2="38" stroke="#F8F9FA" stroke-width="2" stroke-linecap="round"/>
+  <line x1="52" y1="18" x2="40" y2="38" stroke="#F8F9FA" stroke-width="2" stroke-linecap="round"/>
+  <line x1="58" y1="18" x2="58" y2="38" stroke="#F8F9FA" stroke-width="2" stroke-linecap="round"/>
   
   <!-- Meridian Line -->
   <line x1="16" y1="44" x2="64" y2="44" stroke="#C9A96E" stroke-width="1" stroke-linecap="round"/>
@@ -22,12 +22,12 @@
   <circle cx="12" cy="28" r="1" fill="#C9A96E" opacity="0.5"/>
   <circle cx="68" cy="28" r="1" fill="#C9A96E" opacity="0.5"/>
   
-  <!-- GROUP text - Premium typography -->
+  <!-- GROUP text -->
   <text x="80" y="32" 
         font-family="Inter, -apple-system, sans-serif" 
         font-size="14" 
         font-weight="300" 
-        fill="#0A1628" 
+        fill="#F8F9FA" 
         letter-spacing="8">GROUP</text>
   
   <!-- Subtle tagline line -->

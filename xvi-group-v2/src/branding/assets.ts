@@ -10,21 +10,24 @@ import type { Language } from '../types';
 export const LOGO = {
   horizontal: {
     dark: '/logo/logo-horizontal.svg',
-    light: '/logo/logo-horizontal-light.svg',
+    light: '/logo/logo-horizontal-dark.svg',
     gold: '/logo/logo-horizontal-gold.svg',
   },
   vertical: {
-    dark: '/logo/logo-vertical.svg',
-    light: '/logo/logo-vertical-light.svg',
+    dark: '/logo/logo-square.svg',
+    light: '/logo/logo-square-dark.svg',
   },
   icon: {
-    dark: '/logo/logo-icon.svg',
-    light: '/logo/logo-icon-light.svg',
-    gold: '/logo/logo-icon-gold.svg',
+    dark: '/logo/logo-mark.svg',
+    light: '/logo/logo-mark-dark.svg',
+    gold: '/logo/logo-mark-gold.svg',
   },
-  favicon: '/favicon.svg',
-  appIcon: '/logo/app-icon.svg',
-  loader: '/logo/loader.svg',
+  favicon: {
+    dark: '/logo/favicon.svg',
+    light: '/logo/favicon-light.svg',
+  },
+  appIcon: '/logo/logo-square.svg',
+  loader: '/logo/logo-mark.svg',
 } as const;
 
 // ============================================

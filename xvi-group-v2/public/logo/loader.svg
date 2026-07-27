@@ -1,36 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <!-- LOADER — Geometric draw-in animation concept -->
-  <style>
-    .loader-stroke {
-      stroke: #C9A96E;
-      stroke-width: 1.5;
-      stroke-linecap: square;
-      fill: none;
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-    }
-    .loader-stroke:nth-child(1) { animation: drawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0s forwards; }
-    .loader-stroke:nth-child(2) { animation: drawLine 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
-    .loader-stroke:nth-child(3) { animation: drawLine 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
-    .loader-dot {
-      fill: #C9A96E;
-      opacity: 0;
-      animation: appear 0.3s ease-out 1s forwards;
-    }
-    @keyframes drawLine {
-      to { stroke-dashoffset: 0; }
-    }
-    @keyframes appear {
-      to { opacity: 1; }
-    }
-  </style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- XVI GROUP — Premium Loading Animation -->
   
-  <!-- Diamond draws in -->
-  <path class="loader-stroke" d="M32 4 L60 32 L32 60 L4 32 Z"/>
-  <!-- V draws in -->
-  <path class="loader-stroke" d="M32 16 L44 32 L32 48"/>
-  <!-- I draws in -->
-  <line class="loader-stroke" x1="32" y1="8" x2="32" y2="56"/>
-  <!-- Center dot appears -->
-  <circle class="loader-dot" cx="32" cy="32" r="2.5"/>
+  <!-- Hexagon frame with rotation -->
+  <path d="M60 8 L104 32 L104 88 L60 112 L16 88 L16 32 Z" 
+        stroke="#C9A96E" 
+        stroke-width="1.5" 
+        fill="none"
+        opacity="0.3">
+    <animate attributeName="stroke-dasharray" values="0,400;400,0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Inner hexagon -->
+  <path d="M60 20 L96 40 L96 80 L60 100 L24 80 L24 40 Z" 
+        stroke="#0A1628" 
+        stroke-width="1" 
+        fill="none"
+        opacity="0.2">
+    <animate attributeName="stroke-dasharray" values="0,300;300,0" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+  </path>
+  
+  <!-- XVI Mark - Fading in -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+    
+    <line x1="32" y1="40" x2="52" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="52" y1="40" x2="32" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="64" y1="40" x2="84" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="84" y1="40" x2="64" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="96" y1="40" x2="96" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Meridian Line - Drawing -->
+  <line x1="28" y1="92" x2="92" y2="92" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round">
+    <animate attributeName="stroke-dasharray" values="0,64;64,0" dur="1.5s" repeatCount="indefinite" begin="0.8s"/>
+  </line>
+  
+  <!-- Pulsing dots -->
+  <circle cx="20" cy="60" r="1.5" fill="#C9A96E" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="100" cy="60" r="1.5" fill="#C9A96E" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+  <circle cx="60" cy="24" r="1.5" fill="#C9A96E" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.5s" repeatCount="indefinite" begin="1s"/>
+  </circle>
 </svg>

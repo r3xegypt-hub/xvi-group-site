@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { NAVIGATION } from '../../config';
+import { LOGO } from '../../branding/assets';
 import { Container } from '../layout/Container';
 import { Button } from '../buttons/Button';
 import { LanguageToggle } from './LanguageToggle';
@@ -76,7 +77,7 @@ export function Navigation() {
             {/* Logo */}
             <Link to="/" className={styles.logo} aria-label="XVI GROUP Home">
               <img
-                src="/logo/logo-horizontal.svg"
+                src={LOGO.horizontal.dark}
                 alt="XVI GROUP"
                 className={styles.logoImage}
                 height={32}
