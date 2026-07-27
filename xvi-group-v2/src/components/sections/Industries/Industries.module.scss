@@ -1,54 +1,71 @@
-// XVI GROUP — Industries Section Styles
+// XVI GROUP — Premium Industries Section Styles
+// Luxury bento grid with premium effects
 
 @import '../../../styles/mixins/devices';
 
 .header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 72px;
 
   @include large-mobile {
-    margin-bottom: 40px;
+    margin-bottom: 48px;
   }
 }
 
 .overline {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #C9A96E;
-  margin: 0 0 16px;
+  margin: 0 0 20px;
+  
+  // Premium accent line
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #C9A96E);
+    margin-right: 12px;
+    vertical-align: middle;
+  }
 }
 
 .title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: #0A1628;
-  margin: 0 0 16px;
-  line-height: 1.1;
+  margin: 0 0 20px;
+  line-height: 1.05;
 }
 
 .description {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   font-weight: 400;
-  line-height: 1.618;
+  line-height: 1.7;
   color: #5A6472;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 640px;
 }
+
+// ============================================
+// BENTO GRID — Premium Layout
+// ============================================
 
 .bentoGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto;
-  gap: 20px;
+  gap: 24px;
 
   @include tablet-portrait {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   @include large-mobile {
@@ -57,20 +74,51 @@
   }
 }
 
-.bentoCard {
-  padding: 40px;
-  border: 1px solid rgba(10, 22, 40, 0.06);
-  border-radius: 12px;
-  background: #FFFFFF;
-  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+// ============================================
+// BENTO CARD — Premium Glass Morphism
+// ============================================
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(10, 22, 40, 0.1);
+.bentoCard {
+  padding: 48px;
+  border: 1px solid rgba(201, 169, 110, 0.1);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.95) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  
+  // Premium top accent line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  // Hover effects
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 16px 48px rgba(10, 22, 40, 0.12),
+        0 4px 16px rgba(10, 22, 40, 0.08);
+      border-color: rgba(201, 169, 110, 0.2);
+      
+      &::before {
+        opacity: 1;
+      }
+    }
   }
 
   @include large-mobile {
-    padding: 24px;
+    padding: 32px;
   }
 }
 
@@ -81,8 +129,8 @@
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto auto;
-    column-gap: 32px;
-    row-gap: 4px;
+    column-gap: 40px;
+    row-gap: 8px;
 
     .cardIcon {
       grid-row: span 3;
@@ -100,10 +148,27 @@
 }
 
 .cardIcon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 20px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 24px;
   color: #C9A96E;
+  position: relative;
+  
+  // Premium glow effect
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 400ms ease;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+
+  .bentoCard:hover &::after {
+    opacity: 1;
+  }
 
   svg {
     width: 100%;
@@ -111,25 +176,26 @@
   }
 
   @include large-mobile {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 16px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
   }
 }
 
 .cardTitle {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   font-weight: 700;
   color: #0A1628;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
 }
 
 .cardDescription {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 400;
-  line-height: 1.618;
+  line-height: 1.7;
   color: #5A6472;
   margin: 0;
 }
