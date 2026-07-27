@@ -1,0 +1,261 @@
+// XVI GROUP — Section SCSS Module (v2)
+// 7 device categories with intentional vertical rhythm
+
+.section {
+  // Small Mobile: Compact padding
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  // Tablet Landscape
+  @media (min-width: 1024px) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  // Laptop
+  @media (min-width: 1366px) {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+
+  // Desktop
+  @media (min-width: 1601px) {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+.narrow {
+  .header,
+  .content {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// ============================================
+// VARIANTS
+// ============================================
+
+.default {
+  background-color: #f4f5f7;
+}
+
+.warm {
+  background-color: #eceef2;
+}
+
+.dark {
+  background-color: #0a1628;
+  color: #ffffff;
+
+  .eyebrow {
+    color: #c9a96e;
+  }
+
+  .title {
+    color: #ffffff;
+  }
+
+  .description {
+    color: #c8cdd5;
+  }
+}
+
+.gold {
+  background-color: rgba(201, 169, 110, 0.04);
+}
+
+// ============================================
+// HEADER — 7-device typography
+// ============================================
+
+.header {
+  // Small Mobile
+  margin-bottom: 24px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    margin-bottom: 28px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    margin-bottom: 32px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  // Tablet Landscape
+  @media (min-width: 1024px) {
+    margin-bottom: 48px;
+  }
+
+  // Laptop+
+  @media (min-width: 1366px) {
+    margin-bottom: 56px;
+  }
+
+  // Desktop
+  @media (min-width: 1601px) {
+    margin-bottom: 64px;
+  }
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+// ============================================
+// EYEBROW — Per-device
+// ============================================
+
+.eyebrow {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c9a96e;
+
+  // Small Mobile
+  font-size: 0.625rem;
+  margin-bottom: 8px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    font-size: 0.6875rem;
+    margin-bottom: 10px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+  }
+
+  // Tablet Landscape+
+  @media (min-width: 1024px) {
+    margin-bottom: 16px;
+  }
+}
+
+// ============================================
+// TITLE — Per-device
+// ============================================
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  color: #0a1628;
+
+  // Small Mobile: Compact headline
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    font-size: 2.25rem;
+    margin-bottom: 12px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+    margin-bottom: 14px;
+  }
+
+  // Tablet Landscape
+  @media (min-width: 1024px) {
+    font-size: 2.625rem;
+    margin-bottom: 16px;
+  }
+
+  // Laptop
+  @media (min-width: 1366px) {
+    font-size: 2.75rem;
+  }
+
+  // Desktop
+  @media (min-width: 1601px) {
+    font-size: 3rem;
+    letter-spacing: -0.02em;
+  }
+}
+
+// ============================================
+// DESCRIPTION — Per-device
+// ============================================
+
+.description {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.618;
+  color: #5a6472;
+
+  // Small Mobile
+  font-size: 0.9375rem;
+  max-width: 100%;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    font-size: 1rem;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    font-size: 1.0625rem;
+    max-width: 480px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    font-size: 1.0625rem;
+    max-width: 540px;
+  }
+
+  // Tablet Landscape
+  @media (min-width: 1024px) {
+    font-size: 1.125rem;
+    max-width: 600px;
+  }
+}
+
+.align-center .description {
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 2800" width="768" height="2800">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+      .section-label { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; fill: #C9A96E; }
+      .section-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 28px; fill: #0A1628; }
+      .section-desc { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 15px; fill: #5A6472; }
+    </style>
+  </defs>
+  
+  <!-- HERO -->
+  <rect width="768" height="700" fill="#FAFAF8"/>
+  <g transform="translate(48, 160)">
+    <text class="section-label">DECISION ARCHITECTURE</text>
+    <text font-family="Playfair Display" font-weight="700" font-size="40" fill="#0A1628" y="48">Strategy. Intelligence.</text>
+    <text font-family="Playfair Display" font-weight="700" font-size="40" fill="#0A1628" y="100">Operational Mastery.</text>
+    <text font-family="Inter" font-weight="400" font-size="16" fill="#5A6472" y="148">A world-class advisory enterprise.</text>
+    <rect y="184" width="160" height="48" rx="8" fill="#C9A96E"/>
+    <text x="80" y="214" text-anchor="middle" font-family="Inter" font-weight="600" font-size="16" fill="#0A1628">Get Started →</text>
+  </g>
+  
+  <!-- SERVICES (2-column) -->
+  <rect y="700" width="768" height="500" fill="#F4F5F7"/>
+  <g transform="translate(48, 748)">
+    <text class="section-label">OUR SERVICES</text>
+    <text class="section-title" y="28">Decision Architecture</text>
+  </g>
+  <g transform="translate(48, 840)">
+    <rect width="336" height="280" rx="12" fill="#FFFFFF"/>
+    <rect x="384" width="336" height="280" rx="12" fill="#FFFFFF"/>
+    <text x="24" y="48" font-family="Playfair Display" font-weight="600" font-size="20" fill="#0A1628">AI Transformation</text>
+    <text x="408" y="48" font-family="Playfair Display" font-weight="600" font-size="20" fill="#0A1628">Business Strategy</text>
+  </g>
+  
+  <!-- ABOUT -->
+  <rect y="1200" width="768" height="400" fill="#ECEEF2"/>
+  <g transform="translate(48, 1248)">
+    <text class="section-label">ABOUT US</text>
+    <text class="section-title" y="28">Building Trust</text>
+    <text class="section-desc" y="60" max-width="600">We are a strategy and technology advisory.</text>
+  </g>
+  
+  <!-- FOOTER -->
+  <rect y="2400" width="768" height="400" fill="#0A1628"/>
+  <g transform="translate(48, 2448)">
+    <text font-family="Playfair Display" font-weight="700" font-size="28" fill="#FFFFFF">XVI GROUP</text>
+    <text font-family="Playfair Display" font-weight="700" font-size="28" fill="#C9A96E" y="40">Strategy. Intelligence.</text>
+  </g>
+</svg>

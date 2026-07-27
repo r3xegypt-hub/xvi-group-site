@@ -1,0 +1,150 @@
+// XVI GROUP — Insights Section Styles
+
+@import '../../../styles/mixins/devices';
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+
+  @include large-mobile {
+    margin-bottom: 40px;
+  }
+}
+
+.overline {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin: 0 0 16px;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0A1628;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.description {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.618;
+  color: #5A6472;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @include laptop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include tablet-portrait {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @include large-mobile {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  border: 1px solid rgba(10, 22, 40, 0.06);
+  border-radius: 12px;
+  background: #FFFFFF;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(10, 22, 40, 0.1);
+  }
+
+  @include large-mobile {
+    padding: 24px;
+  }
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cardCategory {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  background: rgba(201, 169, 110, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.cardDate {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: #5A6472;
+}
+
+.cardTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0A1628;
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+
+.cardExcerpt {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.618;
+  color: #5A6472;
+  margin: 0 0 20px;
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.readTime {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: #5A6472;
+}
+
+.readMore {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #C9A96E;
+  transition: letter-spacing 200ms ease;
+
+  .card:hover & {
+    letter-spacing: 0.04em;
+  }
+}

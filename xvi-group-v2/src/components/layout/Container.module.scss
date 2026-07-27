@@ -1,0 +1,85 @@
+// XVI GROUP — Container SCSS Module (v2)
+// 7 device categories, each with intentional spacing
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  // Small Mobile (320–374): Tight, content-first
+  padding-left: 16px;
+  padding-right: 16px;
+
+  // Medium Mobile (375–428): Slightly more breathing room
+  @media (min-width: 375px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  // Large Mobile (429–767): Standard mobile spacing
+  @media (min-width: 429px) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  // Tablet Portrait (768–1023): Wider padding, constrained max-width
+  @media (min-width: 768px) {
+    padding-left: 32px;
+    padding-right: 32px;
+    max-width: 720px;
+  }
+
+  // Tablet Landscape (1024–1365): More width, generous padding
+  @media (min-width: 1024px) {
+    padding-left: 40px;
+    padding-right: 40px;
+    max-width: 960px;
+  }
+
+  // Laptop (1366–1600): Full container width
+  @media (min-width: 1366px) {
+    padding-left: 48px;
+    padding-right: 48px;
+    max-width: 1200px;
+  }
+
+  // Desktop (1601+): Maximum spacing
+  @media (min-width: 1601px) {
+    padding-left: 64px;
+    padding-right: 64px;
+    max-width: 1200px;
+  }
+}
+
+.narrow {
+  // Small devices: narrower padding
+  @media (max-width: 767px) {
+    max-width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 600px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 720px;
+  }
+}
+
+.wide {
+  @media (min-width: 768px) {
+    max-width: 1024px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 1200px;
+  }
+
+  @media (min-width: 1366px) {
+    max-width: 1440px;
+  }
+
+  @media (min-width: 1601px) {
+    max-width: 1600px;
+  }
+}

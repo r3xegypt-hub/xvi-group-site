@@ -1,0 +1,135 @@
+// XVI GROUP — Testimonials Section Styles
+
+@import '../../../styles/mixins/devices';
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+
+  @include large-mobile {
+    margin-bottom: 40px;
+  }
+}
+
+.overline {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin: 0 0 16px;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0A1628;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @include laptop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include tablet-portrait {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @include large-mobile {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.quote {
+  position: relative;
+  padding: 32px;
+  border: 1px solid rgba(10, 22, 40, 0.06);
+  border-radius: 12px;
+  background: #FFFFFF;
+  margin: 0;
+
+  @include large-mobile {
+    padding: 24px;
+  }
+}
+
+.quoteMark {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 4rem;
+  color: #C9A96E;
+  opacity: 0.3;
+  line-height: 0;
+  display: block;
+  margin-bottom: 16px;
+
+  @include large-mobile {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+}
+
+.quoteText {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.618;
+  color: #0A1628;
+  margin: 0 0 24px;
+
+  @include large-mobile {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authorAvatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.authorName {
+  display: block;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0A1628;
+  font-style: normal;
+}
+
+.authorRole {
+  display: block;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.8125rem;
+  color: #5A6472;
+}
+
+.authorCompany {
+  display: block;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.8125rem;
+  color: #C9A96E;
+}

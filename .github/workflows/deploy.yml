@@ -23,12 +23,16 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: xvi-group-v2/package-lock.json
       - run: npm ci
+        working-directory: xvi-group-v2
       - run: npm run build
+        working-directory: xvi-group-v2
       - run: cp dist/index.html dist/404.html
+        working-directory: xvi-group-v2
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: xvi-group-v2/dist
 
   deploy:
     needs: build

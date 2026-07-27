@@ -1,0 +1,476 @@
+// XVI GROUP — Footer SCSS Module (v2)
+// 7 device categories with per-device layout and typography
+
+.footer {
+  background-color: #0a1628;
+  color: #ffffff;
+
+  // Small Mobile: Compact footer
+  padding-top: 40px;
+  padding-bottom: 24px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    padding-top: 48px;
+    padding-bottom: 28px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    padding-top: 56px;
+    padding-bottom: 32px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    padding-top: 72px;
+    padding-bottom: 36px;
+  }
+
+  // Tablet Landscape
+  @media (min-width: 1024px) {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+
+  // Laptop
+  @media (min-width: 1366px) {
+    padding-top: 96px;
+    padding-bottom: 48px;
+  }
+
+  // Desktop
+  @media (min-width: 1601px) {
+    padding-top: 120px;
+    padding-bottom: 56px;
+  }
+}
+
+.rtl {
+  direction: rtl;
+}
+
+// ============================================
+// BRAND SECTION — Per-device
+// ============================================
+
+.brand {
+  // Small Mobile
+  margin-bottom: 32px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    margin-bottom: 36px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    margin-bottom: 40px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    margin-bottom: 48px;
+  }
+
+  // Laptop+
+  @media (min-width: 1366px) {
+    margin-bottom: 56px;
+  }
+
+  // Desktop
+  @media (min-width: 1601px) {
+    margin-bottom: 64px;
+  }
+}
+
+.logoLink {
+  display: inline-block;
+  margin-bottom: 12px;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    margin-bottom: 14px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    margin-bottom: 16px;
+  }
+}
+
+.logo {
+  width: auto;
+  filter: brightness(0) invert(1);
+
+  // Small Mobile
+  height: 24px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    height: 26px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    height: 28px;
+  }
+
+  // Tablet Portrait+
+  @media (min-width: 768px) {
+    height: 32px;
+  }
+}
+
+.tagline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  color: #c8cdd5;
+  line-height: 1.4;
+
+  // Small Mobile
+  font-size: 1rem;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    font-size: 1.125rem;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    font-size: 1.25rem;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    font-size: 1.375rem;
+  }
+
+  // Laptop+
+  @media (min-width: 1366px) {
+    font-size: 1.5rem;
+  }
+}
+
+// ============================================
+// COLUMNS — Per-device grid
+// ============================================
+
+.columns {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 32px;
+
+  // Small Mobile: 1 column
+  grid-template-columns: 1fr;
+
+  // Medium Mobile: 2 columns
+  @media (min-width: 375px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-bottom: 36px;
+  }
+
+  // Large Mobile: 2 columns
+  // Tablet Portrait: 2 columns
+  // Tablet Landscape: 3 columns
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  // Laptop: 4 columns
+  @media (min-width: 1366px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+}
+
+.columnTitle {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin-bottom: 12px;
+
+  // Small Mobile
+  font-size: 0.6875rem;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    font-size: 0.75rem;
+    margin-bottom: 14px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    font-size: 0.75rem;
+    margin-bottom: 16px;
+  }
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    gap: 10px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    gap: 12px;
+  }
+}
+
+.link {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #c8cdd5;
+  text-decoration: none;
+  transition: color 150ms;
+
+  // Small Mobile
+  font-size: 0.8125rem;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    font-size: 0.875rem;
+  }
+
+  // Touch target for mobile
+  display: inline-block;
+  padding: 2px 0;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #c9a96e;
+    }
+  }
+}
+
+// ============================================
+// DIVIDER
+// ============================================
+
+.divider {
+  margin-bottom: 24px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    margin-bottom: 28px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    margin-bottom: 32px;
+  }
+}
+
+// ============================================
+// BOTTOM — Per-device
+// ============================================
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    gap: 24px;
+  }
+
+  // Tablet Portrait: Row layout
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  // Laptop+
+  @media (min-width: 1366px) {
+    gap: 24px;
+  }
+}
+
+.copyright {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    gap: 10px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    gap: 12px;
+  }
+
+  // Tablet Portrait: Row
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  p {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 400;
+    color: #c8cdd5;
+    margin: 0;
+
+    // Small Mobile
+    font-size: 0.75rem;
+
+    // Medium Mobile+
+    @media (min-width: 375px) {
+      font-size: 0.8125rem;
+    }
+
+    // Large Mobile+
+    @media (min-width: 429px) {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.legalLinks {
+  display: flex;
+  gap: 12px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    gap: 14px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    gap: 16px;
+  }
+}
+
+.legalLink {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #5a6472;
+  text-decoration: none;
+  transition: color 150ms;
+
+  // Small Mobile
+  font-size: 0.75rem;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    font-size: 0.8125rem;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    font-size: 0.875rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #c9a96e;
+    }
+  }
+}
+
+.locations {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #c8cdd5;
+
+  // Small Mobile
+  font-size: 0.75rem;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    font-size: 0.8125rem;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    font-size: 0.875rem;
+  }
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.separator {
+  color: #5a6472;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    gap: 14px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    gap: 16px;
+  }
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Small Mobile: Minimum touch target
+  width: 40px;
+  height: 40px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    width: 42px;
+    height: 42px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    width: 44px;
+    height: 44px;
+  }
+
+  color: #c8cdd5;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 150ms;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #c9a96e;
+      background-color: rgba(201, 169, 110, 0.08);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #c9a96e;
+    outline-offset: 2px;
+  }
+}

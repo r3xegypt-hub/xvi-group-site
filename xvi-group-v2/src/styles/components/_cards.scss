@@ -1,0 +1,468 @@
+// XVI GROUP — Card Components
+// All card variants and states
+
+// ============================================
+// BASE CARD
+// ============================================
+
+.xvi-card {
+  background-color: $color-card;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  transition: all $duration-slow $ease-out-quint;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-lg;
+    border-color: $color-border-hover;
+  }
+
+  &:focus-within {
+    outline: 2px solid $color-gold;
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// SERVICE CARD
+// ============================================
+
+.xvi-card--service {
+  position: relative;
+  padding: $space-10;
+
+  // Gold accent bar
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: $color-gold;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $duration-slow $ease-out-expo;
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+  }
+
+  .xvi-card__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: $space-6;
+    color: $color-gold;
+    transition: transform $duration-base $ease-spring;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      stroke-width: 1.5;
+    }
+  }
+
+  &:hover .xvi-card__icon {
+    transform: scale(1.1);
+  }
+
+  .xvi-card__title {
+    @include heading-h5;
+    margin-bottom: $space-4;
+  }
+
+  .xvi-card__description {
+    @include body-base;
+    margin-bottom: $space-6;
+  }
+
+  .xvi-card__link {
+    @include button-text;
+    color: $color-gold;
+    font-size: $font-size-xs;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+
+    &::after {
+      content: '→';
+      transition: transform $duration-base $ease-out-expo;
+    }
+
+    &:hover::after {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (max-width: $breakpoint-tablet - 1) {
+    padding: $space-6;
+  }
+}
+
+// ============================================
+// CASE STUDY CARD
+// ============================================
+
+.xvi-card--case-study {
+  .xvi-card__image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $duration-slow $ease-out-quint;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba($color-navy, 0.4) 0%,
+        transparent 50%
+      );
+      opacity: 0;
+      transition: opacity $duration-slow $ease-out-expo;
+    }
+  }
+
+  &:hover .xvi-card__image img {
+    transform: scale(1.05);
+  }
+
+  &:hover .xvi-card__image::after {
+    opacity: 1;
+  }
+
+  .xvi-card__content {
+    padding: $space-8;
+  }
+
+  .xvi-card__tag {
+    @include overline;
+    margin-bottom: $space-4;
+    display: inline-block;
+  }
+
+  .xvi-card__title {
+    @include heading-h5;
+    margin-bottom: $space-3;
+  }
+
+  .xvi-card__excerpt {
+    @include body-base;
+    margin-bottom: $space-6;
+  }
+
+  .xvi-card__stats {
+    display: flex;
+    gap: $space-6;
+    padding-top: $space-6;
+    border-top: 1px solid $color-border;
+
+    .xvi-card__stat {
+      text-align: center;
+
+      &-number {
+        @include heading-h5;
+        color: $color-gold;
+        font-size: $font-size-xl;
+      }
+
+      &-label {
+        @include body-sm;
+        color: $color-grey;
+      }
+    }
+  }
+}
+
+// ============================================
+// INSIGHT CARD
+// ============================================
+
+.xvi-card--insight {
+  .xvi-card__image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $duration-slow $ease-out-quint;
+    }
+  }
+
+  &:hover .xvi-card__image img {
+    transform: scale(1.05);
+  }
+
+  .xvi-card__content {
+    padding: $space-8;
+  }
+
+  .xvi-card__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-4;
+
+    .xvi-card__category {
+      @include overline;
+      font-size: $font-size-xs;
+    }
+
+    .xvi-card__dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: $color-grey;
+    }
+
+    .xvi-card__date {
+      @include body-sm;
+      color: $color-grey;
+    }
+  }
+
+  .xvi-card__title {
+    @include heading-h5;
+    font-size: $font-size-lg;
+    margin-bottom: $space-3;
+  }
+
+  .xvi-card__excerpt {
+    @include body-base;
+    margin-bottom: $space-6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .xvi-card__author {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    &-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    &-info {
+      @include body-sm;
+    }
+
+    &-name {
+      font-weight: $font-weight-medium;
+      color: $color-navy;
+    }
+
+    &-read-time {
+      color: $color-grey;
+    }
+  }
+}
+
+// ============================================
+// STAT CARD
+// ============================================
+
+.xvi-card--stat {
+  background-color: $color-navy;
+  border-color: transparent;
+  padding: $space-10;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+  }
+
+  .xvi-card__number {
+    @include heading-h2;
+    color: $color-gold;
+    font-size: $font-size-4xl;
+    margin-bottom: $space-2;
+    font-family: $font-body;
+    font-weight: $font-weight-bold;
+  }
+
+  .xvi-card__suffix {
+    color: $color-gold;
+    font-size: $font-size-2xl;
+  }
+
+  .xvi-card__label {
+    @include body-base;
+    color: $color-grey;
+  }
+}
+
+// ============================================
+// TESTIMONIAL CARD
+// ============================================
+
+.xvi-card--testimonial {
+  background-color: $color-warm;
+  padding: $space-10;
+  position: relative;
+
+  &::before {
+    content: '"';
+    position: absolute;
+    top: $space-6;
+    left: $space-8;
+    font-family: $font-heading;
+    font-size: 6rem;
+    line-height: 1;
+    color: rgba($color-gold, 0.2);
+    pointer-events: none;
+  }
+
+  .xvi-card__quote {
+    @include body-lg;
+    font-style: italic;
+    color: $color-navy;
+    margin-bottom: $space-8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .xvi-card__author {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    padding-top: $space-6;
+    border-top: 1px solid $color-border;
+
+    &-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    &-name {
+      @include heading-h6;
+      font-size: $font-size-base;
+      margin-bottom: $space-1;
+    }
+
+    &-title {
+      @include body-sm;
+      color: $color-grey;
+    }
+  }
+}
+
+// ============================================
+// INDUSTRY CARD
+// ============================================
+
+.xvi-card--industry {
+  padding: $space-8;
+  text-align: center;
+
+  .xvi-card__icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto $space-6;
+    color: $color-navy;
+    transition: color $duration-base $ease-out-expo;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      stroke-width: 1.5;
+    }
+  }
+
+  &:hover .xvi-card__icon {
+    color: $color-gold;
+  }
+
+  .xvi-card__title {
+    @include heading-h6;
+    margin-bottom: $space-3;
+  }
+
+  .xvi-card__description {
+    @include body-sm;
+  }
+}
+
+// ============================================
+// TEAM CARD
+// ============================================
+
+.xvi-card--team {
+  .xvi-card__image {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $duration-slow $ease-out-quint;
+    }
+  }
+
+  &:hover .xvi-card__image img {
+    transform: scale(1.03);
+  }
+
+  .xvi-card__content {
+    padding: $space-6;
+  }
+
+  .xvi-card__name {
+    @include heading-h6;
+    margin-bottom: $space-1;
+  }
+
+  .xvi-card__role {
+    @include body-sm;
+    color: $color-gold;
+  }
+}
+
+// ============================================
+// CARD GRID LAYOUTS
+// ============================================
+
+.xvi-card-grid {
+  @include grid;
+
+  &--2 {
+    @include grid-columns(2);
+  }
+
+  &--3 {
+    @include grid-columns(3);
+  }
+
+  &--4 {
+    @include grid-columns(4);
+  }
+
+  @media (max-width: $breakpoint-tablet - 1) {
+    @include grid-columns(1);
+  }
+
+  @media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop - 1) {
+    @include grid-columns(2);
+  }
+}

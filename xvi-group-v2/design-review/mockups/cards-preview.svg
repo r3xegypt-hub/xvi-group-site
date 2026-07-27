@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <rect width="1200" height="700" fill="#F4F5F7"/>
+
+  <text x="600" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#5A6472" letter-spacing="0.1em">CARD SYSTEM</text>
+
+  <!-- ===== SERVICE CARD ===== -->
+  <text x="80" y="85" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">SERVICE CARD</text>
+
+  <rect x="80" y="100" width="320" height="240" rx="12" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <!-- Diamond icon -->
+  <path d="M120 140 L140 120 L160 140 L140 160 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <path d="M130 140 L140 130 L150 140 L140 150 Z" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.5"/>
+  <!-- Title -->
+  <text x="120" y="195" font-family="Playfair Display, Georgia, serif" font-size="18" font-weight="700" fill="#0A1628">Business Consulting</text>
+  <!-- Description -->
+  <text x="120" y="220" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">Strategic advisory that transforms</text>
+  <text x="120" y="238" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">organizational performance.</text>
+  <!-- Link -->
+  <text x="120" y="290" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#C9A96E">Learn More →</text>
+
+  <!-- ===== STAT CARD ===== -->
+  <text x="440" y="85" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">STAT CARD</text>
+
+  <rect x="440" y="100" width="320" height="240" rx="12" fill="#0A1628"/>
+  <text x="600" y="185" text-anchor="middle" font-family="Inter, sans-serif" font-size="48" font-weight="700" fill="#C9A96E">200+</text>
+  <text x="600" y="215" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#C8CDD5">Projects Delivered</text>
+  <!-- Subtle diamond -->
+  <path d="M600 250 L610 240 L620 250 L610 260 Z" stroke="rgba(201,169,110,0.2)" stroke-width="1" fill="none"/>
+
+  <!-- ===== TESTIMONIAL CARD ===== -->
+  <text x="800" y="85" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">TESTIMONIAL CARD</text>
+
+  <rect x="800" y="100" width="320" height="240" rx="12" fill="#FAFAF8" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <!-- Quote mark -->
+  <text x="820" y="145" font-family="Playfair Display, Georgia, serif" font-size="48" fill="rgba(201,169,110,0.25)">"</text>
+  <!-- Quote text -->
+  <text x="830" y="180" font-family="Inter, sans-serif" font-size="13" font-style="italic" fill="#0A1628">XVI GROUP transformed how we</text>
+  <text x="830" y="198" font-family="Inter, sans-serif" font-size="13" font-style="italic" fill="#0A1628">think about technology and strategy.</text>
+  <!-- Author -->
+  <line x1="830" y1="230" x2="1100" y2="230" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <text x="830" y="255" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#0A1628">Sarah Al-Mansouri</text>
+  <text x="830" y="273" font-family="Inter, sans-serif" font-size="12" fill="#5A6472">CTO, Emirates Digital Holdings</text>
+
+  <!-- ===== INSIGHT CARD ===== -->
+  <text x="80" y="375" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">INSIGHT CARD</text>
+
+  <rect x="80" y="390" width="320" height="260" rx="12" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <!-- Category badge -->
+  <rect x="100" y="410" width="90" height="22" rx="4" fill="rgba(201,169,110,0.08)"/>
+  <text x="145" y="425" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#C9A96E" letter-spacing="0.04em">AI STRATEGY</text>
+  <text x="290" y="425" font-family="Inter, sans-serif" font-size="11" fill="#5A6472">Jan 2026</text>
+  <!-- Title -->
+  <text x="100" y="465" font-family="Playfair Display, Georgia, serif" font-size="16" font-weight="700" fill="#0A1628">The Sovereign AI Imperative:</text>
+  <text x="100" y="485" font-family="Playfair Display, Georgia, serif" font-size="16" font-weight="700" fill="#0A1628">Why Enterprises Must Own</text>
+  <text x="100" y="505" font-family="Playfair Display, Georgia, serif" font-size="16" font-weight="700" fill="#0A1628">Their Intelligence</text>
+  <!-- Excerpt -->
+  <text x="100" y="535" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">As AI reshapes every industry, the</text>
+  <text x="100" y="553" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">enterprises that control their own AI</text>
+  <text x="100" y="571" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">infrastructure will define the next decade.</text>
+  <!-- Footer -->
+  <text x="100" y="615" font-family="Inter, sans-serif" font-size="12" fill="#5A6472">8 min read</text>
+  <text x="310" y="615" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#C9A96E">Read More →</text>
+
+  <!-- ===== INDUSTRY CARD ===== -->
+  <text x="440" y="375" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">INDUSTRY CARD</text>
+
+  <rect x="440" y="390" width="320" height="260" rx="12" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <!-- Hexagon icon -->
+  <path d="M600 430 L630 445 L630 475 L600 490 L570 475 L570 445 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="600" y="530" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="18" font-weight="700" fill="#0A1628">Energy</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">Energy transition strategy,</text>
+  <text x="600" y="573" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">sustainability advisory.</text>
+
+  <!-- ===== GLASS CARD ===== -->
+  <text x="800" y="375" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">GLASS CARD</text>
+
+  <rect x="800" y="390" width="320" height="260" rx="12" fill="rgba(255,255,255,0.72)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+  <!-- Glass shimmer line -->
+  <line x1="800" y1="390" x2="1120" y2="390" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+  <text x="820" y="435" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#C9A96E" letter-spacing="0.12em">NAVIGATION</text>
+  <text x="820" y="465" font-family="Playfair Display, Georgia, serif" font-size="18" font-weight="700" fill="#0A1628">Glass Morphism</text>
+  <text x="820" y="490" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">Backdrop blur with frosted glass effect.</text>
+  <text x="820" y="508" font-family="Inter, sans-serif" font-size="13" fill="#5A6472">Used in navigation and floating elements.</text>
+  <text x="820" y="540" font-family="Inter, sans-serif" font-size="10" fill="#9AA3B0">backdrop-filter: blur(20px) saturate(180%)</text>
+</svg>

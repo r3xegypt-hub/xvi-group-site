@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&amp;display=swap');
+      .btn-text { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 16px; }
+      .btn-label { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    </style>
+    <filter id="btnShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0A1628" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="400" fill="#F4F5F7"/>
+  
+  <!-- Section label -->
+  <text class="btn-label" fill="#C9A96E" x="48" y="48">BUTTON SYSTEM</text>
+  
+  <!-- Primary Button -->
+  <g transform="translate(48, 80)">
+    <text class="btn-label" fill="#5A6472">Primary</text>
+    <g transform="translate(0, 24)">
+      <rect width="160" height="48" rx="8" fill="#C9A96E" filter="url(#btnShadow)"/>
+      <text x="80" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Get Started →</text>
+    </g>
+  </g>
+  
+  <!-- Secondary Button -->
+  <g transform="translate(248, 80)">
+    <text class="btn-label" fill="#5A6472">Secondary</text>
+    <g transform="translate(0, 24)">
+      <rect width="160" height="48" rx="8" fill="transparent" stroke="#C8CDD5" stroke-width="1"/>
+      <text x="80" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Learn More</text>
+    </g>
+  </g>
+  
+  <!-- Ghost Button -->
+  <g transform="translate(448, 80)">
+    <text class="btn-label" fill="#5A6472">Ghost</text>
+    <g transform="translate(0, 24)">
+      <text x="0" y="30" class="btn-text" fill="#C9A96E">Our Approach →</text>
+    </g>
+  </g>
+  
+  <!-- Icon Button -->
+  <g transform="translate(648, 80)">
+    <text class="btn-label" fill="#5A6472">Icon</text>
+    <g transform="translate(0, 24)">
+      <rect width="48" height="48" rx="8" fill="transparent" stroke="#C8CDD5" stroke-width="1"/>
+      <path d="M20 16 L28 24 L20 32" fill="none" stroke="#0A1628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+  
+  <!-- Sizes -->
+  <g transform="translate(48, 200)">
+    <text class="btn-label" fill="#5A6472">Sizes</text>
+    
+    <!-- Large -->
+    <g transform="translate(0, 24)">
+      <rect width="160" height="56" rx="8" fill="#C9A96E"/>
+      <text x="80" y="35" text-anchor="middle" class="btn-text" fill="#0A1628">Large (56px)</text>
+    </g>
+    
+    <!-- Default -->
+    <g transform="translate(200, 32)">
+      <rect width="160" height="48" rx="8" fill="#C9A96E"/>
+      <text x="80" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Default (48px)</text>
+    </g>
+    
+    <!-- Compact -->
+    <g transform="translate(400, 40)">
+      <rect width="160" height="40" rx="8" fill="#C9A96E"/>
+      <text x="80" y="26" text-anchor="middle" class="btn-text" fill="#0A1628">Compact (40px)</text>
+    </g>
+  </g>
+  
+  <!-- States -->
+  <g transform="translate(48, 320)">
+    <text class="btn-label" fill="#5A6472">States</text>
+    
+    <!-- Resting -->
+    <g transform="translate(0, 24)">
+      <rect width="120" height="48" rx="8" fill="#C9A96E"/>
+      <text x="60" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Resting</text>
+    </g>
+    
+    <!-- Hover (darker) -->
+    <g transform="translate(160, 24)">
+      <rect width="120" height="48" rx="8" fill="#B89A60"/>
+      <text x="60" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Hover</text>
+    </g>
+    
+    <!-- Active (darkest) -->
+    <g transform="translate(320, 24)">
+      <rect width="120" height="48" rx="8" fill="#A08850"/>
+      <text x="60" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Active</text>
+    </g>
+    
+    <!-- Disabled -->
+    <g transform="translate(480, 24)" opacity="0.4">
+      <rect width="120" height="48" rx="8" fill="#C9A96E"/>
+      <text x="60" y="30" text-anchor="middle" class="btn-text" fill="#0A1628">Disabled</text>
+    </g>
+  </g>
+</svg>

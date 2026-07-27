@@ -1,0 +1,212 @@
+// XVI GROUP — Spacing & Grid Tokens
+// 8-point grid system, spacing scale, and layout tokens
+
+// ============================================
+// BREAKPOINTS
+// ============================================
+
+$breakpoint-mobile: 0;
+$breakpoint-tablet: 640px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide: 1440px;
+
+// ============================================
+// SPACING SCALE (8-point grid)
+// ============================================
+
+$space-0: 0;
+$space-1: 0.25rem;   // 4px
+$space-2: 0.5rem;    // 8px
+$space-3: 0.75rem;   // 12px
+$space-4: 1rem;      // 16px
+$space-5: 1.25rem;   // 20px
+$space-6: 1.5rem;    // 24px
+$space-8: 2rem;      // 32px
+$space-10: 2.5rem;   // 40px
+$space-12: 3rem;     // 48px
+$space-16: 4rem;     // 64px
+$space-20: 5rem;     // 80px
+$space-24: 6rem;     // 96px
+$space-32: 8rem;     // 128px
+$space-40: 10rem;    // 160px
+
+// ============================================
+// SECTION PADDING
+// ============================================
+
+$section-padding-mobile: 80px;
+$section-padding-desktop: 120px;
+$section-padding-narrow: 80px;
+
+// ============================================
+// CONTAINER
+// ============================================
+
+$container-max: 1200px;
+$container-padding: $space-6;
+
+// ============================================
+// GRID
+// ============================================
+
+$grid-columns: 12;
+$grid-gutter-mobile: $space-6;
+$grid-gutter-tablet: $space-8;
+$grid-gutter-desktop: $space-10;
+
+// ============================================
+// BORDER RADIUS
+// ============================================
+
+$radius-none: 0;
+$radius-sm: 1px;
+$radius-md: 2px;
+$radius-lg: 4px;
+
+// ============================================
+// SHADOWS
+// ============================================
+
+$shadow-xs: 0 1px 2px rgba(10, 22, 40, 0.04);
+$shadow-sm: 0 2px 8px rgba(10, 22, 40, 0.04);
+$shadow-md: 0 4px 24px rgba(10, 22, 40, 0.04);
+$shadow-lg: 0 12px 40px rgba(10, 22, 40, 0.08);
+$shadow-xl: 0 24px 48px rgba(10, 22, 40, 0.12);
+$shadow-gold: 0 4px 24px rgba(201, 169, 110, 0.25);
+
+// ============================================
+// Z-INDEX SCALE
+// ============================================
+
+$z-base: 0;
+$z-elevated: 10;
+$z-dropdown: 100;
+$z-sticky: 500;
+$z-overlay: 1000;
+$z-modal: 2000;
+$z-toast: 3000;
+$z-loader: 9999;
+
+// ============================================
+// TRANSITIONS
+// ============================================
+
+$transition-fast: 150ms;
+$transition-base: 250ms;
+$transition-slow: 400ms;
+$transition-slower: 800ms;
+
+// ============================================
+// CSS CUSTOM PROPERTIES
+// ============================================
+
+:root {
+  // Breakpoints (for JS reference)
+  --breakpoint-tablet: #{$breakpoint-tablet};
+  --breakpoint-desktop: #{$breakpoint-desktop};
+  --breakpoint-wide: #{$breakpoint-wide};
+
+  // Spacing
+  --space-1: #{$space-1};
+  --space-2: #{$space-2};
+  --space-3: #{$space-3};
+  --space-4: #{$space-4};
+  --space-5: #{$space-5};
+  --space-6: #{$space-6};
+  --space-8: #{$space-8};
+  --space-10: #{$space-10};
+  --space-12: #{$space-12};
+  --space-16: #{$space-16};
+  --space-20: #{$space-20};
+  --space-24: #{$space-24};
+  --space-32: #{$space-32};
+  --space-40: #{$space-40};
+
+  // Section padding
+  --section-padding: #{$section-padding-desktop};
+
+  // Container
+  --container-max: #{$container-max};
+  --container-padding: #{$container-padding};
+
+  // Radius
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+
+  // Shadows
+  --shadow-xs: #{$shadow-xs};
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  --shadow-gold: #{$shadow-gold};
+
+  // Z-index
+  --z-elevated: #{$z-elevated};
+  --z-dropdown: #{$z-dropdown};
+  --z-sticky: #{$z-sticky};
+  --z-overlay: #{$z-overlay};
+  --z-modal: #{$z-modal};
+  --z-toast: #{$z-toast};
+  --z-loader: #{$z-loader};
+
+  // Transitions
+  --transition-fast: #{$transition-fast};
+  --transition-base: #{$transition-base};
+  --transition-slow: #{$transition-slow};
+  --transition-slower: #{$transition-slower};
+}
+
+// ============================================
+// RESPONSIVE SECTION PADDING
+// ============================================
+
+@mixin section-padding {
+  padding: $section-padding-mobile $container-padding;
+
+  @media (min-width: $breakpoint-desktop) {
+    padding: $section-padding-desktop $container-padding;
+  }
+}
+
+@mixin section-padding-narrow {
+  padding: $section-padding-narrow $container-padding;
+
+  @media (min-width: $breakpoint-desktop) {
+    padding: $section-padding-narrow $container-padding;
+  }
+}
+
+// ============================================
+// CONTAINER MIXIN
+// ============================================
+
+@mixin container {
+  max-width: $container-max;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+// ============================================
+// GRID MIXIN
+// ============================================
+
+@mixin grid {
+  display: grid;
+  gap: $grid-gutter-mobile;
+
+  @media (min-width: $breakpoint-tablet) {
+    gap: $grid-gutter-tablet;
+  }
+
+  @media (min-width: $breakpoint-desktop) {
+    gap: $grid-gutter-desktop;
+  }
+}
+
+@mixin grid-columns($columns) {
+  grid-template-columns: repeat($columns, 1fr);
+}

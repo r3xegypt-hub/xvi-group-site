@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 500" width="1440" height="500">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+      .footer-heading { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+      .footer-col-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; }
+      .footer-link { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; }
+      .footer-legal { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 12px; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1440" height="500" fill="#0A1628"/>
+  
+  <!-- Meridian line at top -->
+  <line x1="0" y1="0" x2="1440" y2="0" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  
+  <!-- Footer content -->
+  <g transform="translate(120, 80)">
+    <!-- Brand statement -->
+    <text class="footer-heading" fill="#FFFFFF" font-size="36">XVI GROUP</text>
+    <text class="footer-heading" fill="#C9A96E" font-size="36" y="48">Strategy. Intelligence.</text>
+    <text class="footer-heading" fill="#C9A96E" font-size="36" y="96">Operational Mastery.</text>
+    
+    <!-- Meridian line -->
+    <line x1="0" y1="136" x2="800" y2="136" stroke="#C9A96E" stroke-width="1.5" opacity="0.4"/>
+    
+    <!-- Footer columns -->
+    <g transform="translate(0, 176)">
+      <!-- Column 1: Services -->
+      <g>
+        <text class="footer-col-title" fill="#FFFFFF">Services</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="28">AI Transformation</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="52">Business Strategy</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="76">Technology Advisory</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="100">Executive Operations</text>
+      </g>
+      
+      <!-- Column 2: Industries -->
+      <g transform="translate(200, 0)">
+        <text class="footer-col-title" fill="#FFFFFF">Industries</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="28">Technology</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="52">Finance</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="76">Healthcare</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="100">Energy</text>
+      </g>
+      
+      <!-- Column 3: Company -->
+      <g transform="translate(400, 0)">
+        <text class="footer-col-title" fill="#FFFFFF">Company</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="28">About</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="52">Team</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="76">Careers</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="100">Insights</text>
+      </g>
+      
+      <!-- Column 4: Connect -->
+      <g transform="translate(600, 0)">
+        <text class="footer-col-title" fill="#FFFFFF">Connect</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="28">contact@xvi-group.com</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="52">+971 4 XXX XXXX</text>
+        <text class="footer-link" fill="rgba(255,255,255,0.7)" y="76">Dubai, UAE</text>
+        <text class="footer-link" fill="#C9A96E" y="100">LinkedIn →</text>
+      </g>
+    </g>
+    
+    <!-- Bottom bar -->
+    <line x1="0" y1="340" x2="1200" y2="340" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    
+    <text class="footer-legal" fill="rgba(255,255,255,0.5)" y="372">© 2026 XVI GROUP. All rights reserved.</text>
+    <text class="footer-legal" fill="rgba(255,255,255,0.5)" y="372" x="400">Privacy</text>
+    <text class="footer-legal" fill="rgba(255,255,255,0.5)" y="372" x="460">Terms</text>
+    <text class="footer-legal" fill="rgba(255,255,255,0.5)" y="372" x="510">Accessibility</text>
+  </g>
+</svg>

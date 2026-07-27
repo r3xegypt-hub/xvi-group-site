@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
+  <!-- CONCEPT 01: THE ARCHITECTURAL MARK — Premium Construction -->
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&amp;display=swap');
+    </style>
+  </defs>
+  
+  <!-- X — Architectural, two diagonals with precise intersection -->
+  <line x1="28" y1="24" x2="60" y2="72" stroke="#0A1628" stroke-width="3.5" stroke-linecap="square"/>
+  <line x1="60" y1="24" x2="28" y2="72" stroke="#0A1628" stroke-width="3.5" stroke-linecap="square"/>
+  
+  <!-- V — Same angles as X, meeting at a point -->
+  <line x1="84" y1="24" x2="108" y2="72" stroke="#0A1628" stroke-width="3.5" stroke-linecap="square"/>
+  <line x1="108" y1="24" x2="132" y2="72" stroke="#0A1628" stroke-width="3.5" stroke-linecap="square"/>
+  
+  <!-- I — Vertical with architectural serifs -->
+  <line x1="160" y1="24" x2="160" y2="72" stroke="#0A1628" stroke-width="3.5" stroke-linecap="square"/>
+  <!-- Top serif -->
+  <line x1="152" y1="24" x2="168" y2="24" stroke="#0A1628" stroke-width="2" stroke-linecap="square"/>
+  <!-- Bottom serif -->
+  <line x1="152" y1="72" x2="168" y2="72" stroke="#0A1628" stroke-width="2" stroke-linecap="square"/>
+  
+  <!-- Meridian Line — The brand signature -->
+  <line x1="20" y1="88" x2="176" y2="88" stroke="#C9A96E" stroke-width="1.5"/>
+  
+  <!-- GROUP — Tracked sans-serif -->
+  <text x="20" y="108" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#5A6472" letter-spacing="8">GROUP</text>
+</svg>

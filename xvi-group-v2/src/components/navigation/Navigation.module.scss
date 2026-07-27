@@ -1,0 +1,498 @@
+// XVI GROUP — Navigation SCSS Module (v2)
+// 7 device categories, fully optimized per device
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  // Small Mobile: Compact nav
+  height: 56px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    height: 60px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    height: 64px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    height: 68px;
+  }
+
+  // Tablet Landscape
+  @media (min-width: 1024px) {
+    height: 72px;
+  }
+}
+
+.scrolled {
+  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 16px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    gap: 20px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    gap: 24px;
+  }
+
+  // Tablet Landscape+
+  @media (min-width: 1024px) {
+    gap: 32px;
+  }
+}
+
+// ============================================
+// LOGO — Per-device sizing
+// ============================================
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoImage {
+  // Small Mobile: Smaller logo
+  height: 24px;
+  width: auto;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    height: 26px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    height: 28px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    height: 30px;
+  }
+
+  // Tablet Landscape+
+  @media (min-width: 1024px) {
+    height: 32px;
+  }
+}
+
+// ============================================
+// DESKTOP NAVIGATION — Hidden on mobile
+// ============================================
+
+.desktop {
+  display: none;
+  flex: 1;
+  justify-content: center;
+
+  // Tablet Landscape: Show desktop nav
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // Laptop: More spacing
+  @media (min-width: 1366px) {
+    gap: 32px;
+  }
+}
+
+.linkItem {
+  position: relative;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 500;
+  color: #0a1628;
+  text-decoration: none;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 8px 0;
+
+  // Tablet Landscape: Smaller text
+  font-size: 13px;
+
+  // Laptop
+  @media (min-width: 1366px) {
+    font-size: 14px;
+  }
+
+  &:hover {
+    color: #c9a96e;
+  }
+}
+
+.chevron {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.linkItem:hover .chevron {
+  transform: rotate(180deg);
+}
+
+// ============================================
+// MEGA MENU
+// ============================================
+
+.megaMenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+  box-shadow: 0 16px 48px rgba(10, 22, 40, 0.08);
+  opacity: 0;
+  animation: megaMenuIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  padding: 24px 0;
+
+  // Laptop: wider max-width
+  max-width: 1200px;
+
+  @media (min-width: 1366px) {
+    max-width: 1400px;
+  }
+}
+
+.megaMenuContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  // Laptop: 4 columns
+  @media (min-width: 1366px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+.megaMenuItem {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 150ms;
+
+  &:hover {
+    background-color: rgba(201, 169, 110, 0.04);
+  }
+}
+
+.megaMenuTitle {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a1628;
+  display: block;
+  margin-bottom: 4px;
+}
+
+// ============================================
+// ACTIONS — Hidden on mobile
+// ============================================
+
+.actions {
+  display: none;
+  align-items: center;
+  gap: 16px;
+
+  // Tablet Landscape+: Show actions
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+
+.cta {
+  text-decoration: none;
+}
+
+// ============================================
+// MOBILE TOGGLE — Per-device touch targets
+// ============================================
+
+.mobileToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Small Mobile: Minimum touch target
+  width: 44px;
+  height: 44px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    width: 44px;
+    height: 44px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    width: 48px;
+    height: 48px;
+  }
+
+  background: none;
+  border: none;
+  color: #0a1628;
+  cursor: pointer;
+
+  // Hide on tablet landscape+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #c9a96e;
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// MOBILE MENU — Per-device full screen
+// ============================================
+
+.mobileMenu {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  z-index: 499;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  // Medium Mobile: offset by nav height
+  @media (min-width: 375px) {
+    top: 60px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    top: 64px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    top: 68px;
+  }
+
+  // Tablet Landscape+: Hide mobile menu
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
+  // Safe area for notch devices
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobileMenuOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileMenuContent {
+  // Small Mobile: Compact padding
+  padding: 16px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    padding: 20px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    padding: 24px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    padding: 32px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileMenuItem {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: mobileMenuItemIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+// ============================================
+// MOBILE LINKS — Per-device typography
+// ============================================
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  color: #0a1628;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+
+  // Small Mobile: Compact
+  font-size: 1.125rem;
+  padding: 12px 16px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    font-size: 1.25rem;
+    padding: 14px 16px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    font-size: 1.375rem;
+    padding: 16px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    padding: 20px;
+  }
+
+  // Touch target
+  min-height: 44px;
+
+  &:hover {
+    color: #c9a96e;
+  }
+}
+
+.mobileSubmenu {
+  padding-left: 16px;
+}
+
+.mobileSubLink {
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #5a6472;
+  text-decoration: none;
+
+  // Small Mobile
+  font-size: 0.8125rem;
+  padding: 10px 16px;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    font-size: 0.875rem;
+    padding: 12px 16px;
+  }
+
+  // Touch target
+  min-height: 44px;
+
+  &:hover {
+    color: #c9a96e;
+  }
+}
+
+.mobileActions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    margin-top: 28px;
+    gap: 16px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    margin-top: 32px;
+  }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes megaMenuIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes mobileMenuItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// REDUCED MOTION
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenuItem {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .megaMenu {
+    animation: none;
+    opacity: 1;
+  }
+}

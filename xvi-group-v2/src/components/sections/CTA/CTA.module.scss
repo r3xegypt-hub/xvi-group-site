@@ -1,0 +1,73 @@
+// XVI GROUP — CTA Section Styles
+
+@import '../../../styles/mixins/devices';
+
+.cta {
+  background: linear-gradient(135deg, #0A1628 0%, #0F1F38 50%, #0A1628 100%);
+  padding: 96px 0;
+
+  @include laptop {
+    padding: 80px 0;
+  }
+
+  @include tablet-portrait {
+    padding: 64px 0;
+  }
+
+  @include large-mobile {
+    padding: 56px 0;
+  }
+}
+
+.content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.overline {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin: 0 0 16px;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.description {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.618;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 auto 24px;
+  max-width: 520px;
+}
+
+.meridian {
+  margin: 0 auto 32px;
+  display: block;
+}
+
+.ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @include large-mobile {
+    flex-direction: column;
+    align-items: center;
+  }
+}

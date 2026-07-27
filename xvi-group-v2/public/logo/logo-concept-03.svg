@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <!-- CONCEPT 03: THE PRECISION MONOGRAM — Geometric Construction -->
+  
+  <!-- Outer diamond — X structure -->
+  <path d="M120 20 L220 120 L120 220 L20 120 Z" stroke="#0A1628" stroke-width="2.5" fill="none" stroke-linejoin="miter"/>
+  
+  <!-- Inner V — inverted, inside diamond -->
+  <path d="M120 56 L168 120 L120 184" stroke="#0A1628" stroke-width="2" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+  
+  <!-- I — vertical axis through center -->
+  <line x1="120" y1="32" x2="120" y2="208" stroke="#C9A96E" stroke-width="2" stroke-linecap="square"/>
+  
+  <!-- Center intersection — gold diamond -->
+  <path d="M120 104 L136 120 L120 136 L104 120 Z" fill="#C9A96E" opacity="0.9"/>
+</svg>

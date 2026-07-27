@@ -1,0 +1,153 @@
+// XVI GROUP — About Section Styles
+
+@import '../../../styles/mixins/devices';
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+
+  @include large-mobile {
+    margin-bottom: 40px;
+  }
+}
+
+.overline {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin: 0 0 16px;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0A1628;
+  margin: 0;
+  line-height: 1.15;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.quoteBlock {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto 80px;
+  padding: 48px 0;
+  text-align: center;
+
+  @include large-mobile {
+    padding: 32px 0;
+    margin-bottom: 48px;
+  }
+}
+
+.quoteMark {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 6rem;
+  color: #C9A96E;
+  opacity: 0.3;
+  line-height: 0;
+  position: absolute;
+  top: 24px;
+  left: -24px;
+
+  @include large-mobile {
+    font-size: 4rem;
+    top: 16px;
+    left: -8px;
+  }
+
+  [dir="rtl"] & {
+    left: auto;
+    right: -24px;
+
+    @include large-mobile {
+      right: -8px;
+    }
+  }
+}
+
+.quoteMarkRight {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 6rem;
+  color: #C9A96E;
+  opacity: 0.3;
+  line-height: 0;
+  position: absolute;
+  bottom: 24px;
+  right: -24px;
+
+  @include large-mobile {
+    font-size: 4rem;
+    bottom: 16px;
+    right: -8px;
+  }
+
+  [dir="rtl"] & {
+    right: auto;
+    left: -24px;
+
+    @include large-mobile {
+      left: -8px;
+    }
+  }
+}
+
+.quote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: #0A1628;
+  margin: 0;
+  padding: 0 48px;
+
+  @include large-mobile {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    padding: 0 24px;
+  }
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include tablet-portrait {
+    gap: 40px;
+  }
+
+  @include large-mobile {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.column {
+  text-align: center;
+}
+
+.columnTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0A1628;
+  margin: 0 0 12px;
+}
+
+.columnText {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.618;
+  color: #5A6472;
+  margin: 0;
+}

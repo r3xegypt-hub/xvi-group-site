@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <!-- PATTERN 02: THE MERIDIAN GRID — Footer/subtle texture -->
+  <defs>
+    <pattern id="meridianGrid" x="0" y="0" width="800" height="48" patternUnits="userSpaceOnUse">
+      <!-- Horizontal line -->
+      <line x1="0" y1="0" x2="800" y2="0" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+  </defs>
+  
+  <!-- Apply pattern -->
+  <rect width="800" height="400" fill="url(#meridianGrid)"/>
+</svg>

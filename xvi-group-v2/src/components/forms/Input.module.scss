@@ -1,0 +1,196 @@
+// XVI GROUP — Input SCSS Module (v2)
+// 7 device categories with per-device sizing
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+// ============================================
+// LABEL — Per-device
+// ============================================
+
+.label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #5a6472;
+  pointer-events: none;
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+
+  // Small Mobile
+  font-size: 14px;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    font-size: 15px;
+  }
+
+  // Large Mobile+
+  @media (min-width: 429px) {
+    font-size: 16px;
+  }
+}
+
+.labelActive {
+  top: 8px;
+  transform: translateY(0);
+  font-size: 12px;
+  font-weight: 500;
+  color: #c9a96e;
+}
+
+[dir="rtl"] .label {
+  left: auto;
+  right: 16px;
+  transform-origin: right center;
+}
+
+// ============================================
+// INPUT — Per-device
+// ============================================
+
+.input {
+  width: 100%;
+  color: #0a1628;
+  background-color: #ffffff;
+  border: 1px solid #c8cdd5;
+  border-radius: 8px;
+  outline: none;
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+
+  // Small Mobile: Compact
+  height: 48px;
+  padding: 20px 12px 6px;
+  font-size: 14px;
+
+  // Medium Mobile
+  @media (min-width: 375px) {
+    height: 50px;
+    padding: 22px 14px 6px;
+    font-size: 15px;
+  }
+
+  // Large Mobile
+  @media (min-width: 429px) {
+    height: 52px;
+    padding: 22px 16px 6px;
+    font-size: 16px;
+  }
+
+  // Tablet Portrait
+  @media (min-width: 768px) {
+    height: 54px;
+    padding: 24px 16px 8px;
+  }
+
+  // Tablet Landscape+
+  @media (min-width: 1024px) {
+    height: 56px;
+    padding: 24px 16px 8px;
+  }
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:focus {
+    border-color: #c9a96e;
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+  }
+
+  &:disabled {
+    background-color: #f4f5f7;
+    border-color: #eceef2;
+    color: #c8cdd5;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// ERROR STATE
+// ============================================
+
+.error .input {
+  border-color: #c4392d;
+  box-shadow: 0 0 0 3px rgba(196, 57, 45, 0.1);
+
+  &:focus {
+    border-color: #c4392d;
+    box-shadow: 0 0 0 3px rgba(196, 57, 45, 0.15);
+  }
+}
+
+.error .labelActive {
+  color: #c4392d;
+}
+
+// ============================================
+// SUCCESS STATE
+// ============================================
+
+.success .input {
+  border-color: #2d8a56;
+
+  &:focus {
+    border-color: #2d8a56;
+    box-shadow: 0 0 0 3px rgba(45, 138, 86, 0.15);
+  }
+}
+
+.success .labelActive {
+  color: #2d8a56;
+}
+
+// ============================================
+// HELPER TEXTS
+// ============================================
+
+.errorText {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #c4392d;
+
+  // Small Mobile
+  font-size: 11px;
+
+  // Medium Mobile+
+  @media (min-width: 375px) {
+    font-size: 12px;
+  }
+}
+
+.successText {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #2d8a56;
+
+  font-size: 11px;
+
+  @media (min-width: 375px) {
+    font-size: 12px;
+  }
+}
+
+.helperText {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  color: #5a6472;
+
+  font-size: 11px;
+
+  @media (min-width: 375px) {
+    font-size: 12px;
+  }
+}

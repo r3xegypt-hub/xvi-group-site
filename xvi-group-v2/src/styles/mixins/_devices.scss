@@ -1,0 +1,349 @@
+// XVI GROUP — Device Responsive Mixins
+// 7 device categories, each independently optimized
+// NOT just CSS breakpoints — each device gets intentional design
+
+// ============================================
+// DEVICE BREAKPOINTS (px)
+// ============================================
+// Small Mobile:  320–374    (iPhone SE, older Androids)
+// Medium Mobile: 375–428    (iPhone 12/13/14, Galaxy S21+)
+// Large Mobile:  429–767    (iPhone Pro Max, large Androids)
+// Tablet Portrait: 768–1023  (iPad, Android tablets)
+// Tablet Landscape: 1024–1365 (iPad Pro landscape, Surface)
+// Laptop: 1366–1600          (MacBook Air/Pro, most laptops)
+// Desktop: 1601–1920+        (Large monitors, iMac, 4K)
+
+// ============================================
+// CONTAINER MIXINS
+// ============================================
+
+@mixin container-small-mobile {
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 100%;
+}
+
+@mixin container-medium-mobile {
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 100%;
+}
+
+@mixin container-large-mobile {
+  padding-left: 24px;
+  padding-right: 24px;
+  max-width: 100%;
+}
+
+@mixin container-tablet-portrait {
+  padding-left: 32px;
+  padding-right: 32px;
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin container-tablet-landscape {
+  padding-left: 40px;
+  padding-right: 40px;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin container-laptop {
+  padding-left: 48px;
+  padding-right: 48px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin container-desktop {
+  padding-left: 64px;
+  padding-right: 64px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// ============================================
+// DEVICE QUERY MIXINS
+// ============================================
+
+// Small Mobile (320–374)
+@mixin small-mobile {
+  @media (max-width: 374px) {
+    @content;
+  }
+}
+
+// Medium Mobile (375–428)
+@mixin medium-mobile {
+  @media (min-width: 375px) and (max-width: 428px) {
+    @content;
+  }
+}
+
+// Large Mobile (429–767)
+@mixin large-mobile {
+  @media (min-width: 429px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+// Any Mobile (0–767)
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+// Tablet Portrait (768–1023)
+@mixin tablet-portrait {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    @content;
+  }
+}
+
+// Tablet Landscape (1024–1365)
+@mixin tablet-landscape {
+  @media (min-width: 1024px) and (max-width: 1365px) {
+    @content;
+  }
+}
+
+// Any Tablet (768–1365)
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1365px) {
+    @content;
+  }
+}
+
+// Laptop (1366–1600)
+@mixin laptop {
+  @media (min-width: 1366px) and (max-width: 1600px) {
+    @content;
+  }
+}
+
+// Desktop (1601+)
+@mixin desktop {
+  @media (min-width: 1601px) {
+    @content;
+  }
+}
+
+// Large screens (1920+)
+@mixin large-desktop {
+  @media (min-width: 1920px) {
+    @content;
+  }
+}
+
+// ============================================
+// UPWARD QUERY MIXINS (min-width based)
+// ============================================
+
+@mixin from-small-mobile {
+  @media (min-width: 320px) {
+    @content;
+  }
+}
+
+@mixin from-medium-mobile {
+  @media (min-width: 375px) {
+    @content;
+  }
+}
+
+@mixin from-large-mobile {
+  @media (min-width: 429px) {
+    @content;
+  }
+}
+
+@mixin from-tablet-portrait {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin from-tablet-landscape {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin from-laptop {
+  @media (min-width: 1366px) {
+    @content;
+  }
+}
+
+@mixin from-desktop {
+  @media (min-width: 1601px) {
+    @content;
+  }
+}
+
+// ============================================
+// DOWNWARD QUERY MIXINS (max-width based)
+// ============================================
+
+@mixin below-tablet-portrait {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin below-tablet-landscape {
+  @media (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin below-laptop {
+  @media (max-width: 1365px) {
+    @content;
+  }
+}
+
+@mixin below-desktop {
+  @media (max-width: 1600px) {
+    @content;
+  }
+}
+
+// ============================================
+// TYPOGRAPHY PER DEVICE
+// ============================================
+
+@mixin typography-small-mobile {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@mixin typography-medium-mobile {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+@mixin typography-large-mobile {
+  font-size: 16px;
+  line-height: 1.618;
+}
+
+// ============================================
+// TOUCH TARGET MIXINS
+// ============================================
+
+@mixin touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@mixin touch-target-large {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+// ============================================
+// SPACING PER DEVICE
+// ============================================
+
+@mixin section-padding-mobile {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+@mixin section-padding-tablet {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+@mixin section-padding-desktop {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+@mixin section-padding-large {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+// ============================================
+// GRID PER DEVICE
+// ============================================
+
+@mixin grid-1-column {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@mixin grid-2-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@mixin grid-3-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@mixin grid-4-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+// ============================================
+// SAFE AREA (notch devices)
+// ============================================
+
+@mixin safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+@mixin safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+// ============================================
+// PERFORMANCE (reduce animations on low-end)
+// ============================================
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// ============================================
+// HIGH CONTRAST
+// ============================================
+
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}
+
+// ============================================
+// HOVER CAPABILITY
+// ============================================
+
+@mixin hover-capable {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin touch-device {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}

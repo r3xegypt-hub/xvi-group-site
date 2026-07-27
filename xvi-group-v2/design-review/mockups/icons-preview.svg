@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500">
+  <rect width="1200" height="500" fill="#F4F5F7"/>
+
+  <text x="600" y="40" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#5A6472" letter-spacing="0.1em">SVG ICON SYSTEM</text>
+
+  <!-- ===== SERVICE ICONS ===== -->
+  <text x="80" y="85" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">SERVICE ICONS (48×48)</text>
+
+  <!-- Diamond Grid — Business Consulting -->
+  <rect x="100" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M130 120 L145 105 L160 120 L145 135 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <path d="M130 140 L145 125 L160 140 L145 155 Z" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.5"/>
+  <line x1="145" y1="120" x2="145" y2="135" stroke="#C9A96E" stroke-width="1" opacity="0.3"/>
+  <text x="140" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Business</text>
+
+  <!-- Circuit Diamond — Technology -->
+  <rect x="200" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M230 120 L245 105 L260 120 L245 135 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <circle cx="245" cy="120" r="3" fill="#C9A96E" opacity="0.3"/>
+  <line x1="245" y1="105" x2="245" y2="117" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <line x1="260" y1="120" x2="248" y2="120" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <line x1="245" y1="135" x2="245" y2="123" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <line x1="230" y1="120" x2="242" y2="120" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <text x="240" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Technology</text>
+
+  <!-- Neural Diamond — AI -->
+  <rect x="300" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M330 120 L345 105 L360 120 L345 135 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <path d="M337 120 L345 112 L353 120 L345 128 Z" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.5"/>
+  <circle cx="345" cy="120" r="2" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="330" cy="120" r="1.5" fill="#C9A96E" opacity="0.3"/>
+  <circle cx="360" cy="120" r="1.5" fill="#C9A96E" opacity="0.3"/>
+  <circle cx="345" cy="105" r="1.5" fill="#C9A96E" opacity="0.3"/>
+  <circle cx="345" cy="135" r="1.5" fill="#C9A96E" opacity="0.3"/>
+  <text x="340" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">AI</text>
+
+  <!-- Pyramid — Training -->
+  <rect x="400" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M440 108 L465 148 L415 148 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <line x1="423" y1="135" x2="457" y2="135" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <line x1="430" y1="142" x2="450" y2="142" stroke="#C9A96E" stroke-width="1" opacity="0.3"/>
+  <circle cx="440" cy="115" r="2" fill="#C9A96E" opacity="0.4"/>
+  <text x="440" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Training</text>
+
+  <!-- ===== INDUSTRY ICONS ===== -->
+  <text x="540" y="85" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">INDUSTRY ICONS</text>
+
+  <!-- Tech Stack -->
+  <rect x="560" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <rect x="580" y="110" width="50" height="12" rx="2" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <rect x="585" y="128" width="40" height="12" rx="2" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.6"/>
+  <rect x="590" y="146" width="30" height="12" rx="2" stroke="#C9A96E" stroke-width="0.8" fill="none" opacity="0.4"/>
+  <text x="600" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Tech</text>
+
+  <!-- Financial Diamond -->
+  <rect x="660" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M690 108 L710 128 L690 148 L670 128 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <line x1="690" y1="108" x2="690" y2="148" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <text x="700" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Finance</text>
+
+  <!-- Health Circle -->
+  <rect x="760" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <circle cx="800" cy="128" r="20" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <line x1="800" y1="113" x2="800" y2="143" stroke="#C9A96E" stroke-width="1.5"/>
+  <line x1="785" y1="128" x2="815" y2="128" stroke="#C9A96E" stroke-width="1.5"/>
+  <text x="800" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Health</text>
+
+  <!-- Energy Hexagon -->
+  <rect x="860" y="100" width="80" height="80" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M900 108 L920 118 L920 138 L900 148 L880 138 L880 118 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="900" y="205" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5A6472">Energy</text>
+
+  <!-- ===== UI ICONS ===== -->
+  <text x="80" y="250" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">UI ICONS (24×24)</text>
+
+  <!-- Arrow Right -->
+  <rect x="100" y="265" width="40" height="40" rx="6" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <line x1="112" y1="285" x2="128" y2="285" stroke="#0A1628" stroke-width="1.5"/>
+  <polyline points="123,280 128,285 123,290" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <text x="120" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Arrow</text>
+
+  <!-- Check -->
+  <rect x="160" y="265" width="40" height="40" rx="6" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <polyline points="172,285 178,291 188,279" stroke="#2D8A56" stroke-width="1.5" fill="none"/>
+  <text x="180" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Check</text>
+
+  <!-- Search -->
+  <rect x="220" y="265" width="40" height="40" rx="6" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <circle cx="234" cy="282" r="6" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <line x1="238" y1="286" x2="246" y2="294" stroke="#0A1628" stroke-width="1.5"/>
+  <text x="240" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Search</text>
+
+  <!-- Mail -->
+  <rect x="280" y="265" width="40" height="40" rx="6" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <rect x="290" y="277" width="20" height="16" rx="2" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <polyline points="290,277 300,286 310,277" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <text x="300" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Mail</text>
+
+  <!-- Location -->
+  <rect x="340" y="265" width="40" height="40" rx="6" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M360 275 C360 275 352 285 352 290 C352 294 356 298 360 298 C364 298 368 294 368 290 C368 285 360 275 360 275 Z" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <circle cx="360" cy="288" r="2" fill="#C9A96E"/>
+  <text x="360" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Location</text>
+
+  <!-- External Link -->
+  <rect x="400" y="265" width="40" height="40" rx="6" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M412 288 L422 278 L428 278 L428 284" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <line x1="428" y1="278" x2="418" y2="288" stroke="#0A1628" stroke-width="1.5"/>
+  <text x="420" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">External</text>
+
+  <!-- ===== SIZE SCALE ===== -->
+  <text x="540" y="250" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">SIZE SCALE</text>
+
+  <!-- 12px xs -->
+  <path d="M580 285 L588 277 L596 285 L588 293 Z" stroke="#C9A96E" stroke-width="1.5" fill="none" transform="scale(0.5) translate(960 530)"/>
+  <text x="596" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">12px</text>
+
+  <!-- 16px sm -->
+  <path d="M640 285 L652 273 L664 285 L652 297 Z" stroke="#C9A96E" stroke-width="1.5" fill="none" transform="scale(0.67) translate(700 400)"/>
+  <text x="652" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">16px</text>
+
+  <!-- 24px md -->
+  <path d="M710 285 L722 273 L734 285 L722 297 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="722" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">24px</text>
+
+  <!-- 32px lg -->
+  <path d="M790 285 L806 269 L822 285 L806 301 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="806" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">32px</text>
+
+  <!-- 48px xl -->
+  <path d="M870 285 L894 261 L918 285 L894 309 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="894" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">48px</text>
+
+  <!-- 64px 2xl -->
+  <path d="M970 285 L1002 253 L1034 285 L1002 317 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="1002" y="325" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">64px</text>
+
+  <!-- ===== COLOR VARIANTS ===== -->
+  <text x="80" y="370" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#0A1628" letter-spacing="0.06em">COLOR VARIANTS</text>
+
+  <!-- Navy -->
+  <rect x="100" y="385" width="60" height="60" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M120 405 L130 395 L140 405 L130 415 Z" stroke="#0A1628" stroke-width="1.5" fill="none"/>
+  <text x="130" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Navy</text>
+
+  <!-- Gold -->
+  <rect x="180" y="385" width="60" height="60" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M200 405 L210 395 L220 405 L210 415 Z" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+  <text x="210" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Gold</text>
+
+  <!-- White on Navy -->
+  <rect x="260" y="385" width="60" height="60" rx="8" fill="#0A1628"/>
+  <path d="M280 405 L290 395 L300 405 L290 415 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+  <text x="290" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">White</text>
+
+  <!-- Graphite -->
+  <rect x="340" y="385" width="60" height="60" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M360 405 L370 395 L380 405 L370 415 Z" stroke="#5A6472" stroke-width="1.5" fill="none"/>
+  <text x="370" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Graphite</text>
+
+  <!-- Current -->
+  <rect x="420" y="385" width="60" height="60" rx="8" fill="#FFFFFF" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+  <path d="M440 405 L450 395 L460 405 L450 415 Z" stroke="currentColor" stroke-width="1.5" fill="none" style="color: #C9A96E"/>
+  <text x="450" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#5A6472">Current</text>
+</svg>

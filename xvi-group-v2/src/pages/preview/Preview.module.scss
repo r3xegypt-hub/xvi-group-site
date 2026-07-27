@@ -1,0 +1,598 @@
+// XVI GROUP — Preview SCSS Module
+
+.preview {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f5f7;
+}
+
+// ============================================
+// CONTROL PANEL
+// ============================================
+
+.controlPanel {
+  width: 320px;
+  min-width: 320px;
+  background-color: #0a1628;
+  color: #ffffff;
+  padding: 24px;
+  overflow-y: auto;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
+  @media (max-width: 1023px) {
+    width: 280px;
+    min-width: 280px;
+  }
+
+  @media (max-width: 767px) {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    max-height: 40vh;
+    z-index: 1000;
+    padding: 16px;
+  }
+}
+
+.controlHeader {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+}
+
+.controlTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #c9a96e;
+  margin-bottom: 4px;
+}
+
+.controlSubtitle {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #c8cdd5;
+}
+
+.controlSection {
+  margin-bottom: 20px;
+}
+
+.sectionLabel {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c9a96e;
+  margin-bottom: 8px;
+}
+
+.deviceButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deviceBtn {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: #c8cdd5;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  transition: all 150ms;
+
+  &:hover {
+    background-color: rgba(201, 169, 110, 0.08);
+    border-color: rgba(201, 169, 110, 0.2);
+  }
+}
+
+.deviceBtnActive {
+  background-color: rgba(201, 169, 110, 0.15);
+  border-color: #c9a96e;
+  color: #c9a96e;
+  font-weight: 600;
+}
+
+.langRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.langIndicator {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  color: #c8cdd5;
+}
+
+.breakpointInfo {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  color: #c8cdd5;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  color: #c8cdd5;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #c9a96e;
+}
+
+// ============================================
+// PREVIEW AREA
+// ============================================
+
+.previewArea {
+  flex: 1;
+  padding: 24px;
+  overflow-x: hidden;
+
+  @media (max-width: 767px) {
+    padding: 16px;
+    padding-bottom: 200px;
+  }
+}
+
+.deviceFrame {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: max-width 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(10, 22, 40, 0.12);
+
+  @media (max-width: 767px) {
+    border-radius: 8px;
+  }
+}
+
+.hasFrame {
+  border: 1px solid rgba(201, 169, 110, 0.12);
+}
+
+.frameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: #0a1628;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.12);
+}
+
+.frameLabel {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #c9a96e;
+}
+
+.frameSize {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: #c8cdd5;
+}
+
+.previewContent {
+  background-color: #f4f5f7;
+}
+
+// ============================================
+// PREVIEW SECTIONS
+// ============================================
+
+.previewSection {
+  padding: 32px 24px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+
+  @media (max-width: 767px) {
+    padding: 24px 16px;
+  }
+}
+
+.sectionTitle {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c9a96e;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.12);
+}
+
+.note {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #5a6472;
+  margin-top: 12px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+// ============================================
+// LOGO
+// ============================================
+
+.logoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.logoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background-color: #f4f5f7;
+  border: 1px solid rgba(201, 169, 110, 0.08);
+  border-radius: 8px;
+  gap: 16px;
+}
+
+.logoItemDark {
+  background-color: #0a1628;
+}
+
+.logoDark {
+  height: 32px;
+  width: auto;
+}
+
+.logoLight {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.logoLabel {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #5a6472;
+}
+
+.logoLabelLight {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #c8cdd5;
+}
+
+// ============================================
+// COLORS
+// ============================================
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatchColor {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border-radius: 8px;
+}
+
+.swatchName {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #0a1628;
+  text-align: center;
+}
+
+.swatchHex {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: #5a6472;
+  text-align: center;
+}
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+
+.typeStack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.typeItem {
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.typeLabel {
+  display: block;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c9a96e;
+  margin-bottom: 8px;
+}
+
+.typeDemo {
+  color: #0a1628;
+}
+
+.overline {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c9a96e;
+}
+
+.caption {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.33;
+  color: #5a6472;
+}
+
+// ============================================
+// HERO SKELETON
+// ============================================
+
+.heroSkeleton {
+  position: relative;
+  padding: 48px 24px;
+  background-color: #f4f5f7;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 767px) {
+    padding: 32px 16px;
+    min-height: 280px;
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+
+.heroOverline {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  margin-bottom: 16px;
+}
+
+.heroHeadline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #0a1628;
+  margin-bottom: 16px;
+}
+
+.heroGold {
+  color: #c9a96e;
+}
+
+.heroSub {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.618;
+  color: #5a6472;
+  margin-bottom: 24px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  pointer-events: none;
+
+  @media (max-width: 767px) {
+    right: -80px;
+    transform: translateY(-50%) scale(0.6);
+  }
+}
+
+// ============================================
+// SVG
+// ============================================
+
+.svgGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+  }
+}
+
+.svgItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  background-color: #ffffff;
+  border: 1px solid rgba(201, 169, 110, 0.08);
+  border-radius: 8px;
+}
+
+.svgLabel {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #5a6472;
+  text-align: center;
+}
+
+// ============================================
+// BUTTONS
+// ============================================
+
+.buttonGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+// ============================================
+// FORMS
+// ============================================
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// FOOTER
+// ============================================
+
+.footerPreview {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+// ============================================
+// MOTION
+// ============================================
+
+.motionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.motionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.motionBox {
+  width: 100%;
+  padding: 24px;
+  background-color: #0a1628;
+  color: #c9a96e;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.motionSpring {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.motionSlow {
+  transition-duration: 800ms;
+}
+
+.motionCode {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.6875rem;
+  color: #5a6472;
+  background-color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}

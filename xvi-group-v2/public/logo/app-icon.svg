@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- APP ICON — Monogram at 512px with navy background -->
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="#0A1628"/>
+  
+  <!-- Diamond -->
+  <path d="M256 80 L432 256 L256 432 L80 256 Z" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+  
+  <!-- Inner V -->
+  <path d="M256 140 L340 256 L256 372" stroke="#FFFFFF" stroke-width="3" fill="none"/>
+  
+  <!-- I axis -->
+  <line x1="256" y1="100" x2="256" y2="412" stroke="#C9A96E" stroke-width="3"/>
+  
+  <!-- Center diamond -->
+  <path d="M256 224 L288 256 L256 288 L224 256 Z" fill="#C9A96E" opacity="0.9"/>
+</svg>

@@ -1,0 +1,128 @@
+{
+  "site": {
+    "name": "XVI GROUP",
+    "tagline": "Strategy. Intelligence. Operational Mastery."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "industries": "Industries",
+    "technology": "Technology",
+    "leadership": "Leadership",
+    "insights": "Insights",
+    "careers": "Careers",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close menu",
+    "skip": "Skip to main content"
+  },
+  "footer": {
+    "brand": "XVI GROUP",
+    "tagline": "Building enterprises that move markets, transform industries, and lead technological revolutions.",
+    "services": "Services",
+    "servicesItems": {
+      "business": "Business Consulting",
+      "technology": "Technology Consulting",
+      "aiTransformation": "AI Transformation",
+      "executiveTraining": "Executive Training"
+    },
+    "company": "Company",
+    "companyItems": {
+      "about": "About XVI GROUP",
+      "leadership": "Leadership",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "resources": "Resources",
+    "resourcesItems": {
+      "insights": "Insights",
+      "caseStudies": "Case Studies",
+      "research": "Research",
+      "events": "Events"
+    },
+    "legal": "Legal",
+    "legalItems": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    },
+    "copyright": "© 2024 XVI GROUP. All rights reserved.",
+    "locations": "Dubai · Abu Dhabi · Riyadh"
+  },
+  "hero": {
+    "overline": "ENTERPRISE STRATEGY & TECHNOLOGY",
+    "headline": "Building Enterprises That Move Markets",
+    "headlineHighlight": "Move Markets",
+    "subheadline": "Strategy and technology advisory for enterprises that demand precision, velocity, and operational mastery.",
+    "ctaPrimary": "Start a Conversation",
+    "ctaSecondary": "View Our Work"
+  },
+  "stats": {
+    "experience": "Years of Excellence",
+    "projects": "Projects Delivered",
+    "advisory": "In Advisory Fees",
+    "industries": "Industries Served"
+  },
+  "services": {
+    "overline": "OUR SERVICES",
+    "headline": "Enterprise Solutions",
+    "subheadline": "Comprehensive advisory and technology solutions designed for enterprises operating at the highest level.",
+    "learnMore": "Learn More",
+    "viewDetails": "View Details"
+  },
+  "about": {
+    "overline": "ABOUT XVI GROUP",
+    "headline": "The Enterprise Partner for Strategy and Technology",
+    "subheadline": "XVI GROUP combines strategic advisory with technology implementation to deliver measurable outcomes for enterprises across the Middle East.",
+    "mission": "Our Mission",
+    "missionText": "To empower enterprises with the strategic insight and technological capability to lead their industries.",
+    "vision": "Our Vision",
+    "visionText": "To be the most trusted partner for enterprises navigating complexity and driving transformation."
+  },
+  "contact": {
+    "overline": "CONTACT US",
+    "headline": "Let's Build Something Extraordinary",
+    "subheadline": "Ready to transform your enterprise? We're here to help.",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "company": "Company",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "Something went wrong. Please try again."
+    }
+  },
+  "cta": {
+    "overline": "READY TO BEGIN?",
+    "headline": "Let's Build Your Enterprise's Future",
+    "subheadline": "Schedule a confidential consultation with our team.",
+    "primary": "Start a Conversation",
+    "secondary": "Download Our Capabilities"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "learnMoreAbout": "Learn more about",
+    "years": "years",
+    "plus": "+"
+  },
+  "seo": {
+    "homeTitle": "XVI GROUP — Strategy & Technology Advisory",
+    "homeDescription": "Enterprise strategy and technology advisory. Business consulting, AI transformation, and executive training for enterprises across the Middle East.",
+    "aboutTitle": "About XVI GROUP — Enterprise Strategy & Technology",
+    "servicesTitle": "Services — XVI GROUP Advisory",
+    "contactTitle": "Contact XVI GROUP — Start a Conversation"
+  }
+}

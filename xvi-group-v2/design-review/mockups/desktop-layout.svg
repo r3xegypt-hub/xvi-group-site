@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 3600" width="1440" height="3600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+      .section-bg { fill: #F4F5F7; }
+      .section-bg-alt { fill: #ECEEF2; }
+      .section-label { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; fill: #C9A96E; }
+      .section-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 36px; fill: #0A1628; }
+      .section-desc { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; fill: #5A6472; }
+    </style>
+  </defs>
+  
+  <!-- HERO SECTION -->
+  <rect width="1440" height="900" fill="#FAFAF8"/>
+  <g transform="translate(120, 240)">
+    <text class="section-label" fill="#C9A96E">DECISION ARCHITECTURE</text>
+    <line x1="0" y1="20" x2="200" y2="20" stroke="#C9A96E" stroke-width="1.5"/>
+    <text font-family="Playfair Display" font-weight="700" font-size="64" fill="#0A1628" y="72" letter-spacing="-0.02em">Strategy. Intelligence.</text>
+    <text font-family="Playfair Display" font-weight="700" font-size="64" fill="#0A1628" y="140" letter-spacing="-0.02em">Operational Mastery.</text>
+    <text font-family="Inter" font-weight="400" font-size="18" fill="#5A6472" y="200">A world-class advisory enterprise empowering organizations.</text>
+    <rect y="240" width="160" height="48" rx="8" fill="#C9A96E"/>
+    <text x="80" y="270" text-anchor="middle" font-family="Inter" font-weight="600" font-size="16" fill="#0A1628">Get Started →</text>
+    <text x="192" y="270" font-family="Inter" font-weight="500" font-size="16" fill="#5A6472">Our Approach →</text>
+  </g>
+  
+  <!-- SERVICES SECTION -->
+  <rect y="900" width="1440" height="600" class="section-bg"/>
+  <g transform="translate(120, 948)">
+    <text class="section-label">OUR SERVICES</text>
+    <text class="section-title" y="32">Decision Architecture</text>
+    <text class="section-desc" y="64">Four advisory suites for sovereign performance.</text>
+  </g>
+  <!-- 3 cards -->
+  <g transform="translate(120, 1080)">
+    <rect width="376" height="320" rx="12" fill="#FFFFFF" filter="url(#shadow)"/>
+    <rect x="412" width="376" height="320" rx="12" fill="#FFFFFF"/>
+    <rect x="824" width="376" height="320" rx="12" fill="#FFFFFF"/>
+    <text x="32" y="64" font-family="Playfair Display" font-weight="600" font-size="22" fill="#0A1628">AI Transformation</text>
+    <text x="444" y="64" font-family="Playfair Display" font-weight="600" font-size="22" fill="#0A1628">Business Strategy</text>
+    <text x="856" y="64" font-family="Playfair Display" font-weight="600" font-size="22" fill="#0A1628">Technology Advisory</text>
+  </g>
+  
+  <!-- ABOUT SECTION -->
+  <rect y="1500" width="1440" height="500" class="section-bg-alt"/>
+  <g transform="translate(120, 1548)">
+    <text class="section-label">ABOUT US</text>
+    <text class="section-title" y="32">Building Trust Before Solutions</text>
+    <text class="section-desc" y="64" max-width="600">We are a strategy and technology advisory enterprise based in the UAE.</text>
+  </g>
+  
+  <!-- TECHNOLOGY SECTION -->
+  <rect y="2000" width="1440" height="500" class="section-bg"/>
+  <g transform="translate(120, 2048)">
+    <text class="section-label">TECHNOLOGY</text>
+    <text class="section-title" y="32">Sovereign Intelligence</text>
+    <text class="section-desc" y="64" max-width="600">AI-powered decision architecture for the modern enterprise.</text>
+  </g>
+  
+  <!-- INSIGHTS SECTION -->
+  <rect y="2500" width="1440" height="500" class="section-bg-alt"/>
+  <g transform="translate(120, 2548)">
+    <text class="section-label">INSIGHTS</text>
+    <text class="section-title" y="32">Thought Leadership</text>
+    <text class="section-desc" y="64" max-width="600">Research and perspectives on strategy, intelligence, and operations.</text>
+  </g>
+  
+  <!-- FOOTER -->
+  <rect y="3000" width="1440" height="600" fill="#0A1628"/>
+  <g transform="translate(120, 3080)">
+    <text font-family="Playfair Display" font-weight="700" font-size="36" fill="#FFFFFF">XVI GROUP</text>
+    <text font-family="Playfair Display" font-weight="700" font-size="36" fill="#C9A96E" y="48">Strategy. Intelligence.</text>
+    <line x1="0" y1="100" x2="800" y2="100" stroke="#C9A96E" stroke-width="1.5" opacity="0.4"/>
+  </g>
+</svg>
