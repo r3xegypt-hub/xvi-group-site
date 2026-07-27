@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://xvi-group.net/sitemap.xml
