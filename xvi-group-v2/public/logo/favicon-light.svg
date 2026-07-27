@@ -1,19 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- XVI GROUP — Premium Favicon (Light Mode) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-label="XVI GROUP">
+  <!-- XVI GROUP — Favicon (Light Mode for dark backgrounds) -->
   
-  <!-- Compact premium hexagon -->
-  <path d="M60 8 L104 32 L104 88 L60 112 L16 88 L16 32 Z" 
+  <path d="M16 2 L30 16 L16 30 L2 16 Z" 
         stroke="#0A1628" 
-        stroke-width="2.5" 
+        stroke-width="1.5" 
         fill="none"/>
-  
-  <!-- Mini XVI mark -->
-  <line x1="28" y1="40" x2="48" y2="80" stroke="#0A1628" stroke-width="3.5" stroke-linecap="round"/>
-  <line x1="48" y1="40" x2="28" y2="80" stroke="#0A1628" stroke-width="3.5" stroke-linecap="round"/>
-  <line x1="56" y1="40" x2="76" y2="80" stroke="#0A1628" stroke-width="3.5" stroke-linecap="round"/>
-  <line x1="76" y1="40" x2="56" y2="80" stroke="#0A1628" stroke-width="3.5" stroke-linecap="round"/>
-  <line x1="88" y1="40" x2="88" y2="80" stroke="#0A1628" stroke-width="3.5" stroke-linecap="round"/>
-  
-  <!-- Gold meridian -->
-  <line x1="24" y1="92" x2="96" y2="92" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
 </svg>

@@ -3,13 +3,14 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { NAVIGATION } from '../../config';
 import { LOGO } from '../../branding/assets';
 import { Container } from '../layout/Container';
 import { Button } from '../buttons/Button';
 import { LanguageToggle } from './LanguageToggle';
+import { Burger } from './Burger';
 import styles from './Navigation.module.scss';
 
 // ============================================
@@ -146,14 +147,13 @@ export function Navigation() {
             </div>
 
             {/* Mobile Toggle */}
-            <button
-              className={styles.mobileToggle}
+            <Burger
+              isOpen={isMobileOpen}
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMobileOpen}
-            >
-              {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+              className={styles.mobileToggle}
+              ariaLabel={isMobileOpen ? 'Close menu' : 'Open menu'}
+              ariaExpanded={isMobileOpen}
+            />
           </div>
         </Container>
       </nav>

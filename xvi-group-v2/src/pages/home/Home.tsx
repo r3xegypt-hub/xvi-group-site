@@ -2,6 +2,7 @@
 // Assembles all sections into the complete homepage
 
 import { Hero } from '../../components/sections/Hero';
+import { HeroDivider } from '../../components/sections/Hero/HeroDivider';
 import { Services } from '../../components/sections/Services';
 import { About } from '../../components/sections/About';
 import { Technology } from '../../components/sections/Technology';
@@ -15,6 +16,7 @@ export function Home() {
   return (
     <>
       <Hero />
+      <HeroDivider />
       <Services />
       <About />
       <Technology />

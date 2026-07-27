@@ -1,29 +1,48 @@
-// XVI GROUP — Typography Tokens
-// Font families, scales, and typographic utilities
+// XVI GROUP — Typography Tokens (v2)
+// Per TYPOGRAPHY_SYSTEM.md — Independent EN/AR systems
 
 // ============================================
 // FONT FAMILIES
 // ============================================
 
-$font-heading: 'Poppins', sans-serif;
-$font-body: 'DM Sans', sans-serif;
-$font-arabic: 'Noto Sans Arabic', 'Noto Kufi Arabic', sans-serif;
+$font-heading: 'Playfair Display', Georgia, serif;
+$font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-arabic-heading: 'Amiri', 'Traditional Arabic', serif;
+$font-arabic-body: 'Tajawal', 'Noto Sans Arabic', Arial, sans-serif;
 
 // ============================================
-// TYPE SCALE — Major Third (1.25)
+// ENGLISH TYPE SCALE — Per TYPOGRAPHY_SYSTEM.md
 // ============================================
 
-$font-size-xs: 0.75rem;     // 12px — Captions, labels
-$font-size-sm: 0.875rem;    // 14px — Small body, meta
-$font-size-base: 1rem;      // 16px — Body text
-$font-size-md: 1.125rem;    // 18px — Large body
-$font-size-lg: 1.25rem;     // 20px — H6
-$font-size-xl: 1.5rem;      // 24px — H5
-$font-size-2xl: 2rem;       // 32px — H4
-$font-size-3xl: 2.5rem;     // 40px — H3
-$font-size-4xl: 3rem;       // 48px — H2
-$font-size-5xl: 3.5rem;     // 56px — H1
-$font-size-display: 4.5rem; // 72px — Display
+// Headings use Playfair Display
+$en-heading-size-display: clamp(3rem, 6vw, 5rem);     // 48-80px — Display
+$en-heading-size-2xl: clamp(2.5rem, 5vw, 4rem);       // 40-64px — H1
+$en-heading-size-xl: clamp(2rem, 4vw, 3rem);          // 32-48px — H2
+$en-heading-size-lg: clamp(1.5rem, 3vw, 2rem);        // 24-32px — H3
+$en-heading-size-md: clamp(1.25rem, 2vw, 1.5rem);     // 20-24px — H4
+
+// Body uses Inter
+$en-body-size-lg: clamp(1.125rem, 1.75vw, 1.25rem);   // 18-20px — Body Large
+$en-body-size-base: clamp(1rem, 1.5vw, 1.125rem);     // 16-18px — Body
+$en-body-size-sm: 0.9375rem;                           // 15px — Body Small
+$en-body-size-xs: 0.8125rem;                           // 13px — Caption
+
+// ============================================
+// ARABIC TYPE SCALE — Independent, per TYPOGRAPHY_SYSTEM.md
+// ============================================
+
+// Headings use Amiri
+$ar-heading-size-display: clamp(2.75rem, 5.5vw, 4.5rem);  // 44-72px — Display
+$ar-heading-size-2xl: clamp(2.25rem, 4.5vw, 3.5rem);      // 36-56px — H1
+$ar-heading-size-xl: clamp(1.75rem, 3.5vw, 2.75rem);      // 28-44px — H2
+$ar-heading-size-lg: clamp(1.375rem, 2.75vw, 1.875rem);   // 22-30px — H3
+$ar-heading-size-md: clamp(1.125rem, 2vw, 1.375rem);      // 18-22px — H4
+
+// Body uses Tajawal
+$ar-body-size-lg: clamp(1.125rem, 1.75vw, 1.25rem);       // 18-20px — Body Large
+$ar-body-size-base: clamp(1rem, 1.5vw, 1.125rem);         // 16-18px — Body
+$ar-body-size-sm: 0.9375rem;                               // 15px — Body Small
+$ar-body-size-xs: 0.8125rem;                               // 13px — Caption
 
 // ============================================
 // FONT WEIGHTS
@@ -35,23 +54,36 @@ $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
 // ============================================
-// LINE HEIGHTS
+// LINE HEIGHTS — EN vs AR
 // ============================================
 
-$line-height-tight: 1.15;   // Headlines
-$line-height-snug: 1.3;     // Subheadlines
-$line-height-normal: 1.6;   // Body text
-$line-height-relaxed: 1.8;  // Long-form reading
+// English line heights
+$en-line-height-tight: 1.05;     // Display/H1
+$en-line-height-snug: 1.15;      // H2/H3
+$en-line-height-normal: 1.618;   // Body text (golden ratio)
+$en-line-height-relaxed: 1.8;    // Long-form reading
+
+// Arabic line heights (more vertical space needed)
+$ar-line-height-tight: 1.2;      // Display
+$ar-line-height-snug: 1.3;       // H1/H2
+$ar-line-height-normal: 1.8;     // Body text
+$ar-line-height-relaxed: 2;      // Long-form reading
 
 // ============================================
 // LETTER SPACING
 // ============================================
 
-$letter-spacing-tight: -0.02em;  // Large headlines
-$letter-spacing-normal: 0;       // Body
-$letter-spacing-wide: 0.04em;    // Buttons, CTAs
-$letter-spacing-wider: 0.1em;    // Overlines
-$letter-spacing-widest: 0.2em;   // Section labels
+$letter-spacing-tight: -0.03em;   // Display/H1 (EN only)
+$letter-spacing-snug: -0.02em;    // H2/H3 (EN only)
+$letter-spacing-normal: 0;        // Body
+$letter-spacing-wide: 0.04em;     // Nav, buttons
+$letter-spacing-wider: 0.06em;    // CTAs
+$letter-spacing-widest: 0.14em;   // Overlines (EN)
+
+// Arabic letter spacing
+$ar-letter-spacing-tight: 0;      // Arabic connects naturally
+$ar-letter-spacing-wide: 0.06em;  // Overlines
+$ar-letter-spacing-normal: 0;     // Everything else
 
 // ============================================
 // CSS CUSTOM PROPERTIES
@@ -61,20 +93,20 @@ $letter-spacing-widest: 0.2em;   // Section labels
   // Font families
   --font-heading: #{$font-heading};
   --font-body: #{$font-body};
-  --font-arabic: #{$font-arabic};
+  --font-arabic-heading: #{$font-arabic-heading};
+  --font-arabic-body: #{$font-arabic-body};
 
-  // Type scale
-  --font-size-xs: #{$font-size-xs};
-  --font-size-sm: #{$font-size-sm};
-  --font-size-base: #{$font-size-base};
-  --font-size-md: #{$font-size-md};
-  --font-size-lg: #{$font-size-lg};
-  --font-size-xl: #{$font-size-xl};
-  --font-size-2xl: #{$font-size-2xl};
-  --font-size-3xl: #{$font-size-3xl};
-  --font-size-4xl: #{$font-size-4xl};
-  --font-size-5xl: #{$font-size-5xl};
-  --font-size-display: #{$font-size-display};
+  // English type scale
+  --font-size-display: #{$en-heading-size-display};
+  --font-size-5xl: #{$en-heading-size-2xl};
+  --font-size-4xl: #{$en-heading-size-xl};
+  --font-size-3xl: #{$en-heading-size-lg};
+  --font-size-2xl: #{$en-heading-size-md};
+  --font-size-xl: #{$en-body-size-lg};
+  --font-size-lg: #{$en-body-size-base};
+  --font-size-md: #{$en-body-size-sm};
+  --font-size-sm: 0.875rem;
+  --font-size-xs: #{$en-body-size-xs};
 
   // Weights
   --font-weight-regular: #{$font-weight-regular};
@@ -82,14 +114,15 @@ $letter-spacing-widest: 0.2em;   // Section labels
   --font-weight-semibold: #{$font-weight-semibold};
   --font-weight-bold: #{$font-weight-bold};
 
-  // Line heights
-  --line-height-tight: #{$line-height-tight};
-  --line-height-snug: #{$line-height-snug};
-  --line-height-normal: #{$line-height-normal};
-  --line-height-relaxed: #{$line-height-relaxed};
+  // English line heights
+  --line-height-tight: #{$en-line-height-tight};
+  --line-height-snug: #{$en-line-height-snug};
+  --line-height-normal: #{$en-line-height-normal};
+  --line-height-relaxed: #{$en-line-height-relaxed};
 
   // Letter spacing
   --letter-spacing-tight: #{$letter-spacing-tight};
+  --letter-spacing-snug: #{$letter-spacing-snug};
   --letter-spacing-normal: #{$letter-spacing-normal};
   --letter-spacing-wide: #{$letter-spacing-wide};
   --letter-spacing-wider: #{$letter-spacing-wider};
@@ -97,94 +130,106 @@ $letter-spacing-widest: 0.2em;   // Section labels
 }
 
 // ============================================
-// TYPOGRAPHY MIXINS
+// ARABIC CSS CUSTOM PROPERTIES
 // ============================================
+
+[dir="rtl"], [lang="ar"] {
+  --font-heading: var(--font-arabic-heading);
+  --font-body: var(--font-arabic-body);
+  --line-height-tight: #{$ar-line-height-tight};
+  --line-height-snug: #{$ar-line-height-snug};
+  --line-height-normal: #{$ar-line-height-normal};
+  --line-height-relaxed: #{$ar-line-height-relaxed};
+  --letter-spacing-tight: #{$ar-letter-spacing-tight};
+  --letter-spacing-wide: #{$ar-letter-spacing-wide};
+}
+
+// ============================================
+// TYPOGRAPHY MIXINS — English
+// ============================================
+
+@mixin heading-display {
+  font-family: $font-heading;
+  font-size: $en-heading-size-display;
+  font-weight: $font-weight-bold;
+  line-height: $en-line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+  color: $color-navy;
+}
 
 @mixin heading-h1 {
   font-family: $font-heading;
-  font-size: $font-size-5xl;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-tight;
+  font-size: $en-heading-size-2xl;
+  font-weight: $font-weight-bold;
+  line-height: $en-line-height-tight;
   letter-spacing: $letter-spacing-tight;
   color: $color-navy;
 }
 
 @mixin heading-h2 {
   font-family: $font-heading;
-  font-size: $font-size-4xl;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-tight;
-  letter-spacing: $letter-spacing-tight;
+  font-size: $en-heading-size-xl;
+  font-weight: $font-weight-bold;
+  line-height: $en-line-height-snug;
+  letter-spacing: $letter-spacing-snug;
   color: $color-navy;
 }
 
 @mixin heading-h3 {
   font-family: $font-heading;
-  font-size: $font-size-3xl;
+  font-size: $en-heading-size-lg;
   font-weight: $font-weight-semibold;
-  line-height: $line-height-tight;
+  line-height: 1.2;
+  letter-spacing: $letter-spacing-snug;
   color: $color-navy;
 }
 
 @mixin heading-h4 {
-  font-family: $font-heading;
-  font-size: $font-size-2xl;
+  font-family: $font-body;
+  font-size: $en-heading-size-md;
   font-weight: $font-weight-semibold;
-  line-height: $line-height-snug;
-  color: $color-navy;
-}
-
-@mixin heading-h5 {
-  font-family: $font-heading;
-  font-size: $font-size-xl;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-snug;
-  color: $color-navy;
-}
-
-@mixin heading-h6 {
-  font-family: $font-heading;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-snug;
+  line-height: 1.3;
+  letter-spacing: $letter-spacing-normal;
   color: $color-navy;
 }
 
 @mixin body-lg {
   font-family: $font-body;
-  font-size: $font-size-md;
+  font-size: $en-body-size-lg;
   font-weight: $font-weight-regular;
-  line-height: $line-height-normal;
+  line-height: $en-line-height-normal;
   color: $color-graphite;
 }
 
 @mixin body-base {
   font-family: $font-body;
-  font-size: $font-size-base;
+  font-size: $en-body-size-base;
   font-weight: $font-weight-regular;
-  line-height: $line-height-normal;
+  line-height: $en-line-height-normal;
   color: $color-graphite;
 }
 
 @mixin body-sm {
   font-family: $font-body;
-  font-size: $font-size-sm;
+  font-size: $en-body-size-sm;
   font-weight: $font-weight-regular;
-  line-height: $line-height-normal;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
   color: $color-graphite;
 }
 
 @mixin caption {
   font-family: $font-body;
-  font-size: $font-size-xs;
+  font-size: $en-body-size-xs;
   font-weight: $font-weight-regular;
-  line-height: $line-height-normal;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
   color: $color-grey;
 }
 
 @mixin overline {
-  font-family: $font-heading;
-  font-size: $font-size-xs;
+  font-family: $font-body;
+  font-size: 0.75rem;
   font-weight: $font-weight-medium;
   line-height: 1;
   letter-spacing: $letter-spacing-widest;
@@ -193,12 +238,118 @@ $letter-spacing-widest: 0.2em;   // Section labels
 }
 
 @mixin button-text {
-  font-family: $font-heading;
-  font-size: $font-size-sm;
+  font-family: $font-body;
+  font-size: 0.875rem;
   font-weight: $font-weight-semibold;
   line-height: 1;
+  letter-spacing: $letter-spacing-wider;
+}
+
+@mixin nav-text {
+  font-family: $font-body;
+  font-size: 0.875rem;
+  font-weight: $font-weight-medium;
+  line-height: 1;
   letter-spacing: $letter-spacing-wide;
-  text-transform: uppercase;
+}
+
+// ============================================
+// ARABIC TYPOGRAPHY MIXINS
+// ============================================
+
+@mixin ar-heading-display {
+  font-family: $font-arabic-heading;
+  font-size: $ar-heading-size-display;
+  font-weight: $font-weight-bold;
+  line-height: $ar-line-height-tight;
+  letter-spacing: $ar-letter-spacing-tight;
+  color: $color-navy;
+  direction: rtl;
+}
+
+@mixin ar-heading-h1 {
+  font-family: $font-arabic-heading;
+  font-size: $ar-heading-size-2xl;
+  font-weight: $font-weight-bold;
+  line-height: $ar-line-height-snug;
+  letter-spacing: $ar-letter-spacing-tight;
+  color: $color-navy;
+  direction: rtl;
+}
+
+@mixin ar-heading-h2 {
+  font-family: $font-arabic-heading;
+  font-size: $ar-heading-size-xl;
+  font-weight: $font-weight-bold;
+  line-height: $ar-line-height-snug;
+  letter-spacing: $ar-letter-spacing-tight;
+  color: $color-navy;
+  direction: rtl;
+}
+
+@mixin ar-heading-h3 {
+  font-family: $font-arabic-heading;
+  font-size: $ar-heading-size-lg;
+  font-weight: $font-weight-semibold;
+  line-height: 1.35;
+  letter-spacing: $ar-letter-spacing-tight;
+  color: $color-navy;
+  direction: rtl;
+}
+
+@mixin ar-heading-h4 {
+  font-family: $font-arabic-body;
+  font-size: $ar-heading-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: 1.4;
+  letter-spacing: $ar-letter-spacing-tight;
+  color: $color-navy;
+  direction: rtl;
+}
+
+@mixin ar-body-lg {
+  font-family: $font-arabic-body;
+  font-size: $ar-body-size-lg;
+  font-weight: $font-weight-regular;
+  line-height: $ar-line-height-normal;
+  color: $color-graphite;
+  direction: rtl;
+}
+
+@mixin ar-body-base {
+  font-family: $font-arabic-body;
+  font-size: $ar-body-size-base;
+  font-weight: $font-weight-regular;
+  line-height: $ar-line-height-normal;
+  color: $color-graphite;
+  direction: rtl;
+}
+
+@mixin ar-body-sm {
+  font-family: $font-arabic-body;
+  font-size: $ar-body-size-sm;
+  font-weight: $font-weight-regular;
+  line-height: 1.7;
+  color: $color-graphite;
+  direction: rtl;
+}
+
+@mixin ar-overline {
+  font-family: $font-arabic-body;
+  font-size: 0.75rem;
+  font-weight: $font-weight-medium;
+  line-height: 1.2;
+  letter-spacing: $ar-letter-spacing-wide;
+  color: $color-gold;
+  direction: rtl;
+}
+
+@mixin ar-nav-text {
+  font-family: $font-arabic-body;
+  font-size: 0.875rem;
+  font-weight: $font-weight-medium;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 // ============================================
@@ -212,6 +363,3 @@ $letter-spacing-widest: 0.2em;   // Section labels
     #{$property}: $desktop-size;
   }
 }
-
-// Example usage:
-// @include responsive-type(font-size, $font-size-3xl, $font-size-5xl);

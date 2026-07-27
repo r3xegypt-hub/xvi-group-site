@@ -4,7 +4,7 @@
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
+import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import styles from './Insights.module.scss';
 
 const INSIGHTS = [
@@ -46,7 +46,7 @@ const INSIGHTS = [
 export function Insights() {
   const { language } = useLanguage();
   const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const gridRef = useScrollReveal({ direction: 'up', duration: 800, delay: 200 });
+  const gridRef = useScrollRevealGroup({ direction: 'up', duration: 700, stagger: 150 });
 
   return (
     <Section variant="warm" id="insights">
@@ -56,11 +56,11 @@ export function Insights() {
             {language === 'ar' ? 'الرؤى' : 'INSIGHTS'}
           </p>
           <h2 className={styles.title}>
-            {language === 'ar' ? 'أحدث الأفكار والرؤى' : 'Latest Thinking'}
+            {language === 'ar' ? 'أحدث التوجهات والرؤى' : 'Latest Thinking'}
           </h2>
           <p className={styles.description}>
             {language === 'ar'
-              ? 'رؤى استراتيجية وتحليلات عميقة من فريق الاستشاريين لدينا.'
+              ? 'رؤى استراتيجية وتحليلات معمّقة من فريق الاستشاريين لدينا.'
               : 'Strategic perspectives and deep analysis from our advisory team.'}
           </p>
         </div>

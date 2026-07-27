@@ -38,12 +38,12 @@ export function Contact() {
           </p>
           <h2 className={styles.title}>
             {language === 'ar'
-              ? 'لنبنِ شيئاً استثنائياً معاً'
+              ? 'لنصنع معاً شيئاً استثنائياً'
               : "Let's Build Something Extraordinary"}
           </h2>
           <p className={styles.description}>
             {language === 'ar'
-              ? 'مستعدون لتحويل مؤسستتكم؟ نحن هنا للمساعدة.'
+              ? 'هل تسعى لنقلة نوعية في مؤسستك؟ فريقنا جاهز لمساعدتك.'
               : "Ready to transform your enterprise? We're here to help."}
           </p>
         </div>
@@ -52,7 +52,7 @@ export function Contact() {
           <form ref={formRef as any} className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <Input
-                label={language === 'ar' ? 'الاسم' : 'Your Name'}
+                label={language === 'ar' ? 'الاسم الكامل' : 'Your Name'}
                 name="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -69,7 +69,7 @@ export function Contact() {
             </div>
             <div className={styles.formRow}>
               <Input
-                label={language === 'ar' ? 'الشركة' : 'Company'}
+                label={language === 'ar' ? 'اسم المؤسسة' : 'Company'}
                 name="company"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}

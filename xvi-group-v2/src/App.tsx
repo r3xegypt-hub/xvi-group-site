@@ -8,6 +8,7 @@ import { MotionProvider } from './motion/providers/MotionProvider';
 import { Navigation } from './components/navigation/Navigation';
 import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
+import { PageTransition } from './components/ui/PageTransition';
 import { Home } from './pages/home';
 import { Preview } from './pages/preview';
 
@@ -19,21 +20,23 @@ function App() {
           <MotionProvider>
             <div className="xvi-app">
               <ScrollProgress />
-              <Routes>
-                <Route path="/preview" element={<Preview />} />
-                <Route
-                  path="*"
-                  element={
-                    <>
-                      <Navigation />
-                      <main id="main-content">
-                        <Home />
-                      </main>
-                      <Footer />
-                    </>
-                  }
-                />
-              </Routes>
+              <PageTransition>
+                <Routes>
+                  <Route path="/preview" element={<Preview />} />
+                  <Route
+                    path="*"
+                    element={
+                      <>
+                        <Navigation />
+                        <main id="main-content">
+                          <Home />
+                        </main>
+                        <Footer />
+                      </>
+                    }
+                  />
+                </Routes>
+              </PageTransition>
             </div>
           </MotionProvider>
         </LanguageProvider>

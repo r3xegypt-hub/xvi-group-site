@@ -1,5 +1,5 @@
-// XVI GROUP — Typography Engine
-// Fluid typography, bilingual support, responsive type scaling
+// XVI GROUP — Typography Engine (v2)
+// Per TYPOGRAPHY_SYSTEM.md — Independent EN/AR systems
 
 import type { Language, Direction } from '../types';
 
@@ -19,87 +19,186 @@ export const FONT_FAMILIES = {
 } as const;
 
 // ============================================
-// TYPE SCALE — Perfect Fourth (1.333)
+// ENGLISH TYPE SCALE — Per TYPOGRAPHY_SYSTEM.md
 // ============================================
 
-export const TYPE_SCALE = {
+export const EN_TYPE_SCALE = {
+  display: {
+    fontSize: 'clamp(3rem, 6vw, 5rem)',
+    lineHeight: '1.0',
+    letterSpacing: '-0.04em',
+    fontWeight: 700 as const,
+    fontFamily: "'Playfair Display', Georgia, serif",
+  },
   h1: {
-    fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-    lineHeight: '1.15',
-    letterSpacing: '-0.02em',
-    fontWeight: 700,
+    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+    lineHeight: '1.05',
+    letterSpacing: '-0.03em',
+    fontWeight: 700 as const,
+    fontFamily: "'Playfair Display', Georgia, serif",
   },
   h2: {
-    fontSize: 'clamp(2rem, 4vw, 2.625rem)',
-    lineHeight: '1.2',
-    letterSpacing: '-0.01em',
-    fontWeight: 600,
+    fontSize: 'clamp(2rem, 4vw, 3rem)',
+    lineHeight: '1.1',
+    letterSpacing: '-0.02em',
+    fontWeight: 700 as const,
+    fontFamily: "'Playfair Display', Georgia, serif",
   },
   h3: {
     fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-    lineHeight: '1.25',
-    letterSpacing: '0',
-    fontWeight: 600,
+    lineHeight: '1.2',
+    letterSpacing: '-0.01em',
+    fontWeight: 600 as const,
+    fontFamily: "'Playfair Display', Georgia, serif",
   },
   h4: {
     fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
-    lineHeight: '1.33',
+    lineHeight: '1.3',
     letterSpacing: '0',
-    fontWeight: 600,
+    fontWeight: 600 as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   bodyLarge: {
     fontSize: 'clamp(1.125rem, 1.75vw, 1.25rem)',
     lineHeight: '1.618',
     letterSpacing: '0',
-    fontWeight: 400,
+    fontWeight: 400 as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   body: {
     fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
     lineHeight: '1.618',
     letterSpacing: '0',
-    fontWeight: 400,
+    fontWeight: 400 as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   small: {
-    fontSize: '0.875rem',
-    lineHeight: '1.43',
+    fontSize: '0.9375rem',
+    lineHeight: '1.6',
     letterSpacing: '0.01em',
-    fontWeight: 400,
+    fontWeight: 400 as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   caption: {
-    fontSize: '0.75rem',
-    lineHeight: '1.33',
+    fontSize: '0.8125rem',
+    lineHeight: '1.4',
     letterSpacing: '0.02em',
-    fontWeight: 400,
+    fontWeight: 400 as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   overline: {
     fontSize: '0.75rem',
     lineHeight: '1',
-    letterSpacing: '0.1em',
-    fontWeight: 500,
+    letterSpacing: '0.14em',
+    fontWeight: 500 as const,
     textTransform: 'uppercase' as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   button: {
     fontSize: '0.875rem',
     lineHeight: '1',
-    letterSpacing: '0.02em',
-    fontWeight: 600,
+    letterSpacing: '0.06em',
+    fontWeight: 600 as const,
     textTransform: 'uppercase' as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+  },
+  nav: {
+    fontSize: '0.875rem',
+    lineHeight: '1',
+    letterSpacing: '0.04em',
+    fontWeight: 500 as const,
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
 } as const;
 
 // ============================================
-// ARABIC TYPE SCALE (Adjusted for Arabic script)
+// ARABIC TYPE SCALE — Per TYPOGRAPHY_SYSTEM.md
 // ============================================
 
-export const ARABIC_TYPE_SCALE = {
-  ...TYPE_SCALE,
-  body: {
-    ...TYPE_SCALE.body,
-    lineHeight: '1.75', // Arabic needs more vertical space
+export const AR_TYPE_SCALE = {
+  display: {
+    fontSize: 'clamp(2.75rem, 5.5vw, 4.5rem)',
+    lineHeight: '1.2',
+    letterSpacing: '0',
+    fontWeight: 700 as const,
+    fontFamily: "'Amiri', 'Traditional Arabic', serif",
+  },
+  h1: {
+    fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)',
+    lineHeight: '1.25',
+    letterSpacing: '0',
+    fontWeight: 700 as const,
+    fontFamily: "'Amiri', 'Traditional Arabic', serif",
+  },
+  h2: {
+    fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+    lineHeight: '1.3',
+    letterSpacing: '0',
+    fontWeight: 700 as const,
+    fontFamily: "'Amiri', 'Traditional Arabic', serif",
+  },
+  h3: {
+    fontSize: 'clamp(1.375rem, 2.75vw, 1.875rem)',
+    lineHeight: '1.35',
+    letterSpacing: '0',
+    fontWeight: 600 as const,
+    fontFamily: "'Amiri', 'Traditional Arabic', serif",
+  },
+  h4: {
+    fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
+    lineHeight: '1.4',
+    letterSpacing: '0',
+    fontWeight: 600 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
   },
   bodyLarge: {
-    ...TYPE_SCALE.bodyLarge,
-    lineHeight: '1.75',
+    fontSize: 'clamp(1.125rem, 1.75vw, 1.25rem)',
+    lineHeight: '1.8',
+    letterSpacing: '0',
+    fontWeight: 400 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
+  },
+  body: {
+    fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
+    lineHeight: '1.8',
+    letterSpacing: '0',
+    fontWeight: 400 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
+  },
+  small: {
+    fontSize: '0.9375rem',
+    lineHeight: '1.7',
+    letterSpacing: '0',
+    fontWeight: 400 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
+  },
+  caption: {
+    fontSize: '0.8125rem',
+    lineHeight: '1.5',
+    letterSpacing: '0',
+    fontWeight: 400 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
+  },
+  overline: {
+    fontSize: '0.75rem',
+    lineHeight: '1.2',
+    letterSpacing: '0.06em',
+    fontWeight: 500 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
+  },
+  button: {
+    fontSize: '0.875rem',
+    lineHeight: '1.2',
+    letterSpacing: '0.04em',
+    fontWeight: 600 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
+  },
+  nav: {
+    fontSize: '0.875rem',
+    lineHeight: '1.2',
+    letterSpacing: '0.02em',
+    fontWeight: 500 as const,
+    fontFamily: "'Tajawal', 'Noto Sans Arabic', Arial, sans-serif",
   },
 } as const;
 
@@ -127,26 +226,29 @@ class TypographyEngine {
   }
 
   getScale() {
-    return this.currentLanguage === 'ar' ? ARABIC_TYPE_SCALE : TYPE_SCALE;
+    return this.currentLanguage === 'ar' ? AR_TYPE_SCALE : EN_TYPE_SCALE;
   }
 
   getLineHeight(role: 'heading' | 'body'): string {
     if (this.currentLanguage === 'ar') {
-      return role === 'body' ? '1.75' : '1.15';
+      return role === 'body' ? '1.8' : '1.25';
     }
-    return role === 'body' ? '1.618' : '1.15';
+    return role === 'body' ? '1.618' : '1.05';
   }
 
   getMaxLineWidth(): string {
-    return '65ch'; // 65-75 characters for optimal reading
+    return this.currentLanguage === 'ar' ? '55ch' : '65ch';
   }
 
-  // Generate CSS custom properties for typography
   getCSSVariables(): Record<string, string> {
     const scale = this.getScale();
     return {
       '--font-heading': this.getFontFamily('heading'),
       '--font-body': this.getFontFamily('body'),
+      '--text-display-size': scale.display.fontSize,
+      '--text-display-height': scale.display.lineHeight,
+      '--text-display-spacing': scale.display.letterSpacing,
+      '--text-display-weight': String(scale.display.fontWeight),
       '--text-h1-size': scale.h1.fontSize,
       '--text-h1-height': scale.h1.lineHeight,
       '--text-h1-spacing': scale.h1.letterSpacing,

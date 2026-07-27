@@ -4,13 +4,13 @@
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
+import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import styles from './Testimonials.module.scss';
 
 const TESTIMONIALS = [
   {
     quote: 'XVI GROUP didn\'t just advise us — they transformed how we think about technology and strategy as an integrated discipline.',
-    quoteAr: 'مجموعة XVI لم تكن مجرد مستشيرة — بل غيّرت طريقة تفكيرنا في التكنولوجيا والاستراتيجية كتخصص متكامل.',
+    quoteAr: 'XVI GROUP لم تكن مجرد مستشيرة — بل غيّرت طريقة تفكيرنا في التكنولوجيا والاستراتيجية كتخصص متكامل.',
     author: 'Sarah Al-Mansouri',
     authorAr: 'سارة المنصوري',
     title: 'CTO',
@@ -19,7 +19,7 @@ const TESTIMONIALS = [
   },
   {
     quote: 'The sovereign AI architecture they designed gave us complete control over our intelligence infrastructure. No other firm could deliver this.',
-    quoteAr: 'هندسة الذكاء السيادي التي صمموها أعطتنا تحكماً كاملاً في بنية المعلومات الخاصة بنا. لا يمكن لأي شركة أخرى تقديم هذا.',
+    quoteAr: 'هندسة الذكاء الاصطناعي السيادي التي صمموها أعطتنا تحكماً كاملاً في بنية المعلومات الخاصة بنا. لا يمكن لأي مؤسسة أخرى تقديم هذا.',
     author: 'James Mitchell',
     authorAr: 'جيمس ميتشل',
     title: 'CEO',
@@ -28,7 +28,7 @@ const TESTIMONIALS = [
   },
   {
     quote: 'Their executive training program transformed our leadership team\'s approach to digital strategy. The ROI was immediate and measurable.',
-    quoteAr: 'برنامج التدريب التنفيذي الذي قدّموه حوّل نهج فريق القيادة لدينا في الاستراتيجية الرقمية. العائد كان فوراً وقابل للقياس.',
+    quoteAr: 'برنامج التدريب التنفيذي الذي قدّموه حوّل نهج فريق القيادة لدينا في الاستراتيجية الرقمية. العائد كان فورياً وقابل للقياس.',
     author: 'Dr. Fatima Al-Rashid',
     authorAr: 'د. فاطمة الراشد',
     title: 'Managing Director',
@@ -40,17 +40,17 @@ const TESTIMONIALS = [
 export function Testimonials() {
   const { language } = useLanguage();
   const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const gridRef = useScrollReveal({ direction: 'up', duration: 800, delay: 200 });
+  const gridRef = useScrollRevealGroup({ direction: 'up', duration: 800, stagger: 200 });
 
   return (
     <Section variant="default" id="testimonials">
       <Container>
         <div ref={headerRef} className={styles.header}>
           <p className={styles.overline}>
-            {language === 'ar' ? 'شهادات العملاء' : 'CLIENT TESTIMONIALS'}
+            {language === 'ar' ? 'آراء شركائنا' : 'CLIENT TESTIMONIALS'}
           </p>
           <h2 className={styles.title}>
-            {language === 'ar' ? 'ماذا يقول شركاؤنا' : 'What Our Partners Say'}
+            {language === 'ar' ? 'ماذا يقول عملاؤنا' : 'What Our Partners Say'}
           </h2>
         </div>
 

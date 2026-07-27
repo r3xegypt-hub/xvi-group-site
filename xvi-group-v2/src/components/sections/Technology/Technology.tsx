@@ -4,14 +4,14 @@
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
+import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import { useSvgDraw } from '../../../motion/hooks/useSvgDraw';
 import styles from './Technology.module.scss';
 
 export function Technology() {
   const { language } = useLanguage();
   const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const contentRef = useScrollReveal({ direction: 'left', duration: 800, delay: 200 });
+  const featuresRef = useScrollRevealGroup({ direction: 'left', duration: 700, stagger: 150 });
   const { ref: svgRef } = useSvgDraw({ duration: 1500, delay: 400 });
 
   return (
@@ -28,13 +28,13 @@ export function Technology() {
           </h2>
           <p className={styles.description}>
             {language === 'ar'
-              ? 'أنظمة مصممة للمؤسسات التي تتطلب أماناً غير قابل للاختراق وأداءً استثنائياً.'
+              ? 'أنظمة مُصمَّمة للمؤسسات التي تتطلب أماناً مُحكَماً وأداءً استثنائياً.'
               : 'Systems engineered for enterprises that demand impenetrable security and exceptional performance.'}
           </p>
         </div>
 
-        <div ref={contentRef} className={styles.content}>
-          <div className={styles.textContent}>
+        <div className={styles.content}>
+          <div ref={featuresRef} className={styles.textContent}>
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 32 32" fill="none">

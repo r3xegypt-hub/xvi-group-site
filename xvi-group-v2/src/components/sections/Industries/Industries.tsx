@@ -4,7 +4,7 @@
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
+import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import styles from './Industries.module.scss';
 
 const INDUSTRIES = [
@@ -62,7 +62,7 @@ const INDUSTRIES = [
 export function Industries() {
   const { language } = useLanguage();
   const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const gridRef = useScrollReveal({ direction: 'up', duration: 800, delay: 200 });
+  const gridRef = useScrollRevealGroup({ direction: 'scale', duration: 700, stagger: 120 });
 
   return (
     <Section variant="default" id="industries">
@@ -72,11 +72,11 @@ export function Industries() {
             {language === 'ar' ? 'القطاعات' : 'INDUSTRIES'}
           </p>
           <h2 className={styles.title}>
-            {language === 'ar' ? 'قطاعات نخدمها' : 'Sectors We Serve'}
+            {language === 'ar' ? 'القطاعات التي نخدمها' : 'Sectors We Serve'}
           </h2>
           <p className={styles.description}>
             {language === 'ar'
-              ? 'خبراء في القطاعات الرئيسية التي تشكل اقتصاد الغد.'
+              ? 'خبراء عميقة في القطاعات الرئيسية التي تشكّل اقتصاد الغد.'
               : 'Deep expertise in the core sectors shaping tomorrow\'s economy.'}
           </p>
         </div>

@@ -57,8 +57,8 @@ export function Footer() {
           </Link>
           <p className={styles.tagline}>
             {language === 'ar'
-              ? 'الاستراتيجية. الذكاء. التميز التشغيلي.'
-              : 'Strategy. Intelligence. Operational Mastery.'}
+              ? 'نصنع مؤسسات تُحرّك الأسواق، تُحوّل الصناعات، وتقود ثورات التكنولوجيا.'
+              : 'Building enterprises that move markets, transform industries, and lead technological revolutions.'}
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export function Footer() {
         {/* Bottom */}
         <div className={styles.bottom}>
           <div className={styles.copyright}>
-            <p>© 2026 XVI GROUP. {language === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
+            <p>© 2025 XVI GROUP. {language === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
             <div className={styles.legalLinks}>
               <Link to="/privacy" className={styles.legalLink}>
                 {language === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}

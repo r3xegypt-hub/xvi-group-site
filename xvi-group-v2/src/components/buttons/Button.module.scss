@@ -1,5 +1,5 @@
-// XVI GROUP — Premium Button SCSS Module (v2)
-// Luxury buttons with premium effects
+// XVI GROUP — Premium Button SCSS Module (v3)
+// Executive buttons: flat gold, architectural shadows, tactile press
 
 .button {
   display: inline-flex;
@@ -7,15 +7,16 @@
   justify-content: center;
   gap: 10px;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  letter-spacing: 0.02em;
 
   &:focus-visible {
     outline: 2px solid #C9A96E;
@@ -31,153 +32,93 @@
 }
 
 // ============================================
-// SIZES — Per-device
+// SIZES
 // ============================================
 
 .sm {
-  // Small Mobile: Compact
   height: 40px;
   padding: 0 16px;
   font-size: 13px;
-  letter-spacing: 0.03em;
 
-  // Medium Mobile
-  @media (min-width: 375px) {
-    height: 42px;
-    padding: 0 18px;
-    font-size: 14px;
-  }
-
-  // Large Mobile
-  @media (min-width: 429px) {
-    height: 44px;
-    padding: 0 20px;
-    font-size: 14px;
-  }
-
-  // Tablet Portrait+
   @media (min-width: 768px) {
     height: 44px;
     padding: 0 20px;
+    font-size: 14px;
   }
 }
 
 .md {
-  // Small Mobile: Touch-friendly
   height: 48px;
-  padding: 0 20px;
-  font-size: 14px;
-  letter-spacing: 0.03em;
+  padding: 0 24px;
+  font-size: 15px;
 
-  // Medium Mobile
-  @media (min-width: 375px) {
-    height: 50px;
-    padding: 0 24px;
-    font-size: 15px;
-  }
-
-  // Large Mobile
-  @media (min-width: 429px) {
-    height: 52px;
-    padding: 0 28px;
-    font-size: 15px;
-  }
-
-  // Tablet Portrait
   @media (min-width: 768px) {
-    height: 52px;
-    padding: 0 28px;
-    font-size: 16px;
-  }
-
-  // Laptop+
-  @media (min-width: 1366px) {
-    height: 52px;
+    height: 48px;
     padding: 0 28px;
     font-size: 16px;
   }
 }
 
 .lg {
-  // Small Mobile: Compact large
   height: 52px;
-  padding: 0 24px;
-  font-size: 15px;
-  letter-spacing: 0.03em;
+  padding: 0 28px;
+  font-size: 16px;
 
-  // Medium Mobile
-  @media (min-width: 375px) {
-    height: 54px;
-    padding: 0 28px;
-  }
-
-  // Large Mobile
-  @media (min-width: 429px) {
-    height: 56px;
-    padding: 0 32px;
-    font-size: 16px;
-  }
-
-  // Tablet Portrait
   @media (min-width: 768px) {
-    height: 58px;
+    height: 56px;
     padding: 0 36px;
-    font-size: 17px;
-  }
-
-  // Tablet Landscape+
-  @media (min-width: 1024px) {
-    height: 60px;
-    padding: 0 36px;
+    font-size: 16px;
   }
 }
 
 // ============================================
-// VARIANTS — Premium Styles
+// VARIANTS — Per VISUAL_DNA.md spec
 // ============================================
 
 .primary {
-  background: linear-gradient(135deg, #C9A96E 0%, #B89A60 100%);
+  background: #C9A96E;
   color: #0A1628;
-  box-shadow: 0 4px 16px rgba(201, 169, 110, 0.25);
+  box-shadow:
+    0 1px 2px rgba(10, 22, 40, 0.04),
+    0 4px 16px rgba(201, 169, 110, 0.15);
 
-  // Premium hover effect
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #D4B87A 0%, #C9A96E 100%);
-      box-shadow: 
-        0 8px 24px rgba(201, 169, 110, 0.35),
-        0 2px 8px rgba(201, 169, 110, 0.2);
+      background: #b8984e;
       transform: translateY(-2px);
+      box-shadow:
+        0 4px 12px rgba(10, 22, 40, 0.06),
+        0 8px 24px rgba(201, 169, 110, 0.2);
     }
   }
 
   &:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(201, 169, 110, 0.2);
-    background: linear-gradient(135deg, #B89A60 0%, #A88B52 100%);
+    box-shadow:
+      0 1px 2px rgba(10, 22, 40, 0.04),
+      0 2px 8px rgba(201, 169, 110, 0.1);
+    background: #a88b52;
   }
 }
 
 .secondary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.95) 100%);
+  background: transparent;
   color: #0A1628;
-  border: 1px solid rgba(201, 169, 110, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #C8CDD5;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 250, 1) 100%);
-      border-color: rgba(201, 169, 110, 0.4);
-      box-shadow: 0 4px 16px rgba(10, 22, 40, 0.08);
+      background: rgba(10, 22, 40, 0.04);
+      border-color: #0A1628;
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(10, 22, 40, 0.08);
     }
   }
 
   &:active:not(:disabled) {
-    background: linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(240, 241, 243, 1) 100%);
+    background: rgba(10, 22, 40, 0.06);
     transform: translateY(0);
+    border-color: #0A1628;
   }
 }
 
@@ -186,43 +127,42 @@
   color: #C9A96E;
   padding: 0;
   height: auto;
+  border-radius: 0;
+  font-weight: 500;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      color: #B89A60;
-      text-shadow: 0 0 20px rgba(201, 169, 110, 0.3);
+      color: #0A1628;
     }
   }
 
   .icon {
-    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) .icon {
-      transform: translateX(6px);
+      transform: translateX(5px);
     }
   }
 }
 
 .danger {
-  background: linear-gradient(135deg, #C4392D 0%, #A8301F 100%);
+  background: #C4392D;
   color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(196, 57, 45, 0.25);
+  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
 
   @media (hover: hover) and (pointer: fine) {
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #D44A3E 0%, #C4392D 100%);
-      box-shadow: 
-        0 8px 24px rgba(196, 57, 45, 0.35),
-        0 2px 8px rgba(196, 57, 45, 0.2);
-      transform: translateY(-2px);
+      background: #a8301f;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(10, 22, 40, 0.08);
     }
   }
 
   &:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(196, 57, 45, 0.2);
+    box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
   }
 }
 

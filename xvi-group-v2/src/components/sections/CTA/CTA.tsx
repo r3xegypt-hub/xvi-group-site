@@ -10,7 +10,7 @@ import styles from './CTA.module.scss';
 
 export function CTA() {
   const { language } = useLanguage();
-  const ref = useScrollReveal({ direction: 'up', duration: 800 });
+  const ref = useScrollReveal({ direction: 'blur', duration: 1000 });
 
   return (
     <section className={styles.cta}>
@@ -21,18 +21,18 @@ export function CTA() {
           </p>
           <h2 className={styles.title}>
             {language === 'ar'
-              ? 'لنبنِ مستقبل مؤسستك'
+              ? 'معاً نحو مستقبل مؤسستك'
               : "Let's Build Your Enterprise's Future"}
           </h2>
           <p className={styles.description}>
             {language === 'ar'
-              ? 'حدد استشارة سرية مع فريقنا.'
+              ? 'احجز استشارة سرية مع فريقنا الاستشاري.'
               : 'Schedule a confidential consultation with our team.'}
           </p>
           <MeridianLine variant="gold" width="120px" height={2} className={styles.meridian} />
           <div className={styles.ctas}>
             <Button variant="primary" size="lg" href="/contact">
-              {language === 'ar' ? 'ابدأ محادثة' : 'Start a Conversation'}
+              {language === 'ar' ? 'نبدأ الحوار' : 'Start a Conversation'}
             </Button>
             <Button variant="secondary" size="lg" href="/services">
               {language === 'ar' ? 'تحميل القدرات' : 'Download Our Capabilities'}

@@ -1,34 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- XVI GROUP — Premium Logo Mark (Light Mode) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="XVI GROUP">
+  <!-- XVI GROUP — Diamond Mark (Light Mode) — Path-based letterforms -->
   
-  <!-- Outer hexagon frame - premium geometric shape -->
-  <path d="M60 8 L108 32 L108 88 L60 112 L12 88 L12 32 Z" 
+  <!-- Diamond frame — perfect rhombus -->
+  <path d="M24 4 L44 24 L24 44 L4 24 Z" 
         stroke="#0A1628" 
         stroke-width="2" 
-        fill="none"
-        opacity="0.9"/>
+        fill="none"/>
   
-  <!-- Inner hexagon - layered depth -->
-  <path d="M60 20 L96 40 L96 80 L60 100 L24 80 L24 40 Z" 
-        stroke="#C9A96E" 
-        stroke-width="1" 
-        fill="none"
-        opacity="0.6"/>
-  
-  <!-- XVI Mark - Premium thin lines -->
-  <line x1="32" y1="40" x2="52" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="52" y1="40" x2="32" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="64" y1="40" x2="84" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="84" y1="40" x2="64" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
-  
-  <!-- I - Vertical stroke -->
-  <line x1="96" y1="40" x2="96" y2="80" stroke="#0A1628" stroke-width="2.5" stroke-linecap="round"/>
-  
-  <!-- Meridian Line - Gold accent -->
-  <line x1="28" y1="92" x2="92" y2="92" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
-  
-  <!-- Subtle AI/circuit dots -->
-  <circle cx="20" cy="60" r="1.5" fill="#C9A96E" opacity="0.4"/>
-  <circle cx="100" cy="60" r="1.5" fill="#C9A96E" opacity="0.4"/>
-  <circle cx="60" cy="24" r="1.5" fill="#C9A96E" opacity="0.4"/>
+  <!-- XVI letterforms — Inter Medium proportions, tracked +0.1em -->
+  <!-- X -->
+  <path d="M14.5 21.5 L18 26" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M18 21.5 L14.5 26" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- V -->
+  <path d="M19.5 21.5 L22 26 L24.5 21.5" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- I -->
+  <path d="M28 21.5 L28 26" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round"/>
 </svg>

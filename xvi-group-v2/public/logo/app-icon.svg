@@ -1,18 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <!-- APP ICON — Monogram at 512px with navy background -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" aria-label="XVI GROUP">
+  <!-- XVI GROUP — App Icon (Navy background, gold diamond) — Path-based letterforms -->
   
-  <!-- Background -->
-  <rect width="512" height="512" rx="96" fill="#0A1628"/>
+  <!-- Background with rounded corners (22% iOS standard) -->
+  <rect width="512" height="512" rx="112" fill="#0A1628"/>
   
-  <!-- Diamond -->
-  <path d="M256 80 L432 256 L256 432 L80 256 Z" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+  <!-- Diamond mark centered with 25% padding -->
+  <path d="M256 128 L384 256 L256 384 L128 256 Z" 
+        stroke="#C9A96E" 
+        stroke-width="6" 
+        fill="none"/>
   
-  <!-- Inner V -->
-  <path d="M256 140 L340 256 L256 372" stroke="#FFFFFF" stroke-width="3" fill="none"/>
-  
-  <!-- I axis -->
-  <line x1="256" y1="100" x2="256" y2="412" stroke="#C9A96E" stroke-width="3"/>
-  
-  <!-- Center diamond -->
-  <path d="M256 224 L288 256 L256 288 L224 256 Z" fill="#C9A96E" opacity="0.9"/>
+  <!-- XVI letterforms — gold -->
+  <!-- X -->
+  <path d="M204 242 L220 268" stroke="#C9A96E" stroke-width="6" stroke-linecap="round"/>
+  <path d="M220 242 L204 268" stroke="#C9A96E" stroke-width="6" stroke-linecap="round"/>
+  <!-- V -->
+  <path d="M228 242 L250 268 L272 242" stroke="#C9A96E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- I -->
+  <path d="M292 242 L292 268" stroke="#C9A96E" stroke-width="6" stroke-linecap="round"/>
 </svg>

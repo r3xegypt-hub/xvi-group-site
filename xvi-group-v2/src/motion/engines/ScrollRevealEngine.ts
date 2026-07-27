@@ -7,7 +7,7 @@ import { EASING, DURATIONS } from '../../constants';
 // TYPES
 // ============================================
 
-export type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'scale' | 'fade';
+export type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'scale' | 'fade' | 'blur';
 
 export interface RevealConfig {
   direction: RevealDirection;
@@ -77,7 +77,7 @@ class ScrollRevealEngine {
     this.setInitialState(element, mergedConfig.direction);
 
     // Set transition
-    element.style.transition = `opacity ${mergedConfig.duration}ms ${EASING['ease-out-expo']}, transform ${mergedConfig.duration}ms ${EASING['ease-out-expo']}`;
+    element.style.transition = `opacity ${mergedConfig.duration}ms ${EASING['ease-out-expo']}, transform ${mergedConfig.duration}ms ${EASING['ease-out-expo']}, filter ${mergedConfig.duration}ms ${EASING['ease-out-expo']}`;
     element.style.transitionDelay = `${mergedConfig.delay}ms`;
 
     this.observer.observe(element);
@@ -90,6 +90,7 @@ class ScrollRevealEngine {
     // Animate to visible state
     element.style.opacity = '1';
     element.style.transform = 'none';
+    element.style.filter = 'none';
     element.classList.add('is-visible');
 
     // Handle stagger for children
@@ -106,10 +107,11 @@ class ScrollRevealEngine {
   private revealChildren(parent: HTMLElement, stagger: number) {
     const children = Array.from(parent.children) as HTMLElement[];
     children.forEach((child, index) => {
-      child.style.transition = `opacity ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}, transform ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}`;
+      child.style.transition = `opacity ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}, transform ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}, filter ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}`;
       child.style.transitionDelay = `${index * stagger}ms`;
       child.style.opacity = '1';
       child.style.transform = 'none';
+      child.style.filter = 'none';
     });
   }
 
@@ -134,6 +136,10 @@ class ScrollRevealEngine {
         break;
       case 'fade':
         element.style.transform = 'none';
+        break;
+      case 'blur':
+        element.style.transform = 'none';
+        element.style.filter = 'blur(8px)';
         break;
     }
   }

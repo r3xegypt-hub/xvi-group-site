@@ -88,6 +88,12 @@ body {
   color: var(--color-navy);
   background-color: var(--color-background);
 
+  // Arabic body uses Tajawal with more line-height
+  &[lang="ar"], &[dir="rtl"] {
+    font-family: var(--font-arabic-body);
+    line-height: 1.75;
+  }
+
   // Small Mobile
   font-size: 14px;
 
@@ -297,7 +303,52 @@ h3 {
 }
 
 // ============================================
-// 8. SELECTION STYLES
+// 8. ARABIC HEADING OVERRIDES
+// ============================================
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3 {
+  font-family: var(--font-arabic-heading);
+}
+
+[dir="rtl"] h1 {
+  line-height: 1.3;
+  letter-spacing: 0;
+  font-size: 1.75rem;
+
+  @media (min-width: 375px) {
+    font-size: 2rem;
+  }
+  @media (min-width: 429px) {
+    font-size: 2.25rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    font-size: 2.75rem;
+  }
+  @media (min-width: 1366px) {
+    font-size: 3rem;
+  }
+  @media (min-width: 1601px) {
+    font-size: 3rem;
+  }
+}
+
+[dir="rtl"] h2 {
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+[dir="rtl"] h3 {
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+// ============================================
+// 9. SELECTION STYLES
 // ============================================
 
 ::selection {

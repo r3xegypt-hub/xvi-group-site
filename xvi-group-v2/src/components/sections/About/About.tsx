@@ -10,7 +10,7 @@ import styles from './About.module.scss';
 export function About() {
   const { language } = useLanguage();
   const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const quoteRef = useScrollReveal({ direction: 'fade', duration: 1200, delay: 300 });
+  const quoteRef = useScrollReveal({ direction: 'blur', duration: 1200, delay: 300 });
   const columnsRef = useScrollReveal({ direction: 'up', duration: 800, delay: 200 });
 
   return (
@@ -18,7 +18,7 @@ export function About() {
       <Container>
         <div ref={headerRef} className={styles.header}>
           <p className={styles.overline}>
-            {language === 'ar' ? 'عن شركة XVI' : 'ABOUT XVI GROUP'}
+            {language === 'ar' ? 'عن XVI GROUP' : 'ABOUT XVI GROUP'}
           </p>
           <h2 className={styles.title}>
             {language === 'ar'
@@ -31,7 +31,7 @@ export function About() {
           <span className={styles.quoteMark}>"</span>
           <blockquote className={styles.quote}>
             {language === 'ar'
-              ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي.'
+              ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي قابل للقياس.'
               : 'We combine strategic vision with execution capability to transform ambition into sovereign performance.'}
           </blockquote>
           <span className={styles.quoteMarkRight}>"</span>
@@ -44,7 +44,7 @@ export function About() {
             </h3>
             <p className={styles.columnText}>
               {language === 'ar'
-                ? 'تمكين المؤسسات بالرؤى الاستراتيجية والقدرة التكنولوجية لقيادة قطاعاتها.'
+                ? 'تمكين المؤسسات من الرؤية الاستراتيجية والقدرة التكنولوجية لقيادة قطاعاتها.'
                 : 'To empower enterprises with the strategic insight and technological capability to lead their industries.'}
             </p>
           </div>

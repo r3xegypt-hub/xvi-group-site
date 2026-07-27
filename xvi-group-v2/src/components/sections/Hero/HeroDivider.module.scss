@@ -1,0 +1,55 @@
+// XVI GROUP — Hero Divider Styles
+
+.divider {
+  position: relative;
+  width: 100%;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: 100%;
+  max-width: 1200px;
+  height: 48px;
+  overflow: visible;
+}
+
+// Lines — draw in from center
+.lineLeft,
+.lineRight {
+  stroke-dasharray: 560;
+  stroke-dashoffset: 560;
+  transition: stroke-dashoffset 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.visible .lineLeft {
+  stroke-dashoffset: 0;
+}
+
+.visible .lineRight {
+  stroke-dashoffset: 0;
+  transition-delay: 200ms;
+}
+
+// Diamond — scale in
+.diamond,
+.diamondFill {
+  transform-origin: 600px 24px;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 400ms;
+}
+
+.visible .diamond,
+.visible .diamondFill {
+  transform: scale(1);
+  opacity: 0.5;
+}
+
+.visible .diamondFill {
+  opacity: 0.15;
+  transition-delay: 500ms;
+}
