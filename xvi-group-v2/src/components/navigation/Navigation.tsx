@@ -177,7 +177,12 @@ export function Navigation() {
             >
               <Link
                 to={item.href}
-                className={styles.mobileLink}
+                className={[
+                  styles.mobileLink,
+                  window.location.pathname === item.href && styles.mobileLinkActive,
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
                 onClick={() => setIsMobileOpen(false)}
               >
                 {item.label}
@@ -199,7 +204,7 @@ export function Navigation() {
             </div>
           ))}
 
-          <div className={styles.mobileActions}>
+          <div className={styles.mobileCta}>
             <LanguageToggle fullWidth />
             <Button
               as="a"
