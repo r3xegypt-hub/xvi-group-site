@@ -39,20 +39,20 @@ export const SectionReveal = forwardRef<HTMLElement, RevealProps>(function Secti
       transition: {
         duration: reducedMotion ? 0.01 : 0.9,
         delay,
-        ease: 'var(--ease-premium)',
+        ease: 'var(--ease-premium)' as any,
       },
     },
   }
   const fade: Record<string, Variant> = {
     hidden: { opacity: 0, transition: { duration: 0 } },
-    show: { opacity: 1, transition: { duration: reducedMotion ? 0.01 : 0.75, delay, ease: 'var(--ease-premium)' } },
+    show: { opacity: 1, transition: { duration: reducedMotion ? 0.01 : 0.75, delay, ease: 'var(--ease-premium)' as any } },
   }
   const scale: Record<string, Variant> = {
     hidden: { opacity: 0, scale: reducedMotion ? 1 : 0.94, transition: { duration: 0 } },
     show: {
       opacity: 1,
       scale: 1,
-      transition: { duration: reducedMotion ? 0.01 : 0.85, delay, ease: 'var(--ease-executive)' },
+      transition: { duration: reducedMotion ? 0.01 : 0.85, delay, ease: 'var(--ease-executive)' as any },
     },
   }
   const staggerKids: Record<string, Variant> = {
@@ -85,7 +85,7 @@ export function RevealChild({ children, className = '', y = 16, delay = 0 }: { c
       className={clsx('xvi-reveal-child', className)}
       variants={{
         hidden: { opacity: 0, y: reducedMotion ? 0 : y },
-        show: { opacity: 1, y: 0, transition: { duration: reducedMotion ? 0.01 : 0.75, delay, ease: 'var(--ease-premium)' } },
+        show: { opacity: 1, y: 0, transition: { duration: reducedMotion ? 0.01 : 0.75, delay, ease: 'var(--ease-premium)' as any } },
       }}
     >
       {children}
