@@ -4,7 +4,7 @@
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Button } from '../../buttons/Button';
-import { MeridianLine } from '../../../svg/geometry/MeridianLine';
+import { SignalRule } from '../../../svg/geometry/SignalRule';
 import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
 import styles from './CTA.module.scss';
 
@@ -29,7 +29,7 @@ export function CTA() {
               ? 'احجز استشارة سرية مع فريقنا الاستشاري.'
               : 'Schedule a confidential consultation with our team.'}
           </p>
-          <MeridianLine variant="gold" width="120px" height={2} className={styles.meridian} />
+          <SignalRule width="120px" height={8} className={styles.meridian} />
           <div className={styles.ctas}>
             <Button variant="primary" size="lg" href="/contact">
               {language === 'ar' ? 'نبدأ الحوار' : 'Start a Conversation'}

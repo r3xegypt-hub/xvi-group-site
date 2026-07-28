@@ -16,7 +16,7 @@ export const SITE_CONFIG = {
   url: 'https://xvigroup.com',
   locale: 'en',
   ogImage: '/og-image.jpg',
-  favicon: '/favicon.svg',
+  favicon: '/identity/favicon.svg',
 } as const;
 
 export const NAVIGATION = {

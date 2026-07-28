@@ -33,9 +33,9 @@
   transition-delay: 200ms;
 }
 
-// Diamond — scale in
-.diamond,
-.diamondFill {
+// Signal — scale in
+.signal,
+.signalNode {
   transform-origin: 600px 24px;
   transform: scale(0);
   opacity: 0;
@@ -43,13 +43,13 @@
   transition-delay: 400ms;
 }
 
-.visible .diamond,
-.visible .diamondFill {
+.visible .signal,
+.visible .signalNode {
   transform: scale(1);
   opacity: 0.5;
 }
 
-.visible .diamondFill {
+.visible .signalNode {
   opacity: 0.15;
   transition-delay: 500ms;
 }

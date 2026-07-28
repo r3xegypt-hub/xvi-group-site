@@ -1,5 +1,5 @@
 // XVI GROUP — Hero Divider
-// Premium animated SVG divider with gold diamond motif
+// Animated signal divider
 
 import { useRef, useState, useEffect } from 'react';
 import styles from './HeroDivider.module.scss';
@@ -32,17 +32,8 @@ export function HeroDivider() {
           className={styles.lineLeft}
         />
 
-        {/* Center diamond */}
-        <path
-          d="M600 12 L612 24 L600 36 L588 24 Z"
-          stroke="#C9A96E" strokeWidth="1" fill="none" opacity="0.5"
-          className={styles.diamond}
-        />
-        <path
-          d="M600 17 L607 24 L600 31 L593 24 Z"
-          fill="#C9A96E" opacity="0.15"
-          className={styles.diamondFill}
-        />
+        <path d="M560 24H588C594 24 596 17 602 17H612C618 17 620 24 626 24H640" stroke="#C89B5A" strokeWidth="1" fill="none" opacity=".7" className={styles.signal} />
+        <circle cx="602" cy="17" r="3" fill="#C89B5A" opacity=".8" className={styles.signalNode} />
 
         {/* Right line */}
         <line

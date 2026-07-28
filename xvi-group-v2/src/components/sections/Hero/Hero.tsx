@@ -148,7 +148,7 @@ function AINetworkIllustration({ loaded }: { loaded: boolean }) {
           </line>
         ))}
 
-      {/* Nodes — diamond shapes */}
+      {/* Nodes */}
       {nodes.map((node, i) => (
         <g key={`node-${i}`}>
           {node.gold ? (
@@ -159,24 +159,17 @@ function AINetworkIllustration({ loaded }: { loaded: boolean }) {
                 fill="#C9A96E" opacity="0.06"
                 filter="url(#softGlow)"
               />
-              <path
-                d={`M${node.x} ${node.y - node.r} L${node.x + node.r} ${node.y} L${node.x} ${node.y + node.r} L${node.x - node.r} ${node.y} Z`}
-                fill="#C9A96E" opacity="0.5"
-              >
+              <circle cx={node.x} cy={node.y} r={node.r} fill="#C9A96E" opacity="0.5">
                 <animate
                   attributeName="opacity"
                   values="0.35;0.6;0.35"
                   dur="3s"
                   repeatCount="indefinite"
                 />
-              </path>
+              </circle>
             </>
           ) : (
-            <path
-              d={`M${node.x} ${node.y - node.r} L${node.x + node.r} ${node.y} L${node.x} ${node.y + node.r} L${node.x - node.r} ${node.y} Z`}
-              fill="#0A1628"
-              opacity="0.12"
-            >
+            <circle cx={node.x} cy={node.y} r={node.r} fill="#0A1628" opacity="0.12">
               <animate
                 attributeName="opacity"
                 values="0.06;0.16;0.06"
@@ -184,7 +177,7 @@ function AINetworkIllustration({ loaded }: { loaded: boolean }) {
                 repeatCount="indefinite"
                 begin={`${i * 0.15}s`}
               />
-            </path>
+            </circle>
           )}
         </g>
       ))}
@@ -310,20 +303,20 @@ export function Hero() {
         <div className={styles.goldOrb} />
         <div className={styles.goldOrbSecondary} />
 
-        {/* Floating diamonds */}
-        <div className={`${styles.floatingDiamond} ${styles.diamond1}`}>
+        {/* Floating architectural panels */}
+        <div className={`${styles.floatingPanel} ${styles.panel1}`}>
           <svg viewBox="0 0 80 80" fill="none">
-            <path d="M40 4L76 40L40 76L4 40Z" stroke="#0A1628" strokeWidth="0.8" opacity="0.06" />
+            <rect x="12" y="20" width="56" height="40" rx="3" stroke="#0A1628" strokeWidth="0.8" opacity="0.06" />
           </svg>
         </div>
-        <div className={`${styles.floatingDiamond} ${styles.diamond2}`}>
+        <div className={`${styles.floatingPanel} ${styles.panel2}`}>
           <svg viewBox="0 0 60 60" fill="none">
-            <path d="M30 3L57 30L30 57L3 30Z" stroke="#C9A96E" strokeWidth="0.6" opacity="0.06" />
+            <rect x="9" y="19" width="42" height="22" rx="3" stroke="#C9A96E" strokeWidth="0.6" opacity="0.06" />
           </svg>
         </div>
-        <div className={`${styles.floatingDiamond} ${styles.diamond3}`}>
+        <div className={`${styles.floatingPanel} ${styles.panel3}`}>
           <svg viewBox="0 0 40 40" fill="none">
-            <path d="M20 2L38 20L20 38L2 20Z" stroke="#0A1628" strokeWidth="0.5" opacity="0.04" />
+            <rect x="6" y="12" width="28" height="16" rx="2" stroke="#0A1628" strokeWidth="0.5" opacity="0.04" />
           </svg>
         </div>
 
@@ -400,10 +393,10 @@ export function Hero() {
           </Button>
         </div>
 
-        {/* Meridian Line */}
-        <div className={styles.meridianContainer}>
-          <svg className={styles.meridianLine} viewBox="0 0 480 2" fill="none" preserveAspectRatio="none">
-            <line x1="0" y1="1" x2="480" y2="1" stroke="#C9A96E" strokeWidth="1.5" />
+        <div className={styles.signalContainer}>
+          <svg className={styles.signalLine} viewBox="0 0 480 8" fill="none" preserveAspectRatio="none">
+            <path d="M0 4H220C230 4 236 1 246 1H480" stroke="#C89B5A" strokeWidth="1.5" />
+            <circle cx="246" cy="1" r="3" fill="#C89B5A" />
           </svg>
         </div>
 

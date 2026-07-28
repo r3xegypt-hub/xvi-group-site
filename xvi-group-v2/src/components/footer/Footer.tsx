@@ -26,7 +26,7 @@ function TwitterIcon({ size = 18 }: { size?: number }) {
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { FOOTER_COLUMNS, CONTACT_INFO } from '../../config';
 import { Container } from '../layout/Container';
-import { MeridianLine } from '../../svg/geometry/MeridianLine';
+import { SignalRule } from '../../svg/geometry/SignalRule';
 import styles from './Footer.module.scss';
 
 // ============================================
@@ -82,7 +82,7 @@ export function Footer() {
 
         {/* Divider */}
         <div className={styles.divider}>
-          <MeridianLine variant="gold" strokeWidth={1} />
+          <SignalRule accent="light" />
         </div>
 
         {/* Bottom */}

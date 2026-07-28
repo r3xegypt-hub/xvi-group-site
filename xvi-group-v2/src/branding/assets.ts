@@ -11,25 +11,25 @@ const BASE = import.meta.env.BASE_URL;
 
 export const LOGO = {
   horizontal: {
-    dark: `${BASE}logo/logo-horizontal.svg`,
-    light: `${BASE}logo/logo-horizontal-dark.svg`,
-    gold: `${BASE}logo/logo-horizontal.svg`,
+    dark: `${BASE}identity/logo-horizontal-dark.svg`,
+    light: `${BASE}identity/logo-horizontal-light.svg`,
+    gold: `${BASE}identity/logo-horizontal-dark.svg`,
   },
   vertical: {
-    dark: `${BASE}logo/logo-square.svg`,
-    light: `${BASE}logo/logo-square-dark.svg`,
+    dark: `${BASE}identity/logo-vertical-dark.svg`,
+    light: `${BASE}identity/logo-vertical-light.svg`,
   },
   icon: {
-    dark: `${BASE}logo/logo-mark.svg`,
-    light: `${BASE}logo/logo-mark-dark.svg`,
-    gold: `${BASE}logo/logo-mark.svg`,
+    dark: `${BASE}identity/symbol-dark.svg`,
+    light: `${BASE}identity/symbol-light.svg`,
+    gold: `${BASE}identity/symbol-dark.svg`,
   },
   favicon: {
-    dark: `${BASE}logo/favicon.svg`,
-    light: `${BASE}logo/favicon-light.svg`,
+    dark: `${BASE}identity/favicon.svg`,
+    light: `${BASE}identity/favicon.svg`,
   },
-  appIcon: `${BASE}logo/app-icon.svg`,
-  loader: `${BASE}logo/loader.svg`,
+  appIcon: `${BASE}identity/app-icon.svg`,
+  loader: `${BASE}identity/loader.svg`,
 } as const;
 
 // ============================================
@@ -37,12 +37,9 @@ export const LOGO = {
 // ============================================
 
 export const PATTERNS = {
-  diamond: `${BASE}brand/pattern-diamond.svg`,
-  meridian: `${BASE}brand/pattern-meridian.svg`,
-  nexus: `${BASE}brand/pattern-nexus.svg`,
-  dot: `${BASE}brand/pattern-dot.svg`,
-  base: `${BASE}brand/pattern.svg`,
-  divider: `${BASE}brand/divider.svg`,
+  base: `${BASE}identity/symbol-dark.svg`,
+  network: `${BASE}identity/symbol-dark.svg`,
+  signal: `${BASE}identity/symbol-light.svg`,
 } as const;
 
 // ============================================
@@ -95,18 +92,18 @@ export const ICONS = {
 
 export const ILLUSTRATIONS = {
   // Service illustrations (SVG, geometric)
-  network: `${BASE}brand/pattern-nexus.svg`,
-  nodes: `${BASE}brand/pattern-dot.svg`,
-  connections: `${BASE}brand/pattern-meridian.svg`,
-  intelligence: `${BASE}brand/pattern-diamond.svg`,
+  network: `${BASE}identity/symbol-dark.svg`,
+  nodes: `${BASE}identity/symbol-dark.svg`,
+  connections: `${BASE}identity/symbol-light.svg`,
+  intelligence: `${BASE}identity/symbol-dark.svg`,
 
   // Empty states
-  empty: `${BASE}brand/pattern.svg`,
-  error404: `${BASE}brand/pattern.svg`,
+  empty: `${BASE}identity/symbol-dark.svg`,
+  error404: `${BASE}identity/symbol-dark.svg`,
 
   // Background geometry
-  heroGeometry: `${BASE}brand/pattern-diamond.svg`,
-  sectionGeometry: `${BASE}brand/pattern-nexus.svg`,
+  heroGeometry: `${BASE}identity/symbol-dark.svg`,
+  sectionGeometry: `${BASE}identity/symbol-light.svg`,
 } as const;
 
 // ============================================

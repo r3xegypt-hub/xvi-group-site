@@ -77,9 +77,9 @@ export function Technology() {
             <div className={styles.feature}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 32 32" fill="none">
-                  <path d="M16 2L30 16L16 30L2 16Z" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M16 8L24 16L16 24L8 16Z" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-                  <path d="M16 12L20 16L16 20L12 16Z" fill="currentColor" opacity="0.15" />
+                  <rect x="3" y="6" width="26" height="20" rx="3" stroke="currentColor" strokeWidth="1.5" />
+                  <rect x="8" y="10" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+                  <circle cx="16" cy="16" r="3" fill="currentColor" opacity="0.15" />
                 </svg>
               </div>
               <div>
@@ -97,10 +97,9 @@ export function Technology() {
 
           <div className={styles.visualization}>
             <svg ref={svgRef as React.Ref<SVGSVGElement>} viewBox="0 0 400 400" className={styles.techSvg}>
-              {/* Central diamond */}
-              <path d="M200 80L320 200L200 320L80 200Z" stroke="#0A1628" strokeWidth="1.5" fill="none" />
-              <path d="M200 120L280 200L200 280L120 200Z" stroke="#C9A96E" strokeWidth="1" fill="none" opacity="0.6" />
-              <path d="M200 160L240 200L200 240L160 200Z" stroke="#0A1628" strokeWidth="0.8" fill="none" opacity="0.3" />
+              <circle cx="200" cy="200" r="120" stroke="#0A1628" strokeWidth="1.5" fill="none" />
+              <circle cx="200" cy="200" r="80" stroke="#C89B5A" strokeWidth="1" fill="none" opacity="0.6" />
+              <circle cx="200" cy="200" r="40" stroke="#0A1628" strokeWidth="0.8" fill="none" opacity="0.3" />
 
               {/* Radiating lines */}
               {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {

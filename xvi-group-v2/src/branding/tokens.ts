@@ -30,8 +30,8 @@ export const LIGHT_LUXURY_THEME: ThemeTokens = {
     info: '#3498DB',
   },
   typography: {
-    headingFont: "'Playfair Display', Georgia, serif",
-    bodyFont: "'Inter', -apple-system, sans-serif",
+    headingFont: "'Manrope', Arial, sans-serif",
+    bodyFont: "'Manrope', Arial, sans-serif",
     arabicHeadingFont: "'Amiri', 'Traditional Arabic', serif",
     arabicBodyFont: "'Tajawal', Arial, sans-serif",
   },
