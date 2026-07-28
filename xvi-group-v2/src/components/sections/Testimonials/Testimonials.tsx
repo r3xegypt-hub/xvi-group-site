@@ -1,86 +1,56 @@
-// XVI GROUP — Testimonials Section
-// Human personality with oversized gold quotation marks
-
+import { useState } from 'react';
+import { Star } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
 import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import styles from './Testimonials.module.scss';
 
-const TESTIMONIALS = [
-  {
-    quote: 'XVI GROUP didn\'t just advise us — they transformed how we think about technology and strategy as an integrated discipline.',
-    quoteAr: 'XVI GROUP لم تكن مجرد مستشيرة — بل غيّرت طريقة تفكيرنا في التكنولوجيا والاستراتيجية كتخصص متكامل.',
-    author: 'Sarah Al-Mansouri',
-    authorAr: 'سارة المنصوري',
-    title: 'CTO',
-    company: 'Emirates Digital Holdings',
-    companyAr: 'مجموعة الإمارات الرقمية',
-  },
-  {
-    quote: 'The sovereign AI architecture they designed gave us complete control over our intelligence infrastructure. No other firm could deliver this.',
-    quoteAr: 'هندسة الذكاء الاصطناعي السيادي التي صمموها أعطتنا تحكماً كاملاً في بنية المعلومات الخاصة بنا. لا يمكن لأي مؤسسة أخرى تقديم هذا.',
-    author: 'James Mitchell',
-    authorAr: 'جيمس ميتشل',
-    title: 'CEO',
-    company: 'Gulf Financial Technologies',
-    companyAr: 'تقنيات المالية الخليجية',
-  },
-  {
-    quote: 'Their executive training program transformed our leadership team\'s approach to digital strategy. The ROI was immediate and measurable.',
-    quoteAr: 'برنامج التدريب التنفيذي الذي قدّموه حوّل نهج فريق القيادة لدينا في الاستراتيجية الرقمية. العائد كان فورياً وقابل للقياس.',
-    author: 'Dr. Fatima Al-Rashid',
-    authorAr: 'د. فاطمة الراشد',
-    title: 'Managing Director',
-    company: 'Abu Dhabi Health Authority',
-    companyAr: 'هيئة الصحة بأبو ظبي',
-  },
+const STORIES = [
+  { number: '01', title: 'Intelligence, made sovereign', titleAr: 'ذكاء سيادي، بملكية كاملة', copy: 'A secure intelligence layer for decisions that cannot be outsourced.', copyAr: 'طبقة ذكاء آمنة للقرارات التي لا يمكن تفويضها.' },
+  { number: '02', title: 'Operations, made adaptive', titleAr: 'عمليات تتكيف باستمرار', copy: 'A blueprint for turning complex operations into compounding advantage.', copyAr: 'مخطط يحوّل العمليات المعقدة إلى ميزة تراكمية.' },
+  { number: '03', title: 'Leadership, made ready', titleAr: 'قيادة مستعدة لما بعد اليوم', copy: 'A focused program for leaders navigating the next operating model.', copyAr: 'برنامج مركّز للقادة الذين يصممون نموذج العمل القادم.' },
 ];
 
 export function Testimonials() {
   const { language } = useLanguage();
+  const [rating, setRating] = useState(0);
   const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const gridRef = useScrollRevealGroup({ direction: 'up', duration: 800, stagger: 200 });
+  const gridRef = useScrollRevealGroup({ direction: 'up', duration: 800, stagger: 150 });
+  const ar = language === 'ar';
 
   return (
-    <Section variant="default" id="testimonials">
+    <Section variant="warm" id="success-stories">
       <Container>
         <div ref={headerRef} className={styles.header}>
-          <p className={styles.overline}>
-            {language === 'ar' ? 'آراء شركائنا' : 'CLIENT TESTIMONIALS'}
-          </p>
-          <h2 className={styles.title}>
-            {language === 'ar' ? 'ماذا يقول عملاؤنا' : 'What Our Partners Say'}
-          </h2>
+          <p className={styles.overline}>{ar ? 'قصص النجاح القادمة' : 'FUTURE SUCCESS STORIES'}</p>
+          <h2 className={styles.title}>{ar ? 'العمل الذي سيُعرّف المرحلة القادمة' : 'Work that will define what comes next.'}</h2>
+          <p className={styles.intro}>{ar ? 'نصمم الشراكات بعناية قبل أن تصبح قصص نجاح.' : 'We design consequential partnerships before they become case studies.'}</p>
         </div>
 
         <div ref={gridRef} className={styles.grid}>
-          {TESTIMONIALS.map((testimonial, i) => (
-            <blockquote key={i} className={styles.quote}>
-              <span className={styles.quoteMark} aria-hidden="true">"</span>
-              <p className={styles.quoteText}>
-                {language === 'ar' ? testimonial.quoteAr : testimonial.quote}
-              </p>
-              <footer className={styles.author}>
-                <div className={styles.authorAvatar}>
-                  <svg viewBox="0 0 40 40" fill="none">
-                    <path d="M20 4L36 20L20 36L4 20Z" stroke="#C9A96E" strokeWidth="1" fill="rgba(201,169,110,0.08)" />
-                  </svg>
-                </div>
-                <div>
-                  <cite className={styles.authorName}>
-                    {language === 'ar' ? testimonial.authorAr : testimonial.author}
-                  </cite>
-                  <span className={styles.authorRole}>
-                    {testimonial.title}
-                  </span>
-                  <span className={styles.authorCompany}>
-                    {language === 'ar' ? testimonial.companyAr : testimonial.company}
-                  </span>
-                </div>
-              </footer>
-            </blockquote>
+          {STORIES.map((story) => (
+            <article className={styles.story} key={story.number}>
+              <div className={styles.topline}><span>{story.number}</span><span className={styles.diamond}>◇</span></div>
+              <h3>{ar ? story.titleAr : story.title}</h3>
+              <p>{ar ? story.copyAr : story.copy}</p>
+              <span className={styles.status}>{ar ? 'المقعد التالي مفتوح' : 'The next mandate is open'}</span>
+            </article>
           ))}
+        </div>
+
+        <div className={styles.rating}>
+          <div>
+            <span className={styles.ratingLabel}>{ar ? 'بعد اكتمال الشراكة' : 'AFTER A PARTNERSHIP IS COMPLETE'}</span>
+            <p>{ar ? 'كيف تقيّم تجربة العمل معنا؟' : 'How would you rate the experience of working with us?'}</p>
+          </div>
+          <div className={styles.stars} role="radiogroup" aria-label="Rate your experience">
+            {[1, 2, 3, 4, 5].map((value) => (
+              <button key={value} type="button" aria-label={`${value} stars`} aria-pressed={rating === value} onClick={() => setRating(value)}>
+                <Star size={20} fill={value <= rating ? 'currentColor' : 'none'} />
+              </button>
+            ))}
+          </div>
         </div>
       </Container>
     </Section>

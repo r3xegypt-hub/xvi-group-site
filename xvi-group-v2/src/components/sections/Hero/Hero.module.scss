@@ -676,7 +676,7 @@
 // REDUCED MOTION
 // ============================================
 
-@media (prefers-reduced-motion: reduce) {
+@include reduced-motion {
   .layerGrid,
   .layerAmbient,
   .layerAI {

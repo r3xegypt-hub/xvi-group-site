@@ -9,6 +9,7 @@ import { Navigation } from './components/navigation/Navigation';
 import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
+import { AIConsultant } from './components/assistant/AIConsultant';
 import { Home } from './pages/home';
 import { Preview } from './pages/preview';
 
@@ -32,6 +33,7 @@ function App() {
                           <Home />
                         </main>
                         <Footer />
+                        <AIConsultant />
                       </>
                     }
                   />
