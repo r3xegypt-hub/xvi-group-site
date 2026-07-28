@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-label="XVI"><g stroke="#0A1628" stroke-linejoin="miter"><path d="M32 3 61 32 32 61 3 32Z" stroke-width="2.4"/><path d="M32 12 52 32 32 52 12 32Z" stroke-width=".9" opacity=".3"/><path d="m19 24 8 8m0-8-8 8M31 24l5 8 5-8M46 22v20m-4-20h8m-8 20h8" stroke-width="2.35" stroke-linecap="square"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="none" aria-label="XVI GROUP mark">
+  <g stroke="#081D32" stroke-width="3" stroke-linejoin="round">
+    <path d="M13 13h18v18H13zM41 13h18v18H41zM13 41h18v18H13zM41 41h18v18H41z"/>
+    <path d="M31 22h10M22 31v10M50 31v10M31 50h10" stroke="#B68A45" stroke-width="2"/>
+    <path d="M32 32h8v8h-8z" fill="#B68A45" stroke="#B68A45"/>
+  </g>
+</svg>

@@ -28,29 +28,8 @@ export const LOGO = {
     dark: `${BASE}logo/favicon.svg`,
     light: `${BASE}logo/favicon-light.svg`,
   },
-  appIcon: `${BASE}logo/logo-square.svg`,
-  loader: `${BASE}logo/logo-mark.svg`,
-} as const;
-
-// ============================================
-// LOGO CONCEPTS
-// ============================================
-
-export const LOGO_CONCEPTS = {
-  architectural: {
-    dark: `${BASE}logo/concept-01-architectural-dark.svg`,
-    light: `${BASE}logo/concept-01-architectural-light.svg`,
-  },
-  sovereign: {
-    dark: `${BASE}logo/concept-02-sovereign-dark.svg`,
-    light: `${BASE}logo/concept-01-architectural-light.svg`,
-  },
-  monogram: `${BASE}logo/concept-03-precision-monogram.svg`,
-  meridian: {
-    dark: `${BASE}logo/concept-04-meridian-dark.svg`,
-    gold: `${BASE}logo/concept-04-meridian-gold.svg`,
-  },
-  nexus: `${BASE}logo/concept-05-kinetic-nexus.svg`,
+  appIcon: `${BASE}logo/app-icon.svg`,
+  loader: `${BASE}logo/loader.svg`,
 } as const;
 
 // ============================================
