@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-label="XVI GROUP">
-  <!-- XVI GROUP — Favicon (Simplified diamond with XVI) — Premium -->
-  
-  <path d="M16 2 L30 16 L16 30 L2 16 Z" 
-        stroke="#0A1628" 
-        stroke-width="1.5" 
-        fill="none"
-        stroke-linejoin="miter"/>
-  
-  <!-- Simplified XVI — clear at 16px -->
-  <path d="M10 14 L13.5 16.5" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M13.5 14 L10 16.5" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M16 14 L18 16.5 L20 14" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="miter"/>
-  <line x1="23" y1="13" x2="23" y2="17.5" stroke="#0A1628" stroke-width="1.8" stroke-linecap="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#0A1628"/><path d="M32 6 58 32 32 58 6 32Z" fill="none" stroke="#C9A96E" stroke-width="2.3"/><path d="m20 25 7 7m0-7-7 7M31 25l5 7 5-7M46 22v20m-4-20h8m-8 20h8" fill="none" stroke="#F6F3EA" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg>

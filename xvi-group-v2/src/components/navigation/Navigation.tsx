@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { NAVIGATION } from '../../config';
 import { LOGO } from '../../branding/assets';
@@ -142,7 +142,8 @@ export function Navigation() {
                 size="sm"
                 className={styles.cta}
               >
-                {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+                <span>{language === 'ar' ? 'ابدأ محادثة' : 'Start a Conversation'}</span>
+                <ArrowUpRight size={15} aria-hidden="true" />
               </Button>
             </div>
 
