@@ -68,7 +68,7 @@ export function Navigation() {
           <div className={styles.actions}>
             <LanguageToggle className={styles.langToggle} />
             <Link to="/contact" className={styles.cta}>
-              <span>{language === 'ar' ? 'تواصل' : 'Let\'s Talk'}</span>
+              <span>{language === 'ar' ? 'تواصل' : "Let's Talk"}</span>
               <ArrowUpRight size={14} />
             </Link>
             <button

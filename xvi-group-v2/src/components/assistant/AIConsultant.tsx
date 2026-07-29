@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { X, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { useState } from 'react';
+import { X, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { XMark } from '../ui/Logo';
 import styles from './AIConsultant.module.scss';
@@ -22,11 +22,10 @@ export function AIConsultant() {
               <span className={styles.statusDot} />
               <span className={styles.statusLabel}>{ar ? 'متصل' : 'Online'}</span>
             </div>
-            <button type="button" onClick={() => setOpen(false)} className={styles.closeBtn} aria-label="Close assistant">
+            <button type="button" onClick={() => setOpen(false)} className={styles.closeBtn} aria-label="Close">
               <X size={18} />
             </button>
           </div>
-
           <div className={styles.panelBody}>
             <div className={styles.message}>
               <div className={styles.messageAvatar}>
@@ -35,33 +34,24 @@ export function AIConsultant() {
               <div className={styles.messageContent}>
                 <strong className={styles.messageTitle}>{ar ? 'مساعد XVI' : 'XVI Assistant'}</strong>
                 <p className={styles.messageText}>
-                  {ar
-                    ? 'أهلاً. كيف يمكننا توجيه طموحكم القادم؟'
-                    : 'Welcome. Where can we focus your next ambition?'}
+                  {ar ? 'أهلاً. كيف يمكننا توجيه طموحكم القادم؟' : 'Welcome. Where can we focus your next ambition?'}
                 </p>
               </div>
             </div>
           </div>
-
           <div className={styles.suggestions}>
             {suggestions.map((s, i) => (
               <button key={i} className={styles.chip}>{s}</button>
             ))}
           </div>
-
           <div className={styles.panelInput}>
-            <input
-              type="text"
-              className={styles.input}
-              placeholder={ar ? 'اكتب رسالتك...' : 'Type your message...'}
-            />
+            <input type="text" className={styles.input} placeholder={ar ? 'اكتب رسالتك...' : 'Type your message...'} />
             <button className={styles.sendBtn} aria-label="Send">
               <ArrowUpRight size={18} />
             </button>
           </div>
         </div>
       )}
-
       <button
         className={styles.orb}
         type="button"

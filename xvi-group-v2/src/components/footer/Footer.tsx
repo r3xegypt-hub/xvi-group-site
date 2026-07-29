@@ -20,17 +20,15 @@ export function Footer() {
                 : 'Building enterprises that move markets, transform industries, and lead technological revolutions.'}
             </p>
           </div>
-
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>{ar ? 'الخدمات' : 'Services'}</h3>
             <ul className={styles.links}>
-              <li><Link to="#" className={styles.link}>{ar ? 'الاستراتيجية والاستشارات' : 'Strategy & Advisory'}</Link></li>
-              <li><Link to="#" className={styles.link}>{ar ? 'هندسة الذكاء الاصطناعي' : 'AI Engineering'}</Link></li>
+              <li><Link to="#" className={styles.link}>{ar ? 'الاستراتيجية' : 'Strategy & Advisory'}</Link></li>
+              <li><Link to="#" className={styles.link}>{ar ? 'هندسة الذكاء' : 'AI Engineering'}</Link></li>
               <li><Link to="#" className={styles.link}>{ar ? 'التصميم التشغيلي' : 'Operational Design'}</Link></li>
               <li><Link to="#" className={styles.link}>{ar ? 'منتجات الذكاء' : 'Intelligence Products'}</Link></li>
             </ul>
           </div>
-
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>{ar ? 'الشركة' : 'Company'}</h3>
             <ul className={styles.links}>
@@ -40,7 +38,6 @@ export function Footer() {
               <li><Link to="#" className={styles.link}>{ar ? 'تواصل' : 'Contact'}</Link></li>
             </ul>
           </div>
-
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>{ar ? 'تواصل' : 'Connect'}</h3>
             <ul className={styles.links}>
@@ -51,13 +48,9 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
         <div className={styles.divider} />
-
         <div className={styles.bottom}>
-          <p className={styles.copyright}>
-            &copy; 2026 XVI GROUP. {ar ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
-          </p>
+          <p className={styles.copyright}>&copy; 2026 XVI GROUP. {ar ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
           <div className={styles.legal}>
             <Link to="#" className={styles.legalLink}>{ar ? 'سياسة الخصوصية' : 'Privacy Policy'}</Link>
             <Link to="#" className={styles.legalLink}>{ar ? 'شروط الخدمة' : 'Terms of Service'}</Link>

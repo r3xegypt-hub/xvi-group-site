@@ -1,110 +1,54 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  &::before {
-    content: '01';
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-family: 'Inter', sans-serif;
-    font-size: 8rem;
-    font-weight: 700;
-    color: rgba(212, 148, 58, 0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-
-    [dir='rtl'] & {
-      right: auto;
-      left: 40px;
-    }
-  }
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 24px;
 
   @include tablet-portrait {
-    grid-template-columns: 1fr;
-  }
-
-  @include large-mobile {
     grid-template-columns: 1fr;
   }
 }
 
 .card {
-  position: relative;
-  background: #14161E;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  padding: 40px 36px 36px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #F7F6F3;
+  border: 1px solid #E8E4DE;
+  border-radius: 12px;
+  padding: 40px 36px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: default;
 
   &:hover {
-    border-color: rgba(212, 148, 58, 0.15);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-
-    .cardAccent {
-      width: 100%;
-    }
-
-    .cardLink {
-      gap: 12px;
-    }
-  }
-
-  @include large-mobile {
-    padding: 28px 24px 24px;
+    border-color: #C8A65A;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
   }
 }
 
 .cardIndex {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
+  color: #C8A65A;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(212, 148, 58, 0.5);
-  margin-bottom: 20px;
-  display: block;
-}
-
-.cardAccent {
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: #D4943A;
-  margin-bottom: 24px;
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 16px;
 }
 
 .cardTitle {
   font-family: 'Inter', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0 0 12px;
-  letter-spacing: -0.01em;
   line-height: 1.25;
-
-  [dir='rtl'] & {
-    letter-spacing: 0;
-  }
 }
 
 .cardDesc {
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.7;
-  color: #838A96;
+  color: #666666;
   margin: 0 0 24px;
   flex: 1;
 }
@@ -116,6 +60,10 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #D4943A;
+  color: #C8A65A;
   transition: gap 0.3s ease;
+
+  &:hover {
+    gap: 12px;
+  }
 }

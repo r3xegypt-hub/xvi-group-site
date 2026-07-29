@@ -20,24 +20,17 @@ export function Technology() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="ink" id="technology" className={styles.section}>
+    <Section variant="white" id="technology">
       <Container>
         <SectionHeader
           overline={ar ? 'التقنيات' : 'TECHNOLOGY'}
           title={ar ? 'قدرات ذكاء اصطناعي شاملة' : 'Full-Stack AI Capability'}
           description={ar
-            ? 'من البنية التحتية إلى التطبيقات — نبني أنظمة ذكاء اصطناعي سيادية تلبي أعلى معايير الأمان والأداء.'
-            : 'From infrastructure to applications — we build sovereign AI systems that meet the highest standards of security and performance.'
+            ? 'من البنية التحتية إلى التطبيقات — نبني أنظمة ذكاء اصطناعي تلبي أعلى معايير الأمان والأداء.'
+            : 'From infrastructure to applications — we build AI systems that meet the highest standards of security and performance.'
           }
         />
-
         <div className={styles.grid}>
-          <div className={styles.gridLines} aria-hidden="true">
-            <span className={styles.gridLineH} />
-            <span className={styles.gridLineH} />
-            <span className={styles.gridLineV} />
-            <span className={styles.gridLineV} />
-          </div>
           {CATEGORIES.map((cat, i) => (
             <div key={i} className={styles.cell}>
               <span className={styles.cellDot} aria-hidden="true" />

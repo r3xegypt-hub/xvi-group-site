@@ -3,7 +3,7 @@ import styles from './Section.module.scss';
 
 interface SectionProps {
   children: ReactNode;
-  variant?: 'default' | 'slate' | 'ink' | 'amber';
+  variant?: 'default' | 'warm' | 'white' | 'navy';
   id?: string;
   className?: string;
   as?: 'section' | 'div' | 'main';

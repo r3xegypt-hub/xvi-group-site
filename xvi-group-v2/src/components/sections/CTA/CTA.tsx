@@ -9,7 +9,7 @@ export function CTA() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="slate" id="cta" className={styles.section}>
+    <Section variant="navy" id="cta" className={styles.section}>
       <Container>
         <div className={styles.content}>
           <h2 className={styles.title}>
@@ -17,9 +17,7 @@ export function CTA() {
           </h2>
           <span className={styles.divider} aria-hidden="true" />
           <p className={styles.description}>
-            {ar
-              ? 'احجز استشارة سرية مع فريقنا الاستراتيجي.'
-              : 'Book a confidential consultation with our strategy team.'}
+            {ar ? 'احجز استشارة سرية مع فريقنا الاستراتيجي.' : 'Book a confidential consultation with our strategy team.'}
           </p>
           <div className={styles.actions}>
             <a href="/contact" className={styles.ctaPrimary}>
@@ -30,11 +28,6 @@ export function CTA() {
               {ar ? 'استكشف منهجيتنا' : 'Explore Our Approach'}
             </a>
           </div>
-          <p className={styles.disclaimer}>
-            {ar
-              ? 'لا يوجد التزام. سرية تامة.'
-              : 'No commitment. Strictly confidential.'}
-          </p>
         </div>
       </Container>
     </Section>

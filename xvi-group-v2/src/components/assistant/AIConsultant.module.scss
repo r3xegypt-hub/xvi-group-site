@@ -18,26 +18,19 @@
 .panel {
   width: min(380px, calc(100vw - 36px));
   max-height: 560px;
-  background: rgba(20, 22, 30, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(212, 148, 58, 0.15);
+  border: 1px solid #E8E4DE;
   border-radius: 16px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   animation: panelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes panelIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .panelHeader {
@@ -45,7 +38,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid #E8E4DE;
 }
 
 .panelStatus {
@@ -59,14 +52,14 @@
   height: 8px;
   border-radius: 50%;
   background: #34D058;
-  box-shadow: 0 0 8px rgba(52, 208, 88, 0.5);
+  box-shadow: 0 0 8px rgba(52, 208, 88, 0.3);
 }
 
 .statusLabel {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #838A96;
+  color: #999999;
 }
 
 .closeBtn {
@@ -75,14 +68,12 @@
   padding: 4px;
   border: none;
   background: none;
-  color: #838A96;
+  color: #999999;
   cursor: pointer;
   border-radius: 6px;
   transition: color 0.2s ease;
 
-  &:hover {
-    color: #EEF0F4;
-  }
+  &:hover { color: #111111; }
 }
 
 .panelBody {
@@ -100,12 +91,12 @@
   flex-shrink: 0;
   width: 32px;
   height: 32px;
-  background: rgba(212, 148, 58, 0.15);
+  background: rgba(200, 166, 90, 0.1);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #D4943A;
+  color: #C8A65A;
 }
 
 .messageContent {
@@ -118,14 +109,14 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #EEF0F4;
+  color: #111111;
 }
 
 .messageText {
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: #838A96;
+  color: #666666;
   margin: 0;
 }
 
@@ -140,16 +131,16 @@
   padding: 6px 14px;
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
-  color: #838A96;
+  color: #666666;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #E8E4DE;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    border-color: rgba(212, 148, 58, 0.3);
-    color: #EEF0F4;
+    border-color: #C8A65A;
+    color: #111111;
   }
 }
 
@@ -158,20 +149,20 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid #E8E4DE;
 }
 
 .input {
   flex: 1;
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
-  color: #EEF0F4;
+  color: #111111;
   background: none;
   border: none;
   outline: none;
 
   &::placeholder {
-    color: rgba(131, 138, 150, 0.4);
+    color: rgba(153, 153, 153, 0.4);
   }
 }
 
@@ -183,14 +174,14 @@
   justify-content: center;
   background: none;
   border: none;
-  color: #D4943A;
+  color: #C8A65A;
   cursor: pointer;
   border-radius: 50%;
   transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(212, 148, 58, 0.1);
-    color: #EEC27A;
+    background: rgba(200, 166, 90, 0.1);
+    color: #DFC27A;
   }
 }
 
@@ -200,33 +191,21 @@
   place-items: center;
   width: 52px;
   height: 52px;
-  border: 1px solid rgba(212, 148, 58, 0.3);
+  border: 1px solid rgba(200, 166, 90, 0.3);
   border-radius: 50%;
-  color: #EEF0F4;
-  background: linear-gradient(135deg, #D4943A 0%, #A67B3A 100%);
-  box-shadow: 0 0 20px rgba(212, 148, 58, 0.3);
+  color: #FFFFFF;
+  background: #C8A65A;
+  box-shadow: 0 4px 16px rgba(200, 166, 90, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
-  animation: orbPulse 3s ease-in-out infinite;
 
   &:hover {
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 0 30px rgba(212, 148, 58, 0.4);
+    box-shadow: 0 8px 24px rgba(200, 166, 90, 0.3);
   }
 
   @media (max-width: 600px) {
     width: 48px;
     height: 48px;
-  }
-}
-
-@keyframes orbPulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(212, 148, 58, 0.3);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(212, 148, 58, 0.4);
-    transform: scale(1.05);
   }
 }

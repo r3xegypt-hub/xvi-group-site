@@ -1,11 +1,7 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(212, 148, 58, 0.05) 0%, transparent 60%);
-}
-
 .content {
-  max-width: 700px;
+  max-width: 640px;
   margin: 0 auto;
   text-align: center;
   display: flex;
@@ -15,29 +11,29 @@
 
 .title {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: #EEF0F4;
+  color: #FFFFFF;
   margin: 0;
 }
 
 .divider {
   display: block;
-  width: 60px;
+  width: 48px;
   height: 2px;
-  background: #D4943A;
+  background: #C8A65A;
   margin: 24px 0;
 }
 
 .description {
   font-family: 'Inter', sans-serif;
-  font-size: 1.0625rem;
+  font-size: 1rem;
   line-height: 1.7;
-  color: #838A96;
+  color: rgba(255, 255, 255, 0.6);
   margin: 0 0 40px;
-  max-width: 480px;
+  max-width: 440px;
 }
 
 .actions {
@@ -45,7 +41,6 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 20px;
 }
 
 .ctaPrimary {
@@ -53,19 +48,19 @@
   align-items: center;
   gap: 10px;
   padding: 14px 32px;
-  background: linear-gradient(135deg, #D4943A 0%, #A67B3A 100%);
-  color: #0A0B10;
+  background: #C8A65A;
+  color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    background: linear-gradient(135deg, #EEC27A 0%, #D4943A 100%);
+    background: #DFC27A;
     transform: translateY(-1px);
-    box-shadow: 0 8px 32px rgba(212, 148, 58, 0.3);
+    box-shadow: 0 8px 24px rgba(200, 166, 90, 0.3);
   }
 
   svg {
@@ -82,24 +77,17 @@
   align-items: center;
   gap: 8px;
   padding: 14px 28px;
-  border: 1px solid rgba(212, 148, 58, 0.2);
-  color: #D4943A;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
-  border-radius: 12px;
+  border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    border-color: rgba(212, 148, 58, 0.4);
-    background: rgba(212, 148, 58, 0.05);
+    border-color: #C8A65A;
+    color: #FFFFFF;
   }
-}
-
-.disclaimer {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  color: rgba(131, 138, 150, 0.6);
-  margin: 0;
 }

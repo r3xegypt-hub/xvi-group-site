@@ -12,19 +12,20 @@
 }
 
 .default {
-  background: #0A0B10;
+  background: #F7F6F3;
 }
 
-.slate {
-  background: #14161E;
+.warm {
+  background: #ECE8E2;
 }
 
-.ink {
-  background: #060708;
+.white {
+  background: #FFFFFF;
 }
 
-.amber {
-  background: linear-gradient(180deg, #0A0B10 0%, rgba(212, 148, 58, 0.03) 100%);
+.navy {
+  background: #132238;
+  color: #FFFFFF;
 }
 
 .header {
@@ -54,7 +55,7 @@
   display: block;
   width: 40px;
   height: 2px;
-  background: #D4943A;
+  background: #C8A65A;
   flex-shrink: 0;
 }
 
@@ -68,18 +69,22 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #838A96;
+  color: #999999;
   margin: 0;
 }
 
 .title {
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: clamp(1.5rem, 4vw, 2.75rem);
-  line-height: 1.08;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0;
+}
+
+.navy .title {
+  color: #FFFFFF;
 }
 
 .align-center .title {
@@ -91,9 +96,13 @@
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   line-height: 1.7;
-  color: #838A96;
+  color: #666666;
   max-width: 560px;
   margin: 16px 0 0;
+}
+
+.navy .description {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .align-center .description {

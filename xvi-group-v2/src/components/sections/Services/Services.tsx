@@ -10,7 +10,7 @@ const SERVICES = [
     title: 'Strategy & Advisory',
     titleAr: 'الاستراتيجية والاستشارات',
     description: 'AI roadmap development, opportunity assessment, governance frameworks, and enterprise AI strategy.',
-    descriptionAr: 'تطوير خارطة طريق الذكاء الاصطناعي، تقييم الفرص، أطر الحوكمة، واستراتيجية الذكاء الاصطناعي للمؤسسات.',
+    descriptionAr: 'تطوير خارطة طريق الذكاء الاصطناعي، تقييم الفرص، أطر الحوكمة، واستراتيجية المؤسسات.',
   },
   {
     index: '02',
@@ -40,29 +40,27 @@ export function Services() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="ink" id="services" className={styles.section}>
+    <Section variant="white" id="services" className={styles.section}>
       <Container>
         <SectionHeader
           overline={ar ? 'خدماتنا' : 'SERVICES'}
           title={ar ? 'ما نقدمه' : 'What We Deliver'}
           description={ar
-            ? 'تحول شامل بالذكاء الاصطناعي لأكثر مؤسسات الشرق الأوسط طموحاً.'
-            : 'End-to-end AI transformation for the Middle East\'s most ambitious enterprises.'
+            ? 'تحول شامل بالذكاء الاصطناعي لأكثر المؤسسات طموحاً.'
+            : 'End-to-end AI transformation for the most ambitious enterprises.'
           }
         />
-
         <div className={styles.grid}>
           {SERVICES.map((s, i) => (
-            <a key={i} href={`/services/${s.title.toLowerCase().replace(/\s+/g, '-')}`} className={styles.card}>
+            <div key={i} className={styles.card}>
               <span className={styles.cardIndex}>{s.index}</span>
-              <span className={styles.cardAccent} aria-hidden="true" />
               <h3 className={styles.cardTitle}>{ar ? s.titleAr : s.title}</h3>
               <p className={styles.cardDesc}>{ar ? s.descriptionAr : s.description}</p>
               <span className={styles.cardLink}>
                 {ar ? 'اعرف المزيد' : 'Learn More'}
                 <ArrowUpRight size={14} />
               </span>
-            </a>
+            </div>
           ))}
         </div>
       </Container>

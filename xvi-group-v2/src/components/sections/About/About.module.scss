@@ -1,28 +1,5 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  position: relative;
-
-  &::before {
-    content: '02';
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-family: 'Inter', sans-serif;
-    font-size: 8rem;
-    font-weight: 700;
-    color: rgba(212, 148, 58, 0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-
-    [dir='rtl'] & {
-      right: auto;
-      left: 40px;
-    }
-  }
-}
-
 .split {
   display: grid;
   grid-template-columns: 1fr;
@@ -40,13 +17,12 @@
 }
 
 .quoteMark {
-  font-family: 'Inter', 'Georgia', serif;
+  font-family: 'Georgia', serif;
   font-size: 4rem;
-  font-weight: 300;
   line-height: 1;
-  color: rgba(212, 148, 58, 0.15);
+  color: rgba(200, 166, 90, 0.15);
   display: block;
-  margin-bottom: -12px;
+  margin-bottom: -16px;
 }
 
 .quote {
@@ -55,36 +31,12 @@
   font-weight: 300;
   font-style: italic;
   line-height: 1.4;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0;
 
   @include from-tablet-portrait {
     font-size: 1.75rem;
   }
-}
-
-.quoteAttribution {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.quoteLine {
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: #D4943A;
-  opacity: 0.5;
-}
-
-.quoteLabel {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #838A96;
 }
 
 .bodyCol {
@@ -97,7 +49,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.7;
-  color: #838A96;
+  color: #666666;
   margin: 0;
   max-width: 600px;
 }
@@ -106,7 +58,7 @@
   display: flex;
   gap: 56px;
   padding-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid #E8E4DE;
 
   @include large-mobile {
     gap: 32px;
@@ -117,25 +69,15 @@
 .stat {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.statDot {
-  display: block;
-  width: 8px;
-  height: 8px;
-  background: #D4943A;
-  border-radius: 50%;
+  gap: 6px;
 }
 
 .statNumber {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 2.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
   font-weight: 500;
-  color: #EEF0F4;
+  color: #C8A65A;
   line-height: 1;
-  letter-spacing: -0.02em;
 }
 
 .statLabel {
@@ -144,7 +86,7 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #838A96;
+  color: #999999;
 
   [dir='rtl'] & {
     text-transform: none;

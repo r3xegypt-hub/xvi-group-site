@@ -19,10 +19,10 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(10, 11, 16, 0.85);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid #E8E4DE;
     opacity: 0;
     transition: opacity 0.4s ease;
   }
@@ -56,8 +56,8 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #EEF0F4;
-  opacity: 0.95;
+  color: #111111;
+  opacity: 0.9;
   transition: opacity 0.2s ease;
 
   &:hover {
@@ -79,27 +79,27 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  color: #838A96;
+  letter-spacing: 0.02em;
+  color: #666666;
   text-decoration: none;
   transition: color 0.3s ease;
   position: relative;
   padding: 4px 0;
 
   &:hover {
-    color: #EEF0F4;
+    color: #111111;
   }
 }
 
 .linkActive {
-  color: #EEF0F4;
+  color: #111111;
 }
 
 .activeDot {
   display: block;
-  width: 6px;
-  height: 6px;
-  background: #D4943A;
+  width: 5px;
+  height: 5px;
+  background: #C8A65A;
   border-radius: 50%;
   margin: 6px auto 0;
   animation: fadeIn 0.3s ease;
@@ -113,8 +113,8 @@
 
 .langToggle {
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #838A96;
+  border: 1px solid #E8E4DE;
+  color: #666666;
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
@@ -124,8 +124,8 @@
   transition: all 0.2s ease;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    color: #EEF0F4;
+    border-color: #C8A65A;
+    color: #111111;
   }
 }
 
@@ -134,8 +134,8 @@
   align-items: center;
   gap: 8px;
   padding: 8px 20px;
-  border: 1px solid rgba(212, 148, 58, 0.15);
-  color: #D4943A;
+  border: 1px solid #C8A65A;
+  color: #C8A65A;
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -144,8 +144,8 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    border-color: rgba(212, 148, 58, 0.4);
-    color: #EEC27A;
+    background: #C8A65A;
+    color: #FFFFFF;
   }
 
   @include large-mobile {
@@ -157,7 +157,7 @@
   display: none;
   background: none;
   border: none;
-  color: #EEF0F4;
+  color: #111111;
   cursor: pointer;
   padding: 8px;
 
@@ -174,7 +174,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(6, 7, 8, 0.98);
+  background: rgba(247, 246, 243, 0.98);
   backdrop-filter: blur(20px);
   z-index: 299;
   display: flex;
@@ -202,12 +202,12 @@
   font-size: 1.5rem;
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: #EEF0F4;
+  color: #111111;
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover {
-    color: #D4943A;
+    color: #C8A65A;
   }
 }
 
@@ -217,8 +217,8 @@
   align-items: center;
   gap: 8px;
   padding: 14px 32px;
-  background: #D4943A;
-  color: #0A0B10;
+  background: #C8A65A;
+  color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
   font-weight: 600;
@@ -227,7 +227,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    background: #EEC27A;
+    background: #DFC27A;
   }
 }
 

@@ -1,32 +1,9 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  position: relative;
-
-  &::before {
-    content: '04';
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-family: 'Inter', sans-serif;
-    font-size: 8rem;
-    font-weight: 700;
-    color: rgba(212, 148, 58, 0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-
-    [dir='rtl'] & {
-      right: auto;
-      left: 40px;
-    }
-  }
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
 
   @include tablet-portrait {
     grid-template-columns: 1fr;
@@ -34,18 +11,18 @@
 }
 
 .card {
-  background: #14161E;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
+  background: #FFFFFF;
+  border: 1px solid #E8E4DE;
+  border-radius: 12px;
   padding: 32px;
   display: flex;
   flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s ease;
 
   &:hover {
-    border-color: rgba(212, 148, 58, 0.15);
+    border-color: #C8A65A;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
     transform: translateY(-2px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -69,8 +46,8 @@
 .cardCategory {
   display: inline-block;
   padding: 4px 12px;
-  background: rgba(212, 148, 58, 0.1);
-  color: #D4943A;
+  background: rgba(200, 166, 90, 0.1);
+  color: #C8A65A;
   font-family: 'Inter', sans-serif;
   font-size: 0.6875rem;
   font-weight: 600;
@@ -85,7 +62,7 @@
 .cardDate {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
-  color: #838A96;
+  color: #999999;
 }
 
 .cardTitle {
@@ -93,20 +70,15 @@
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.25;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0 0 12px;
-  letter-spacing: -0.01em;
-
-  [dir='rtl'] & {
-    letter-spacing: 0;
-  }
 }
 
 .cardExcerpt {
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: #838A96;
+  color: #666666;
   margin: 0 0 20px;
   flex: 1;
 }
@@ -118,7 +90,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #D4943A;
+  color: #C8A65A;
   transition: gap 0.3s ease;
 
   &:hover {

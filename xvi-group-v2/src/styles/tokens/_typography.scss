@@ -3,24 +3,24 @@ $font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 $font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
 $font-ar: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
 
-$text-hero: clamp(2.25rem, 7vw, 5.5rem);
-$text-heading: clamp(1.5rem, 4vw, 2.75rem);
+$text-hero: clamp(2.5rem, 6vw, 5rem);
+$text-heading: clamp(1.5rem, 3.5vw, 2.75rem);
 $text-stat: clamp(1.75rem, 3vw, 3rem);
 $text-title: 1.125rem;
-$text-body: clamp(0.875rem, 1.3vw, 0.9375rem);
+$text-body: clamp(0.9375rem, 1.3vw, 1rem);
 $text-small: 0.8125rem;
 $text-caption: 0.75rem;
 $text-overline: 0.6875rem;
 
-$leading-hero: 1;
-$leading-heading: 1.08;
+$leading-hero: 1.05;
+$leading-heading: 1.1;
 $leading-body: 1.7;
 $leading-tight: 1.25;
 
 $tracking-hero: -0.03em;
 $tracking-heading: -0.02em;
 $tracking-wide: 0.06em;
-$tracking-wider: 0.15em;
+$tracking-wider: 0.1em;
 
 $weight-light: 300;
 $weight-regular: 400;

@@ -1,69 +1,44 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  position: relative;
-  background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(212, 148, 58, 0.03) 0%, transparent 60%);
-}
-
 .inner {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto;
   text-align: center;
 }
 
 .heading {
   font-family: 'Inter', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #EEF0F4;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #999999;
   margin: 0 0 48px;
-  letter-spacing: -0.01em;
-}
-
-.frame {
-  display: flex;
-  align-items: stretch;
-  gap: 24px;
-  margin-bottom: 40px;
-
-  @include large-mobile {
-    gap: 16px;
-  }
-}
-
-.frameLine {
-  display: block;
-  width: 1px;
-  background: rgba(212, 148, 58, 0.15);
-  flex-shrink: 0;
+  letter-spacing: 0.02em;
 }
 
 .quoteBlock {
-  flex: 1;
-  padding: 0 8px;
+  margin-bottom: 40px;
 }
 
 .quoteMark {
   font-family: 'Georgia', serif;
   font-size: 4rem;
-  font-weight: 400;
   line-height: 1;
-  color: rgba(212, 148, 58, 0.1);
+  color: rgba(200, 166, 90, 0.12);
   display: block;
-  margin-bottom: -16px;
+  margin-bottom: -20px;
 }
 
 .quote {
   font-family: 'Inter', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-weight: 300;
   font-style: italic;
   line-height: 1.5;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0 0 32px;
 
   @include from-tablet-portrait {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -75,15 +50,15 @@
 
 .attributionName {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  color: #EEF0F4;
+  color: #111111;
 }
 
-.attributionRole {
+.attributionTitle {
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
-  color: #838A96;
+  color: #999999;
 }
 
 .dots {
@@ -97,13 +72,13 @@
   height: 8px;
   border-radius: 50%;
   border: none;
-  background: rgba(212, 148, 58, 0.2);
+  background: #E8E4DE;
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
 }
 
 .dotActive {
-  background: #D4943A;
+  background: #C8A65A;
   transform: scale(1.2);
 }

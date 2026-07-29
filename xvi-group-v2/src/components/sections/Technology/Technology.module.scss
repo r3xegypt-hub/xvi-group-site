@@ -1,33 +1,10 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  position: relative;
-
-  &::before {
-    content: '03';
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-family: 'Inter', sans-serif;
-    font-size: 8rem;
-    font-weight: 700;
-    color: rgba(212, 148, 58, 0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-
-    [dir='rtl'] & {
-      right: auto;
-      left: 40px;
-    }
-  }
-}
-
 .grid {
-  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  border-top: 1px solid #E8E4DE;
+  border-left: 1px solid #E8E4DE;
 
   @include tablet-portrait {
     grid-template-columns: repeat(2, 1fr);
@@ -38,71 +15,37 @@
   }
 }
 
-.gridLines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.gridLineH {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: rgba(212, 148, 58, 0.08);
-  top: 33.33%;
-
-  &:nth-child(2) {
-    top: 66.66%;
-  }
-}
-
-.gridLineV {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: rgba(212, 148, 58, 0.08);
-  left: 33.33%;
-
-  &:nth-child(4) {
-    left: 66.66%;
-  }
-}
-
 .cell {
-  position: relative;
-  padding: 32px 24px;
+  padding: 28px 24px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 8px;
+  border-right: 1px solid #E8E4DE;
+  border-bottom: 1px solid #E8E4DE;
   transition: background 0.3s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: #F7F6F3;
 
     .cellDot {
-      opacity: 0.6;
+      background: #C8A65A;
     }
   }
 }
 
 .cellDot {
-  display: block;
   width: 6px;
   height: 6px;
-  background: #D4943A;
   border-radius: 50%;
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
+  background: #E8E4DE;
+  transition: background 0.3s ease;
 }
 
 .cellTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0;
 }
 
@@ -110,6 +53,6 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   line-height: 1.6;
-  color: #838A96;
+  color: #999999;
   margin: 0;
 }

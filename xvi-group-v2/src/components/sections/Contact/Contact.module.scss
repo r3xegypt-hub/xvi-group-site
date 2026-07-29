@@ -1,28 +1,5 @@
 @import '../../../styles/mixins/devices';
 
-.section {
-  position: relative;
-
-  &::before {
-    content: '05';
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-family: 'Inter', sans-serif;
-    font-size: 8rem;
-    font-weight: 700;
-    color: rgba(212, 148, 58, 0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-
-    [dir='rtl'] & {
-      right: auto;
-      left: 40px;
-    }
-  }
-}
-
 .split {
   display: grid;
   grid-template-columns: 1fr;
@@ -62,26 +39,26 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #838A96;
+  color: #999999;
 }
 
 .input {
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
-  color: #EEF0F4;
-  background: #1A1D27;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  color: #111111;
+  background: #FFFFFF;
+  border: 1px solid #E8E4DE;
+  border-radius: 8px;
   padding: 14px 16px;
   outline: none;
   transition: border-color 0.3s ease;
 
   &::placeholder {
-    color: rgba(131, 138, 150, 0.4);
+    color: rgba(153, 153, 153, 0.4);
   }
 
   &:focus {
-    border-color: rgba(212, 148, 58, 0.4);
+    border-color: #C8A65A;
   }
 }
 
@@ -97,19 +74,19 @@
   justify-content: center;
   gap: 10px;
   padding: 14px 32px;
-  background: linear-gradient(135deg, #D4943A 0%, #A67B3A 100%);
-  color: #0A0B10;
+  background: #C8A65A;
+  color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   align-self: flex-start;
 
   &:hover {
-    background: linear-gradient(135deg, #EEC27A 0%, #D4943A 100%);
+    background: #DFC27A;
     transform: translateY(-1px);
   }
 }
@@ -133,7 +110,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: rgba(212, 148, 58, 0.3);
+  background: rgba(200, 166, 90, 0.3);
 
   [dir='rtl'] & {
     left: auto;
@@ -145,33 +122,33 @@
   font-family: 'Inter', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0;
 }
 
 .infoAddress {
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
-  color: #838A96;
+  color: #666666;
   margin: 0;
 }
 
 .infoEmail {
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
-  color: #D4943A;
+  color: #C8A65A;
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover {
-    color: #EEC27A;
+    color: #DFC27A;
   }
 }
 
 .infoPhone {
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
-  color: #EEF0F4;
+  color: #111111;
   margin: 0;
 }
 
@@ -188,7 +165,7 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #838A96;
+  color: #999999;
 }
 
 .socialLinks {
@@ -199,11 +176,11 @@
 .socialLink {
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
-  color: #838A96;
+  color: #666666;
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover {
-    color: #D4943A;
+    color: #C8A65A;
   }
 }

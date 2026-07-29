@@ -8,13 +8,12 @@ export function About() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="slate" id="about" className={styles.section}>
+    <Section variant="warm" id="about">
       <Container>
         <SectionHeader
           overline={ar ? 'عن XVI' : 'ABOUT'}
           title={ar ? 'شريكك في الاستراتيجية والذكاء' : 'Your Partner in Strategy & Intelligence'}
         />
-
         <div className={styles.split}>
           <div className={styles.quoteCol}>
             <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
@@ -23,12 +22,7 @@ export function About() {
                 ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي قابل للقياس.'
                 : 'We combine strategic vision with execution capability to transform ambition into sovereign, measurable performance.'}
             </blockquote>
-            <div className={styles.quoteAttribution}>
-              <span className={styles.quoteLine} aria-hidden="true" />
-              <span className={styles.quoteLabel}>{ar ? 'فلسفة XVI' : 'XVI Philosophy'}</span>
-            </div>
           </div>
-
           <div className={styles.bodyCol}>
             <p className={styles.bodyText}>
               {ar
@@ -42,20 +36,16 @@ export function About() {
             </p>
           </div>
         </div>
-
         <div className={styles.stats}>
           <div className={styles.stat}>
-            <span className={styles.statDot} aria-hidden="true" />
             <span className={styles.statNumber}>2020</span>
             <span className={styles.statLabel}>{ar ? 'تأسسنا' : 'Founded'}</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statDot} aria-hidden="true" />
             <span className={styles.statNumber}>200+</span>
             <span className={styles.statLabel}>{ar ? 'مشروع' : 'Projects'}</span>
           </div>
           <div className={styles.stat}>
-            <span className={styles.statDot} aria-hidden="true" />
             <span className={styles.statNumber}>12</span>
             <span className={styles.statLabel}>{ar ? 'دولة' : 'Countries'}</span>
           </div>

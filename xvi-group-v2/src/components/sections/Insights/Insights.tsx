@@ -8,21 +8,21 @@ const INSIGHTS = [
   {
     category: 'PERSPECTIVE',
     categoryAr: 'رؤية',
-    title: 'The Sovereign AI Imperative: Why Enterprises Must Own Their Intelligence',
-    titleAr: 'ضرورة الذكاء السيادي: لماذا يجب للمؤسسات أن تمتلك ذكاءها',
+    title: 'The Sovereign AI Imperative',
+    titleAr: 'ضرورة الذكاء السيادي',
     date: 'Jan 2026',
-    excerpt: 'As AI reshapes every industry, the enterprises that control their own AI infrastructure will define the next decade of competitive advantage.',
-    excerptAr: 'مع إعادة تشكيل الذكاء الاصطناعي لكل صناعة، المؤسسات التي تتحكم في بنيتها التحتية ستحدد ميزة العقد القادم.',
+    excerpt: 'The enterprises that control their own AI infrastructure will define the next decade of competitive advantage.',
+    excerptAr: 'المؤسسات التي تتحكم في بنيتها التحتية للذكاء الاصطناعي ستحدد ميزة العقد القادم.',
     hero: true,
   },
   {
     category: 'CASE STUDY',
     categoryAr: 'دراسة حالة',
-    title: 'Beyond Migration: Building Cloud-Native Enterprise Architecture',
-    titleAr: 'ما وراء الترحيل: بناء هندسة سحابية أصلية',
+    title: 'Building Cloud-Native Enterprise Architecture',
+    titleAr: 'بناء هندسة سحابية أصلية',
     date: 'Dec 2025',
-    excerpt: 'Most enterprise cloud migrations fail to deliver promised value. The solution is architectural redesign from the ground up.',
-    excerptAr: 'معظم ترحيلات الحوسبة السحابية لا تحقق القيمة الموعودة. الحل هو إعادة التصميم المعماري من الأساس.',
+    excerpt: 'Cloud migration failures are architectural, not technical. The solution is redesign from the ground up.',
+    excerptAr: 'فشل الترحيل السحابي معماري وليس تقني. الحل هو إعادة التصميم من الأساس.',
   },
   {
     category: 'RESEARCH',
@@ -30,8 +30,8 @@ const INSIGHTS = [
     title: 'Executive Decision Architecture in the Age of AI',
     titleAr: 'هندسة القرارات التنفيذية في عصر الذكاء الاصطناعي',
     date: 'Nov 2025',
-    excerpt: 'How top executives redesign decision-making frameworks to integrate AI insights while maintaining strategic sovereignty.',
-    excerptAr: 'كيف يعيد كبار التنفيذيين تصميم أطر اتخاذ القرارات لدمج رؤى الذكاء الاصطناعي مع الحفاظ على السيادة الاستراتيجية.',
+    excerpt: 'How top executives redesign decision-making frameworks to integrate AI insights with strategic sovereignty.',
+    excerptAr: 'كيف يعيد كبار التنفيذيين تصميم أطر اتخاذ القرارات لدمج رؤى الذكاء الاصطناعي.',
   },
 ];
 
@@ -40,17 +40,16 @@ export function Insights() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="slate" id="insights" className={styles.section}>
+    <Section variant="warm" id="insights">
       <Container>
         <SectionHeader
           overline={ar ? 'الرؤى' : 'INSIGHTS'}
           title={ar ? 'أحدث الأفكار' : 'Latest Thinking'}
           description={ar
             ? 'رؤى استراتيجية وتحليلات معمّقة من فريقنا الاستشاري.'
-            : 'Strategic perspectives and deep analysis from our advisory team.'
+            : 'Strategic perspectives and analysis from our advisory team.'
           }
         />
-
         <div className={styles.grid}>
           {INSIGHTS.map((item, i) => (
             <article key={i} className={[styles.card, item.hero && styles.cardHero].filter(Boolean).join(' ')}>
