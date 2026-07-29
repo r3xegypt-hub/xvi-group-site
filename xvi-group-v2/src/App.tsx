@@ -10,7 +10,8 @@ import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
 import { CustomCursor } from './motion/CustomCursor';
-import { AIConsultant } from './components/assistant/AIConsultant';
+import { LuxuryLoader } from './components/ui/LuxuryLoader';
+import { AIExecutiveConsultant } from './components/assistant/AIExecutiveConsultant';
 import { Home } from './pages/home';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <LanguageProvider>
           <MotionProvider>
             <div className="xvi-app">
+              <LuxuryLoader />
               <CustomCursor />
               <ScrollProgress />
               <PageTransition>
@@ -33,7 +35,7 @@ function App() {
                           <Home />
                         </main>
                         <Footer />
-                        <AIConsultant />
+                        <AIExecutiveConsultant />
                       </>
                     }
                   />

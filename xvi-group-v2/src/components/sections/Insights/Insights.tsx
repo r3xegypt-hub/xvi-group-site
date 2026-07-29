@@ -1,12 +1,11 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import type { Easing } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section, SectionHeader } from '../../layout/Section';
-import { TiltCard } from '../../../motion/TiltCard';
-import { StaggerGroup, StaggerItem } from '../../../motion/AnimatedSection';
+import { BrokenGrid, BrokenGridItem } from '../../../motion/BrokenGrid';
+import { ImageReveal } from '../../../motion/ImageReveal';
+import { SectionSeparator } from '../../../motion/SectionSeparator';
 import styles from './Insights.module.scss';
 
 const INSIGHTS = [
@@ -18,16 +17,19 @@ const INSIGHTS = [
     date: 'Jan 2026',
     excerpt: 'The enterprises that control their own AI infrastructure will define the next decade of competitive advantage.',
     excerptAr: 'المؤسسات التي تتحكم في بنيتها التحتية للذكاء الاصطناعي ستحدد ميزة العقد القادم.',
-    hero: true,
+    span: 2,
+    offset: 0,
   },
   {
     category: 'CASE STUDY',
     categoryAr: 'دراسة حالة',
-    title: 'Building Cloud-Native Enterprise Architecture',
-    titleAr: 'بناء هندسة سحابية أصلية',
+    title: 'Cloud-Native Enterprise Architecture',
+    titleAr: 'هندسة سحابية أصلية للمؤسسات',
     date: 'Dec 2025',
     excerpt: 'Cloud migration failures are architectural, not technical. The solution is redesign from the ground up.',
     excerptAr: 'فشل الترحيل السحابي معماري وليس تقني. الحل هو إعادة التصميم من الأساس.',
+    span: 1,
+    offset: 40,
   },
   {
     category: 'RESEARCH',
@@ -37,6 +39,8 @@ const INSIGHTS = [
     date: 'Nov 2025',
     excerpt: 'How top executives redesign decision-making frameworks to integrate AI insights with strategic sovereignty.',
     excerptAr: 'كيف يعيد كبار التنفيذيين تصميم أطر اتخاذ القرارات لدمج رؤى الذكاء الاصطناعي.',
+    span: 1,
+    offset: 0,
   },
 ];
 
@@ -45,7 +49,7 @@ export function Insights() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="warm" id="insights">
+    <Section variant="warm" id="insights" className={styles.section}>
       <Container>
         <SectionHeader
           overline={ar ? 'الرؤى' : 'INSIGHTS'}
@@ -55,30 +59,51 @@ export function Insights() {
             : 'Strategic perspectives and analysis from our advisory team.'
           }
         />
-        <StaggerGroup className={styles.grid}>
+        <BrokenGrid className={styles.grid} columns={3}>
           {INSIGHTS.map((item, i) => (
-            <StaggerItem key={i}>
-              <TiltCard tiltDegree={4} glare>
-                <motion.article
-                  className={`${styles.card} ${item.hero ? styles.cardHero : ''}`}
-                  whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                >
-                  <div className={styles.cardMeta}>
-                    <span className={styles.cardCategory}>{ar ? item.categoryAr : item.category}</span>
-                    <time className={styles.cardDate}>{item.date}</time>
-                  </div>
-                  <h3 className={styles.cardTitle}>{ar ? item.titleAr : item.title}</h3>
-                  <p className={styles.cardExcerpt}>{ar ? item.excerptAr : item.excerpt}</p>
-                  <motion.span className={styles.cardLink} whileHover={{ gap: '12px' }}>
-                    {ar ? 'اقرأ المزيد' : 'Read More'}
-                    <ArrowUpRight size={14} />
-                  </motion.span>
-                </motion.article>
-              </TiltCard>
-            </StaggerItem>
+            <BrokenGridItem key={i} span={item.span} offset={item.offset}>
+              <motion.article
+                className={`${styles.card} ${i === 0 ? styles.cardHero : ''}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
+                whileHover={{ y: -4 }}
+              >
+                {i === 0 && (
+                  <ImageReveal direction="right" aspectRatio="16/9">
+                    <div className={styles.cardImage}>
+                      <div className={styles.cardImageGrid}>
+                        {Array.from({ length: 24 }).map((_, j) => (
+                          <motion.span
+                            key={j}
+                            className={styles.cardImageCell}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 0.04 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: j * 0.015 }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </ImageReveal>
+                )}
+                <div className={styles.cardMeta}>
+                  <span className={styles.cardCategory}>{ar ? item.categoryAr : item.category}</span>
+                  <time className={styles.cardDate}>{item.date}</time>
+                </div>
+                <h3 className={styles.cardTitle}>{ar ? item.titleAr : item.title}</h3>
+                <p className={styles.cardExcerpt}>{ar ? item.excerptAr : item.excerpt}</p>
+                <motion.span className={styles.cardLink} whileHover={{ gap: 12 }}>
+                  {ar ? 'اقرأ المزيد' : 'Read More'}
+                  <ArrowUpRight size={14} />
+                </motion.span>
+              </motion.article>
+            </BrokenGridItem>
           ))}
-        </StaggerGroup>
+        </BrokenGrid>
       </Container>
+      <SectionSeparator variant="line" />
     </Section>
   );
 }

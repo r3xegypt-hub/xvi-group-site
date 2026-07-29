@@ -2,35 +2,38 @@
   position: relative;
 }
 
-.bgGradient {
+.morphBg {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
 
-.split {
+.editorial {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 48px;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 48px;
   }
 }
 
 .quoteCol {
   display: flex;
   align-items: flex-start;
+  will-change: transform, opacity;
 }
 
 .quote {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
   color: #111111;
   margin: 0;
   padding: 0;
@@ -41,27 +44,53 @@
     content: '\201C';
     display: block;
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 4rem;
-    line-height: 0.6;
+    font-size: 3.5rem;
+    line-height: 0.5;
     color: #C8A65A;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   [dir='rtl'] & {
     font-family: 'Alexandria', sans-serif;
     letter-spacing: 0;
-    line-height: 1.5;
-
-    &::before {
-      content: '\201D';
-    }
+    &::before { content: '\201D'; }
   }
+}
+
+.imageCol {
+  position: relative;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.imageCell {
+  border: 1px solid rgba(200, 166, 90, 0.08);
 }
 
 .bodyCol {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .bodyText {
@@ -79,6 +108,8 @@
   margin-top: 64px;
   padding-top: 40px;
   border-top: 1px solid rgba(17, 17, 17, 0.06);
+  position: relative;
+  z-index: 1;
 }
 
 .stat {
@@ -94,9 +125,7 @@
   color: #111111;
   line-height: 1;
 
-  [dir='rtl'] & {
-    font-family: 'Alexandria', sans-serif;
-  }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .statLabel {

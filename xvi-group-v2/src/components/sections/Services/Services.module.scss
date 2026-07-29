@@ -1,85 +1,62 @@
 .section {
-  background: #FFFFFF;
+  position: relative;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
+  position: relative;
+  z-index: 1;
 }
 
 .card {
-  position: relative;
-  padding: 40px 32px;
-  background: #F7F6F3;
-  border: 1px solid rgba(17, 17, 17, 0.04);
-  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transition: all 0.3s ease;
 
   &:hover {
-    border-color: #C8A65A;
-    transform: translateY(-4px);
+    border-color: rgba(200, 166, 90, 0.2);
+    box-shadow: 0 8px 32px rgba(17, 17, 17, 0.04);
   }
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #C8A65A;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  &:hover::after {
-    transform: scaleX(1);
-  }
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .cardIndex {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 0.75rem;
-  font-weight: 400;
-  color: #C8A65A;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
 
-  [dir='rtl'] & {
-    font-family: 'Alexandria', sans-serif;
-  }
+.cardIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .cardTitle {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-  font-weight: 500;
+  font-size: 1.125rem;
+  font-weight: 400;
   color: #111111;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
   margin: 0;
 
-  [dir='rtl'] & {
-    font-family: 'Alexandria', sans-serif;
-    letter-spacing: 0;
-  }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .cardDesc {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #666666;
   margin: 0;
@@ -92,14 +69,7 @@
   gap: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #C8A65A;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: gap 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-
-  &:hover {
-    gap: 12px;
-  }
+  transition: gap 0.3s ease;
 }

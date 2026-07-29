@@ -19,8 +19,8 @@ export function Contact() {
   return (
     <Section variant="warm" id="contact" className={styles.section}>
       <AnimatedGradient
-        colors={['rgba(200, 166, 90, 0.03)', 'transparent', 'transparent']}
-        duration={12}
+        colors={['rgba(200, 166, 90, 0.04)', 'transparent', 'transparent']}
+        duration={15}
         className={styles.bgGradient}
       />
       <Container>
@@ -40,25 +40,30 @@ export function Contact() {
               <div className={styles.field}>
                 <label className={styles.label}>{ar ? 'الاسم' : 'Name'}</label>
                 <input type="text" className={styles.input} placeholder={ar ? 'اسمك الكامل' : 'Your full name'} />
+                <span className={styles.fieldLine} aria-hidden="true" />
               </div>
               <div className={styles.field}>
                 <label className={styles.label}>{ar ? 'البريد الإلكتروني' : 'Email'}</label>
                 <input type="email" className={styles.input} placeholder={ar ? 'بريدك الإلكتروني' : 'Your email'} />
+                <span className={styles.fieldLine} aria-hidden="true" />
               </div>
             </div>
             <div className={styles.formRow}>
               <div className={styles.field}>
                 <label className={styles.label}>{ar ? 'الهاتف' : 'Phone'}</label>
                 <input type="tel" className={styles.input} placeholder="+971" />
+                <span className={styles.fieldLine} aria-hidden="true" />
               </div>
               <div className={styles.field}>
                 <label className={styles.label}>{ar ? 'المؤسسة' : 'Company'}</label>
                 <input type="text" className={styles.input} placeholder={ar ? 'اسم المؤسسة' : 'Company name'} />
+                <span className={styles.fieldLine} aria-hidden="true" />
               </div>
             </div>
             <div className={styles.field}>
               <label className={styles.label}>{ar ? 'الرسالة' : 'Message'}</label>
               <textarea className={styles.textarea} rows={4} placeholder={ar ? 'كيف يمكننا مساعدتك؟' : 'How can we help?'} />
+              <span className={styles.fieldLine} aria-hidden="true" />
             </div>
             <motion.button
               type="submit"
@@ -70,6 +75,7 @@ export function Contact() {
               <ArrowUpRight size={14} />
             </motion.button>
           </motion.form>
+
           <motion.div
             className={styles.info}
             initial={{ opacity: 0, x: 20 }}

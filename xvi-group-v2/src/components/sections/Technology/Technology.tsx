@@ -1,13 +1,11 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import type { Easing } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section, SectionHeader } from '../../layout/Section';
+import { AINetwork } from '../../ui/AINetwork';
+import { ConstellationParticles } from '../../../motion/ConstellationParticles';
 import { StaggerGroup, StaggerItem } from '../../../motion/AnimatedSection';
 import styles from './Technology.module.scss';
-
-const ease: Easing = [0.16, 1, 0.3, 1];
 
 const CATEGORIES = [
   { name: 'AI & ML', nameAr: 'الذكاء الاصطناعي', techs: 'Neural Networks · LLMs · Transformers' },
@@ -26,7 +24,9 @@ export function Technology() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="white" id="technology">
+    <Section variant="white" id="technology" className={styles.section}>
+      <AINetwork nodeCount={30} color="#C8A65A" pulseSpeed={5} className={styles.networkBg} />
+      <ConstellationParticles count={15} color="#C8A65A" className={styles.constellation} connectionDistance={40} />
       <Container>
         <SectionHeader
           overline={ar ? 'التقنيات' : 'TECHNOLOGY'}
@@ -39,17 +39,16 @@ export function Technology() {
         <StaggerGroup className={styles.grid} staggerDelay={0.06}>
           {CATEGORIES.map((cat, i) => (
             <StaggerItem key={i}>
-              <motion.div
-                className={styles.cell}
-                whileHover={{ backgroundColor: '#F7F6F3', transition: { duration: 0.2 } }}
-              >
+              <motion.div className={styles.cell} whileHover={{ backgroundColor: '#F7F6F3' }}>
                 <motion.span
                   className={styles.cellDot}
                   aria-hidden="true"
                   initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15, type: 'spring', stiffness: 250, damping: 15 }}
                 />
+                <div className={styles.cellGlow} />
                 <h3 className={styles.cellTitle}>{ar ? cat.nameAr : cat.name}</h3>
                 <p className={styles.cellTechs}>{cat.techs}</p>
               </motion.div>
