@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
+import { SectionReveal } from '../../../motion/SectionReveal';
 import { LightBeam } from '../../../motion/LightBeam';
 import { ConstellationParticles } from '../../../motion/ConstellationParticles';
 import styles from './CTA.module.scss';
@@ -28,12 +29,10 @@ export function CTA() {
       <div className={styles.volumetricGlow} />
 
       <Container>
+        <SectionReveal variant="depthIn">
         <motion.div
           className={styles.content}
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, ease }}
         >
           <motion.span
             className={styles.accentTop}
@@ -79,6 +78,7 @@ export function CTA() {
             </motion.a>
           </div>
         </motion.div>
+        </SectionReveal>
       </Container>
     </Section>
   );

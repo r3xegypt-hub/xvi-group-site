@@ -241,8 +241,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   text-align: center;
+}
+
+.onboardingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: rgba(200, 166, 90, 0.06);
+  border: 1px solid rgba(200, 166, 90, 0.1);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C8A65A;
+  white-space: nowrap;
 }
 
 .avatarRing {

@@ -5,6 +5,8 @@ import { ArrowUpRight, Clock, Shield, MapPin } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
+import { SectionReveal } from '../../../motion/SectionReveal';
+import { PremiumCard } from '../../ui/PremiumCard';
 import { AnimatedGradient } from '../../../motion/FloatingParticles';
 import styles from './Contact.module.scss';
 
@@ -69,12 +71,8 @@ export function Contact() {
             </div>
           </motion.div>
 
-          <motion.div
-            className={styles.formCol}
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-            transition={{ duration: 0.7, ease, delay: 0.1 }}
-          >
+          <SectionReveal variant="slideRight" className={styles.formCol}>
+            <PremiumCard glassIntensity="heavy" hoverScale={false}>
             <div className={styles.formHeader}>
               <span className={styles.formEyebrow}>
                 {ar ? 'احجز استشارتك' : 'Book Your Consultation'}
@@ -122,7 +120,8 @@ export function Contact() {
                 <ArrowUpRight size={14} />
               </motion.button>
             </form>
-          </motion.div>
+            </PremiumCard>
+          </SectionReveal>
         </div>
       </Container>
     </Section>

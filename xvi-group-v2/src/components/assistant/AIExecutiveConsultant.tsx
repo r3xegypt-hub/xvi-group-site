@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing, Variants } from 'framer-motion';
-import { X, ArrowUpRight, Sparkles, Bot, BarChart3, Globe, Shield, Brain, Activity } from 'lucide-react';
+import { X, ArrowUpRight, Sparkles, Bot, BarChart3, Globe, Shield, Brain, Activity, Zap } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './AIExecutive.module.scss';
 
@@ -14,9 +14,22 @@ const overlayVariants: Variants = {
 };
 
 const panelVariants: Variants = {
-  hidden: { y: '100%', opacity: 0, scale: 0.98 },
-  visible: { y: 0, opacity: 1, scale: 1, transition: { duration: 0.5, ease, delay: 0.05 } },
-  exit: { y: '10%', opacity: 0, scale: 0.98, transition: { duration: 0.25, ease } },
+  hidden: { y: '100%', opacity: 0, scale: 0.98, rotateX: 8 },
+  visible: { y: 0, opacity: 1, scale: 1, rotateX: 0, transition: { duration: 0.6, ease, delay: 0.05 } },
+  exit: { y: '10%', opacity: 0, scale: 0.98, rotateX: 4, transition: { duration: 0.25, ease } },
+};
+
+const itemStagger: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.06, delayChildren: 0.15 },
+  },
+};
+
+const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease } },
 };
 
 const metrics = [
@@ -255,31 +268,33 @@ export function AIExecutiveConsultant() {
                 </div>
               </div>
 
-              <div className={styles.panelBody}>
-                <motion.div
-                  className={styles.avatarArea}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.5, ease }}
-                >
+              <motion.div
+                className={styles.panelBody}
+                variants={itemStagger}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.div className={styles.avatarArea} variants={staggerItem}>
                   <div className={styles.avatarRing}>
                     <div className={styles.avatarGlow} />
                     <div className={styles.avatarIcon}>
                       <Brain size={28} />
                     </div>
                   </div>
+                  <motion.div
+                    className={styles.onboardingBadge}
+                    variants={staggerItem}
+                  >
+                    <Zap size={10} />
+                    <span>{ar ? 'نظام ذكاء تحليلي' : 'Analytical AI System'}</span>
+                  </motion.div>
                   <p className={styles.avatarText}>
                     {displayed}
                     <TypingDots done={done} />
                   </p>
                 </motion.div>
 
-                <motion.div
-                  className={styles.actionGrid}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.3 }}
-                >
+                <motion.div className={styles.actionGrid} variants={staggerItem}>
                   {quickActions.map((action, i) => (
                     <motion.button
                       key={i}
@@ -293,12 +308,7 @@ export function AIExecutiveConsultant() {
                   ))}
                 </motion.div>
 
-                <motion.div
-                  className={styles.chipRow}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
-                >
+                <motion.div className={styles.chipRow} variants={staggerItem}>
                   {suggestionChips.map((chip, i) => (
                     <motion.button
                       key={i}
@@ -310,7 +320,7 @@ export function AIExecutiveConsultant() {
                     </motion.button>
                   ))}
                 </motion.div>
-              </div>
+              </motion.div>
 
               <div className={styles.panelFooter}>
                 <input

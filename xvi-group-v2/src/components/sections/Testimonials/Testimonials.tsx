@@ -4,6 +4,7 @@ import type { Easing, Variants } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
+import { SectionReveal } from '../../../motion/SectionReveal';
 import styles from './Testimonials.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -62,7 +63,8 @@ export function Testimonials() {
     <Section variant="white" id="testimonials" className={styles.section}>
       <div className={styles.glassBg} />
       <Container>
-        <div className={styles.layout}>
+        <SectionReveal variant="scaleIn">
+          <div className={styles.layout}>
           <div className={styles.portraitCol}>
             <motion.div
               className={styles.portraitFrame}
@@ -143,6 +145,7 @@ export function Testimonials() {
             </div>
           </div>
         </div>
+        </SectionReveal>
       </Container>
     </Section>
   );

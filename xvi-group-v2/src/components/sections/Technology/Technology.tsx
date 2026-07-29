@@ -4,6 +4,7 @@ import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section, SectionHeader } from '../../layout/Section';
+import { SectionReveal } from '../../../motion/SectionReveal';
 import { AINetwork } from '../../ui/AINetwork';
 import styles from './Technology.module.scss';
 
@@ -72,14 +73,17 @@ export function Technology() {
     <Section variant="white" id="technology" className={styles.section}>
       <AINetwork nodeCount={45} color="#C8A65A" pulseSpeed={4} className={styles.networkBg} />
       <Container>
-        <SectionHeader
-          overline={ar ? 'التقنيات' : 'TECHNOLOGY'}
-          title={ar ? 'قدرات ذكاء اصطناعي شاملة' : 'Full-Stack AI Capability'}
-          description={ar
-            ? 'من البنية التحتية إلى التطبيقات — نبني أنظمة ذكاء اصطناعي تلبي أعلى معايير الأمان والأداء.'
-            : 'From infrastructure to applications — we build AI systems that meet the highest security and performance standards.'}
-        />
-        <div className={styles.ecosystem}>
+        <SectionReveal variant="depthIn">
+          <SectionHeader
+            overline={ar ? 'التقنيات' : 'TECHNOLOGY'}
+            title={ar ? 'قدرات ذكاء اصطناعي شاملة' : 'Full-Stack AI Capability'}
+            description={ar
+              ? 'من البنية التحتية إلى التطبيقات — نبني أنظمة ذكاء اصطناعي تلبي أعلى معايير الأمان والأداء.'
+              : 'From infrastructure to applications — we build AI systems that meet the highest security and performance standards.'}
+          />
+        </SectionReveal>
+        <SectionReveal variant="scaleIn">
+          <div className={styles.ecosystem}>
           <svg className={styles.connectionLines} viewBox="0 0 100 100" preserveAspectRatio="none">
             {categories.map((a, i) =>
               categories.slice(i + 1).map((b, j) => (
@@ -134,6 +138,7 @@ export function Technology() {
             </motion.button>
           ))}
         </div>
+        </SectionReveal>
       </Container>
     </Section>
   );
