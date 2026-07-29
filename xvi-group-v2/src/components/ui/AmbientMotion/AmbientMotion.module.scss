@@ -1,0 +1,83 @@
+// XVI GROUP — Ambient Motion (Sprint 03)
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  opacity: 0.5;
+}
+
+.orb1 {
+  width: 480px;
+  height: 480px;
+  top: -8%;
+  right: -6%;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, transparent 70%);
+  animation: floatOrb1 18s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.orb2 {
+  width: 560px;
+  height: 560px;
+  bottom: 10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(10, 22, 40, 0.06) 0%, transparent 70%);
+  animation: floatOrb2 22s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.orb3 {
+  width: 320px;
+  height: 320px;
+  top: 45%;
+  left: 55%;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.06) 0%, transparent 70%);
+  animation: floatOrb3 15s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201, 169, 110, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 169, 110, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%);
+  opacity: 0.4;
+  animation: gridDrift 40s linear infinite;
+}
+
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 40px) scale(1.05); }
+  66% { transform: translate(20px, -20px) scale(0.95); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(40px, -30px); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, 35px) scale(1.08); }
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0; }
+  to { background-position: 80px 80px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb, .grid {
+    animation: none !important;
+  }
+}

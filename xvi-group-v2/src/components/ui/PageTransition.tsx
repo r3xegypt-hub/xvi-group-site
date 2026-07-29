@@ -1,8 +1,10 @@
-// XVI GROUP — Page Transition Component
-// Crossfade transition for route changes (150ms out, 300ms in)
+// XVI GROUP — Page Transition (Sprint 03)
+// Cinematic crossfade with subtle scale and blur
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useMotion } from '../../motion/providers/MotionProvider';
+import styles from './PageTransition.module.scss';
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -10,43 +12,41 @@ interface PageTransitionProps {
 
 export function PageTransition({ children }: PageTransitionProps) {
   const location = useLocation();
+  const { prefersReducedMotion } = useMotion();
   const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState<'entering' | 'visible' | 'exiting'>('visible');
+  const [stage, setStage] = useState<'visible' | 'exiting' | 'entering'>('visible');
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    // Reset scroll position on route change
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
 
-    // If this is the first render, just show children
-    if (transitionStage === 'visible' && displayChildren === children) {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
       return;
     }
 
-    // Start exit transition
-    setTransitionStage('exiting');
+    setStage('exiting');
+
+    const exitDuration = prefersReducedMotion ? 0 : 280;
+    const enterDuration = prefersReducedMotion ? 0 : 520;
 
     const exitTimer = setTimeout(() => {
       setDisplayChildren(children);
-      setTransitionStage('entering');
+      setStage('entering');
 
-      // Start enter transition
-      const enterTimer = setTimeout(() => {
-        setTransitionStage('visible');
-      }, 300);
-
-      return () => clearTimeout(enterTimer);
-    }, 150);
+      requestAnimationFrame(() => {
+        const enterTimer = setTimeout(() => setStage('visible'), enterDuration);
+        return () => clearTimeout(enterTimer);
+      });
+    }, exitDuration);
 
     return () => clearTimeout(exitTimer);
-  }, [location.pathname]);
+  }, [location.pathname, children, prefersReducedMotion]);
 
   return (
     <div
-      style={{
-        opacity: transitionStage === 'visible' ? 1 : 0,
-        transition: 'opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)',
-        willChange: 'opacity',
-      }}
+      className={[styles.wrapper, styles[stage]].filter(Boolean).join(' ')}
+      data-motion-stage={stage}
     >
       {displayChildren}
     </div>

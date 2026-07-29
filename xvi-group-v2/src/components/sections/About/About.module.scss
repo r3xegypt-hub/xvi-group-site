@@ -1,204 +1,119 @@
-// XVI GROUP — Premium About Section Styles
-// Editorial luxury with premium typography
-
 @import '../../../styles/mixins/devices';
 
 .header {
   text-align: center;
-  margin-bottom: 72px;
+  margin-bottom: 64px;
 
   @include large-mobile {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
   }
 }
 
 .overline {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #C9A96E;
+  color: #D4943A;
   margin: 0 0 20px;
-  
-  // Premium accent line
+
   &::before {
     content: '';
     display: inline-block;
-    width: 32px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #C9A96E);
+    width: 24px;
+    height: 1px;
+    background: #D4943A;
     margin-right: 12px;
     vertical-align: middle;
+    opacity: 0.5;
   }
 }
 
 .title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
-  letter-spacing: -0.04em;
-  color: #0A1628;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #F0F2F5;
   margin: 0 auto;
-  line-height: 1.05;
-  max-width: 750px;
+  max-width: 720px;
 }
-
-// ============================================
-// QUOTE BLOCK — Premium Editorial
-// ============================================
 
 .quoteBlock {
   position: relative;
-  max-width: 850px;
-  margin: 0 auto 96px;
-  padding: 56px 0;
+  max-width: 800px;
+  margin: 0 auto 80px;
+  padding: 48px 0;
   text-align: center;
-  
-  // Premium top accent
+
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #C9A96E, transparent);
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #D4943A, transparent);
   }
 
   @include large-mobile {
-    padding: 40px 0;
-    margin-bottom: 64px;
-  }
-}
-
-.quoteMark {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 7rem;
-  color: #C9A96E;
-  opacity: 0.25;
-  line-height: 0;
-  position: absolute;
-  top: 28px;
-  left: -32px;
-
-  @include large-mobile {
-    font-size: 5rem;
-    top: 20px;
-    left: -12px;
-  }
-
-  [dir="rtl"] & {
-    left: auto;
-    right: -32px;
-
-    @include large-mobile {
-      right: -12px;
-    }
-  }
-}
-
-.quoteMarkRight {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 7rem;
-  color: #C9A96E;
-  opacity: 0.25;
-  line-height: 0;
-  position: absolute;
-  bottom: 28px;
-  right: -32px;
-
-  @include large-mobile {
-    font-size: 5rem;
-    bottom: 20px;
-    right: -12px;
-  }
-
-  [dir="rtl"] & {
-    right: auto;
-    left: -32px;
-
-    @include large-mobile {
-      left: -12px;
-    }
+    padding: 32px 0;
+    margin-bottom: 48px;
   }
 }
 
 .quote {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
   font-weight: 400;
-  font-style: italic;
-  line-height: 1.35;
-  color: #0A1628;
+  line-height: 1.4;
+  color: #F0F2F5;
   margin: 0;
-  padding: 0 56px;
+  padding: 0 48px;
+  font-style: italic;
 
   @include large-mobile {
-    font-size: clamp(1.3rem, 4.2vw, 1.7rem);
-    padding: 0 28px;
+    padding: 0 20px;
   }
 }
-
-// ============================================
-// COLUMNS — Premium Mission/Vision
-// ============================================
 
 .columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 72px;
-  max-width: 850px;
+  gap: 64px;
+  max-width: 800px;
   margin: 0 auto;
 
   @include tablet-portrait {
-    gap: 48px;
+    gap: 40px;
   }
 
   @include large-mobile {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
 }
 
 .column {
   text-align: center;
-  position: relative;
-  
-  // Premium separator for mobile
-  @include large-mobile {
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #C9A96E, transparent);
-    }
-    
-    &:last-child::after {
-      display: none;
-    }
-  }
 }
 
 .columnTitle {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.375rem;
-  font-weight: 700;
-  color: #0A1628;
-  margin: 0 0 16px;
-  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #F0F2F5;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
 }
 
 .columnText {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
   line-height: 1.7;
-  color: #5A6472;
+  color: #8A909C;
   margin: 0;
 }

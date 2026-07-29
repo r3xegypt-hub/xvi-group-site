@@ -1,11 +1,10 @@
-// XVI GROUP — Footer Component
-// Editorial, executive, luxury footer per DESIGN_BIBLE.md
-
 import { Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
-import { LOGO } from '../../branding/assets';
+import { useLanguage } from '../../hooks/LanguageProvider';
+import { FOOTER_COLUMNS, CONTACT_INFO } from '../../config';
+import { Container } from '../layout/Container';
+import styles from './Footer.module.scss';
 
-// Brand icons removed from lucide-react — inline SVGs
 function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -23,38 +22,17 @@ function TwitterIcon({ size = 18 }: { size?: number }) {
     </svg>
   );
 }
-import { useLanguage } from '../../hooks/LanguageProvider';
-import { FOOTER_COLUMNS, CONTACT_INFO } from '../../config';
-import { Container } from '../layout/Container';
-import { SignalRule } from '../../svg/geometry/SignalRule';
-import styles from './Footer.module.scss';
-
-// ============================================
-// COMPONENT
-// ============================================
 
 export function Footer() {
-  const { language, isRTL } = useLanguage();
-
+  const { language } = useLanguage();
   const columns = language === 'ar' ? FOOTER_COLUMNS.ar : FOOTER_COLUMNS.en;
   const contact = CONTACT_INFO;
 
   return (
-    <footer
-      className={[styles.footer, isRTL && styles.rtl].filter(Boolean).join(' ')}
-      role="contentinfo"
-    >
+    <footer className={styles.footer} role="contentinfo">
       <Container>
-        {/* Brand */}
         <div className={styles.brand}>
-          <Link to="/" className={styles.logoLink}>
-            <img
-              src={LOGO.horizontal.light}
-              alt="XVI GROUP"
-              className={styles.logo}
-              height={32}
-            />
-          </Link>
+          <Link to="/" className={styles.logo}>XVI GROUP</Link>
           <p className={styles.tagline}>
             {language === 'ar'
               ? 'نصنع مؤسسات تُحرّك الأسواق، تُحوّل الصناعات، وتقود ثورات التكنولوجيا.'
@@ -62,17 +40,14 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Columns */}
         <div className={styles.columns}>
-          {columns.map((column) => (
-            <div key={column.title} className={styles.column}>
-              <h3 className={styles.columnTitle}>{column.title}</h3>
+          {columns.map((col) => (
+            <div key={col.title} className={styles.column}>
+              <h3 className={styles.columnTitle}>{col.title}</h3>
               <ul className={styles.links}>
-                {column.links.map((link) => (
+                {col.links.map((link) => (
                   <li key={link.href}>
-                    <Link to={link.href} className={styles.link}>
-                      {link.label}
-                    </Link>
+                    <Link to={link.href} className={styles.link}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -80,63 +55,28 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Divider */}
-        <div className={styles.divider}>
-          <SignalRule accent="light" />
-        </div>
+        <div className={styles.divider} />
 
-        {/* Bottom */}
         <div className={styles.bottom}>
-          <div className={styles.copyright}>
-            <p>© 2025 XVI GROUP. {language === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
-            <div className={styles.legalLinks}>
-              <Link to="/privacy" className={styles.legalLink}>
-                {language === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}
-              </Link>
-              <Link to="/terms" className={styles.legalLink}>
-                {language === 'ar' ? 'شروط الخدمة' : 'Terms of Service'}
-              </Link>
-              <Link to="/accessibility" className={styles.legalLink}>
-                {language === 'ar' ? 'إمكانية الوصول' : 'Accessibility'}
-              </Link>
-            </div>
+          <p className={styles.copyright}>
+            &copy; 2025 XVI GROUP. {language === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
+          </p>
+          <div className={styles.legalLinks}>
+            <Link to="/privacy" className={styles.legalLink}>
+              {language === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}
+            </Link>
+            <Link to="/terms" className={styles.legalLink}>
+              {language === 'ar' ? 'شروط الخدمة' : 'Terms of Service'}
+            </Link>
           </div>
-
-          <div className={styles.locations}>
-            {contact.locations.map((loc) => (
-              <span key={loc.city.en} className={styles.location}>
-                {language === 'ar' ? loc.city.ar : loc.city.en}
-                {loc !== contact.locations[contact.locations.length - 1] && (
-                  <span className={styles.separator}>•</span>
-                )}
-              </span>
-            ))}
-          </div>
-
           <div className={styles.social}>
-            <a
-              href={contact.social.linkedin}
-              className={styles.socialLink}
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={contact.social.linkedin} className={styles.socialLink} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
               <LinkedinIcon size={18} />
             </a>
-            <a
-              href={contact.social.twitter}
-              className={styles.socialLink}
-              aria-label="Twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={contact.social.twitter} className={styles.socialLink} aria-label="Twitter" target="_blank" rel="noopener noreferrer">
               <TwitterIcon size={18} />
             </a>
-            <a
-              href={`mailto:${contact.email}`}
-              className={styles.socialLink}
-              aria-label="Email"
-            >
+            <a href={`mailto:${contact.email}`} className={styles.socialLink} aria-label="Email">
               <Mail size={18} />
             </a>
           </div>

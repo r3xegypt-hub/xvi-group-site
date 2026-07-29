@@ -1,5 +1,4 @@
-// XVI GROUP — useParallax Hook
-// React hook for parallax effects
+// XVI GROUP — useParallax Hook (Sprint 03)
 
 import { useEffect, useRef } from 'react';
 import { parallaxEngine, type ParallaxConfig } from '../engines/ParallaxEngine';
@@ -12,10 +11,7 @@ export function useParallax(config: Partial<ParallaxConfig> = {}) {
     if (!element) return;
 
     parallaxEngine.observe(element, config);
-
-    return () => {
-      parallaxEngine.disconnect();
-    };
+    return () => parallaxEngine.unobserve(element);
   }, [config.speed, config.direction, config.offset]);
 
   return ref;

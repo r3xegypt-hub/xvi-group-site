@@ -1,11 +1,5 @@
-// XVI GROUP — Parallax Engine
-// Lightweight parallax using requestAnimationFrame
-
-import { EASING } from '../../constants';
-
-// ============================================
-// TYPES
-// ============================================
+// XVI GROUP — Parallax Engine (Sprint 03)
+// Smooth parallax with lerp interpolation
 
 export interface ParallaxConfig {
   speed: number;
@@ -13,71 +7,73 @@ export interface ParallaxConfig {
   offset: number;
 }
 
-export interface ParallaxElement {
-  element: HTMLElement;
-  config: ParallaxConfig;
- 初始Y: number;
-}
-
-// ============================================
-// DEFAULTS
-// ============================================
-
 const DEFAULT_CONFIG: ParallaxConfig = {
   speed: 0.3,
   direction: 'vertical',
   offset: 0,
 };
 
-// ============================================
-// PARALLAX ENGINE
-// ============================================
+interface ParallaxState {
+  config: ParallaxConfig;
+  current: number;
+  target: number;
+}
 
 class ParallaxEngine {
-  private elements: Map<HTMLElement, ParallaxConfig> = new Map();
+  private elements: Map<HTMLElement, ParallaxState> = new Map();
   private animationFrame: number | null = null;
-  private scrollY = 0;
   private initialized = false;
+  private reducedMotion = false;
 
   init() {
     if (this.initialized) return;
 
-    this.scrollY = window.scrollY;
-    window.addEventListener('scroll', this.handleScroll, { passive: true });
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (this.reducedMotion) return;
+
     this.initialized = true;
-    this.start();
+    this.tick();
   }
 
   observe(element: HTMLElement, config: Partial<ParallaxConfig> = {}) {
     if (!this.initialized) this.init();
+    if (this.reducedMotion) return;
+
     const mergedConfig = { ...DEFAULT_CONFIG, ...config };
-    this.elements.set(element, mergedConfig);
+    element.classList.add('parallax-element');
+    this.elements.set(element, {
+      config: mergedConfig,
+      current: 0,
+      target: 0,
+    });
   }
 
-  private handleScroll = () => {
-    this.scrollY = window.scrollY;
-  };
+  unobserve(element: HTMLElement) {
+    element.classList.remove('parallax-element');
+    this.elements.delete(element);
+  }
 
-  private start = () => {
-    this.elements.forEach((config, element) => {
+  private tick = () => {
+    this.elements.forEach((state, element) => {
       const rect = element.getBoundingClientRect();
       const centerY = rect.top + rect.height / 2;
       const viewportCenter = window.innerHeight / 2;
       const distance = centerY - viewportCenter;
 
-      const translateY = distance * config.speed * -1;
+      state.target = distance * state.config.speed * -1 + state.config.offset;
+      state.current += (state.target - state.current) * 0.08;
 
-      // Only apply if element is in viewport
       if (rect.bottom > -100 && rect.top < window.innerHeight + 100) {
-        if (config.direction === 'vertical') {
-          element.style.transform = `translateY(${translateY}px)`;
+        const value = state.current.toFixed(2);
+        if (state.config.direction === 'vertical') {
+          element.style.transform = `translate3d(0, ${value}px, 0)`;
         } else {
-          element.style.transform = `translateX(${translateY}px)`;
+          element.style.transform = `translate3d(${value}px, 0, 0)`;
         }
       }
     });
 
-    this.animationFrame = requestAnimationFrame(this.start);
+    this.animationFrame = requestAnimationFrame(this.tick);
   };
 
   disconnect() {
@@ -85,7 +81,10 @@ class ParallaxEngine {
       cancelAnimationFrame(this.animationFrame);
       this.animationFrame = null;
     }
-    window.removeEventListener('scroll', this.handleScroll);
+    this.elements.forEach((_, element) => {
+      element.style.transform = '';
+      element.classList.remove('parallax-element');
+    });
     this.elements.clear();
     this.initialized = false;
   }

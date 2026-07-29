@@ -1,11 +1,7 @@
-// XVI GROUP — Scroll Reveal Engine
-// IntersectionObserver-based scroll reveal system
+// XVI GROUP — Scroll Reveal Engine (Sprint 03)
+// IntersectionObserver-based premium scroll reveal system
 
 import { EASING, DURATIONS } from '../../constants';
-
-// ============================================
-// TYPES
-// ============================================
 
 export type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'scale' | 'fade' | 'blur';
 
@@ -18,16 +14,6 @@ export interface RevealConfig {
   once: boolean;
 }
 
-export interface RevealElement {
-  element: HTMLElement;
-  config: Partial<RevealConfig>;
-  isVisible: boolean;
-}
-
-// ============================================
-// DEFAULTS
-// ============================================
-
 const DEFAULT_CONFIG: RevealConfig = {
   direction: 'up',
   duration: DURATIONS.slower,
@@ -37,17 +23,16 @@ const DEFAULT_CONFIG: RevealConfig = {
   once: true,
 };
 
-// ============================================
-// SCROLL REVEAL ENGINE
-// ============================================
-
 class ScrollRevealEngine {
   private observer: IntersectionObserver | null = null;
   private elements: Map<HTMLElement, RevealConfig> = new Map();
   private initialized = false;
+  private reducedMotion = false;
 
   init() {
     if (this.initialized) return;
+
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     this.observer = new IntersectionObserver(
       (entries) => {
@@ -58,8 +43,8 @@ class ScrollRevealEngine {
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
       }
     );
 
@@ -73,41 +58,59 @@ class ScrollRevealEngine {
     const mergedConfig = { ...DEFAULT_CONFIG, ...config };
     this.elements.set(element, mergedConfig);
 
-    // Set initial styles
-    this.setInitialState(element, mergedConfig.direction);
+    if (this.reducedMotion) {
+      this.applyVisibleState(element);
+      return;
+    }
 
-    // Set transition
-    element.style.transition = `opacity ${mergedConfig.duration}ms ${EASING['ease-out-expo']}, transform ${mergedConfig.duration}ms ${EASING['ease-out-expo']}, filter ${mergedConfig.duration}ms ${EASING['ease-out-expo']}`;
+    this.setInitialState(element, mergedConfig.direction);
+    element.style.transition = [
+      `opacity ${mergedConfig.duration}ms ${EASING['ease-out-expo']}`,
+      `transform ${mergedConfig.duration}ms ${EASING['ease-out-expo']}`,
+      `filter ${mergedConfig.duration}ms ${EASING['ease-out-expo']}`,
+    ].join(', ');
     element.style.transitionDelay = `${mergedConfig.delay}ms`;
 
     this.observer.observe(element);
+  }
+
+  unobserve(element: HTMLElement) {
+    this.elements.delete(element);
+    if (this.observer) {
+      this.observer.unobserve(element);
+    }
   }
 
   private revealElement(element: HTMLElement) {
     const config = this.elements.get(element);
     if (!config) return;
 
-    // Animate to visible state
-    element.style.opacity = '1';
-    element.style.transform = 'none';
-    element.style.filter = 'none';
-    element.classList.add('is-visible');
+    this.applyVisibleState(element);
 
-    // Handle stagger for children
     if (element.hasAttribute('data-reveal-stagger')) {
       this.revealChildren(element, config.stagger);
     }
 
-    // Unobserve if once
     if (config.once && this.observer) {
       this.observer.unobserve(element);
     }
   }
 
+  private applyVisibleState(element: HTMLElement) {
+    element.style.opacity = '1';
+    element.style.transform = 'none';
+    element.style.filter = 'none';
+    element.classList.add('is-visible');
+  }
+
   private revealChildren(parent: HTMLElement, stagger: number) {
     const children = Array.from(parent.children) as HTMLElement[];
     children.forEach((child, index) => {
-      child.style.transition = `opacity ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}, transform ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}, filter ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}`;
+      child.style.transition = [
+        `opacity ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}`,
+        `transform ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}`,
+        `filter ${DEFAULT_CONFIG.duration}ms ${EASING['ease-out-expo']}`,
+      ].join(', ');
       child.style.transitionDelay = `${index * stagger}ms`;
       child.style.opacity = '1';
       child.style.transform = 'none';
@@ -120,26 +123,26 @@ class ScrollRevealEngine {
 
     switch (direction) {
       case 'up':
-        element.style.transform = 'translateY(40px)';
+        element.style.transform = 'translateY(48px)';
         break;
       case 'down':
-        element.style.transform = 'translateY(-40px)';
+        element.style.transform = 'translateY(-48px)';
         break;
       case 'left':
-        element.style.transform = 'translateX(-40px)';
+        element.style.transform = 'translateX(-48px)';
         break;
       case 'right':
-        element.style.transform = 'translateX(40px)';
+        element.style.transform = 'translateX(48px)';
         break;
       case 'scale':
-        element.style.transform = 'scale(0.95)';
+        element.style.transform = 'scale(0.92)';
         break;
       case 'fade':
         element.style.transform = 'none';
         break;
       case 'blur':
-        element.style.transform = 'none';
-        element.style.filter = 'blur(8px)';
+        element.style.transform = 'translateY(12px)';
+        element.style.filter = 'blur(10px)';
         break;
     }
   }
@@ -154,5 +157,4 @@ class ScrollRevealEngine {
   }
 }
 
-// Singleton export
 export const scrollRevealEngine = new ScrollRevealEngine();

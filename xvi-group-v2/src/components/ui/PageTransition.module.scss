@@ -1,0 +1,45 @@
+// XVI GROUP — Page Transition (Sprint 03)
+
+.wrapper {
+  position: relative;
+  will-change: opacity, transform, filter;
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exiting {
+  opacity: 0;
+  transform: scale(0.985) translateY(8px);
+  filter: blur(4px);
+  transition:
+    opacity 280ms cubic-bezier(0.55, 0, 1, 0.45),
+    transform 280ms cubic-bezier(0.55, 0, 1, 0.45),
+    filter 280ms cubic-bezier(0.55, 0, 1, 0.45);
+}
+
+.entering {
+  opacity: 0;
+  transform: scale(1.012) translateY(-12px);
+  filter: blur(6px);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrapper,
+  .visible,
+  .exiting,
+  .entering {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

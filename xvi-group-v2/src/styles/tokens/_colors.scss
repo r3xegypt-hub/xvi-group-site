@@ -1,117 +1,35 @@
 // XVI GROUP — Color Tokens
-// Design system color variables and utilities
+// Dark editorial palette
 
-// ============================================
-// BRAND COLORS
-// ============================================
+$color-accent: #D4943A;
+$color-accent-light: #E8B86D;
+$color-accent-dark: #A8732A;
+$color-accent-muted: rgba(212, 148, 58, 0.08);
 
-$color-gold: #C9A96E;
-$color-gold-light: #D4B87A;
-$color-gold-dark: #B89A60;
-$color-gold-muted: rgba(201, 169, 110, 0.08);
+$color-bg: #08090D;
+$color-bg-alt: #0E1017;
+$color-surface: #151820;
+$color-surface-hover: #1C1F2A;
 
-$color-navy: #0A1628;
-$color-navy-light: #132240;
+$color-text: #F0F2F5;
+$color-text-secondary: #8A909C;
+$color-text-muted: #5A606C;
 
-$color-white: #FFFFFF;
-$color-background: #F4F5F7;
-$color-card: #FFFFFF;
-$color-warm: #F8F6F2;
-
-$color-graphite: #5A6472;
-$color-grey: #C8CDD5;
-$color-border: rgba(201, 169, 110, 0.12);
-$color-border-hover: rgba(201, 169, 110, 0.25);
-
-// ============================================
-// SEMANTIC COLORS
-// ============================================
-
-$color-text-primary: $color-navy;
-$color-text-secondary: $color-graphite;
-$color-text-muted: $color-grey;
-$color-text-inverse: $color-white;
-
-$color-bg-primary: $color-background;
-$color-bg-secondary: $color-warm;
-$color-bg-card: $color-card;
-$color-bg-dark: $color-navy;
-
-$color-accent: $color-gold;
-$color-accent-hover: $color-gold-light;
-$color-accent-active: $color-gold-dark;
-
-// ============================================
-// FEEDBACK COLORS
-// ============================================
-
-$color-success: #27AE60;
-$color-success-bg: #F0FFF4;
-$color-error: #E74C3C;
-$color-error-bg: #FFF5F5;
-$color-warning: #F39C12;
-$color-warning-bg: #FFFFF0;
-$color-info: #3498DB;
-$color-info-bg: #F0F7FF;
-
-// ============================================
-// CSS CUSTOM PROPERTIES (Generated)
-// ============================================
+$color-border: rgba(255, 255, 255, 0.06);
+$color-border-hover: rgba(255, 255, 255, 0.1);
 
 :root {
-  // Brand
-  --color-gold: #{$color-gold};
-  --color-gold-light: #{$color-gold-light};
-  --color-gold-dark: #{$color-gold-dark};
-  --color-gold-muted: #{$color-gold-muted};
-  --color-navy: #{$color-navy};
-  --color-navy-light: #{$color-navy-light};
-  --color-white: #{$color-white};
-  --color-background: #{$color-background};
-  --color-card: #{$color-card};
-  --color-warm: #{$color-warm};
-  --color-graphite: #{$color-graphite};
-  --color-grey: #{$color-grey};
+  --color-accent: #{$color-accent};
+  --color-accent-light: #{$color-accent-light};
+  --color-accent-dark: #{$color-accent-dark};
+  --color-accent-muted: #{$color-accent-muted};
+  --color-bg: #{$color-bg};
+  --color-bg-alt: #{$color-bg-alt};
+  --color-surface: #{$color-surface};
+  --color-surface-hover: #{$color-surface-hover};
+  --color-text: #{$color-text};
+  --color-text-secondary: #{$color-text-secondary};
+  --color-text-muted: #{$color-text-muted};
   --color-border: #{$color-border};
   --color-border-hover: #{$color-border-hover};
-
-  // Semantic
-  --color-text-primary: var(--color-navy);
-  --color-text-secondary: var(--color-graphite);
-  --color-text-muted: var(--color-grey);
-  --color-text-inverse: var(--color-white);
-  --color-bg-primary: var(--color-background);
-  --color-bg-secondary: var(--color-warm);
-  --color-bg-card: var(--color-card);
-  --color-bg-dark: var(--color-navy);
-  --color-accent: var(--color-gold);
-  --color-accent-hover: var(--color-gold-light);
-  --color-accent-active: var(--color-gold-dark);
-
-  // Feedback
-  --color-success: #{$color-success};
-  --color-success-bg: #{$color-success-bg};
-  --color-error: #{$color-error};
-  --color-error-bg: #{$color-error-bg};
-  --color-warning: #{$color-warning};
-  --color-warning-bg: #{$color-warning-bg};
-  --color-info: #{$color-info};
-  --color-info-bg: #{$color-info-bg};
 }
-
-// ============================================
-// SCSS COLOR UTILITIES
-// ============================================
-
-@mixin text-gold { color: $color-gold; }
-@mixin text-navy { color: $color-navy; }
-@mixin text-graphite { color: $color-graphite; }
-@mixin text-inverse { color: $color-white; }
-
-@mixin bg-gold { background-color: $color-gold; }
-@mixin bg-navy { background-color: $color-navy; }
-@mixin bg-warm { background-color: $color-warm; }
-@mixin bg-card { background-color: $color-card; }
-
-@mixin border-gold { border-color: $color-gold; }
-@mixin border-subtle { border-color: $color-border; }

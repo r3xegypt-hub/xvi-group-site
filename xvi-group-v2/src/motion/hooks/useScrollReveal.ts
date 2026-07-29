@@ -1,12 +1,7 @@
-// XVI GROUP — useScrollReveal Hook
-// React hook for scroll reveal animations
+// XVI GROUP — useScrollReveal Hook (Sprint 03)
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import { scrollRevealEngine, type RevealConfig } from '../engines/ScrollRevealEngine';
-
-// ============================================
-// HOOK
-// ============================================
 
 export function useScrollReveal(config: Partial<RevealConfig> = {}) {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,18 +11,11 @@ export function useScrollReveal(config: Partial<RevealConfig> = {}) {
     if (!element) return;
 
     scrollRevealEngine.observe(element, config);
-
-    return () => {
-      scrollRevealEngine.disconnect();
-    };
+    return () => scrollRevealEngine.unobserve(element);
   }, [config.direction, config.duration, config.delay, config.threshold, config.stagger, config.once]);
 
   return ref;
 }
-
-// ============================================
-// HOOK WITH STAGGER
-// ============================================
 
 export function useScrollRevealStagger(config: Partial<RevealConfig> = {}) {
   const ref = useRef<HTMLDivElement>(null);
@@ -41,17 +29,11 @@ export function useScrollRevealStagger(config: Partial<RevealConfig> = {}) {
       stagger: config.stagger ?? 100,
     });
 
-    return () => {
-      scrollRevealEngine.disconnect();
-    };
-  }, []);
+    return () => scrollRevealEngine.unobserve(element);
+  }, [config.direction, config.duration, config.delay, config.stagger, config.once]);
 
   return ref;
 }
-
-// ============================================
-// HOOK FOR MULTIPLE ELEMENTS
-// ============================================
 
 export function useScrollRevealGroup(config: Partial<RevealConfig> = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -69,9 +51,9 @@ export function useScrollRevealGroup(config: Partial<RevealConfig> = {}) {
     });
 
     return () => {
-      scrollRevealEngine.disconnect();
+      children.forEach((child) => scrollRevealEngine.unobserve(child));
     };
-  }, []);
+  }, [config.direction, config.duration, config.delay, config.stagger, config.once]);
 
   return containerRef;
 }

@@ -1,548 +1,136 @@
-// XVI GROUP — Premium Footer SCSS Module (v2)
-// Luxury dark footer with premium typography and effects
-
 @import '../../styles/mixins/devices';
 
 .footer {
-  background: linear-gradient(180deg, #0A1628 0%, #0D1B2E 50%, #0F1F32 100%);
-  color: #ffffff;
-  position: relative;
-  
-  // Premium top accent line
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(201, 169, 110, 0.3) 20%, 
-      rgba(201, 169, 110, 0.6) 50%, 
-      rgba(201, 169, 110, 0.3) 80%, 
-      transparent 100%);
-  }
+  background: #030405;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 80px 0 40px;
 
-  // Small Mobile: Compact footer
-  padding-top: 48px;
-  padding-bottom: 32px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    padding-top: 56px;
-    padding-bottom: 36px;
-  }
-
-  // Large Mobile
-  @include from-large-mobile {
-    padding-top: 64px;
-    padding-bottom: 40px;
-  }
-
-  // Tablet Portrait
-  @include from-tablet-portrait {
-    padding-top: 80px;
-    padding-bottom: 44px;
-  }
-
-  // Tablet Landscape
-  @include from-tablet-landscape {
-    padding-top: 88px;
-    padding-bottom: 48px;
-  }
-
-  // Laptop
-  @include from-laptop {
-    padding-top: 104px;
-    padding-bottom: 56px;
-  }
-
-  // Desktop
-  @include from-desktop {
-    padding-top: 128px;
-    padding-bottom: 64px;
+  @include large-mobile {
+    padding: 48px 0 32px;
   }
 }
-
-.rtl {
-  direction: rtl;
-}
-
-// ============================================
-// BRAND SECTION — Premium
-// ============================================
 
 .brand {
-  // Small Mobile
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 
-  // Medium Mobile
-  @include from-medium-mobile {
-    margin-bottom: 48px;
-  }
-
-  // Large Mobile
-  @include from-large-mobile {
-    margin-bottom: 56px;
-  }
-
-  // Tablet Portrait
-  @include from-tablet-portrait {
-    margin-bottom: 64px;
-  }
-
-  // Laptop+
-  @include from-laptop {
-    margin-bottom: 72px;
-  }
-
-  // Desktop
-  @include from-desktop {
-    margin-bottom: 80px;
-  }
-}
-
-.logoLink {
-  display: inline-block;
-  margin-bottom: 16px;
-  position: relative;
-  
-  // Premium hover glow
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -8px;
-    background: radial-gradient(circle, rgba(201, 169, 110, 0.2) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 300ms ease;
-    pointer-events: none;
-    border-radius: 50%;
-  }
-  
-  &:hover::after {
-    opacity: 1;
-  }
-
-  // Medium Mobile+
-  @include from-medium-mobile {
-    margin-bottom: 18px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    margin-bottom: 20px;
+  @include large-mobile {
+    margin-bottom: 36px;
   }
 }
 
 .logo {
-  width: auto;
-  filter: brightness(0) invert(1);
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  // Small Mobile
-  height: 28px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    height: 30px;
-  }
-
-  // Large Mobile
-  @include from-large-mobile {
-    height: 32px;
-  }
-
-  // Tablet Portrait+
-  @include from-tablet-portrait {
-    height: 36px;
-  }
-
-  // Hover effect
-  .logoLink:hover & {
-    transform: translateY(-1px);
-    filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(201, 169, 110, 0.3));
-  }
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #F0F2F5;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  display: inline-block;
 }
 
 .tagline {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 400;
-  color: #c8cdd5;
-  line-height: 1.5;
-
-  // Small Mobile
-  font-size: 1.125rem;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    font-size: 1.25rem;
-  }
-
-  // Large Mobile
-  @include from-large-mobile {
-    font-size: 1.375rem;
-  }
-
-  // Tablet Portrait
-  @include from-tablet-portrait {
-    font-size: 1.5rem;
-  }
-
-  // Laptop+
-  @include from-laptop {
-    font-size: 1.625rem;
-  }
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #8A909C;
+  max-width: 480px;
+  margin: 12px 0 0;
 }
-
-// ============================================
-// COLUMNS — Premium Grid
-// ============================================
 
 .columns {
   display: grid;
-  gap: 32px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 48px;
 
-  // Small Mobile: 1 column
-  grid-template-columns: 1fr;
-
-  // Medium Mobile: 2 columns
-  @include from-medium-mobile {
+  @include tablet-portrait {
     grid-template-columns: repeat(2, 1fr);
-    gap: 36px;
-    margin-bottom: 48px;
+    gap: 32px;
   }
 
-  // Large Mobile: 2 columns
-  // Tablet Portrait: 2 columns
-  // Tablet Landscape: 3 columns
-  @include from-tablet-landscape {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 56px;
-  }
-
-  // Laptop: 4 columns
-  @include from-laptop {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 48px;
-    margin-bottom: 64px;
-  }
-
-  // Desktop: Premium spacing
-  @include from-desktop {
-    gap: 56px;
-    margin-bottom: 72px;
+  @include large-mobile {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 }
 
 .columnTitle {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #ffffff;
-  margin-bottom: 16px;
-  position: relative;
-
-  // Small Mobile
+  font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    font-size: 0.8125rem;
-    margin-bottom: 18px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    font-size: 0.8125rem;
-    margin-bottom: 20px;
-  }
-
-  // Premium accent line
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 24px;
-    height: 1px;
-    background: linear-gradient(90deg, #C9A96E, transparent);
-  }
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #F0F2F5;
+  margin: 0 0 16px;
 }
 
 .links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  // Medium Mobile+
-  @include from-medium-mobile {
-    gap: 14px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    gap: 16px;
-  }
-
-  // Add padding for accent line
-  padding-top: 16px;
-}
-
-.link {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-weight: 400;
-  color: #c8cdd5;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-
-  // Small Mobile
-  font-size: 0.875rem;
-
-  // Medium Mobile+
-  @include from-medium-mobile {
-    font-size: 0.9375rem;
-  }
-
-  // Touch target for mobile
-  display: inline-block;
-  padding: 4px 0;
-
-  @include hover-capable {
-    &:hover {
-      color: #C9A96E;
-      transform: translateX(4px);
-      
-      [dir="rtl"] & {
-        transform: translateX(-4px);
-      }
-    }
-  }
-}
-
-// ============================================
-// DIVIDER — Premium
-// ============================================
-
-.divider {
-  margin-bottom: 32px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    margin-bottom: 36px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    margin-bottom: 40px;
-  }
-}
-
-// ============================================
-// BOTTOM — Premium Layout
-// ============================================
-
-.bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    gap: 28px;
-  }
-
-  // Tablet Portrait: Row layout
-  @include from-tablet-portrait {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-  }
-
-  // Laptop+
-  @include from-laptop {
-    gap: 28px;
-  }
-}
-
-.copyright {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
 
-  // Medium Mobile
-  @include from-medium-mobile {
-    gap: 12px;
+.link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #8A909C;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  width: fit-content;
+
+  &:hover {
+    color: #D4943A;
   }
+}
 
-  // Large Mobile+
-  @include from-large-mobile {
-    gap: 14px;
-  }
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  margin-bottom: 28px;
+}
 
-  // Tablet Portrait: Row
-  @include from-tablet-portrait {
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-  }
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
 
-  p {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-weight: 400;
-    color: #c8cdd5;
-    margin: 0;
-
-    // Small Mobile
-    font-size: 0.8125rem;
-
-    // Medium Mobile+
-    @include from-medium-mobile {
-      font-size: 0.875rem;
-    }
-
-    // Large Mobile+
-    @include from-large-mobile {
-      font-size: 0.9375rem;
-    }
-  }
+.copyright {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: #5A606C;
 }
 
 .legalLinks {
   display: flex;
-  gap: 16px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    gap: 18px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    gap: 20px;
-  }
+  gap: 20px;
 }
 
 .legalLink {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-weight: 400;
-  color: #5a6472;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: #5A606C;
   text-decoration: none;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.2s ease;
 
-  // Small Mobile
-  font-size: 0.8125rem;
-
-  // Medium Mobile+
-  @include from-medium-mobile {
-    font-size: 0.875rem;
+  &:hover {
+    color: #8A909C;
   }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    font-size: 0.9375rem;
-  }
-
-  @include hover-capable {
-    &:hover {
-      color: #C9A96E;
-    }
-  }
-}
-
-.locations {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-weight: 400;
-  color: #c8cdd5;
-
-  // Small Mobile
-  font-size: 0.8125rem;
-
-  // Medium Mobile+
-  @include from-medium-mobile {
-    font-size: 0.875rem;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    font-size: 0.9375rem;
-  }
-}
-
-.location {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.separator {
-  color: #5a6472;
 }
 
 .social {
   display: flex;
-  align-items: center;
   gap: 16px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    gap: 18px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    gap: 20px;
-  }
 }
 
 .socialLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #5A606C;
+  transition: color 0.2s ease;
 
-  // Small Mobile: Minimum touch target
-  width: 44px;
-  height: 44px;
-
-  // Medium Mobile
-  @include from-medium-mobile {
-    width: 48px;
-    height: 48px;
-  }
-
-  // Large Mobile+
-  @include from-large-mobile {
-    width: 52px;
-    height: 52px;
-  }
-
-  color: #c8cdd5;
-  text-decoration: none;
-  border-radius: 12px;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  @include hover-capable {
-    &:hover {
-      color: #C9A96E;
-      background: linear-gradient(135deg, rgba(201, 169, 110, 0.1) 0%, rgba(201, 169, 110, 0.05) 100%);
-      transform: translateY(-2px);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid #C9A96E;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2);
+  &:hover {
+    color: #D4943A;
   }
 }

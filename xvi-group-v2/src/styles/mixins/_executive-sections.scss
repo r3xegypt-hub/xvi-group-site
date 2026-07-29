@@ -1,242 +1,161 @@
-// XVI GROUP — Executive Section System (Sprint 02)
-// Shared luxury patterns for content sections
-
 @import 'devices';
 
-@mixin exec-overline {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #C9A96E;
-  margin: 0 0 24px;
-
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    letter-spacing: 0.06em;
-    text-transform: none;
-    font-size: 13px;
-  }
-
-  &::before {
-    content: '';
-    width: 36px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #C9A96E);
-    flex-shrink: 0;
-  }
-}
-
-@mixin exec-overline-center {
-  @include exec-overline;
-  justify-content: center;
-
-  [dir="rtl"] &::before {
-    order: 1;
-    background: linear-gradient(90deg, #C9A96E, transparent);
-  }
-}
-
-@mixin exec-title {
-  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
-  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
-  font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
-  color: #0A1628;
-  margin: 0 0 24px;
-
-  [dir="rtl"] & {
-    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: 1.15;
-  }
-}
-
-@mixin exec-description {
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: clamp(1rem, 1.6vw, 1.1875rem);
-  font-weight: 400;
-  line-height: 1.7;
-  color: #5A6472;
-  margin: 0;
-  max-width: 580px;
-
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    line-height: 1.85;
-  }
-}
-
-@mixin exec-section-header {
-  margin-bottom: 80px;
-
-  @media (max-width: 767px) {
-    margin-bottom: 56px;
-  }
-}
-
-@mixin exec-section-header-center {
-  @include exec-section-header;
-  text-align: center;
-}
+// ============================================
+// EXECUTIVE SECTION — Shared utilities
+// ============================================
 
 @mixin exec-glass-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(201, 169, 110, 0.12);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 4px 24px rgba(10, 22, 40, 0.04),
-    0 0 0 1px rgba(10, 22, 40, 0.02);
-  transition:
-    transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 420ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.45), transparent);
-    opacity: 0;
-    transition: opacity 320ms ease;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-6px);
-      border-color: rgba(201, 169, 110, 0.28);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
-        0 24px 56px rgba(10, 22, 40, 0.1),
-        0 8px 24px rgba(10, 22, 40, 0.05);
-
-      &::before {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-@mixin exec-card-index {
-  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: rgba(201, 169, 110, 0.55);
-}
-
-@mixin exec-link-arrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #C9A96E;
-  transition: gap 280ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    text-transform: none;
-    letter-spacing: 0;
-  }
-
-  svg {
-    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover svg {
-      transform: translate(3px, -3px);
-    }
-  }
-}
-
-@mixin exec-card-title {
-  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
-  font-size: clamp(1.2rem, 2vw, 1.45rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #0A1628;
-  line-height: 1.2;
-
-  [dir="rtl"] & {
-    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
-    font-weight: 600;
-  }
-}
-
-@mixin exec-card-body {
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 0.9375rem;
-  line-height: 1.75;
-  color: #5A6472;
-
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-  }
-}
-
-@mixin exec-icon-glow {
-  position: relative;
-  transition: transform 480ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -16px;
-    background: radial-gradient(circle, rgba(201, 169, 110, 0.14) 0%, transparent 68%);
-    opacity: 0;
-    transition: opacity 400ms ease;
-    pointer-events: none;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .card:hover &,
-    .bentoCard:hover &,
-    .feature:hover & {
-      transform: translateY(-4px) scale(1.04);
-
-      &::after {
-        opacity: 1;
-      }
-    }
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(212, 148, 58, 0.2);
+    transform: translateY(-2px);
   }
 }
 
 @mixin exec-section-ambient {
   position: relative;
 
-  &::after {
+  &::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 50% 40% at 90% 10%, rgba(201, 169, 110, 0.04) 0%, transparent 55%),
-      radial-gradient(ellipse 40% 35% at 5% 90%, rgba(10, 22, 40, 0.02) 0%, transparent 50%);
+      radial-gradient(ellipse 60% 40% at 80% 0%, rgba(212, 148, 58, 0.03) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 30% at 20% 100%, rgba(255, 255, 255, 0.015) 0%, transparent 50%);
     pointer-events: none;
-    z-index: 0;
   }
 }
 
+@mixin exec-section-header-center {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 64px;
+
+  @include large-mobile {
+    margin-bottom: 40px;
+  }
+}
+
+@mixin exec-overline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #D4943A;
+  margin: 0 0 20px;
+}
+
+@mixin exec-overline-center {
+  @include exec-overline;
+  text-align: center;
+}
+
+@mixin exec-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #F0F2F5;
+  margin: 0;
+
+  [dir='rtl'] & {
+    letter-spacing: 0;
+  }
+}
+
+@mixin exec-title-center {
+  @include exec-title;
+  text-align: center;
+}
+
+@mixin exec-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #8A909C;
+  max-width: 560px;
+  margin: 16px 0 0;
+}
+
+@mixin exec-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #D4943A;
+  transition: gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    gap: 12px;
+  }
+}
+
+@mixin exec-icon-glow {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    background: radial-gradient(circle, rgba(212, 148, 58, 0.12) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+@mixin exec-card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(212, 148, 58, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+@mixin exec-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #F0F2F5;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+@mixin exec-card-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #8A909C;
+  margin: 0;
+}
+
+@mixin exec-card-index {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.2);
+}
+
 @mixin exec-reduced-motion {
-  @include reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
     @content;
   }
 }
