@@ -1,29 +1,44 @@
 export function XMark({ size = 28 }: { size?: number }) {
+  const s = size;
+  const half = size / 2;
+  const pad = size * 0.15;
+  const armW = size * 0.08;
+  const inner = half - pad;
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 28 28"
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
-      <line x1="4" y1="4" x2="24" y2="24" stroke="#111111" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="24" y1="4" x2="4" y2="24" stroke="#111111" strokeWidth="1.5" strokeLinecap="round" />
+      <rect x={pad} y={pad} width={armW} height={inner} rx={armW / 2} fill="#111111" />
+      <rect x={pad + armW} y={pad} width={inner - armW} height={armW} rx={armW / 2} fill="#111111" />
+      <rect x={size - pad - armW} y={pad} width={armW} height={inner} rx={armW / 2} fill="#111111" />
+      <rect x={pad} y={size / 2} width={inner - armW} height={armW} rx={armW / 2} fill="#111111" />
+      <rect x={pad} y={size - pad - armW} width={armW} height={inner} rx={armW / 2} fill="#111111" />
+      <rect x={pad + armW} y={size - pad - armW} width={inner - armW} height={armW} rx={armW / 2} fill="#111111" />
+      <rect x={size - pad - armW} y={size - pad - armW} width={armW} height={inner} rx={armW / 2} fill="#111111" />
+      <rect x={size / 2} y={size - pad - armW} width={inner - armW} height={armW} rx={armW / 2} fill="#111111" />
+      <rect x={size - pad - armW} y={half} width={inner - armW} height={armW} rx={armW / 2} fill="#111111" />
     </svg>
   );
 }
 
 export function LogoWordmark({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
-  const fontSize = size === 'lg' ? '1.25rem' : '1rem';
+  const markSize = size === 'lg' ? 28 : 22;
+  const textSize = size === 'lg' ? '1.25rem' : '1rem';
+  const groupSize = size === 'lg' ? '0.625rem' : '0.5rem';
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-      <XMark size={size === 'lg' ? 28 : 22} />
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+      <XMark size={markSize} />
       <span
         style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize,
+          fontFamily: "'Fraunces', 'Georgia', serif",
+          fontSize: textSize,
           fontWeight: 400,
-          letterSpacing: '0.02em',
+          letterSpacing: '-0.02em',
           color: '#111111',
           lineHeight: 1,
         }}
@@ -31,12 +46,12 @@ export function LogoWordmark({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
         XVI
         <span
           style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: size === 'lg' ? '0.625rem' : '0.5rem',
+            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontSize: groupSize,
             fontWeight: 500,
             letterSpacing: '0.08em',
-            color: '#666666',
-            marginLeft: '4px',
+            color: '#999999',
+            marginLeft: '6px',
             textTransform: 'uppercase',
           }}
         >

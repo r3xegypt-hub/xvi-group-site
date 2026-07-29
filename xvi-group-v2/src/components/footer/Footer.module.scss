@@ -27,12 +27,16 @@
 }
 
 .tagline {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   max-width: 360px;
   margin: 0;
+
+  [dir='rtl'] & {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+  }
 }
 
 .column {
@@ -42,12 +46,12 @@
 }
 
 .columnTitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 
   [dir='rtl'] & {
     text-transform: none;
@@ -63,21 +67,26 @@
 }
 
 .link {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   width: fit-content;
 
   &:hover {
     color: #C8A65A;
+    transform: translateX(4px);
+
+    [dir='rtl'] & {
+      transform: translateX(-4px);
+    }
   }
 }
 
 .divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   margin: 48px 0 24px;
 }
 
@@ -90,9 +99,9 @@
 }
 
 .copyright {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.3);
   margin: 0;
 }
 
@@ -102,11 +111,11 @@
 }
 
 .legalLink {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.3);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
 
   &:hover {
     color: rgba(255, 255, 255, 0.6);

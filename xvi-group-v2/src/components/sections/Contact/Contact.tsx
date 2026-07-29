@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
@@ -45,7 +44,7 @@ export function Contact() {
             </div>
             <button type="submit" className={styles.submit}>
               {ar ? 'إرسال الرسالة' : 'Send Message'}
-              <ArrowUpRight size={16} />
+              <ArrowUpRight size={14} />
             </button>
           </form>
           <div className={styles.info}>

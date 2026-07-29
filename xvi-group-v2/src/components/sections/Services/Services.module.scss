@@ -11,41 +11,70 @@
 }
 
 .card {
-  background: #F7F6F3;
+  background: #FFFFFF;
   border: 1px solid #E8E4DE;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 40px 36px;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: default;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200, 166, 90, 0.03) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
 
   &:hover {
     border-color: #C8A65A;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .cardIndex {
+      color: #C8A65A;
+    }
+
+    .cardLink svg {
+      transform: translateX(4px);
+    }
   }
 }
 
 .cardIndex {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #C8A65A;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6875rem;
+  color: #999999;
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+  letter-spacing: 0.05em;
 }
 
 .cardTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Fraunces', 'Georgia', serif;
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #111111;
   margin: 0 0 12px;
-  line-height: 1.25;
+  line-height: 1.2;
+
+  [dir='rtl'] & {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+  }
 }
 
 .cardDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.7;
   color: #666666;
@@ -57,13 +86,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
   color: #C8A65A;
   transition: gap 0.3s ease;
 
-  &:hover {
-    gap: 12px;
+  svg {
+    transition: transform 0.3s ease;
   }
 }

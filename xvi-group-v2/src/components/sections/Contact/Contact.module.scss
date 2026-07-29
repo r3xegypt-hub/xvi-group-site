@@ -34,7 +34,7 @@
 }
 
 .label {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -43,15 +43,15 @@
 }
 
 .input {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.9375rem;
   color: #111111;
   background: #FFFFFF;
   border: 1px solid #E8E4DE;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 14px 16px;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &::placeholder {
     color: rgba(153, 153, 153, 0.4);
@@ -59,6 +59,7 @@
 
   &:focus {
     border-color: #C8A65A;
+    box-shadow: 0 0 0 3px rgba(200, 166, 90, 0.08);
   }
 }
 
@@ -72,22 +73,31 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   padding: 14px 32px;
-  background: #C8A65A;
+  background: #111111;
   color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 999px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   align-self: flex-start;
 
   &:hover {
-    background: #DFC27A;
-    transform: translateY(-1px);
+    background: #C8A65A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200, 166, 90, 0.25);
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(4px);
   }
 }
 
@@ -96,10 +106,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-left: 24px;
 
   [dir='rtl'] & {
-    padding-left: 0;
     padding-right: 24px;
   }
 }
@@ -109,8 +117,8 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 2px;
-  background: rgba(200, 166, 90, 0.3);
+  width: 1.5px;
+  background: linear-gradient(180deg, #C8A65A 0%, rgba(200, 166, 90, 0.1) 100%);
 
   [dir='rtl'] & {
     left: auto;
@@ -119,26 +127,30 @@
 }
 
 .infoCity {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Fraunces', 'Georgia', serif;
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #111111;
   margin: 0;
+
+  [dir='rtl'] & {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+  }
 }
 
 .infoAddress {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   color: #666666;
   margin: 0;
 }
 
 .infoEmail {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.9375rem;
   color: #C8A65A;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
 
   &:hover {
     color: #DFC27A;
@@ -146,7 +158,7 @@
 }
 
 .infoPhone {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.9375rem;
   color: #111111;
   margin: 0;
@@ -160,12 +172,16 @@
 }
 
 .socialLabel {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #999999;
+
+  [dir='rtl'] & {
+    letter-spacing: 0;
+  }
 }
 
 .socialLinks {
@@ -174,11 +190,11 @@
 }
 
 .socialLink {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   color: #666666;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
 
   &:hover {
     color: #C8A65A;

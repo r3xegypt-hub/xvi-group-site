@@ -29,10 +29,10 @@
 }
 
 .header {
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 
   @media (min-width: 768px) {
-    margin-bottom: 64px;
+    margin-bottom: 56px;
   }
 }
 
@@ -48,13 +48,13 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .overlineAccent {
   display: block;
   width: 40px;
-  height: 2px;
+  height: 1.5px;
   background: #C8A65A;
   flex-shrink: 0;
 }
@@ -64,23 +64,33 @@
 }
 
 .overline {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #999999;
   margin: 0;
+
+  [dir='rtl'] & {
+    letter-spacing: 0;
+  }
 }
 
 .title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-weight: 300;
   font-size: clamp(1.5rem, 3.5vw, 2.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: #111111;
   margin: 0;
+
+  [dir='rtl'] & {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
 }
 
 .navy .title {
@@ -93,12 +103,12 @@
 }
 
 .description {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 1rem;
   line-height: 1.7;
   color: #666666;
   max-width: 560px;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
 }
 
 .navy .description {

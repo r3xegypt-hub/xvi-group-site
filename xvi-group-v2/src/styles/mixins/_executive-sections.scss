@@ -1,19 +1,15 @@
 @import 'devices';
 
-// ============================================
-// EXECUTIVE SECTION — Shared utilities
-// ============================================
-
 @mixin exec-glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
+  background: #FFFFFF;
+  border: 1px solid #E8E4DE;
+  border-radius: 14px;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(212, 148, 58, 0.2);
-    transform: translateY(-2px);
+    border-color: #C8A65A;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
   }
 }
 
@@ -25,7 +21,7 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 40% at 80% 0%, rgba(212, 148, 58, 0.03) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 80% 0%, rgba(200, 166, 90, 0.03) 0%, transparent 55%),
       radial-gradient(ellipse 40% 30% at 20% 100%, rgba(255, 255, 255, 0.015) 0%, transparent 50%);
     pointer-events: none;
   }
@@ -34,7 +30,7 @@
 @mixin exec-section-header-center {
   text-align: center;
   max-width: 720px;
-  margin: 0 auto 64px;
+  margin: 0 auto 56px;
 
   @include large-mobile {
     margin-bottom: 40px;
@@ -42,13 +38,17 @@
 }
 
 @mixin exec-overline {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #D4943A;
-  margin: 0 0 20px;
+  color: #C8A65A;
+  margin: 0 0 16px;
+
+  [dir='rtl'] & {
+    letter-spacing: 0;
+  }
 }
 
 @mixin exec-overline-center {
@@ -57,15 +57,16 @@
 }
 
 @mixin exec-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
   line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: #F0F2F5;
+  letter-spacing: -0.025em;
+  color: #111111;
   margin: 0;
 
   [dir='rtl'] & {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
     letter-spacing: 0;
   }
 }
@@ -76,22 +77,22 @@
 }
 
 @mixin exec-description {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 1rem;
   line-height: 1.7;
-  color: #8A909C;
+  color: #666666;
   max-width: 560px;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
 }
 
 @mixin exec-link-arrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #D4943A;
+  color: #C8A65A;
   transition: gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
@@ -106,7 +107,7 @@
     content: '';
     position: absolute;
     inset: -12px;
-    background: radial-gradient(circle, rgba(212, 148, 58, 0.12) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(200, 166, 90, 0.12) 0%, transparent 65%);
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -121,37 +122,42 @@
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(212, 148, 58, 0.2);
-    transform: translateY(-2px);
+    border-color: #C8A65A;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
   }
 }
 
 @mixin exec-card-title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Fraunces', 'Georgia', serif;
   font-size: 1.125rem;
-  font-weight: 600;
-  color: #F0F2F5;
-  line-height: 1.25;
+  font-weight: 400;
+  color: #111111;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0;
+
+  [dir='rtl'] & {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    letter-spacing: 0;
+  }
 }
 
 @mixin exec-card-body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.7;
-  color: #8A909C;
+  color: #666666;
   margin: 0;
 }
 
 @mixin exec-card-index {
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Mono', monospace;
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.05em;
+  color: #999999;
 }
 
 @mixin exec-reduced-motion {

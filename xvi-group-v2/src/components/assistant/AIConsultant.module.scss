@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
 
   @media (max-width: 600px) {
     right: 18px;
@@ -18,14 +18,18 @@
 .panel {
   width: min(380px, calc(100vw - 36px));
   max-height: 560px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(24px);
-  border: 1px solid #E8E4DE;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(232, 228, 222, 0.6);
   border-radius: 16px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(200, 166, 90, 0.05);
   display: flex;
   flex-direction: column;
-  animation: panelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: panelIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
 @keyframes panelIn {
@@ -38,7 +42,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #E8E4DE;
+  border-bottom: 1px solid rgba(232, 228, 222, 0.6);
 }
 
 .panelStatus {
@@ -48,15 +52,16 @@
 }
 
 .statusDot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #34D058;
-  box-shadow: 0 0 8px rgba(52, 208, 88, 0.3);
+  box-shadow: 0 0 6px rgba(52, 208, 88, 0.3);
+  animation: pulseGlow 2s ease-in-out infinite;
 }
 
 .statusLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
   color: #999999;
@@ -71,9 +76,9 @@
   color: #999999;
   cursor: pointer;
   border-radius: 6px;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 
-  &:hover { color: #111111; }
+  &:hover { color: #111111; background: rgba(0, 0, 0, 0.04); }
 }
 
 .panelBody {
@@ -91,7 +96,7 @@
   flex-shrink: 0;
   width: 32px;
   height: 32px;
-  background: rgba(200, 166, 90, 0.1);
+  background: linear-gradient(135deg, rgba(200, 166, 90, 0.12) 0%, rgba(200, 166, 90, 0.04) 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -106,14 +111,14 @@
 }
 
 .messageTitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: #111111;
 }
 
 .messageText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   line-height: 1.6;
   color: #666666;
@@ -129,18 +134,19 @@
 
 .chip {
   padding: 6px 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.75rem;
   color: #666666;
-  background: none;
-  border: 1px solid #E8E4DE;
-  border-radius: 8px;
+  background: rgba(247, 246, 243, 0.6);
+  border: 1px solid rgba(232, 228, 222, 0.6);
+  border-radius: 999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     border-color: #C8A65A;
     color: #111111;
+    background: rgba(200, 166, 90, 0.06);
   }
 }
 
@@ -149,12 +155,13 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  border-top: 1px solid #E8E4DE;
+  border-top: 1px solid rgba(232, 228, 222, 0.6);
+  background: rgba(247, 246, 243, 0.3);
 }
 
 .input {
   flex: 1;
-  font-family: 'Inter', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   color: #111111;
   background: none;
@@ -177,11 +184,12 @@
   color: #C8A65A;
   cursor: pointer;
   border-radius: 50%;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    background: rgba(200, 166, 90, 0.1);
-    color: #DFC27A;
+    background: #C8A65A;
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(200, 166, 90, 0.3);
   }
 }
 
@@ -191,21 +199,48 @@
   place-items: center;
   width: 52px;
   height: 52px;
-  border: 1px solid rgba(200, 166, 90, 0.3);
   border-radius: 50%;
   color: #FFFFFF;
-  background: #C8A65A;
-  box-shadow: 0 4px 16px rgba(200, 166, 90, 0.2);
+  background: #111111;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C8A65A, rgba(200, 166, 90, 0.2), #C8A65A);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
 
   &:hover {
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 8px 24px rgba(200, 166, 90, 0.3);
+    box-shadow: 0 8px 28px rgba(200, 166, 90, 0.3);
+    background: #C8A65A;
+
+    &::before {
+      opacity: 1;
+      animation: shimmer 2s linear infinite;
+    }
   }
 
   @media (max-width: 600px) {
     width: 48px;
     height: 48px;
   }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }

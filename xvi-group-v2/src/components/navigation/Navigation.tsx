@@ -20,8 +20,8 @@ export function Navigation() {
     let lastY = 0;
     const onScroll = () => {
       const y = window.scrollY;
-      setIsScrolled(y > 80);
-      if (y > 100 && y > lastY + 8) setIsHidden(true);
+      setIsScrolled(y > 40);
+      if (y > 80 && y > lastY + 8) setIsHidden(true);
       else if (y < lastY - 8 || y < 80) setIsHidden(false);
       lastY = y;
     };
@@ -60,7 +60,6 @@ export function Navigation() {
                 className={[styles.link, location.pathname === item.href && styles.linkActive].filter(Boolean).join(' ')}
               >
                 {item.label}
-                {location.pathname === item.href && <span className={styles.activeDot} aria-hidden="true" />}
               </Link>
             ))}
           </div>
@@ -69,7 +68,7 @@ export function Navigation() {
             <LanguageToggle className={styles.langToggle} />
             <Link to="/contact" className={styles.cta}>
               <span>{language === 'ar' ? 'تواصل' : "Let's Talk"}</span>
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={12} />
             </Link>
             <button
               className={styles.mobileToggle}
@@ -77,7 +76,7 @@ export function Navigation() {
               aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileOpen}
             >
-              {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+              {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </nav>
@@ -100,7 +99,7 @@ export function Navigation() {
           ))}
           <Link to="/contact" className={styles.mobileCta} onClick={() => setIsMobileOpen(false)}>
             {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
-            <ArrowUpRight size={16} />
+            <ArrowUpRight size={14} />
           </Link>
         </div>
       </div>

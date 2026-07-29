@@ -53,7 +53,6 @@ export function Testimonials() {
             {ar ? 'ثقة القادة' : 'Trusted by Leaders'}
           </h2>
           <div className={styles.quoteBlock}>
-            <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
             <blockquote className={styles.quote}>
               {ar ? t.quoteAr : t.quote}
             </blockquote>

@@ -15,27 +15,29 @@
   --color-border: #E8E4DE;
   --color-border-light: #F0EDE8;
 
-  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
-  --font-ar: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-heading: 'Fraunces', 'Georgia', serif;
+  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'DM Mono', 'JetBrains Mono', Consolas, monospace;
+  --font-ar: 'IBM Plex Sans Arabic', sans-serif;
 
-  --text-hero: clamp(2.5rem, 6vw, 5rem);
+  --text-hero: clamp(3rem, 7vw, 6rem);
+  --text-hero-sub: clamp(1.75rem, 3vw, 2.5rem);
   --text-heading: clamp(1.5rem, 3.5vw, 2.75rem);
-  --text-stat: clamp(1.75rem, 3vw, 3rem);
+  --text-stat: clamp(2rem, 3.5vw, 3rem);
   --text-title: 1.125rem;
   --text-body: clamp(0.9375rem, 1.3vw, 1rem);
   --text-small: 0.8125rem;
   --text-caption: 0.75rem;
   --text-overline: 0.6875rem;
 
-  --leading-hero: 1.05;
-  --leading-heading: 1.1;
+  --leading-hero: 1.0;
+  --leading-heading: 1.08;
   --leading-body: 1.7;
   --leading-tight: 1.25;
 
-  --tracking-hero: -0.03em;
-  --tracking-heading: -0.02em;
+  --tracking-hero: -0.035em;
+  --tracking-heading: -0.025em;
   --tracking-wide: 0.06em;
   --tracking-wider: 0.1em;
 
@@ -61,10 +63,11 @@
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.06);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.08);
   --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
   --shadow-gold: 0 4px 20px rgba(200, 166, 90, 0.15);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.06);
 
-  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg: rgba(255, 255, 255, 0.82);
   --glass-blur: blur(20px);
   --glass-border: 1px solid rgba(0, 0, 0, 0.06);
 
@@ -72,8 +75,8 @@
   --grid-gutter: 24px;
   --grid-gutter-mobile: 16px;
 
-  --nav-height: 72px;
-  --nav-height-mobile: 64px;
+  --nav-height: 56px;
+  --nav-height-mobile: 52px;
 
   --z-base: 0;
   --z-nav: 300;

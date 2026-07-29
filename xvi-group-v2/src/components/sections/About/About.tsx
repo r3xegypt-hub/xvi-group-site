@@ -16,7 +16,6 @@ export function About() {
         />
         <div className={styles.split}>
           <div className={styles.quoteCol}>
-            <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
             <blockquote className={styles.quote}>
               {ar
                 ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي قابل للقياس.'
