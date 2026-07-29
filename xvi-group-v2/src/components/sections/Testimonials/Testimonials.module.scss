@@ -1,24 +1,132 @@
-@import '../../../styles/mixins/devices';
+// XVI GROUP — Testimonials (Sprint 02)
+// Luxury consulting editorial layout
 
-.header { max-width: 760px; margin-bottom: 64px; }
-.overline, .ratingLabel { color: #a88952; font: 600 11px/1.2 Inter, sans-serif; letter-spacing: .18em; text-transform: uppercase; }
-.overline::before { content: ''; display: inline-block; width: 36px; height: 1px; margin: 0 12px 3px 0; background: #c9a96e; }
-.title { margin: 18px 0; color: #0a1628; font: 700 clamp(2.3rem, 4.2vw, 4rem)/1.04 'Playfair Display', Georgia, serif; letter-spacing: -.045em; }
-.intro { max-width: 540px; margin: 0; color: #5a6472; font: 400 1.05rem/1.7 Inter, sans-serif; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.story { position: relative; min-height: 300px; padding: 30px; overflow: hidden; border: 1px solid rgba(10,22,40,.1); background: rgba(255,255,255,.57); transition: transform .45s ease, box-shadow .45s ease, border-color .45s ease; }
-.story::after { content: ''; position: absolute; right: -38px; bottom: -38px; width: 130px; height: 130px; transform: rotate(45deg); border: 1px solid rgba(201,169,110,.22); transition: transform .6s ease; }
-.story:hover { transform: translateY(-8px); border-color: rgba(201,169,110,.6); box-shadow: 0 22px 50px rgba(10,22,40,.1); }
-.story:hover::after { transform: rotate(45deg) translate(-15px,-15px); }
-.topline { display: flex; justify-content: space-between; color: #a88952; font: 500 12px/1 Inter, sans-serif; letter-spacing: .15em; }
-.diamond { font-size: 22px; font-weight: 300; line-height: .5; }
-.story h3 { max-width: 230px; margin: 62px 0 14px; color: #0a1628; font: 600 1.55rem/1.12 'Playfair Display', Georgia, serif; letter-spacing: -.025em; }
-.story p { max-width: 260px; margin: 0; color: #5a6472; font: 400 .93rem/1.6 Inter, sans-serif; }
-.status { position: absolute; bottom: 28px; left: 30px; color: #a88952; font: 600 10px/1.2 Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
-.rating { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 20px; padding: 24px 30px; border: 1px solid rgba(201,169,110,.3); background: linear-gradient(105deg, rgba(201,169,110,.1), rgba(255,255,255,.6)); }
-.rating p { margin: 7px 0 0; color: #0a1628; font: 500 1rem/1.4 Inter, sans-serif; }
-.stars { display: flex; gap: 6px; }
-.stars button { display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 50%; color: #c9a96e; background: transparent; cursor: pointer; transition: background .25s ease, transform .25s ease; }
-.stars button:hover, .stars button:focus-visible { background: rgba(201,169,110,.15); outline: none; transform: scale(1.1); }
-@include tablet-portrait { .grid { grid-template-columns: 1fr; } .story { min-height: 250px; } }
-@include large-mobile { .header { margin-bottom: 42px; } .rating { align-items: flex-start; flex-direction: column; gap: 18px; padding: 22px; } .story { padding: 26px; } .status { left: 26px; bottom: 24px; } }
+@import '../../../styles/mixins/devices';
+@import '../../../styles/mixins/executive-sections';
+
+.section {
+  @include exec-section-ambient;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  @include exec-section-header-center;
+}
+
+.overline {
+  @include exec-overline-center;
+}
+
+.title {
+  @include exec-title;
+}
+
+.description {
+  @include exec-description;
+  margin-inline: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @include tablet-portrait {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.card {
+  @include exec-glass-card;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 40px 32px 36px;
+  min-height: 360px;
+  cursor: default;
+
+  @include large-mobile {
+    padding: 32px 26px 28px;
+    min-height: auto;
+  }
+}
+
+.quoteMark {
+  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
+  font-size: 5.5rem;
+  font-weight: 400;
+  line-height: 0.6;
+  color: #C9A96E;
+  opacity: 0.2;
+  margin-bottom: 8px;
+  user-select: none;
+
+  [dir="rtl"] & {
+    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
+  }
+}
+
+.quote {
+  @include exec-card-body;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #0A1628;
+  margin: 0 0 32px;
+  flex: 1;
+  font-style: normal;
+  position: relative;
+  z-index: 1;
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-style: normal;
+  padding-top: 20px;
+  border-top: 1px solid rgba(201, 169, 110, 0.12);
+}
+
+.authorLine {
+  width: 32px;
+  height: 1px;
+  background: #C9A96E;
+  opacity: 0.6;
+  margin-bottom: 8px;
+  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  .card:hover & {
+    width: 48px;
+  }
+}
+
+.authorName {
+  @include exec-card-title;
+  font-size: 1rem;
+  font-style: normal;
+}
+
+.authorRole {
+  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #5A6472;
+  line-height: 1.5;
+
+  [dir="rtl"] & {
+    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+  }
+}
+
+@include exec-reduced-motion {
+  .card, .authorLine {
+    transition-duration: 0.01ms !important;
+  }
+  .card:hover { transform: none; }
+}

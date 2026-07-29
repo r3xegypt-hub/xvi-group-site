@@ -1,150 +1,208 @@
-// XVI GROUP — Premium Contact Section Styles
-// Luxury form with glass morphism and premium effects
+// XVI GROUP — Contact (Sprint 02)
+// Premium executive contact section
 
 @import '../../../styles/mixins/devices';
+@import '../../../styles/mixins/executive-sections';
+
+.section {
+  @include exec-section-ambient;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
 
 .header {
-  text-align: center;
-  margin-bottom: 72px;
-
-  @include large-mobile {
-    margin-bottom: 48px;
-  }
+  @include exec-section-header-center;
 }
 
 .overline {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #C9A96E;
-  margin: 0 0 20px;
-  
-  // Premium accent line
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 32px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #C9A96E);
-    margin-right: 12px;
-    vertical-align: middle;
-  }
+  @include exec-overline-center;
 }
 
 .title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: #0A1628;
-  margin: 0 0 20px;
-  line-height: 1.05;
+  @include exec-title;
 }
 
 .description {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-  font-weight: 400;
-  line-height: 1.7;
-  color: #5A6472;
-  margin: 0 auto;
-  max-width: 640px;
+  @include exec-description;
+  margin-inline: auto;
 }
-
-// ============================================
-// CONTENT — Premium Layout
-// ============================================
 
 .content {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 72px;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
   align-items: start;
 
   @include tablet-portrait {
     grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  @include large-mobile {
     gap: 40px;
   }
 }
 
-// ============================================
-// FORM — Premium Glass Morphism
-// ============================================
+.formWrapper {
+  // scroll reveal wrapper
+}
 
-.form {
+.formCard {
+  @include exec-glass-card;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding: 40px 36px;
+  cursor: default;
+
+  @include large-mobile {
+    padding: 28px 24px;
+    gap: 20px;
+  }
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 20px;
 
   @include large-mobile {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 }
 
-// ============================================
-// INFO — Premium Card
-// ============================================
-
-.info {
+.sidebar {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 40px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.95) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(201, 169, 110, 0.1);
-  border-radius: 16px;
+  gap: 24px;
+}
+
+.mapComposition {
+  @include exec-glass-card;
   position: relative;
-  
-  // Premium top accent line
-  &::before {
+  height: 200px;
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.4), transparent);
+    inset: 0;
+    background: radial-gradient(circle at 50% 60%, rgba(201, 169, 110, 0.08) 0%, transparent 55%);
+    pointer-events: none;
   }
+}
 
-  @include large-mobile {
-    padding: 32px;
-    gap: 32px;
+.mapGrid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  opacity: 0.4;
+}
+
+.mapCell {
+  border: 1px solid rgba(201, 169, 110, 0.08);
+
+  &:nth-child(5),
+  &:nth-child(6),
+  &:nth-child(9),
+  &:nth-child(10) {
+    background: rgba(201, 169, 110, 0.04);
   }
+}
+
+.mapPin {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(201, 169, 110, 0.15);
+  color: #C9A96E;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.15);
+  animation: pinPulse 3s ease-in-out infinite;
+}
+
+.mapLabel {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5A6472;
+
+  [dir="rtl"] & {
+    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+.infoBlocks {
+  @include exec-glass-card;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 32px 28px;
+  cursor: default;
 }
 
 .infoBlock {
-  // Empty block marker
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.infoIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(201, 169, 110, 0.08);
+  color: #C9A96E;
+  border: 1px solid rgba(201, 169, 110, 0.12);
 }
 
 .infoTitle {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #0A1628;
-  margin: 0 0 10px;
-  letter-spacing: -0.01em;
+  @include exec-card-title;
+  font-size: 0.9375rem;
+  margin: 0 0 4px;
 }
 
 .infoText {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.7;
-  color: #5A6472;
+  @include exec-card-body;
+  font-size: 0.875rem;
   margin: 0;
+}
+
+@keyframes pinPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(201, 169, 110, 0.15); }
+  50% { transform: scale(1.05); box-shadow: 0 12px 32px rgba(201, 169, 110, 0.22); }
+}
+
+@include exec-reduced-motion {
+  .mapPin {
+    animation: none;
+  }
+
+  .formCard, .mapComposition, .infoBlocks {
+    transition-duration: 0.01ms !important;
+  }
 }
