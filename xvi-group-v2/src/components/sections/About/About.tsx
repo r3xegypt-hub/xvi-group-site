@@ -1,62 +1,63 @@
-// XVI GROUP — About Section
-// Editorial personality with large serif pull-quote
-
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
-import { Section } from '../../layout/Section';
-import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
+import { Section, SectionHeader } from '../../layout/Section';
 import styles from './About.module.scss';
 
 export function About() {
   const { language } = useLanguage();
-  const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const quoteRef = useScrollReveal({ direction: 'blur', duration: 1200, delay: 300 });
-  const columnsRef = useScrollReveal({ direction: 'up', duration: 800, delay: 200 });
+  const ar = language === 'ar';
 
   return (
-    <Section variant="default" id="about">
+    <Section variant="slate" id="about" className={styles.section}>
       <Container>
-        <div ref={headerRef} className={styles.header}>
-          <p className={styles.overline}>
-            {language === 'ar' ? 'عن XVI GROUP' : 'ABOUT XVI GROUP'}
-          </p>
-          <h2 className={styles.title}>
-            {language === 'ar'
-              ? 'شريك المؤسسات في الاستراتيجية والتكنولوجيا'
-              : 'The Enterprise Partner for Strategy and Technology'}
-          </h2>
-        </div>
+        <SectionHeader
+          overline={ar ? 'عن XVI' : 'ABOUT'}
+          title={ar ? 'شريكك في الاستراتيجية والذكاء' : 'Your Partner in Strategy & Intelligence'}
+        />
 
-        <div ref={quoteRef} className={styles.quoteBlock}>
-          <span className={styles.quoteMark}>"</span>
-          <blockquote className={styles.quote}>
-            {language === 'ar'
-              ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي قابل للقياس.'
-              : 'We combine strategic vision with execution capability to transform ambition into sovereign performance.'}
-          </blockquote>
-          <span className={styles.quoteMarkRight}>"</span>
-        </div>
+        <div className={styles.split}>
+          <div className={styles.quoteCol}>
+            <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
+            <blockquote className={styles.quote}>
+              {ar
+                ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي قابل للقياس.'
+                : 'We combine strategic vision with execution capability to transform ambition into sovereign, measurable performance.'}
+            </blockquote>
+            <div className={styles.quoteAttribution}>
+              <span className={styles.quoteLine} aria-hidden="true" />
+              <span className={styles.quoteLabel}>{ar ? 'فلسفة XVI' : 'XVI Philosophy'}</span>
+            </div>
+          </div>
 
-        <div ref={columnsRef} className={styles.columns}>
-          <div className={styles.column}>
-            <h3 className={styles.columnTitle}>
-              {language === 'ar' ? 'مهمتنا' : 'Our Mission'}
-            </h3>
-            <p className={styles.columnText}>
-              {language === 'ar'
-                ? 'تمكين المؤسسات من الرؤية الاستراتيجية والقدرة التكنولوجية لقيادة قطاعاتها.'
-                : 'To empower enterprises with the strategic insight and technological capability to lead their industries.'}
+          <div className={styles.bodyCol}>
+            <p className={styles.bodyText}>
+              {ar
+                ? 'XVI GROUP شريك استراتيجي للمؤسسات التي تتعامل مع التعقيد وتقود التحول. نجمع بين الخبرة الاستشارية العميقة والقدرة التكنولوجية المتقدمة لتقديم نتائج ملموسة.'
+                : 'XVI GROUP is a strategic partner to enterprises navigating complexity and leading transformation. We combine deep advisory expertise with advanced technological capability to deliver measurable results.'}
+            </p>
+            <p className={styles.bodyText}>
+              {ar
+                ? 'منذ 2020، عملنا مع أكثر من 200 مؤسسة عبر منطقة الشرق الأوسط وشمال أفريقيا، لمساعدتها على بناء قدرات الذكاء الاصطناعي السيادية وتحقيق التميز التشغيلي.'
+                : 'Since 2020, we have worked with over 200 enterprises across MENA, helping them build sovereign AI capabilities and achieve operational excellence.'}
             </p>
           </div>
-          <div className={styles.column}>
-            <h3 className={styles.columnTitle}>
-              {language === 'ar' ? 'رؤيتنا' : 'Our Vision'}
-            </h3>
-            <p className={styles.columnText}>
-              {language === 'ar'
-                ? 'أن نكون الشريك الأكثر ثقة للمؤسسات التي تتعامل مع التعقيد وتقود التحول.'
-                : 'To be the most trusted partner for enterprises navigating complexity and driving transformation.'}
-            </p>
+        </div>
+
+        <div className={styles.stats}>
+          <div className={styles.stat}>
+            <span className={styles.statDot} aria-hidden="true" />
+            <span className={styles.statNumber}>2020</span>
+            <span className={styles.statLabel}>{ar ? 'تأسسنا' : 'Founded'}</span>
+          </div>
+          <div className={styles.stat}>
+            <span className={styles.statDot} aria-hidden="true" />
+            <span className={styles.statNumber}>200+</span>
+            <span className={styles.statLabel}>{ar ? 'مشروع' : 'Projects'}</span>
+          </div>
+          <div className={styles.stat}>
+            <span className={styles.statDot} aria-hidden="true" />
+            <span className={styles.statNumber}>12</span>
+            <span className={styles.statLabel}>{ar ? 'دولة' : 'Countries'}</span>
           </div>
         </div>
       </Container>

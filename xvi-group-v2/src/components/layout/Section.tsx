@@ -1,13 +1,9 @@
-// XVI GROUP — Section Component
-// Consistent section wrapper with padding and background variants
-
 import type { ReactNode } from 'react';
 import styles from './Section.module.scss';
 
 interface SectionProps {
   children: ReactNode;
-  variant?: 'default' | 'warm' | 'dark' | 'gold';
-  narrow?: boolean;
+  variant?: 'default' | 'slate' | 'ink' | 'amber';
   id?: string;
   className?: string;
   as?: 'section' | 'div' | 'main';
@@ -16,19 +12,11 @@ interface SectionProps {
 export function Section({
   children,
   variant = 'default',
-  narrow = false,
   id,
   className = '',
   as: Component = 'section',
 }: SectionProps) {
-  const classes = [
-    styles.section,
-    styles[variant],
-    narrow && styles.narrow,
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const classes = [styles.section, styles[variant], className].filter(Boolean).join(' ');
 
   return (
     <Component id={id} className={classes}>
@@ -37,12 +25,8 @@ export function Section({
   );
 }
 
-// ============================================
-// SECTION HEADER
-// ============================================
-
 interface SectionHeaderProps {
-  eyebrow: string;
+  overline?: string;
   title: string;
   description?: string;
   align?: 'left' | 'center';
@@ -50,23 +34,22 @@ interface SectionHeaderProps {
 }
 
 export function SectionHeader({
-  eyebrow,
+  overline,
   title,
   description,
   align = 'left',
   className = '',
 }: SectionHeaderProps) {
-  const classes = [
-    styles.header,
-    styles[`align-${align}`],
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const classes = [styles.header, styles[`align-${align}`], className].filter(Boolean).join(' ');
 
   return (
     <div className={classes}>
-      <p className={styles.eyebrow}>{eyebrow}</p>
+      {overline && (
+        <div className={styles.overlineWrap}>
+          <span className={styles.overlineAccent} aria-hidden="true" />
+          <p className={styles.overline}>{overline}</p>
+        </div>
+      )}
       <h2 className={styles.title}>{title}</h2>
       {description && <p className={styles.description}>{description}</p>}
     </div>

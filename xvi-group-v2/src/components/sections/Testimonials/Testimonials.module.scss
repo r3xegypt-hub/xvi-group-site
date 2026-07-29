@@ -1,132 +1,109 @@
-// XVI GROUP — Testimonials (Sprint 02)
-// Luxury consulting editorial layout
-
 @import '../../../styles/mixins/devices';
-@import '../../../styles/mixins/executive-sections';
 
 .section {
-  @include exec-section-ambient;
+  position: relative;
+  background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(212, 148, 58, 0.03) 0%, transparent 60%);
 }
 
 .inner {
-  position: relative;
-  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.header {
-  @include exec-section-header-center;
+.heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #EEF0F4;
+  margin: 0 0 48px;
+  letter-spacing: -0.01em;
 }
 
-.overline {
-  @include exec-overline-center;
-}
-
-.title {
-  @include exec-title;
-}
-
-.description {
-  @include exec-description;
-  margin-inline: auto;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-
-  @include tablet-portrait {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-.card {
-  @include exec-glass-card;
-  position: relative;
+.frame {
   display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 40px 32px 36px;
-  min-height: 360px;
-  cursor: default;
+  align-items: stretch;
+  gap: 24px;
+  margin-bottom: 40px;
 
   @include large-mobile {
-    padding: 32px 26px 28px;
-    min-height: auto;
+    gap: 16px;
   }
+}
+
+.frameLine {
+  display: block;
+  width: 1px;
+  background: rgba(212, 148, 58, 0.15);
+  flex-shrink: 0;
+}
+
+.quoteBlock {
+  flex: 1;
+  padding: 0 8px;
 }
 
 .quoteMark {
-  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
-  font-size: 5.5rem;
+  font-family: 'Georgia', serif;
+  font-size: 4rem;
   font-weight: 400;
-  line-height: 0.6;
-  color: #C9A96E;
-  opacity: 0.2;
-  margin-bottom: 8px;
-  user-select: none;
-
-  [dir="rtl"] & {
-    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
-  }
+  line-height: 1;
+  color: rgba(212, 148, 58, 0.1);
+  display: block;
+  margin-bottom: -16px;
 }
 
 .quote {
-  @include exec-card-body;
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #0A1628;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: #EEF0F4;
   margin: 0 0 32px;
-  flex: 1;
-  font-style: normal;
-  position: relative;
-  z-index: 1;
+
+  @include from-tablet-portrait {
+    font-size: 1.75rem;
+  }
 }
 
-.author {
+.attribution {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-style: normal;
-  padding-top: 20px;
-  border-top: 1px solid rgba(201, 169, 110, 0.12);
+  gap: 4px;
 }
 
-.authorLine {
-  width: 32px;
-  height: 1px;
-  background: #C9A96E;
-  opacity: 0.6;
-  margin-bottom: 8px;
-  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  .card:hover & {
-    width: 48px;
-  }
-}
-
-.authorName {
-  @include exec-card-title;
+.attributionName {
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  font-style: normal;
+  font-weight: 600;
+  color: #EEF0F4;
 }
 
-.authorRole {
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+.attributionRole {
+  font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
-  font-weight: 400;
-  color: #5A6472;
-  line-height: 1.5;
-
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-  }
+  color: #838A96;
 }
 
-@include exec-reduced-motion {
-  .card, .authorLine {
-    transition-duration: 0.01ms !important;
-  }
-  .card:hover { transform: none; }
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(212, 148, 58, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.dotActive {
+  background: #D4943A;
+  transform: scale(1.2);
 }

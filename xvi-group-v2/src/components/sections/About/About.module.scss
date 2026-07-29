@@ -1,119 +1,153 @@
 @import '../../../styles/mixins/devices';
 
-.header {
-  text-align: center;
+.section {
+  position: relative;
+
+  &::before {
+    content: '02';
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(212, 148, 58, 0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+
+    [dir='rtl'] & {
+      right: auto;
+      left: 40px;
+    }
+  }
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
   margin-bottom: 64px;
 
-  @include large-mobile {
-    margin-bottom: 40px;
+  @include from-tablet-portrait {
+    grid-template-columns: 4fr 7fr;
+    gap: 60px;
   }
 }
 
-.overline {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #D4943A;
-  margin: 0 0 20px;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: #D4943A;
-    margin-right: 12px;
-    vertical-align: middle;
-    opacity: 0.5;
-  }
-}
-
-.title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: #F0F2F5;
-  margin: 0 auto;
-  max-width: 720px;
-}
-
-.quoteBlock {
+.quoteCol {
   position: relative;
-  max-width: 800px;
-  margin: 0 auto 80px;
-  padding: 48px 0;
-  text-align: center;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 48px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #D4943A, transparent);
-  }
-
-  @include large-mobile {
-    padding: 32px 0;
-    margin-bottom: 48px;
-  }
+.quoteMark {
+  font-family: 'Inter', 'Georgia', serif;
+  font-size: 4rem;
+  font-weight: 300;
+  line-height: 1;
+  color: rgba(212, 148, 58, 0.15);
+  display: block;
+  margin-bottom: -12px;
 }
 
 .quote {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  font-weight: 400;
-  line-height: 1.4;
-  color: #F0F2F5;
-  margin: 0;
-  padding: 0 48px;
+  font-size: 1.5rem;
+  font-weight: 300;
   font-style: italic;
+  line-height: 1.4;
+  color: #EEF0F4;
+  margin: 0;
 
-  @include large-mobile {
-    padding: 0 20px;
+  @include from-tablet-portrait {
+    font-size: 1.75rem;
   }
 }
 
-.columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  max-width: 800px;
-  margin: 0 auto;
-
-  @include tablet-portrait {
-    gap: 40px;
-  }
-
-  @include large-mobile {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
+.quoteAttribution {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
 }
 
-.column {
-  text-align: center;
+.quoteLine {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: #D4943A;
+  opacity: 0.5;
 }
 
-.columnTitle {
+.quoteLabel {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #F0F2F5;
-  margin: 0 0 12px;
-  letter-spacing: -0.01em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #838A96;
 }
 
-.columnText {
+.bodyCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bodyText {
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.7;
-  color: #8A909C;
+  color: #838A96;
   margin: 0;
+  max-width: 600px;
+}
+
+.stats {
+  display: flex;
+  gap: 56px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  @include large-mobile {
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.statDot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #D4943A;
+  border-radius: 50%;
+}
+
+.statNumber {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #EEF0F4;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.statLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #838A96;
+
+  [dir='rtl'] & {
+    text-transform: none;
+    letter-spacing: 0;
+  }
 }

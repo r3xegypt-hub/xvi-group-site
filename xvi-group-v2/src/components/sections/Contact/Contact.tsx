@@ -1,148 +1,73 @@
-// XVI GROUP — Contact Section (Sprint 02)
-// Premium executive contact with luxury form
-
 import { useState } from 'react';
-import { MapPin, Mail, Building2 } from 'lucide-react';
+import { MapPin, Mail, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
-import { Section } from '../../layout/Section';
-import { Button } from '../../buttons/Button';
-import { Input } from '../../forms/Input';
-import { Textarea } from '../../forms/Textarea';
-import { useScrollReveal } from '../../../motion/hooks/useScrollReveal';
+import { Section, SectionHeader } from '../../layout/Section';
 import styles from './Contact.module.scss';
 
 export function Contact() {
   const { language } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '', email: '', company: '', subject: '', message: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-
-  const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const formRef = useScrollReveal({ direction: 'up', duration: 800, delay: 200 });
-  const infoRef = useScrollReveal({ direction: 'left', duration: 800, delay: 300 });
   const ar = language === 'ar';
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('sending');
-    setTimeout(() => setStatus('success'), 1500);
-  };
-
   return (
-    <Section variant="warm" id="contact" className={styles.section}>
+    <Section variant="ink" id="contact" className={styles.section}>
       <Container>
-        <div className={styles.inner}>
-          <div ref={headerRef} className={styles.header}>
-            <p className={styles.overline}>{ar ? 'تواصل معنا' : 'Contact'}</p>
-            <h2 className={styles.title}>
-              {ar ? 'لنصنع معاً شيئاً استثنائياً' : "Let's Build Something Extraordinary"}
-            </h2>
-            <p className={styles.description}>
-              {ar
-                ? 'هل تسعى لنقلة نوعية في مؤسستك؟ فريقنا جاهز لمساعدتك.'
-                : "Ready to transform your enterprise? We're here to help."}
-            </p>
-          </div>
+        <SectionHeader
+          overline={ar ? 'تواصل' : 'CONTACT'}
+          title={ar ? 'ابدأ الحوار' : 'Start the Conversation'}
+          description={ar
+            ? 'هل لديك مشروع طموح؟ دعنا نتحدث.'
+            : 'Have an ambitious project? Let\'s talk.'}
+        />
 
-          <div className={styles.content}>
-            <div ref={formRef} className={styles.formWrapper}>
-            <form className={styles.formCard} onSubmit={handleSubmit}>
-              <div className={styles.formRow}>
-                <Input
-                  label={ar ? 'الاسم الكامل' : 'Your Name'}
-                  name="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
-                <Input
-                  label={ar ? 'البريد الإلكتروني' : 'Email Address'}
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                />
+        <div className={styles.split}>
+          <form className={styles.form}>
+            <div className={styles.formRow}>
+              <div className={styles.field}>
+                <label className={styles.label}>{ar ? 'الاسم' : 'Name'}</label>
+                <input type="text" className={styles.input} placeholder={ar ? 'اسمك الكامل' : 'Your full name'} />
               </div>
-              <div className={styles.formRow}>
-                <Input
-                  label={ar ? 'اسم المؤسسة' : 'Company'}
-                  name="company"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                />
-                <Input
-                  label={ar ? 'الموضوع' : 'Subject'}
-                  name="subject"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  required
-                />
+              <div className={styles.field}>
+                <label className={styles.label}>{ar ? 'البريد الإلكتروني' : 'Email'}</label>
+                <input type="email" className={styles.input} placeholder={ar ? 'بريدك الإلكتروني' : 'Your email address'} />
               </div>
-              <Textarea
-                label={ar ? 'رسالتك' : 'Your Message'}
-                name="message"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-              />
-              <Button
-                variant="primary"
-                size="lg"
-                type="submit"
-                loading={status === 'sending'}
-                fullWidth
-              >
-                {status === 'success'
-                  ? (ar ? 'تم الإرسال بنجاح!' : 'Message Sent!')
-                  : (ar ? 'إرسال الرسالة' : 'Send Message')}
-              </Button>
-            </form>
             </div>
-
-            <aside ref={infoRef} className={styles.sidebar}>
-              <div className={styles.mapComposition} aria-hidden="true">
-                <div className={styles.mapGrid}>
-                  {[...Array(12)].map((_, i) => (
-                    <span key={i} className={styles.mapCell} />
-                  ))}
-                </div>
-                <div className={styles.mapPin}>
-                  <MapPin size={20} />
-                </div>
-                <span className={styles.mapLabel}>{ar ? 'أبو ظبي' : 'Abu Dhabi'}</span>
+            <div className={styles.formRow}>
+              <div className={styles.field}>
+                <label className={styles.label}>{ar ? 'الهاتف' : 'Phone'}</label>
+                <input type="tel" className={styles.input} placeholder="+971" />
               </div>
-
-              <div className={styles.infoBlocks}>
-                <div className={styles.infoBlock}>
-                  <div className={styles.infoIcon}><Building2 size={18} aria-hidden="true" /></div>
-                  <div>
-                    <h3 className={styles.infoTitle}>{ar ? 'المقر الرئيسي' : 'Headquarters'}</h3>
-                    <p className={styles.infoText}>
-                      {ar ? 'أبو ظبي، الإمارات العربية المتحدة' : 'Abu Dhabi, United Arab Emirates'}
-                    </p>
-                  </div>
-                </div>
-                <div className={styles.infoBlock}>
-                  <div className={styles.infoIcon}><Mail size={18} aria-hidden="true" /></div>
-                  <div>
-                    <h3 className={styles.infoTitle}>{ar ? 'البريد الإلكتروني' : 'Email'}</h3>
-                    <p className={styles.infoText}>contact@xvigroup.com</p>
-                  </div>
-                </div>
-                <div className={styles.infoBlock}>
-                  <div className={styles.infoIcon}><MapPin size={18} aria-hidden="true" /></div>
-                  <div>
-                    <h3 className={styles.infoTitle}>{ar ? 'الفروع' : 'Locations'}</h3>
-                    <p className={styles.infoText}>
-                      {ar ? 'أبو ظبي · دبي · الرياض' : 'Abu Dhabi · Dubai · Riyadh'}
-                    </p>
-                  </div>
-                </div>
+              <div className={styles.field}>
+                <label className={styles.label}>{ar ? 'المؤسسة' : 'Company'}</label>
+                <input type="text" className={styles.input} placeholder={ar ? 'اسم المؤسسة' : 'Company name'} />
               </div>
-            </aside>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>{ar ? 'الرسالة' : 'Message'}</label>
+              <textarea className={styles.textarea} rows={4} placeholder={ar ? 'كيف يمكننا مساعدتك؟' : 'How can we help you?'} />
+            </div>
+            <button type="submit" className={styles.submit}>
+              {ar ? 'إرسال الرسالة' : 'Send Message'}
+              <ArrowUpRight size={16} />
+            </button>
+          </form>
+
+          <div className={styles.info}>
+            <span className={styles.infoAccent} aria-hidden="true" />
+            <h3 className={styles.infoCity}>{ar ? 'دبي، الإمارات' : 'Dubai, UAE'}</h3>
+            <p className={styles.infoAddress}>
+              {ar ? 'مركز دبي المالي العالمي' : 'Dubai International Financial Centre'}
+            </p>
+            <a href="mailto:xvi@xvi-group.net" className={styles.infoEmail}>xvi@xvi-group.net</a>
+            <p className={styles.infoPhone}>+971 56 922 0064</p>
+            <div className={styles.social}>
+              <span className={styles.socialLabel}>{ar ? 'تواصل اجتماعي' : 'Social'}</span>
+              <div className={styles.socialLinks}>
+                <a href="#" className={styles.socialLink}>LinkedIn</a>
+                <a href="#" className={styles.socialLink}>Twitter</a>
+                <a href="#" className={styles.socialLink}>Instagram</a>
+              </div>
+            </div>
           </div>
         </div>
       </Container>

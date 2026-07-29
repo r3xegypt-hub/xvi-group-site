@@ -1,58 +1,45 @@
 @import '../../styles/mixins/devices';
 
 .footer {
-  background: #030405;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 80px 0 40px;
+  background: #060708;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 80px 0 32px;
 
   @include large-mobile {
-    padding: 48px 0 32px;
+    padding: 48px 0 24px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+
+  @include from-tablet-portrait {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 32px;
   }
 }
 
 .brand {
-  margin-bottom: 56px;
-
-  @include large-mobile {
-    margin-bottom: 36px;
-  }
-}
-
-.logo {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #F0F2F5;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .tagline {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.7;
-  color: #8A909C;
-  max-width: 480px;
-  margin: 12px 0 0;
+  color: #838A96;
+  max-width: 360px;
+  margin: 0;
 }
 
-.columns {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  margin-bottom: 48px;
-
-  @include tablet-portrait {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-  }
-
-  @include large-mobile {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .columnTitle {
@@ -61,20 +48,26 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #F0F2F5;
-  margin: 0 0 16px;
+  color: #EEF0F4;
+  margin: 0;
+
+  [dir='rtl'] & {
+    text-transform: none;
+    letter-spacing: 0;
+  }
 }
 
 .links {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  list-style: none;
 }
 
 .link {
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
-  color: #8A909C;
+  color: #838A96;
   text-decoration: none;
   transition: color 0.2s ease;
   width: fit-content;
@@ -87,7 +80,7 @@
 .divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.04);
-  margin-bottom: 28px;
+  margin: 48px 0 24px;
 }
 
 .bottom {
@@ -100,37 +93,24 @@
 
 .copyright {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8125rem;
-  color: #5A606C;
+  font-size: 0.75rem;
+  color: rgba(131, 138, 150, 0.5);
+  margin: 0;
 }
 
-.legalLinks {
+.legal {
   display: flex;
   gap: 20px;
 }
 
 .legalLink {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8125rem;
-  color: #5A606C;
+  font-size: 0.75rem;
+  color: rgba(131, 138, 150, 0.5);
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover {
-    color: #8A909C;
-  }
-}
-
-.social {
-  display: flex;
-  gap: 16px;
-}
-
-.socialLink {
-  color: #5A606C;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: #D4943A;
+    color: #838A96;
   }
 }

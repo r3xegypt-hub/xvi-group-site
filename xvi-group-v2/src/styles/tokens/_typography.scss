@@ -1,105 +1,36 @@
-// XVI GROUP — Typography Tokens
-// Inter-centric · Clean · Editorial
+$font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+$font-ar: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
 
--family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
--family-ar: 'Inter', 'IBM Plex Sans Arabic', sans-serif;
+$text-hero: clamp(2.25rem, 7vw, 5.5rem);
+$text-heading: clamp(1.5rem, 4vw, 2.75rem);
+$text-stat: clamp(1.75rem, 3vw, 3rem);
+$text-title: 1.125rem;
+$text-body: clamp(0.875rem, 1.3vw, 0.9375rem);
+$text-small: 0.8125rem;
+$text-caption: 0.75rem;
+$text-overline: 0.6875rem;
 
--weight-regular: 400;
--weight-medium: 500;
--weight-semibold: 600;
--weight-bold: 700;
+$leading-hero: 1;
+$leading-heading: 1.08;
+$leading-body: 1.7;
+$leading-tight: 1.25;
 
-// Display
--size: clamp(3.5rem, 8vw, 7rem);
--height: 0.95;
--weight: -weight-bold;
--spacing: -0.04em;
+$tracking-hero: -0.03em;
+$tracking-heading: -0.02em;
+$tracking-wide: 0.06em;
+$tracking-wider: 0.15em;
 
-// H1
--size: clamp(2.5rem, 5vw, 4.5rem);
--height: 1.05;
--weight: -weight-bold;
--spacing: -0.03em;
+$weight-light: 300;
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
 
-// H2
--size: clamp(2rem, 4vw, 3.25rem);
--height: 1.1;
--weight: -weight-semibold;
--spacing: -0.02em;
-
-// H3
--size: clamp(1.5rem, 3vw, 2.25rem);
--height: 1.2;
--weight: -weight-semibold;
--spacing: -0.01em;
-
-// H4
--size: clamp(1.125rem, 2vw, 1.5rem);
--height: 1.25;
--weight: -weight-semibold;
--spacing: 0;
-
-// Body
--size: clamp(0.9375rem, 1.5vw, 1.0625rem);
--height: 1.7;
--weight: -weight-regular;
-
-// Body Large
--lg-size: clamp(1.0625rem, 1.75vw, 1.1875rem);
--lg-height: 1.65;
--lg-weight: -weight-regular;
-
-// Small
--size: 0.875rem;
--height: 1.55;
-
-// Overline
--size: 0.6875rem;
--height: 1;
--spacing: 0.15em;
--weight: -weight-semibold;
-
-// CSS Custom Properties
 :root {
-  --font-family: #{-family};
-  --font-family-ar: #{-family-ar};
-
-  --display-size: #{-size};
-  --display-height: #{-height};
-  --display-weight: #{-weight};
-  --display-spacing: #{-spacing};
-
-  --h1-size: #{-size};
-  --h1-height: #{-height};
-  --h1-weight: #{-weight};
-  --h1-spacing: #{-spacing};
-
-  --h2-size: #{-size};
-  --h2-height: #{-height};
-  --h2-weight: #{-weight};
-  --h2-spacing: #{-spacing};
-
-  --h3-size: #{-size};
-  --h3-height: #{-height};
-  --h3-weight: #{-weight};
-  --h3-spacing: #{-spacing};
-
-  --h4-size: #{-size};
-  --h4-height: #{-height};
-  --h4-weight: #{-weight};
-
-  --body-size: #{-size};
-  --body-height: #{-height};
-  --body-weight: #{-weight};
-
-  --body-lg-size: #{-lg-size};
-  --body-lg-height: #{-lg-height};
-
-  --small-size: #{-size};
-  --small-height: #{-height};
-
-  --overline-size: #{-size};
-  --overline-height: #{-height};
-  --overline-spacing: #{-spacing};
-  --overline-weight: #{-weight};
+  --font-display: #{$font-display};
+  --font-body: #{$font-body};
+  --font-mono: #{$font-mono};
+  --font-ar: #{$font-ar};
 }

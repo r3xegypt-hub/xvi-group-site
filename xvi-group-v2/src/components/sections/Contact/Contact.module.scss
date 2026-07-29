@@ -1,208 +1,209 @@
-// XVI GROUP — Contact (Sprint 02)
-// Premium executive contact section
-
 @import '../../../styles/mixins/devices';
-@import '../../../styles/mixins/executive-sections';
 
 .section {
-  @include exec-section-ambient;
-}
-
-.inner {
   position: relative;
-  z-index: 1;
-}
 
-.header {
-  @include exec-section-header-center;
-}
+  &::before {
+    content: '05';
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(212, 148, 58, 0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
 
-.overline {
-  @include exec-overline-center;
-}
-
-.title {
-  @include exec-title;
-}
-
-.description {
-  @include exec-description;
-  margin-inline: auto;
-}
-
-.content {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 48px;
-  align-items: start;
-
-  @include tablet-portrait {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    [dir='rtl'] & {
+      right: auto;
+      left: 40px;
+    }
   }
 }
 
-.formWrapper {
-  // scroll reveal wrapper
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+
+  @include from-tablet-portrait {
+    grid-template-columns: 7fr 4fr;
+    gap: 64px;
+  }
 }
 
-.formCard {
-  @include exec-glass-card;
+.form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 40px 36px;
-  cursor: default;
-
-  @include large-mobile {
-    padding: 28px 24px;
-    gap: 20px;
-  }
+  gap: 20px;
 }
 
 .formRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
 
-  @include large-mobile {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  @include from-tablet-portrait {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-.sidebar {
+.field {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 6px;
 }
 
-.mapComposition {
-  @include exec-glass-card;
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-  cursor: default;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 60%, rgba(201, 169, 110, 0.08) 0%, transparent 55%);
-    pointer-events: none;
-  }
-}
-
-.mapGrid {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  opacity: 0.4;
-}
-
-.mapCell {
-  border: 1px solid rgba(201, 169, 110, 0.08);
-
-  &:nth-child(5),
-  &:nth-child(6),
-  &:nth-child(9),
-  &:nth-child(10) {
-    background: rgba(201, 169, 110, 0.04);
-  }
-}
-
-.mapPin {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(201, 169, 110, 0.15);
-  color: #C9A96E;
-  border: 1px solid rgba(201, 169, 110, 0.3);
-  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.15);
-  animation: pinPulse 3s ease-in-out infinite;
-}
-
-.mapLabel {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #5A6472;
+  color: #838A96;
+}
 
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    text-transform: none;
-    letter-spacing: 0;
+.input {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #EEF0F4;
+  background: #1A1D27;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &::placeholder {
+    color: rgba(131, 138, 150, 0.4);
+  }
+
+  &:focus {
+    border-color: rgba(212, 148, 58, 0.4);
   }
 }
 
-.infoBlocks {
-  @include exec-glass-card;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  padding: 32px 28px;
-  cursor: default;
+.textarea {
+  composes: input;
+  resize: vertical;
+  min-height: 100px;
 }
 
-.infoBlock {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
-.infoIcon {
-  flex-shrink: 0;
-  display: flex;
+.submit {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: rgba(201, 169, 110, 0.08);
-  color: #C9A96E;
-  border: 1px solid rgba(201, 169, 110, 0.12);
-}
-
-.infoTitle {
-  @include exec-card-title;
-  font-size: 0.9375rem;
-  margin: 0 0 4px;
-}
-
-.infoText {
-  @include exec-card-body;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #D4943A 0%, #A67B3A 100%);
+  color: #0A0B10;
+  font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  align-self: flex-start;
+
+  &:hover {
+    background: linear-gradient(135deg, #EEC27A 0%, #D4943A 100%);
+    transform: translateY(-1px);
+  }
+}
+
+.info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 24px;
+
+  [dir='rtl'] & {
+    padding-left: 0;
+    padding-right: 24px;
+  }
+}
+
+.infoAccent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(212, 148, 58, 0.3);
+
+  [dir='rtl'] & {
+    left: auto;
+    right: 0;
+  }
+}
+
+.infoCity {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #EEF0F4;
   margin: 0;
 }
 
-@keyframes pinPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(201, 169, 110, 0.15); }
-  50% { transform: scale(1.05); box-shadow: 0 12px 32px rgba(201, 169, 110, 0.22); }
+.infoAddress {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #838A96;
+  margin: 0;
 }
 
-@include exec-reduced-motion {
-  .mapPin {
-    animation: none;
-  }
+.infoEmail {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #D4943A;
+  text-decoration: none;
+  transition: color 0.2s ease;
 
-  .formCard, .mapComposition, .infoBlocks {
-    transition-duration: 0.01ms !important;
+  &:hover {
+    color: #EEC27A;
+  }
+}
+
+.infoPhone {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #EEF0F4;
+  margin: 0;
+}
+
+.social {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.socialLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #838A96;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 16px;
+}
+
+.socialLink {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #838A96;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #D4943A;
   }
 }

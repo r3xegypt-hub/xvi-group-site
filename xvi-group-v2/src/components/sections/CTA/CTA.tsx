@@ -1,5 +1,3 @@
-// XVI GROUP — CTA Section
-
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
@@ -11,27 +9,32 @@ export function CTA() {
   const ar = language === 'ar';
 
   return (
-    <Section variant="default" id="cta" className={styles.cta}>
+    <Section variant="slate" id="cta" className={styles.section}>
       <Container>
         <div className={styles.content}>
-          <p className={styles.overline}>{ar ? 'مستعد للبدء؟' : 'Ready to Begin'}</p>
           <h2 className={styles.title}>
-            {ar ? "لنبني مستقبل مؤسستك" : "Let's Build Your Enterprise's Future"}
+            {ar ? 'مستعد لتحويل مؤسستك؟' : 'Ready to Transform Your Enterprise?'}
           </h2>
+          <span className={styles.divider} aria-hidden="true" />
           <p className={styles.description}>
             {ar
-              ? 'احجز استشارة سرية مع فريقنا الاستشاري.'
-              : 'Schedule a confidential consultation with our advisory team.'}
+              ? 'احجز استشارة سرية مع فريقنا الاستراتيجي.'
+              : 'Book a confidential consultation with our strategy team.'}
           </p>
           <div className={styles.actions}>
-            <a href="/contact" className={styles.primaryBtn}>
-              {ar ? 'نبدأ الحوار' : 'Start a Conversation'}
+            <a href="/contact" className={styles.ctaPrimary}>
+              {ar ? 'احجز استشارة' : 'Book a Consultation'}
               <ArrowUpRight size={16} />
             </a>
-            <a href="/services" className={styles.secondaryBtn}>
-              {ar ? 'استكشف القدرات' : 'Explore Capabilities'}
+            <a href="/services" className={styles.ctaSecondary}>
+              {ar ? 'استكشف منهجيتنا' : 'Explore Our Approach'}
             </a>
           </div>
+          <p className={styles.disclaimer}>
+            {ar
+              ? 'لا يوجد التزام. سرية تامة.'
+              : 'No commitment. Strictly confidential.'}
+          </p>
         </div>
       </Container>
     </Section>

@@ -1,119 +1,61 @@
-// XVI GROUP — Insights (Sprint 02)
-// Magazine-quality editorial cards
-
 @import '../../../styles/mixins/devices';
-@import '../../../styles/mixins/executive-sections';
 
 .section {
-  @include exec-section-ambient;
-}
-
-.inner {
   position: relative;
-  z-index: 1;
-}
 
-.header {
-  @include exec-section-header-center;
-}
+  &::before {
+    content: '04';
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(212, 148, 58, 0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
 
-.overline {
-  @include exec-overline-center;
-}
-
-.title {
-  @include exec-title;
-}
-
-.description {
-  @include exec-description;
-  margin-inline: auto;
+    [dir='rtl'] & {
+      right: auto;
+      left: 40px;
+    }
+  }
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 20px;
 
   @include tablet-portrait {
     grid-template-columns: 1fr;
-    gap: 24px;
   }
 }
 
 .card {
-  @include exec-glass-card;
+  background: #14161E;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  padding: 0;
-  overflow: hidden;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-}
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-.cardImage {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-
-  @include large-mobile {
-    height: 180px;
+  &:hover {
+    border-color: rgba(212, 148, 58, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
   }
 }
 
-.imageOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(10, 22, 40, 0.6) 100%);
-  z-index: 1;
-}
+.cardHero {
+  @include from-tablet-portrait {
+    grid-column: span 2;
 
-.imagePattern {
-  position: absolute;
-  inset: 0;
-  opacity: 0.6;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.imageCategory {
-  position: absolute;
-  bottom: 20px;
-  left: 24px;
-  z-index: 2;
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #fff;
-  padding: 6px 14px;
-  border: 1px solid;
-  border-radius: 4px;
-  background: rgba(10, 22, 40, 0.4);
-  backdrop-filter: blur(8px);
-
-  [dir="rtl"] & {
-    left: auto;
-    right: 24px;
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    text-transform: none;
-    letter-spacing: 0;
-  }
-}
-
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 28px 28px 32px;
-
-  @include large-mobile {
-    padding: 24px 22px 28px;
+    .cardTitle {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -124,57 +66,62 @@
   margin-bottom: 16px;
 }
 
-.cardDate,
-.readTime {
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: #5A6472;
+.cardCategory {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(212, 148, 58, 0.1);
+  color: #D4943A;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: 4px;
 
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+  [dir='rtl'] & {
+    letter-spacing: 0;
   }
 }
 
-.readTime {
-  &::before {
-    content: '·';
-    margin-inline-end: 16px;
-    color: rgba(201, 169, 110, 0.5);
-  }
+.cardDate {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #838A96;
 }
 
 .cardTitle {
-  @include exec-card-title;
-  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #EEF0F4;
   margin: 0 0 12px;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  letter-spacing: -0.01em;
+
+  [dir='rtl'] & {
+    letter-spacing: 0;
+  }
 }
 
 .cardExcerpt {
-  @include exec-card-body;
-  margin: 0 0 24px;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
+  line-height: 1.7;
+  color: #838A96;
+  margin: 0 0 20px;
+  flex: 1;
 }
 
-.readMore {
-  @include exec-link-arrow;
-  margin-top: auto;
-}
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #D4943A;
+  transition: gap 0.3s ease;
 
-@include exec-reduced-motion {
-  .card {
-    transition-duration: 0.01ms !important;
+  &:hover {
+    gap: 12px;
   }
-  .card:hover { transform: none; }
 }

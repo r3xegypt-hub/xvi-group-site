@@ -1,13 +1,10 @@
-// XVI GROUP — Navigation
-// Minimal · Glass · Executive
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { NAVIGATION } from '../../config';
 import { LanguageToggle } from './LanguageToggle';
-import { Burger } from './Burger';
+import { LogoWordmark } from '../ui/Logo';
 import styles from './Navigation.module.scss';
 
 export function Navigation() {
@@ -16,20 +13,14 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   const items = language === 'ar' ? NAVIGATION.ar : NAVIGATION.en;
-
-  useEffect(() => {
-    const t = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(t);
-  }, []);
 
   useEffect(() => {
     let lastY = 0;
     const onScroll = () => {
       const y = window.scrollY;
-      setIsScrolled(y > 24);
+      setIsScrolled(y > 80);
       if (y > 100 && y > lastY + 8) setIsHidden(true);
       else if (y < lastY - 8 || y < 80) setIsHidden(false);
       lastY = y;
@@ -52,13 +43,13 @@ export function Navigation() {
       <header
         className={[
           styles.header,
-          mounted && isScrolled && styles.scrolled,
+          isScrolled && styles.scrolled,
           isHidden && !isMobileOpen && styles.hidden,
         ].filter(Boolean).join(' ')}
       >
         <nav className={styles.nav} role="navigation">
           <Link to="/" className={styles.logo} aria-label="XVI GROUP Home">
-            <span className={styles.logoText}>XVI GROUP</span>
+            <LogoWordmark />
           </Link>
 
           <div className={styles.links}>
@@ -69,6 +60,7 @@ export function Navigation() {
                 className={[styles.link, location.pathname === item.href && styles.linkActive].filter(Boolean).join(' ')}
               >
                 {item.label}
+                {location.pathname === item.href && <span className={styles.activeDot} aria-hidden="true" />}
               </Link>
             ))}
           </div>
@@ -76,16 +68,17 @@ export function Navigation() {
           <div className={styles.actions}>
             <LanguageToggle className={styles.langToggle} />
             <Link to="/contact" className={styles.cta}>
-              <span>{language === 'ar' ? 'تواصل' : 'Contact'}</span>
+              <span>{language === 'ar' ? 'تواصل' : 'Let\'s Talk'}</span>
               <ArrowUpRight size={14} />
             </Link>
-            <Burger
-              isOpen={isMobileOpen}
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
+            <button
               className={styles.mobileToggle}
-              ariaLabel={isMobileOpen ? 'Close menu' : 'Open menu'}
-              ariaExpanded={isMobileOpen}
-            />
+              onClick={() => setIsMobileOpen(!isMobileOpen)}
+              aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileOpen}
+            >
+              {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </nav>
       </header>
@@ -94,20 +87,22 @@ export function Navigation() {
         className={[styles.mobileMenu, isMobileOpen && styles.mobileMenuOpen].filter(Boolean).join(' ')}
         aria-hidden={!isMobileOpen}
       >
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            to={item.href}
-            className={styles.mobileLink}
-            onClick={() => setIsMobileOpen(false)}
-          >
-            {item.label}
+        <div className={styles.mobileMenuInner}>
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={styles.mobileLink}
+              onClick={() => setIsMobileOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link to="/contact" className={styles.mobileCta} onClick={() => setIsMobileOpen(false)}>
+            {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+            <ArrowUpRight size={16} />
           </Link>
-        ))}
-        <Link to="/contact" className={styles.cta} onClick={() => setIsMobileOpen(false)}>
-          {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
-          <ArrowUpRight size={16} />
-        </Link>
+        </div>
       </div>
     </>
   );

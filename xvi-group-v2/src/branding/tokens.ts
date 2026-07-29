@@ -1,34 +1,62 @@
-// XVI GROUP — Design Tokens
-// Centralized token definitions as TypeScript constants
-
 import type { ThemeTokens } from '../types';
 
-// ============================================
-// LIGHT LUXURY THEME (Default)
-// ============================================
+export const TOKENS = {
+  colors: {
+    void: '#060708',
+    ink: '#0A0B10',
+    slate: '#14161E',
+    ash: '#1A1D27',
+    amber: '#D4943A',
+    amberGlow: '#EEC27A',
+    amberDeep: '#A67B3A',
+    amberMist: '#6B5A3A',
+    ivory: '#EEF0F4',
+    mist: '#838A96',
+    mistDeep: '#5A606C',
+    border: 'rgba(255,255,255,0.06)',
+    borderAmber: 'rgba(212,148,58,0.15)',
+    glass: 'rgba(20,22,30,0.85)',
+  },
+  fonts: {
+    display: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    body: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    mono: "'JetBrains Mono', 'Fira Code', Consolas, monospace",
+    arabic: "'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif",
+  },
+  spacing: {
+    xs: '8px',
+    sm: '16px',
+    md: '24px',
+    lg: '32px',
+    xl: '48px',
+    '2xl': '64px',
+    '3xl': '96px',
+    '4xl': '128px',
+  },
+};
 
 export const LIGHT_LUXURY_THEME: ThemeTokens = {
-   colors: {
-     gold: '#D4943A',
-     goldLight: '#E8B86D',
-     goldDark: '#A8732A',
-     goldMuted: 'rgba(212, 148, 58, 0.08)',
-     navy: '#0A1628',
-     navyLight: '#1A2A44',
-     white: '#FFFFFF',
-     background: '#08090D',
-     backgroundSecondary: '#0E1017',
-     surface: '#151820',
-     warm: '#11141B',
-     graphite: '#8A909C',
-     grey: '#3A3F4A',
-     border: 'rgba(212, 148, 58, 0.12)',
-     borderHover: 'rgba(212, 148, 58, 0.25)',
-     success: '#34D058',
-     error: '#F85149',
-     warning: '#D29922',
-     info: '#58A6FF',
-   },
+  colors: {
+    gold: '#D4943A',
+    goldLight: '#E8B86D',
+    goldDark: '#A8732A',
+    goldMuted: 'rgba(212, 148, 58, 0.08)',
+    navy: '#0A1628',
+    navyLight: '#1A2A44',
+    white: '#FFFFFF',
+    background: '#08090D',
+    backgroundSecondary: '#0E1017',
+    surface: '#151820',
+    warm: '#11141B',
+    graphite: '#8A909C',
+    grey: '#3A3F4A',
+    border: 'rgba(212, 148, 58, 0.12)',
+    borderHover: 'rgba(212, 148, 58, 0.25)',
+    success: '#34D058',
+    error: '#F85149',
+    warning: '#D29922',
+    info: '#58A6FF',
+  },
   typography: {
     headingFont: "'Fraunces', Georgia, serif",
     bodyFont: "'IBM Plex Sans', Arial, sans-serif",
@@ -87,10 +115,6 @@ export const LIGHT_LUXURY_THEME: ThemeTokens = {
   },
 };
 
-// ============================================
-// DARK PREMIUM THEME
-// ============================================
-
 export const DARK_PREMIUM_THEME: ThemeTokens = {
   ...LIGHT_LUXURY_THEME,
   colors: {
@@ -106,10 +130,6 @@ export const DARK_PREMIUM_THEME: ThemeTokens = {
   },
 };
 
-// ============================================
-// PRESENTATION THEME
-// ============================================
-
 export const PRESENTATION_THEME: ThemeTokens = {
   ...LIGHT_LUXURY_THEME,
   colors: {
@@ -118,10 +138,6 @@ export const PRESENTATION_THEME: ThemeTokens = {
     backgroundSecondary: '#F8F6F2',
   },
 };
-
-// ============================================
-// THEME MAP
-// ============================================
 
 export const THEMES = {
   'light-luxury': LIGHT_LUXURY_THEME,

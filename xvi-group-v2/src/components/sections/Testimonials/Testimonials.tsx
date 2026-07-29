@@ -1,10 +1,7 @@
-// XVI GROUP — Testimonials Section (Sprint 02)
-// Luxury consulting testimonials with editorial layout
-
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import styles from './Testimonials.module.scss';
 
 const TESTIMONIALS = [
@@ -29,8 +26,8 @@ const TESTIMONIALS = [
     companyAr: 'مجموعة ميريديان للطاقة',
   },
   {
-    quote: 'Their executive training program reshaped how our leadership team thinks about AI. We now make decisions with confidence and strategic clarity.',
-    quoteAr: 'أعاد برنامجهم التدريبي التنفيذي تشكيل طريقة تفكير فريق القيادة حول الذكاء الاصطناعي. نتخذ قراراتنا الآن بثقة ووضوح استراتيجي.',
+    quote: 'Their executive program reshaped how our leadership team thinks about AI. We now make decisions with confidence and strategic clarity.',
+    quoteAr: 'أعاد برنامجهم التدريبي تشكيل طريقة تفكير فريق القيادة حول الذكاء الاصطناعي. نتخذ قراراتنا الآن بثقة ووضوح استراتيجي.',
     name: 'Dr. Amira Hassan',
     nameAr: 'د. أميرة حسن',
     role: 'Managing Director',
@@ -42,39 +39,51 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   const { language } = useLanguage();
-  const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const gridRef = useScrollRevealGroup({ direction: 'up', duration: 700, stagger: 140 });
+  const [active, setActive] = useState(0);
   const ar = language === 'ar';
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const t = TESTIMONIALS[active];
+
   return (
-    <Section variant="default" id="testimonials" className={styles.section}>
+    <Section variant="ink" id="testimonials" className={styles.section}>
       <Container>
         <div className={styles.inner}>
-          <div ref={headerRef} className={styles.header}>
-            <p className={styles.overline}>{ar ? 'آراء العملاء' : 'Client Perspectives'}</p>
-            <h2 className={styles.title}>
-              {ar ? 'ثقة القادة التنفيذيين' : 'Trusted by Executive Leaders'}
-            </h2>
-            <p className={styles.description}>
-              {ar
-                ? 'شراكات استراتيجية مع مؤسسات تعمل على أعلى مستوى من الكفاءة.'
-                : 'Strategic partnerships with enterprises operating at the highest level.'}
-            </p>
+          <h2 className={styles.heading}>
+            {ar ? 'ثقة القادة' : 'Trusted by Leaders'}
+          </h2>
+
+          <div className={styles.frame}>
+            <span className={styles.frameLine} aria-hidden="true" />
+            <div className={styles.quoteBlock}>
+              <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
+              <blockquote className={styles.quote}>
+                {ar ? t.quoteAr : t.quote}
+              </blockquote>
+              <div className={styles.attribution}>
+                <span className={styles.attributionName}>{ar ? t.nameAr : t.name}</span>
+                <span className={styles.attributionRole}>
+                  {ar ? t.roleAr : t.role}, {ar ? t.companyAr : t.company}
+                </span>
+              </div>
+            </div>
+            <span className={styles.frameLine} aria-hidden="true" />
           </div>
 
-          <div ref={gridRef} className={styles.grid}>
-            {TESTIMONIALS.map((item, i) => (
-              <blockquote key={i} className={styles.card}>
-                <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
-                <p className={styles.quote}>{ar ? item.quoteAr : item.quote}</p>
-                <footer className={styles.author}>
-                  <div className={styles.authorLine} aria-hidden="true" />
-                  <cite className={styles.authorName}>{ar ? item.nameAr : item.name}</cite>
-                  <span className={styles.authorRole}>
-                    {ar ? item.roleAr : item.role}, {ar ? item.companyAr : item.company}
-                  </span>
-                </footer>
-              </blockquote>
+          <div className={styles.dots}>
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                className={[styles.dot, i === active && styles.dotActive].filter(Boolean).join(' ')}
+                onClick={() => setActive(i)}
+                aria-label={`Testimonial ${i + 1}`}
+              />
             ))}
           </div>
         </div>

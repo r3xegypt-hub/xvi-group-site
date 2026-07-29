@@ -1,35 +1,31 @@
-// XVI GROUP — Color Tokens
-// Dark editorial palette
-
-$color-accent: #D4943A;
-$color-accent-light: #E8B86D;
-$color-accent-dark: #A8732A;
-$color-accent-muted: rgba(212, 148, 58, 0.08);
-
-$color-bg: #08090D;
-$color-bg-alt: #0E1017;
-$color-surface: #151820;
-$color-surface-hover: #1C1F2A;
-
-$color-text: #F0F2F5;
-$color-text-secondary: #8A909C;
-$color-text-muted: #5A606C;
-
+$color-void: #060708;
+$color-ink: #0A0B10;
+$color-slate: #14161E;
+$color-ash: #1A1D27;
+$color-amber: #D4943A;
+$color-amber-glow: #EEC27A;
+$color-amber-deep: #A67B3A;
+$color-amber-mist: #6B5A3A;
+$color-ivory: #EEF0F4;
+$color-mist: #838A96;
+$color-mist-deep: #5A606C;
 $color-border: rgba(255, 255, 255, 0.06);
-$color-border-hover: rgba(255, 255, 255, 0.1);
+$color-border-amber: rgba(212, 148, 58, 0.15);
+$color-glass: rgba(20, 22, 30, 0.85);
 
 :root {
-  --color-accent: #{$color-accent};
-  --color-accent-light: #{$color-accent-light};
-  --color-accent-dark: #{$color-accent-dark};
-  --color-accent-muted: #{$color-accent-muted};
-  --color-bg: #{$color-bg};
-  --color-bg-alt: #{$color-bg-alt};
-  --color-surface: #{$color-surface};
-  --color-surface-hover: #{$color-surface-hover};
-  --color-text: #{$color-text};
-  --color-text-secondary: #{$color-text-secondary};
-  --color-text-muted: #{$color-text-muted};
+  --color-void: #{$color-void};
+  --color-ink: #{$color-ink};
+  --color-slate: #{$color-slate};
+  --color-ash: #{$color-ash};
+  --color-amber: #{$color-amber};
+  --color-amber-glow: #{$color-amber-glow};
+  --color-amber-deep: #{$color-amber-deep};
+  --color-amber-mist: #{$color-amber-mist};
+  --color-ivory: #{$color-ivory};
+  --color-mist: #{$color-mist};
+  --color-mist-deep: #{$color-mist-deep};
   --color-border: #{$color-border};
-  --color-border-hover: #{$color-border-hover};
+  --color-border-amber: #{$color-border-amber};
+  --color-glass: #{$color-glass};
 }

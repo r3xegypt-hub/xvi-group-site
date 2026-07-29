@@ -1,181 +1,115 @@
-// XVI GROUP — Technology (Sprint 02)
-// Enterprise AI luxury diagrams
-
 @import '../../../styles/mixins/devices';
-@import '../../../styles/mixins/executive-sections';
 
 .section {
-  @include exec-section-ambient;
-}
-
-.inner {
   position: relative;
-  z-index: 1;
-}
 
-.header {
-  @include exec-section-header-center;
-}
-
-.overline {
-  @include exec-overline-center;
-}
-
-.title {
-  @include exec-title;
-}
-
-.description {
-  @include exec-description;
-  margin-inline: auto;
-}
-
-.content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-
-  @include tablet-portrait {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-}
-
-.features {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.feature {
-  @include exec-glass-card;
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  padding: 28px 28px 28px 24px;
-  cursor: default;
-
-  @include large-mobile {
-    gap: 18px;
-    padding: 22px 20px;
-  }
-}
-
-.featureIcon {
-  @include exec-icon-glow;
-  width: 52px;
-  height: 52px;
-  flex-shrink: 0;
-  color: #C9A96E;
-  margin-top: 2px;
-}
-
-.featureSvg {
-  width: 100%;
-  height: 100%;
-}
-
-.featureContent {
-  flex: 1;
-  min-width: 0;
-}
-
-.featureTitle {
-  @include exec-card-title;
-  margin: 0 0 8px;
-  font-size: 1.125rem;
-}
-
-.featureText {
-  @include exec-card-body;
-  margin: 0;
-  font-size: 0.875rem;
-}
-
-.visualization {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @include tablet-portrait {
-    order: -1;
-  }
-}
-
-.diagramFrame {
-  @include exec-glass-card;
-  position: relative;
-  width: 100%;
-  max-width: 460px;
-  padding: 40px 32px 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: default;
-
-  &::after {
-    content: '';
+  &::before {
+    content: '03';
     position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(201, 169, 110, 0.06) 0%, transparent 65%);
+    top: 40px;
+    right: 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(212, 148, 58, 0.04);
+    line-height: 1;
     pointer-events: none;
+    user-select: none;
+
+    [dir='rtl'] & {
+      right: auto;
+      left: 40px;
+    }
+  }
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+
+  @include tablet-portrait {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @include large-mobile {
-    padding: 28px 20px 24px;
+    grid-template-columns: 1fr;
   }
 }
 
-.techSvg {
-  width: 100%;
-  max-width: 360px;
-  height: auto;
-  filter: drop-shadow(0 12px 32px rgba(10, 22, 40, 0.08));
+.gridLines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.diagramLabel {
+.gridLineH {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(212, 148, 58, 0.08);
+  top: 33.33%;
+
+  &:nth-child(2) {
+    top: 66.66%;
+  }
+}
+
+.gridLineV {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(212, 148, 58, 0.08);
+  left: 33.33%;
+
+  &:nth-child(4) {
+    left: 66.66%;
+  }
+}
+
+.cell {
+  position: relative;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(201, 169, 110, 0.12);
-  width: 100%;
+  align-items: flex-start;
+  gap: 8px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.02);
+
+    .cellDot {
+      opacity: 0.6;
+    }
+  }
 }
 
-.labelTag {
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 11px;
+.cellDot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: #D4943A;
+  border-radius: 50%;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.cellTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #C9A96E;
-
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    text-transform: none;
-    letter-spacing: 0;
-  }
+  color: #EEF0F4;
+  margin: 0;
 }
 
-.labelSub {
-  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
-  font-size: 0.9375rem;
-  font-weight: 400;
-  color: #0A1628;
-  letter-spacing: -0.01em;
-
-  [dir="rtl"] & {
-    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
-    font-weight: 600;
-  }
-}
-
-@include exec-reduced-motion {
-  .feature, .diagramFrame, .featureIcon {
-    transition-duration: 0.01ms !important;
-  }
-  .feature:hover, .diagramFrame:hover { transform: none; }
+.cellTechs {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: #838A96;
+  margin: 0;
 }
