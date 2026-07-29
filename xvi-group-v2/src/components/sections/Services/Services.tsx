@@ -1,9 +1,10 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section, SectionHeader } from '../../layout/Section';
+import { TiltCard } from '../../../motion/TiltCard';
+import { StaggerGroup, StaggerItem } from '../../../motion/AnimatedSection';
 import styles from './Services.module.scss';
 
 const SERVICES = [
@@ -40,8 +41,6 @@ const SERVICES = [
 export function Services() {
   const { language } = useLanguage();
   const ar = language === 'ar';
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <Section variant="white" id="services" className={styles.section}>
@@ -54,33 +53,29 @@ export function Services() {
             : 'End-to-end AI transformation for the most ambitious enterprises.'
           }
         />
-        <div className={styles.grid} ref={ref}>
+        <StaggerGroup className={styles.grid}>
           {SERVICES.map((s, i) => (
-            <motion.div
-              key={i}
-              className={styles.card}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.12,
-              }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-            >
-              <span className={styles.cardIndex}>{s.index}</span>
-              <h3 className={styles.cardTitle}>{ar ? s.titleAr : s.title}</h3>
-              <p className={styles.cardDesc}>{ar ? s.descriptionAr : s.description}</p>
-              <motion.span
-                className={styles.cardLink}
-                whileHover={{ gap: '12px', transition: { duration: 0.2 } }}
-              >
-                {ar ? 'اعرف المزيد' : 'Learn More'}
-                <ArrowUpRight size={14} />
-              </motion.span>
-            </motion.div>
+            <StaggerItem key={i}>
+              <TiltCard tiltDegree={6} glare>
+                <motion.div
+                  className={styles.card}
+                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                >
+                  <span className={styles.cardIndex}>{s.index}</span>
+                  <h3 className={styles.cardTitle}>{ar ? s.titleAr : s.title}</h3>
+                  <p className={styles.cardDesc}>{ar ? s.descriptionAr : s.description}</p>
+                  <motion.span
+                    className={styles.cardLink}
+                    whileHover={{ gap: '12px', transition: { duration: 0.2 } }}
+                  >
+                    {ar ? 'اعرف المزيد' : 'Learn More'}
+                    <ArrowUpRight size={14} />
+                  </motion.span>
+                </motion.div>
+              </TiltCard>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Container>
     </Section>
   );

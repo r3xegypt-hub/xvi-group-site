@@ -33,6 +33,45 @@ const messageVariants: Variants = {
   },
 };
 
+const PARTICLE_COUNT = 16;
+
+function OrbitingParticles({ open }: { open: boolean }) {
+  return (
+    <div className={styles.orbParticles} aria-hidden="true">
+      {Array.from({ length: PARTICLE_COUNT }).map((_, i) => {
+        const angle = (i / PARTICLE_COUNT) * Math.PI * 2;
+        const radius = 28 + Math.random() * 8;
+        const size = Math.random() * 2 + 1;
+        const speed = 8 + Math.random() * 6;
+        return (
+          <motion.span
+            key={i}
+            className={styles.orbParticle}
+            style={{
+              width: size,
+              height: size,
+            }}
+            animate={open ? {
+              x: [Math.cos(angle) * (radius - 4), Math.cos(angle + Math.PI) * radius, Math.cos(angle) * (radius - 4)],
+              y: [Math.sin(angle) * (radius - 4), Math.sin(angle + Math.PI) * radius, Math.sin(angle) * (radius - 4)],
+              opacity: [0.3, 0.6, 0.3],
+            } : {
+              x: 0,
+              y: 0,
+              opacity: 0,
+            }}
+            transition={{
+              duration: speed,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 export function AIConsultant() {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
@@ -156,42 +195,51 @@ export function AIConsultant() {
         )}
       </AnimatePresence>
 
-      <motion.button
-        className={styles.orb}
-        type="button"
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        aria-label={open ? 'Close AI Assistant' : 'Open AI Assistant'}
-        animate={{
-          scale: [1, 1.05, 1],
-          boxShadow: [
-            '0 4px 24px rgba(17, 17, 17, 0.15)',
-            '0 8px 32px rgba(200, 166, 90, 0.3)',
-            '0 4px 24px rgba(17, 17, 17, 0.15)',
-          ],
-        }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <AnimatePresence mode="wait">
-          {open ? (
-            <motion.span key="close" initial={{ rotate: -90 }} animate={{ rotate: 0 }} exit={{ rotate: 90 }}>
-              <X size={22} />
-            </motion.span>
-          ) : (
-            <motion.span
-              key="icon"
-              initial={{ rotate: 90 }}
-              animate={{ rotate: 0 }}
-              exit={{ rotate: -90 }}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <Sparkles size={20} />
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.button>
+      <div className={styles.orbContainer}>
+        <OrbitingParticles open={open} />
+        <motion.button
+          className={styles.orb}
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label={open ? 'Close AI Assistant' : 'Open AI Assistant'}
+          animate={{
+            scale: [1, 1.05, 1],
+            boxShadow: open
+              ? [
+                  '0 4px 24px rgba(200, 166, 90, 0.3)',
+                  '0 8px 40px rgba(200, 166, 90, 0.5)',
+                  '0 4px 24px rgba(200, 166, 90, 0.3)',
+                ]
+              : [
+                  '0 4px 24px rgba(17, 17, 17, 0.15)',
+                  '0 8px 32px rgba(200, 166, 90, 0.3)',
+                  '0 4px 24px rgba(17, 17, 17, 0.15)',
+                ],
+          }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <AnimatePresence mode="wait">
+            {open ? (
+              <motion.span key="close" initial={{ rotate: -90 }} animate={{ rotate: 0 }} exit={{ rotate: 90 }}>
+                <X size={22} />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="icon"
+                initial={{ rotate: 90 }}
+                animate={{ rotate: 0 }}
+                exit={{ rotate: -90 }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <Sparkles size={20} />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </aside>
   );
 }

@@ -6,6 +6,9 @@ import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { HeroIllustration } from '../../ui/HeroIllustration';
 import { FloatingParticles, AnimatedGradient } from '../../../motion/FloatingParticles';
+import { ConstellationParticles } from '../../../motion/ConstellationParticles';
+import { TextReveal } from '../../../motion/TextReveal';
+import { useParallax } from '../../../motion/hooks/useParallax';
 import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -41,10 +44,12 @@ export function Hero() {
   const ar = language === 'ar';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const parallaxRef = useParallax({ speed: 0.15 });
 
   return (
     <section className={styles.hero} aria-label="Hero" ref={ref}>
-      <FloatingParticles count={30} color="#C8A65A" speed={0.7} className={styles.particles} />
+      <ConstellationParticles count={30} color="#C8A65A" className={styles.constellation} connectionDistance={30} />
+      <FloatingParticles count={20} color="#C8A65A" speed={0.5} className={styles.particles} />
       <AnimatedGradient className={styles.gradient} />
       <Container className={styles.inner}>
         <motion.div
@@ -57,25 +62,23 @@ export function Hero() {
             <motion.p className={styles.eyebrow} variants={childVariants}>
               {ar ? 'استشارات تنفيذية · ذكاء · تحول' : 'Executive Advisory · Intelligence · Transformation'}
             </motion.p>
-            <motion.h1 className={styles.headline} variants={childVariants}>
+            <motion.div variants={childVariants} className={styles.headlineWrap}>
               {ar ? (
-                <>
+                <h1 className={styles.headline}>
                   الاستخبارات
                   <br />
                   <span className={styles.accentWord}>وراء</span>
                   <br />
                   الطموح
-                </>
+                </h1>
               ) : (
-                <>
-                  The Intelligence
-                  <br />
-                  <span className={styles.accentWord}>Behind the</span>
-                  <br />
-                  Ambitious.
-                </>
+                <TextReveal
+                  text="The Intelligence Behind the Ambitious."
+                  as="h1"
+                  className={styles.headline}
+                />
               )}
-            </motion.h1>
+            </motion.div>
             <motion.p className={styles.subhead} variants={childVariants}>
               {ar
                 ? 'استراتيجية · ذكاء اصطناعي · عمليات — من الرؤية إلى التنفيذ.'
@@ -92,7 +95,11 @@ export function Hero() {
             </motion.div>
           </div>
 
-          <motion.div className={styles.illustrationCol} variants={childVariants}>
+          <motion.div
+            className={styles.illustrationCol}
+            variants={childVariants}
+            ref={parallaxRef}
+          >
             <HeroIllustration />
           </motion.div>
         </motion.div>
@@ -113,6 +120,7 @@ export function Hero() {
               className={styles.stat}
               custom={i}
               variants={statVariants}
+              whileHover={{ y: -4, transition: { duration: 0.3 } }}
             >
               <span className={styles.statNumber}>{stat.number}</span>
               <span className={styles.statAccent} aria-hidden="true" />

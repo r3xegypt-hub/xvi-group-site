@@ -5,18 +5,20 @@ import type { Easing, Variants } from 'framer-motion';
 const ease: Easing = [0.16, 1, 0.3, 1];
 
 const pageVariants: Variants = {
-  initial: { opacity: 0, y: 12, filter: 'blur(4px)' },
+  initial: { opacity: 0, y: 16, filter: 'blur(6px)', scale: 0.98 },
   animate: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.5, ease },
+    scale: 1,
+    transition: { duration: 0.6, ease },
   },
   exit: {
     opacity: 0,
-    y: -12,
-    filter: 'blur(4px)',
-    transition: { duration: 0.3, ease },
+    y: -16,
+    filter: 'blur(6px)',
+    scale: 0.98,
+    transition: { duration: 0.35, ease },
   },
 };
 
@@ -35,6 +37,7 @@ export function PageTransition({ children }: PageTransitionProps) {
         initial="initial"
         animate="animate"
         exit="exit"
+        style={{ willChange: 'transform, opacity, filter' }}
       >
         {children}
       </motion.div>

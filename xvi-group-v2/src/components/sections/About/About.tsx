@@ -1,9 +1,14 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section, SectionHeader } from '../../layout/Section';
+import { TextReveal } from '../../../motion/TextReveal';
+import { AnimatedGradient } from '../../../motion/FloatingParticles';
 import styles from './About.module.scss';
+
+const ease: Easing = [0.16, 1, 0.3, 1];
 
 export function About() {
   const { language } = useLanguage();
@@ -12,7 +17,12 @@ export function About() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <Section variant="warm" id="about">
+    <Section variant="warm" id="about" className={styles.section}>
+      <AnimatedGradient
+        colors={['rgba(200, 166, 90, 0.04)', 'rgba(200, 166, 90, 0.02)', 'transparent']}
+        duration={15}
+        className={styles.bgGradient}
+      />
       <Container>
         <SectionHeader
           overline={ar ? 'عن XVI' : 'ABOUT'}
@@ -23,7 +33,7 @@ export function About() {
             className={styles.quoteCol}
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, ease }}
           >
             <blockquote className={styles.quote}>
               {ar
@@ -35,25 +45,36 @@ export function About() {
             className={styles.bodyCol}
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            transition={{ duration: 0.7, ease, delay: 0.15 }}
           >
-            <p className={styles.bodyText}>
-              {ar
-                ? 'XVI GROUP شريك استراتيجي للمؤسسات التي تتعامل مع التعقيد وتقود التحول. نجمع بين الخبرة الاستشارية العميقة والقدرة التكنولوجية المتقدمة لتقديم نتائج ملموسة.'
-                : 'XVI GROUP is a strategic partner to enterprises navigating complexity and leading transformation. We combine deep advisory expertise with advanced technological capability to deliver measurable results.'}
-            </p>
-            <p className={styles.bodyText}>
-              {ar
-                ? 'منذ 2020، عملنا مع أكثر من 200 مؤسسة عبر منطقة الشرق الأوسط وشمال أفريقيا، لمساعدتها على بناء قدرات الذكاء الاصطناعي السيادية وتحقيق التميز التشغيلي.'
-                : 'Since 2020, we have worked with over 200 enterprises across MENA, helping them build sovereign AI capabilities and achieve operational excellence.'}
-            </p>
+            {ar ? (
+              <>
+                <p className={styles.bodyText}>
+                  XVI GROUP شريك استراتيجي للمؤسسات التي تتعامل مع التعقيد وتقود التحول. نجمع بين الخبرة الاستشارية العميقة والقدرة التكنولوجية المتقدمة لتقديم نتائج ملموسة.
+                </p>
+                <p className={styles.bodyText}>
+                  منذ 2020، عملنا مع أكثر من 200 مؤسسة عبر منطقة الشرق الأوسط وشمال أفريقيا، لمساعدتها على بناء قدرات الذكاء الاصطناعي السيادية وتحقيق التميز التشغيلي.
+                </p>
+              </>
+            ) : (
+              <>
+                <TextReveal
+                  text="XVI GROUP is a strategic partner to enterprises navigating complexity and leading transformation. We combine deep advisory expertise with advanced technological capability to deliver measurable results."
+                  className={styles.bodyText}
+                />
+                <TextReveal
+                  text="Since 2020, we have worked with over 200 enterprises across MENA, helping them build sovereign AI capabilities and achieve operational excellence."
+                  className={styles.bodyText}
+                />
+              </>
+            )}
           </motion.div>
         </div>
         <motion.div
           className={styles.stats}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          transition={{ duration: 0.6, ease, delay: 0.3 }}
         >
           <div className={styles.stat}>
             <span className={styles.statNumber}>2020</span>

@@ -10,6 +10,31 @@
   }
 }
 
+.orbContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbParticles {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbParticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  background: #C8A65A;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 4px rgba(200, 166, 90, 0.4);
+}
+
 .orb {
   width: 60px;
   height: 60px;

@@ -1,10 +1,14 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import type { Easing } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
+import { ConstellationParticles } from '../../../motion/ConstellationParticles';
 import styles from './CTA.module.scss';
+
+const ease: Easing = [0.16, 1, 0.3, 1];
 
 export function CTA() {
   const { language } = useLanguage();
@@ -14,13 +18,14 @@ export function CTA() {
 
   return (
     <Section variant="navy" id="cta" className={styles.section}>
+      <ConstellationParticles count={15} color="#C8A65A" className={styles.constellation} connectionDistance={35} />
       <Container>
         <motion.div
           className={styles.content}
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease }}
         >
           <h2 className={styles.title}>
             {ar ? 'مستعد لتحويل مؤسستك؟' : 'Ready to Transform Your Enterprise?'}
@@ -30,7 +35,7 @@ export function CTA() {
             aria-hidden="true"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 0.3, duration: 0.6, ease }}
           />
           <p className={styles.description}>
             {ar ? 'احجز استشارة سرية مع فريقنا الاستراتيجي.' : 'Book a confidential consultation with our strategy team.'}
@@ -39,7 +44,7 @@ export function CTA() {
             <motion.a
               href="/contact"
               className={styles.ctaPrimary}
-              whileHover={{ scale: 1.02, backgroundColor: '#B8963E' }}
+              whileHover={{ scale: 1.03, backgroundColor: '#B8963E' }}
               whileTap={{ scale: 0.98 }}
             >
               {ar ? 'احجز استشارة' : 'Book a Consultation'}
@@ -48,7 +53,7 @@ export function CTA() {
             <motion.a
               href="/services"
               className={styles.ctaSecondary}
-              whileHover={{ scale: 1.02, borderColor: '#C8A65A', color: '#C8A65A' }}
+              whileHover={{ scale: 1.03, borderColor: '#C8A65A', color: '#C8A65A' }}
               whileTap={{ scale: 0.98 }}
             >
               {ar ? 'استكشف منهجيتنا' : 'Explore Our Approach'}

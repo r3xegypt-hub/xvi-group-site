@@ -1,3 +1,14 @@
+.section {
+  position: relative;
+}
+
+.bgGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .split {
   display: grid;
   grid-template-columns: 1fr;

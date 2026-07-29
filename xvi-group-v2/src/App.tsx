@@ -9,6 +9,7 @@ import { Navigation } from './components/navigation/Navigation';
 import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
+import { CustomCursor } from './motion/CustomCursor';
 import { AIConsultant } from './components/assistant/AIConsultant';
 import { Home } from './pages/home';
 
@@ -19,6 +20,7 @@ function App() {
         <LanguageProvider>
           <MotionProvider>
             <div className="xvi-app">
+              <CustomCursor />
               <ScrollProgress />
               <PageTransition>
                 <Routes>

@@ -158,6 +158,103 @@ input, textarea, select {
   to { width: 100%; }
 }
 
+// ==========================================
+// PREMIUM CURSOR
+// ==========================================
+
+.has-premium-cursor {
+  cursor: none;
+
+  a, button, [role="button"], input, textarea, select {
+    cursor: none;
+  }
+}
+
+.premium-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: $color-gold;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  mix-blend-mode: normal;
+  transition: width 0.2s, height 0.2s, background 0.2s;
+
+  &[data-state="link"],
+  &[data-state="button"] {
+    width: 0;
+    height: 0;
+  }
+
+  &[data-state="card"] {
+    width: 0;
+    height: 0;
+  }
+}
+
+.premium-cursor-ring {
+  position: fixed;
+  top: -12px;
+  left: -12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid $color-gold;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  mix-blend-mode: normal;
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+
+  &[data-state="link"] {
+    width: 48px;
+    height: 48px;
+    top: -24px;
+    left: -24px;
+    border-color: $color-gold;
+    background: rgba(200, 166, 90, 0.05);
+  }
+
+  &[data-state="button"] {
+    width: 56px;
+    height: 56px;
+    top: -28px;
+    left: -28px;
+    border-color: $color-gold;
+    background: rgba(200, 166, 90, 0.08);
+  }
+
+  &[data-state="card"] {
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    left: -20px;
+    border-color: $color-gold;
+    border-width: 1.5px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .has-premium-cursor {
+    cursor: auto;
+
+    a, button, [role="button"] {
+      cursor: auto;
+    }
+  }
+
+  .premium-cursor-dot,
+  .premium-cursor-ring {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
