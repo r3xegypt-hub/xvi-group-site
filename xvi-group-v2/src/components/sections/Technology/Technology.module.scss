@@ -1,88 +1,53 @@
-@import '../../../styles/mixins/devices';
-
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid #E8E4DE;
-  border-left: 1px solid #E8E4DE;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(17, 17, 17, 0.06);
+  border: 1px solid rgba(17, 17, 17, 0.06);
 
-  @include tablet-portrait {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include large-mobile {
-    grid-template-columns: 1fr;
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .cell {
-  padding: 28px 24px;
+  padding: 32px 24px;
+  background: #FFFFFF;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  border-right: 1px solid #E8E4DE;
-  border-bottom: 1px solid #E8E4DE;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(200, 166, 90, 0.03) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+  gap: 12px;
+  transition: background 300ms ease;
 
   &:hover {
-    background: #FFFFFF;
-
-    .cellDot {
-      background: #C8A65A;
-      box-shadow: 0 0 8px rgba(200, 166, 90, 0.3);
-    }
-
-    .cellTitle {
-      color: #C8A65A;
-    }
-
-    &::after {
-      opacity: 1;
-    }
+    background: #F7F6F3;
   }
 }
 
 .cellDot {
-  width: 6px;
-  height: 6px;
+  display: block;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #E8E4DE;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 1;
+  background: #C8A65A;
 }
 
 .cellTitle {
-  font-family: 'Fraunces', 'Georgia', serif;
-  font-size: 0.9375rem;
-  font-weight: 400;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 500;
   color: #111111;
   margin: 0;
-  transition: color 0.3s ease;
-  position: relative;
-  z-index: 1;
+  line-height: 1.2;
 
   [dir='rtl'] & {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: 'Alexandria', sans-serif;
   }
 }
 
 .cellTechs {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #999999;
   margin: 0;
-  position: relative;
-  z-index: 1;
 }

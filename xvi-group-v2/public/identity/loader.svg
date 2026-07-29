@@ -1,12 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
-  <rect x="12" y="12" width="56" height="56" rx="6" stroke="#0A1628" stroke-width="1.5" opacity="0.2"/>
-  <line x1="12" y1="40" x2="68" y2="40" stroke="#C9A96E" stroke-width="1.5">
-    <animate attributeName="stroke-dasharray" values="0,56;56,0;0,56" dur="2s" repeatCount="indefinite"/>
-  </line>
-  <path d="M24 56 L40 24 L56 56" stroke="#0A1628" stroke-width="2.5" stroke-linecap="square">
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
-  </path>
-  <circle cx="40" cy="40" r="4" fill="#C9A96E">
-    <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
-  </circle>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="40" height="40" rx="4" stroke="#C8A65A" stroke-width="2" fill="none"/>
+  <path d="M14 14L34 34" stroke="#C8A65A" stroke-width="2" stroke-linecap="round"/>
+  <path d="M34 14L14 34" stroke="#C8A65A" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="24" cy="24" r="4" fill="#C8A65A"/>
 </svg>

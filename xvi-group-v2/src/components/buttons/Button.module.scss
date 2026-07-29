@@ -1,6 +1,3 @@
-// XVI GROUP — Premium Button SCSS Module (v3)
-// Executive buttons: flat gold, architectural shadows, tactile press
-
 @import '../../styles/mixins/devices';
 
 .button {
@@ -9,21 +6,19 @@
   justify-content: center;
   gap: 10px;
   border: none;
-  border-radius: 8px;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   position: relative;
   overflow: hidden;
   letter-spacing: 0.02em;
 
   &:focus-visible {
-    outline: 2px solid #C9A96E;
+    outline: 2px solid #C8A65A;
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2);
   }
 
   &:disabled {
@@ -33,152 +28,72 @@
   }
 }
 
-// ============================================
-// SIZES
-// ============================================
-
 .sm {
   height: 40px;
-  padding: 0 16px;
-  font-size: 13px;
-
-  @include from-tablet-portrait {
-    height: 44px;
-    padding: 0 20px;
-    font-size: 14px;
-  }
+  padding: 0 20px;
+  font-size: 0.8125rem;
 }
 
 .md {
   height: 48px;
-  padding: 0 24px;
-  font-size: 15px;
-
-  @include from-tablet-portrait {
-    height: 48px;
-    padding: 0 28px;
-    font-size: 16px;
-  }
+  padding: 0 28px;
+  font-size: 0.9375rem;
 }
 
 .lg {
-  height: 52px;
-  padding: 0 28px;
-  font-size: 16px;
-
-  @include from-tablet-portrait {
-    height: 56px;
-    padding: 0 36px;
-    font-size: 16px;
-  }
+  height: 56px;
+  padding: 0 36px;
+  font-size: 1rem;
 }
 
-// ============================================
-// VARIANTS — Per VISUAL_DNA.md spec
-// ============================================
-
 .primary {
-  background: #C9A96E;
-  color: #0A1628;
-  box-shadow:
-    0 1px 2px rgba(10, 22, 40, 0.04),
-    0 4px 16px rgba(201, 169, 110, 0.15);
+  background: #C8A65A;
+  color: #FFFFFF;
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      background: #b8984e;
-      transform: translateY(-2px);
-      box-shadow:
-        0 4px 12px rgba(10, 22, 40, 0.06),
-        0 8px 24px rgba(201, 169, 110, 0.2);
-    }
+  &:hover:not(:disabled) {
+    background: #B8963E;
+    transform: translateY(-2px);
   }
 
   &:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow:
-      0 1px 2px rgba(10, 22, 40, 0.04),
-      0 2px 8px rgba(201, 169, 110, 0.1);
-    background: #a88b52;
   }
 }
 
 .secondary {
   background: transparent;
-  color: #0A1628;
-  border: 1px solid #C8CDD5;
+  color: #111111;
+  border: 1px solid rgba(17, 17, 17, 0.12);
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      background: rgba(10, 22, 40, 0.04);
-      border-color: #0A1628;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(10, 22, 40, 0.08);
-    }
-  }
-
-  &:active:not(:disabled) {
-    background: rgba(10, 22, 40, 0.06);
-    transform: translateY(0);
-    border-color: #0A1628;
+  &:hover:not(:disabled) {
+    border-color: #C8A65A;
+    color: #C8A65A;
   }
 }
 
 .ghost {
   background: transparent;
-  color: #C9A96E;
+  color: #C8A65A;
   padding: 0;
   height: auto;
-  border-radius: 0;
-  font-weight: 500;
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      color: #0A1628;
-    }
-  }
-
-  .icon {
-    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) .icon {
-      transform: translateX(5px);
-    }
+  &:hover:not(:disabled) {
+    color: #B8963E;
   }
 }
 
 .danger {
-  background: #C4392D;
+  background: #B22234;
   color: #FFFFFF;
-  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      background: #a8301f;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(10, 22, 40, 0.08);
-    }
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
+  &:hover:not(:disabled) {
+    background: #8B1A2A;
   }
 }
-
-// ============================================
-// FULL WIDTH
-// ============================================
 
 .fullWidth {
   width: 100%;
 }
-
-// ============================================
-// LOADING STATE
-// ============================================
 
 .loading {
   color: transparent !important;
@@ -195,20 +110,11 @@
   }
 }
 
-// ============================================
-// ICON & TEXT
-// ============================================
-
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
 }
 
 .text {

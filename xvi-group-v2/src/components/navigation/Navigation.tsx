@@ -41,15 +41,11 @@ export function Navigation() {
   return (
     <>
       <header
-        className={[
-          styles.header,
-          isScrolled && styles.scrolled,
-          isHidden && !isMobileOpen && styles.hidden,
-        ].filter(Boolean).join(' ')}
+        className={`${styles.header} ${isScrolled ? styles.scrolled : ''} ${isHidden && !isMobileOpen ? styles.hidden : ''}`}
       >
         <nav className={styles.nav} role="navigation">
           <Link to="/" className={styles.logo} aria-label="XVI GROUP Home">
-            <LogoWordmark />
+            <LogoWordmark variant="dark" />
           </Link>
 
           <div className={styles.links}>
@@ -57,7 +53,7 @@ export function Navigation() {
               <Link
                 key={item.href}
                 to={item.href}
-                className={[styles.link, location.pathname === item.href && styles.linkActive].filter(Boolean).join(' ')}
+                className={`${styles.link} ${location.pathname === item.href ? styles.linkActive : ''}`}
               >
                 {item.label}
               </Link>
@@ -83,7 +79,7 @@ export function Navigation() {
       </header>
 
       <div
-        className={[styles.mobileMenu, isMobileOpen && styles.mobileMenuOpen].filter(Boolean).join(' ')}
+        className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}
         aria-hidden={!isMobileOpen}
       >
         <div className={styles.mobileMenuInner}>

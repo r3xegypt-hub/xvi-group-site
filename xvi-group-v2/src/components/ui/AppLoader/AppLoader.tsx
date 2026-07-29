@@ -1,8 +1,5 @@
-// XVI GROUP — App Loader (Sprint 03)
-// Cinematic loading experience
-
 import { useEffect, useState } from 'react';
-import { LOGO } from '../../../branding/assets';
+import { LoaderLogo } from '../Logo';
 import styles from './AppLoader.module.scss';
 
 interface AppLoaderProps {
@@ -45,7 +42,7 @@ export function AppLoader({ onComplete }: AppLoaderProps) {
 
   return (
     <div
-      className={[styles.loader, styles[phase]].filter(Boolean).join(' ')}
+      className={`${styles.loader} ${styles[phase]}`}
       role="status"
       aria-live="polite"
       aria-label="Loading"
@@ -53,7 +50,7 @@ export function AppLoader({ onComplete }: AppLoaderProps) {
       <div className={styles.backdrop} aria-hidden="true" />
       <div className={styles.content}>
         <div className={styles.logoWrap}>
-          <img src={LOGO.icon.dark} alt="" width={56} height={56} className={styles.logo} />
+          <LoaderLogo size={56} />
           <div className={styles.logoRing} aria-hidden="true" />
         </div>
         <div className={styles.wordmark}>

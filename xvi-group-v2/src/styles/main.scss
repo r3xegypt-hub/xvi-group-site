@@ -1,3 +1,7 @@
+@import './tokens/colors';
+@import './tokens/typography';
+@import './tokens/spacing';
+
 *,
 *::before,
 *::after {
@@ -11,34 +15,50 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-size-adjust: 100%;
-  background: #F7F6F3;
-  color: #111111;
+  background: $color-bg;
+  color: $color-text;
+  font-size: 16px;
 }
 
 body {
-  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #111111;
-  background: #F7F6F3;
+  font-family: $font-body;
+  font-weight: $weight-regular;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: $leading-body;
+  color: $color-text;
+  background: $color-bg;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 [dir='rtl'] body {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: $font-ar-body;
+  line-height: $leading-body-ar;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Fraunces', 'Georgia', serif;
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  font-family: $font-heading;
+  font-weight: $weight-regular;
+  line-height: $leading-hero;
+  letter-spacing: $tracking-hero;
+  color: $color-text;
 }
 
-[dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3 {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+[dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3,
+[dir='rtl'] h4, [dir='rtl'] h5, [dir='rtl'] h6 {
+  font-family: $font-ar-display;
   letter-spacing: 0;
+  line-height: 1.2;
+}
+
+p {
+  color: $color-text-secondary;
+  line-height: $leading-body;
+  max-width: 75ch;
+}
+
+[dir='rtl'] p {
+  line-height: $leading-body-ar;
 }
 
 img {
@@ -50,6 +70,8 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+  transition: opacity $transition-base;
+  &:hover { opacity: 0.75; }
 }
 
 button {
@@ -57,20 +79,27 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  color: inherit;
 }
 
 ul, ol {
   list-style: none;
 }
 
+input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
 :focus-visible {
-  outline: 2px solid #C8A65A;
-  outline-offset: 2px;
+  outline: 2px solid $color-gold;
+  outline-offset: 3px;
+  border-radius: 1px;
 }
 
 ::selection {
-  background: rgba(200, 166, 90, 0.2);
-  color: #111111;
+  background: $color-gold-muted;
+  color: $color-text;
 }
 
 .xvi-app {
@@ -83,6 +112,7 @@ ul, ol {
   flex: 1;
 }
 
+// Animation keyframes
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
@@ -113,18 +143,19 @@ ul, ol {
   50% { transform: translateY(-8px); }
 }
 
-@keyframes orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes dash {
-  to { stroke-dashoffset: 0; }
-}
-
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+@keyframes goldBreathing {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@keyframes lineGrow {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

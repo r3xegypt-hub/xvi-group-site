@@ -1,90 +1,98 @@
-@import '../../../styles/mixins/devices';
-
 .split {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
-  margin-bottom: 56px;
+  gap: 48px;
 
-  @include from-tablet-portrait {
-    grid-template-columns: 4fr 7fr;
-    gap: 60px;
+  @media (min-width: 1024px) {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
   }
 }
 
 .quoteCol {
-  position: relative;
+  display: flex;
+  align-items: flex-start;
 }
 
 .quote {
-  font-family: 'Fraunces', 'Georgia', serif;
-  font-size: 1.375rem;
-  font-weight: 300;
-  font-style: italic;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 400;
   line-height: 1.4;
+  letter-spacing: -0.015em;
   color: #111111;
   margin: 0;
+  padding: 0;
+  border: none;
+  position: relative;
 
-  [dir='rtl'] & {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+  &::before {
+    content: '\201C';
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 4rem;
+    line-height: 0.6;
+    color: #C8A65A;
+    margin-bottom: 16px;
   }
 
-  @include from-tablet-portrait {
-    font-size: 1.625rem;
+  [dir='rtl'] & {
+    font-family: 'Alexandria', sans-serif;
+    letter-spacing: 0;
+    line-height: 1.5;
+
+    &::before {
+      content: '\201D';
+    }
   }
 }
 
 .bodyCol {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .bodyText {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 0.9375rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
   line-height: 1.7;
   color: #666666;
   margin: 0;
-  max-width: 600px;
 }
 
 .stats {
-  display: flex;
-  gap: 56px;
-  padding-top: 36px;
-  border-top: 1px solid #E8E4DE;
-
-  @include large-mobile {
-    gap: 32px;
-    flex-wrap: wrap;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(17, 17, 17, 0.06);
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .statNumber {
-  font-family: 'DM Mono', 'JetBrains Mono', monospace;
-  font-size: 2rem;
-  font-weight: 500;
-  color: #C8A65A;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  font-weight: 400;
+  color: #111111;
   line-height: 1;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', sans-serif;
+  }
 }
 
 .statLabel {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
   color: #999999;
-
-  [dir='rtl'] & {
-    text-transform: none;
-    letter-spacing: 0;
-  }
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }

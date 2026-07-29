@@ -65,7 +65,7 @@ export function Testimonials() {
             {TESTIMONIALS.map((_, i) => (
               <button
                 key={i}
-                className={[styles.dot, i === active && styles.dotActive].filter(Boolean).join(' ')}
+                className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
                 onClick={() => setActive(i)}
                 aria-label={`Testimonial ${i + 1}`}
               />

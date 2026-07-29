@@ -1,228 +1,236 @@
-// XVI GROUP — Typography Engine (v2)
-// Per TYPOGRAPHY_SYSTEM.md — Independent EN/AR systems
-
 import type { Language, Direction } from '../types';
 
 // ============================================
-// FONT FAMILY MAP
+// LUXURY TYPOGRAPHY SYSTEM — EXECUTIVE CLASS
 // ============================================
 
+// Premium font families with Arabic support
 export const FONT_FAMILIES = {
   en: {
-    heading: "'Fraunces', Georgia, 'Times New Roman', serif",
-    body: "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    heading: '"Playfair Display", Georgia, "Times New Roman", serif',
+    body: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    monospace: '"JetBrains Mono", "Fira Code", "Courier New", monospace',
   },
   ar: {
-    heading: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
-    body: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    heading: '"Cairo", "Tajawal", "Palatino Linotype", "Book Antiqua", sans-serif',
+    body: '"Inter", "Cairo", "Tajawal", sans-serif',
+    monospace: '"JetBrains Mono", "Fira Code", "Courier New", monospace',
   },
-} as const;
+};
 
 // ============================================
-// ENGLISH TYPE SCALE — Per TYPOGRAPHY_SYSTEM.md
+// EDITORIAL TYPE SCALE — Luxury Zenith
 // ============================================
 
 export const EN_TYPE_SCALE = {
+  // Executives readability scale
   display: {
-    fontSize: 'clamp(3rem, 6vw, 5rem)',
+    fontSize: 'clamp(3.5rem, 9vw, 6rem)',
     lineHeight: '1.0',
-    letterSpacing: '-0.04em',
+    letterSpacing: '-0.03em',
     fontWeight: 700 as const,
-    fontFamily: "'Fraunces', Georgia, serif",
+    fontFamily: '"Playfair Display", Georgia, serif',
+    fontFeatureSettings: '"clashActivate" 0',
   },
   h1: {
-    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+    fontSize: 'clamp(3rem, 8vw, 5rem)',
     lineHeight: '1.05',
-    letterSpacing: '-0.03em',
+    letterSpacing: '-0.02em',
     fontWeight: 400 as const,
-    fontFamily: "'Fraunces', Georgia, serif",
+    fontFamily: '"Playfair Display", Georgia, serif',
   },
   h2: {
-    fontSize: 'clamp(2rem, 4vw, 3rem)',
+    fontSize: 'clamp(2.5rem, 7vw, 4rem)',
     lineHeight: '1.1',
-    letterSpacing: '-0.02em',
+    letterSpacing: '-0.018em',
     fontWeight: 700 as const,
-    fontFamily: "'Fraunces', Georgia, serif",
+    fontFamily: '"Playfair Display", Georgia, serif',
   },
   h3: {
-    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-    lineHeight: '1.2',
-    letterSpacing: '-0.01em',
+    fontSize: 'clamp(2rem, 6vw, 3.5rem)',
+    lineHeight: '1.15',
+    letterSpacing: '-0.015em',
     fontWeight: 600 as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   h4: {
-    fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
-    lineHeight: '1.3',
-    letterSpacing: '0',
+    fontSize: 'clamp(1.75rem, 5vw, 3rem)',
+    lineHeight: '1.2',
+    letterSpacing: '-0.012em',
     fontWeight: 600 as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   bodyLarge: {
-    fontSize: 'clamp(1.125rem, 1.75vw, 1.25rem)',
+    fontSize: 'clamp(1.25rem, 4vw, 2rem)',
     lineHeight: '1.618',
     letterSpacing: '0',
     fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   body: {
-    fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
+    fontSize: 'clamp(1rem, 1.75vw, 1.25rem)',
     lineHeight: '1.618',
     letterSpacing: '0',
     fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   small: {
     fontSize: '0.9375rem',
-    lineHeight: '1.6',
-    letterSpacing: '0.01em',
+    lineHeight: '1.65',
+    letterSpacing: '0.005em',
     fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   caption: {
-    fontSize: '0.8125rem',
-    lineHeight: '1.4',
-    letterSpacing: '0.02em',
+    fontSize: '0.875rem',
+    lineHeight: '1.5',
+    letterSpacing: '0.008em',
     fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   overline: {
     fontSize: '0.75rem',
     lineHeight: '1',
-    letterSpacing: '0.14em',
+    letterSpacing: '0.12em',
     fontWeight: 500 as const,
     textTransform: 'uppercase' as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   button: {
     fontSize: '0.875rem',
     lineHeight: '1',
-    letterSpacing: '0.06em',
+    letterSpacing: '0.04em',
     fontWeight: 600 as const,
     textTransform: 'uppercase' as const,
-    fontFamily: "'IBM Plex Sans', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   nav: {
     fontSize: '0.875rem',
     lineHeight: '1',
-    letterSpacing: '0.04em',
+    letterSpacing: '0.035em',
     fontWeight: 500 as const,
-    fontFamily: "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
-} as const;
-
-// ============================================
-// ARABIC TYPE SCALE — Per TYPOGRAPHY_SYSTEM.md
-// ============================================
+};
 
 export const AR_TYPE_SCALE = {
+  // Editorial elegance for Arabic
   display: {
-    fontSize: 'clamp(2.75rem, 5.5vw, 4.5rem)',
-    lineHeight: '1.2',
+    fontSize: 'clamp(3.25rem, 8.5vw, 5.5rem)',
+    lineHeight: '1.1',
     letterSpacing: '0',
     fontWeight: 700 as const,
-    fontFamily: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
+    fontFamily: '"Cairo", "Tajawal", "Palatino Linotype", "Book Antiqua", sans-serif',
   },
   h1: {
-    fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)',
-    lineHeight: '1.2',
-    letterSpacing: '0',
-    fontWeight: 600 as const,
-    fontFamily: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
+    fontSize: 'clamp(2.75rem, 7.5vw, 4rem)',
+    lineHeight: '1.08',
+    letterSpacing: '-0.01em',
+    fontWeight: 400 as const,
+    fontFamily: '"Cairo", "Tajawal", "Palatino Linotype", "Book Antiqua", sans-serif',
   },
   h2: {
-    fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-    lineHeight: '1.3',
-    letterSpacing: '0',
+    fontSize: 'clamp(2.25rem, 6.5vw, 3rem)',
+    lineHeight: '1.15',
+    letterSpacing: '-0.008em',
     fontWeight: 700 as const,
-    fontFamily: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
+    fontFamily: '"Cairo", "Tajawal", "Palatino Linotype", "Book Antiqua", sans-serif',
   },
   h3: {
-    fontSize: 'clamp(1.375rem, 2.75vw, 1.875rem)',
-    lineHeight: '1.35',
-    letterSpacing: '0',
+    fontSize: 'clamp(1.75rem, 5.5vw, 2.5rem)',
+    lineHeight: '1.2',
+    letterSpacing: '-0.005em',
     fontWeight: 600 as const,
-    fontFamily: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   h4: {
-    fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
-    lineHeight: '1.4',
+    fontSize: 'clamp(1.5rem, 4.5vw, 1.75rem)',
+    lineHeight: '1.28',
     letterSpacing: '0',
     fontWeight: 600 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    fontFamily: '"Inter", sans-serif',
   },
   bodyLarge: {
-    fontSize: 'clamp(1.125rem, 1.75vw, 1.25rem)',
-    lineHeight: '1.8',
-    letterSpacing: '0',
-    fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
-  },
-  body: {
-    fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
-    lineHeight: '1.8',
-    letterSpacing: '0',
-    fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
-  },
-  small: {
-    fontSize: '0.9375rem',
+    fontSize: 'clamp(1.125rem, 3.5vw, 1.5rem)',
     lineHeight: '1.7',
     letterSpacing: '0',
     fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
   },
-  caption: {
-    fontSize: '0.8125rem',
-    lineHeight: '1.5',
+  body: {
+    fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+    lineHeight: '1.75',
     letterSpacing: '0',
     fontWeight: 400 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
+  },
+  small: {
+    fontSize: '0.9375rem',
+    lineHeight: '1.8',
+    letterSpacing: '0',
+    fontWeight: 400 as const,
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
+  },
+  caption: {
+    fontSize: '0.875rem',
+    lineHeight: '1.65',
+    letterSpacing: '0',
+    fontWeight: 400 as const,
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
   },
   overline: {
     fontSize: '0.75rem',
-    lineHeight: '1.2',
-    letterSpacing: '0.06em',
+    lineHeight: '1.3',
+    letterSpacing: '0.05em',
     fontWeight: 500 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
   },
   button: {
     fontSize: '0.875rem',
     lineHeight: '1.2',
-    letterSpacing: '0.04em',
+    letterSpacing: '0.035em',
     fontWeight: 600 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
   },
   nav: {
     fontSize: '0.875rem',
     lineHeight: '1.2',
-    letterSpacing: '0.02em',
+    letterSpacing: '0.025em',
     fontWeight: 500 as const,
-    fontFamily: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+    fontFamily: '"Inter", "Cairo", "Tajawal", sans-serif',
   },
-} as const;
+};
 
 // ============================================
-// TYPOGRAPHY ENGINE CLASS
+// TYPOGRAPHY ENGINE — Premium Experience
 // ============================================
 
-class TypographyEngine {
+export class TypographyEngine {
   private currentLanguage: Language = 'en';
 
   setLanguage(lang: Language) {
     this.currentLanguage = lang;
   }
 
-  getFontFamily(role: 'heading' | 'body'): string {
-    return FONT_FAMILIES[this.currentLanguage][role];
-  }
-
   getDirection(): Direction {
     return this.currentLanguage === 'ar' ? 'rtl' : 'ltr';
   }
 
-  getAlignment(): 'left' | 'right' {
-    return this.currentLanguage === 'ar' ? 'right' : 'left';
+  getFontFamily(role: 'heading' | 'body' | 'monospace'): string {
+    const direction = this.currentLanguage;
+    const roleMap: Record<Language, Record<string, string>> = {
+      en: {
+        heading: '"Playfair Display", Georgia, serif',
+        body: '"Inter", sans-serif',
+        monospace: '"JetBrains Mono", "Fira Code", monospace',
+      },
+      ar: {
+        heading: '"Cairo", "Tajawal", "Palatino Linotype", "Book Antiqua", sans-serif',
+        body: '"Inter", "Cairo", "Tajawal", sans-serif',
+        monospace: '"JetBrains Mono", "Fira Code", monospace',
+      },
+    };
+    return roleMap[direction][role];
   }
 
   getScale() {
@@ -231,26 +239,19 @@ class TypographyEngine {
 
   getLineHeight(role: 'heading' | 'body'): string {
     if (this.currentLanguage === 'ar') {
-      return role === 'body' ? '1.8' : '1.25';
+      return role === 'body' ? '1.75' : '1.2';
     }
     return role === 'body' ? '1.618' : '1.05';
   }
 
-  getMaxLineWidth(): string {
-    return this.currentLanguage === 'ar' ? '55ch' : '65ch';
-  }
-
-  getCSSVariables(): Record<string, string> {
+  getCSSVariables() {
     const scale = this.getScale();
+    const fontFamily = this.getFontFamily('body');
+    
     return {
-      '--font-heading': this.getFontFamily('heading'),
-      '--font-body': this.getFontFamily('body'),
-      '--font-display-en': "'Fraunces', Georgia, serif",
-      '--font-display-ar': "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
-      '--font-heading-en': "'Fraunces', Georgia, serif",
-      '--font-heading-ar': "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
-      '--font-body-en': "'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      '--font-body-ar': "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
+      '--font-body': fontFamily,
+      '--font-heading': '"Playfair Display", Georgia, serif',
+      '--font-monospace': '"JetBrains Mono", "Fira Code", monospace',
       '--text-display-size': scale.display.fontSize,
       '--text-display-height': scale.display.lineHeight,
       '--text-display-spacing': scale.display.letterSpacing,
@@ -282,10 +283,12 @@ class TypographyEngine {
       '--text-overline-spacing': scale.overline.letterSpacing,
       '--text-button-size': scale.button.fontSize,
       '--text-button-spacing': scale.button.letterSpacing,
-      '--text-max-width': this.getMaxLineWidth(),
-      '--text-alignment': this.getAlignment(),
+      '--text-max-width': '75ch',
+      '--text-alignment': this.getDirection() === 'rtl' ? 'right' : 'left',
+      '--font-feature-settings': '"clashActivate" 0',
     };
   }
 }
 
+// Singleton instance
 export const typographyEngine = new TypographyEngine();

@@ -52,7 +52,7 @@ export function Insights() {
         />
         <div className={styles.grid}>
           {INSIGHTS.map((item, i) => (
-            <article key={i} className={[styles.card, item.hero && styles.cardHero].filter(Boolean).join(' ')}>
+            <article key={i} className={`${styles.card} ${item.hero ? styles.cardHero : ''}`}>
               <div className={styles.cardMeta}>
                 <span className={styles.cardCategory}>{ar ? item.categoryAr : item.category}</span>
                 <time className={styles.cardDate}>{item.date}</time>

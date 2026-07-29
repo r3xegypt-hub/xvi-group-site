@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { XMark } from '../ui/Logo';
+import { LogoIcon } from '../ui/Logo';
 import styles from './AIConsultant.module.scss';
 
 export function AIConsultant() {
@@ -29,7 +29,7 @@ export function AIConsultant() {
           <div className={styles.panelBody}>
             <div className={styles.message}>
               <div className={styles.messageAvatar}>
-                <XMark size={16} />
+                <LogoIcon size={18} variant="light" />
               </div>
               <div className={styles.messageContent}>
                 <strong className={styles.messageTitle}>{ar ? 'مساعد XVI' : 'XVI Assistant'}</strong>
@@ -59,7 +59,7 @@ export function AIConsultant() {
         aria-expanded={open}
         aria-label={open ? 'Close AI Assistant' : 'Open AI Assistant'}
       >
-        {open ? <X size={22} /> : <XMark size={22} />}
+        {open ? <X size={22} /> : <LogoIcon size={22} variant="light" />}
       </button>
     </aside>
   );

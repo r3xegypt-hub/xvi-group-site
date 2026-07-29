@@ -13,7 +13,7 @@ export function Footer() {
       <Container>
         <div className={styles.grid}>
           <div className={styles.brand}>
-            <LogoWordmark />
+            <LogoWordmark variant="light" />
             <p className={styles.tagline}>
               {ar
                 ? 'نصنع مؤسسات تُحرّك الأسواق، تُحوّل الصناعات، وتقود ثورات التكنولوجيا.'
