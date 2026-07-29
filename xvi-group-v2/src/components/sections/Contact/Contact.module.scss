@@ -13,23 +13,151 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
   }
+}
+
+.visualCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visualFrame {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4/5;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.04);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visualGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  position: absolute;
+  inset: 0;
+}
+
+.visualCell {
+  border: 1px solid rgba(200, 166, 90, 0.04);
+}
+
+.visualContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 40px;
+}
+
+.visualIcon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 166, 90, 0.06);
+  border: 1px solid rgba(200, 166, 90, 0.12);
+  color: #C8A65A;
+}
+
+.visualCity {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #111111;
+  margin: 0;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.visualAddress {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #666666;
+  margin: 0;
+}
+
+.visualDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.visualDetail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: #999999;
+
+  svg { color: #C8A65A; flex-shrink: 0; }
+}
+
+.formCol {
+  max-width: 520px;
+}
+
+.formHeader {
+  margin-bottom: 32px;
+}
+
+.formEyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C8A65A;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.formTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 12px;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.formDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 20px;
 
   @media (min-width: 640px) {
     grid-template-columns: 1fr 1fr;
@@ -39,16 +167,8 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-
-.label {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #999999;
+  gap: 0;
+  position: relative;
 }
 
 .input {
@@ -65,47 +185,13 @@
     border-color: #C8A65A;
   }
 
-  &::placeholder {
-    color: #999999;
-  }
+  &::placeholder { color: #999999; }
 }
 
 .textarea {
   @extend .input;
   resize: vertical;
-  min-height: 120px;
-}
-
-.submit {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 36px;
-  background: #C8A65A;
-  color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border: none;
-  cursor: pointer;
-  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  align-self: flex-start;
-
-  &:hover {
-    background: #B8963E;
-    transform: translateY(-2px);
-  }
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 40px;
-  background: #FFFFFF;
-  border: 1px solid rgba(17, 17, 17, 0.04);
-  position: relative;
+  min-height: 100px;
 }
 
 .fieldLine {
@@ -122,85 +208,21 @@
   }
 }
 
-.infoAccent {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
+.submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
   background: #C8A65A;
-}
-
-.infoCity {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #111111;
-  margin: 0;
-
-  [dir='rtl'] & {
-    font-family: 'Alexandria', sans-serif;
-  }
-}
-
-.infoAddress {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  color: #666666;
-  margin: 0;
-}
-
-.infoEmail {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  color: #C8A65A;
-  text-decoration: none;
-  transition: opacity 300ms;
-
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-.infoPhone {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  color: #111111;
-  margin: 0;
-}
-
-.social {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(17, 17, 17, 0.06);
-}
-
-.socialLabel {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #999999;
-}
-
-.socialLinks {
-  display: flex;
-  gap: 16px;
-}
-
-.socialLink {
+  color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
-  color: #666666;
-  text-decoration: none;
-  transition: color 300ms;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  align-self: flex-start;
 
-  &:hover {
-    color: #C8A65A;
-  }
+  &:hover { background: #B8963E; transform: translateY(-2px); }
 }

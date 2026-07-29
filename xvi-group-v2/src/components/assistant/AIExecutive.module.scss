@@ -23,9 +23,9 @@
   width: 64px;
   height: 64px;
   background: rgba(17, 17, 17, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(200, 166, 90, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(200, 166, 90, 0.2);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@
   transition: border-color 0.3s ease;
 
   &:hover {
-    border-color: rgba(200, 166, 90, 0.6);
+    border-color: rgba(200, 166, 90, 0.5);
   }
 }
 
@@ -49,41 +49,42 @@
 
 .crystalGlow {
   position: absolute;
-  inset: -20px;
-  background: radial-gradient(circle at center, rgba(200, 166, 90, 0.15), transparent 60%);
+  inset: -24px;
+  background: radial-gradient(circle at center, rgba(200, 166, 90, 0.12), transparent 60%);
   pointer-events: none;
   animation: pulseGlow 3s ease-in-out infinite;
 }
 
-.crystalRing1 {
+.crystalRing {
   position: absolute;
   inset: -8px;
-  border: 1px solid rgba(200, 166, 90, 0.15);
+  border: 1px solid rgba(200, 166, 90, 0.12);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   pointer-events: none;
-  animation: rotateSlow 8s linear infinite;
+  animation: rotateSlow 10s linear infinite;
 }
 
-.crystalRing2 {
+.crystalRingOuter {
   position: absolute;
   inset: -16px;
-  border: 1px solid rgba(200, 166, 90, 0.08);
+  border: 1px solid rgba(200, 166, 90, 0.06);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   pointer-events: none;
-  animation: rotateSlow 12s linear infinite reverse;
+  animation: rotateSlow 15s linear infinite reverse;
 }
 
 .panel {
   position: fixed;
   bottom: 100px;
   right: 24px;
-  width: 500px;
+  width: 480px;
   max-width: calc(100vw - 48px);
   max-height: 70vh;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(200, 166, 90, 0.15);
+  border: 1px solid rgba(200, 166, 90, 0.12);
+  box-shadow: 0 24px 80px rgba(17, 17, 17, 0.08);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -99,18 +100,52 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.3), transparent);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.25), transparent);
   pointer-events: none;
   z-index: 0;
 }
 
+.statusBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(17, 17, 17, 0.02);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.04);
+  position: relative;
+  z-index: 1;
+}
+
+.statusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2D6A4F;
+  flex-shrink: 0;
+}
+
+.statusText {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #999999;
+}
+
+.statusPulse {
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(200, 166, 90, 0.3), transparent);
+  margin-left: auto;
+}
+
 .panelHeader {
-  padding: 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid rgba(17, 17, 17, 0.06);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   position: relative;
   z-index: 1;
 }
@@ -118,15 +153,18 @@
 .panelBrand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.brandDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #2D6A4F;
-  box-shadow: 0 0 8px rgba(45, 106, 79, 0.5);
+.brandIcon {
+  width: 32px;
+  height: 32px;
+  background: rgba(200, 166, 90, 0.08);
+  border: 1px solid rgba(200, 166, 90, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C8A65A;
   flex-shrink: 0;
 }
 
@@ -140,7 +178,7 @@
 
 .brandStatus {
   font-family: 'Inter', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   color: #999999;
   display: block;
 }
@@ -148,7 +186,7 @@
 .metricsRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
 .metric {
@@ -156,19 +194,17 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 8px;
-  background: rgba(200, 166, 90, 0.04);
+  padding: 8px 4px;
+  background: rgba(200, 166, 90, 0.03);
+  border: 1px solid rgba(200, 166, 90, 0.06);
   color: #C8A65A;
 
-  svg {
-    width: 14px;
-    height: 14px;
-  }
+  svg { width: 13px; height: 13px; }
 }
 
 .metricValue {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #111111;
   line-height: 1;
@@ -176,7 +212,7 @@
 
 .metricLabel {
   font-family: 'Inter', sans-serif;
-  font-size: 0.5625rem;
+  font-size: 0.5rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -203,28 +239,27 @@
 }
 
 .avatarRing {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: rgba(200, 166, 90, 0.08);
+  background: rgba(200, 166, 90, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 1px solid rgba(200, 166, 90, 0.2);
-    animation: pulseRing 3s ease-in-out infinite;
-  }
 }
 
-.avatarRingInner {
-  width: 60px;
-  height: 60px;
+.avatarGlow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 166, 90, 0.15);
+  animation: pulseRing 3s ease-in-out infinite;
+}
+
+.avatarIcon {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: #111111;
   display: flex;
@@ -233,18 +268,12 @@
   color: #C8A65A;
 }
 
-.avatarIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .avatarText {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.0625rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.6;
   color: #666666;
-  max-width: 380px;
+  max-width: 360px;
   margin: 0 auto;
 }
 
@@ -258,9 +287,9 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 16px;
-  background: rgba(200, 166, 90, 0.04);
-  border: 1px solid rgba(200, 166, 90, 0.1);
+  padding: 12px 16px;
+  background: rgba(200, 166, 90, 0.03);
+  border: 1px solid rgba(200, 166, 90, 0.08);
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
@@ -268,46 +297,32 @@
   cursor: pointer;
   transition: all 0.3s ease;
 
-  svg {
-    color: #C8A65A;
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    background: rgba(200, 166, 90, 0.1);
-    border-color: rgba(200, 166, 90, 0.25);
-  }
+  svg { color: #C8A65A; flex-shrink: 0; }
 }
 
 .chipRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .chip {
-  padding: 8px 16px;
+  padding: 7px 14px;
   background: transparent;
-  border: 1px solid rgba(17, 17, 17, 0.1);
+  border: 1px solid rgba(17, 17, 17, 0.08);
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 500;
   color: #666666;
   cursor: pointer;
   transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(200, 166, 90, 0.1);
-    border-color: rgba(200, 166, 90, 0.3);
-    color: #C8A65A;
-  }
 }
 
 .panelFooter {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-top: 1px solid rgba(17, 17, 17, 0.06);
   position: relative;
   z-index: 1;
@@ -319,13 +334,11 @@
   background: rgba(17, 17, 17, 0.03);
   padding: 12px 16px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #111111;
   outline: none;
 
-  &::placeholder {
-    color: #999999;
-  }
+  &::placeholder { color: #999999; }
 }
 
 .sendBtn {
@@ -342,8 +355,8 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
 }
 
 @keyframes rotateSlow {
@@ -352,6 +365,6 @@
 }
 
 @keyframes pulseRing {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.04); }
 }

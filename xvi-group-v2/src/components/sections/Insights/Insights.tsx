@@ -3,22 +3,19 @@ import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section, SectionHeader } from '../../layout/Section';
-import { BrokenGrid, BrokenGridItem } from '../../../motion/BrokenGrid';
-import { ImageReveal } from '../../../motion/ImageReveal';
-import { SectionSeparator } from '../../../motion/SectionSeparator';
 import styles from './Insights.module.scss';
 
-const INSIGHTS = [
+const articles = [
   {
     category: 'PERSPECTIVE',
     categoryAr: 'رؤية',
     title: 'The Sovereign AI Imperative',
     titleAr: 'ضرورة الذكاء السيادي',
     date: 'Jan 2026',
-    excerpt: 'The enterprises that control their own AI infrastructure will define the next decade of competitive advantage.',
+    excerpt: 'The enterprises that control their own AI infrastructure will define the next decade of competitive advantage. A deep dive into building sovereign intelligence capability.',
     excerptAr: 'المؤسسات التي تتحكم في بنيتها التحتية للذكاء الاصطناعي ستحدد ميزة العقد القادم.',
-    span: 2,
-    offset: 0,
+    hero: true,
+    readTime: '12 min',
   },
   {
     category: 'CASE STUDY',
@@ -27,20 +24,18 @@ const INSIGHTS = [
     titleAr: 'هندسة سحابية أصلية للمؤسسات',
     date: 'Dec 2025',
     excerpt: 'Cloud migration failures are architectural, not technical. The solution is redesign from the ground up.',
-    excerptAr: 'فشل الترحيل السحابي معماري وليس تقني. الحل هو إعادة التصميم من الأساس.',
-    span: 1,
-    offset: 40,
+    excerptAr: 'فشل الترحيل السحابي معماري وليس تقني.',
+    readTime: '8 min',
   },
   {
     category: 'RESEARCH',
     categoryAr: 'بحث',
     title: 'Executive Decision Architecture in the Age of AI',
-    titleAr: 'هندسة القرارات التنفيذية في عصر الذكاء الاصطناعي',
+    titleAr: 'هندسة القرارات التنفيذية في عصر الذكاء',
     date: 'Nov 2025',
     excerpt: 'How top executives redesign decision-making frameworks to integrate AI insights with strategic sovereignty.',
-    excerptAr: 'كيف يعيد كبار التنفيذيين تصميم أطر اتخاذ القرارات لدمج رؤى الذكاء الاصطناعي.',
-    span: 1,
-    offset: 0,
+    excerptAr: 'كيف يعيد التنفيذيون تصميم أطر اتخاذ القرارات.',
+    readTime: '15 min',
   },
 ];
 
@@ -54,56 +49,90 @@ export function Insights() {
         <SectionHeader
           overline={ar ? 'الرؤى' : 'INSIGHTS'}
           title={ar ? 'أحدث الأفكار' : 'Latest Thinking'}
-          description={ar
-            ? 'رؤى استراتيجية وتحليلات معمّقة من فريقنا الاستشاري.'
-            : 'Strategic perspectives and analysis from our advisory team.'
-          }
+          description={ar ? 'رؤى استراتيجية وتحليلات معمّقة من فريقنا الاستشاري.' : 'Strategic perspectives from our advisory team.'}
         />
-        <BrokenGrid className={styles.grid} columns={3}>
-          {INSIGHTS.map((item, i) => (
-            <BrokenGridItem key={i} span={item.span} offset={item.offset}>
+        <div className={styles.layout}>
+          <motion.article
+            className={styles.heroArticle}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            whileHover={{ y: -4 }}
+          >
+            <div className={styles.heroVisual}>
+              <div className={styles.heroGrid}>
+                {Array.from({ length: 30 }).map((_, i) => (
+                  <motion.span
+                    key={i}
+                    className={styles.heroCell}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 0.05 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.01 }}
+                  />
+                ))}
+              </div>
+              <div className={styles.heroBadge}>
+                <span className={styles.badgeDot} />
+                {articles[0].readTime}
+              </div>
+            </div>
+            <div className={styles.heroContent}>
+              <div className={styles.articleMeta}>
+                <span className={styles.articleCategory}>{ar ? articles[0].categoryAr : articles[0].category}</span>
+                <time>{articles[0].date}</time>
+              </div>
+              <h3 className={styles.articleTitle}>{ar ? articles[0].titleAr : articles[0].title}</h3>
+              <p className={styles.articleExcerpt}>{ar ? articles[0].excerptAr : articles[0].excerpt}</p>
+              <motion.span className={styles.articleLink} whileHover={{ gap: 12 }}>
+                {ar ? 'قراءة المقال' : 'Read Article'}
+                <ArrowUpRight size={14} />
+              </motion.span>
+            </div>
+          </motion.article>
+
+          <div className={styles.sidebar}>
+            {articles.slice(1).map((item, i) => (
               <motion.article
-                className={`${styles.card} ${i === 0 ? styles.cardHero : ''}`}
-                initial={{ opacity: 0, y: 30 }}
+                key={i}
+                className={styles.sidebarArticle}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
-                whileHover={{ y: -4 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 + i * 0.1 }}
+                whileHover={{ y: -2 }}
               >
-                {i === 0 && (
-                  <ImageReveal direction="right" aspectRatio="16/9">
-                    <div className={styles.cardImage}>
-                      <div className={styles.cardImageGrid}>
-                        {Array.from({ length: 24 }).map((_, j) => (
-                          <motion.span
-                            key={j}
-                            className={styles.cardImageCell}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 0.04 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: j * 0.015 }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </ImageReveal>
-                )}
-                <div className={styles.cardMeta}>
-                  <span className={styles.cardCategory}>{ar ? item.categoryAr : item.category}</span>
-                  <time className={styles.cardDate}>{item.date}</time>
+                <div className={styles.sidebarVisual}>
+                  <div className={styles.sidebarGrid}>
+                    {Array.from({ length: 9 }).map((_, j) => (
+                      <motion.span
+                        key={j}
+                        className={styles.sidebarCell}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 0.04 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 + j * 0.02 }}
+                      />
+                    ))}
+                  </div>
+                  <span className={styles.sidebarBadge}>{item.readTime}</span>
                 </div>
-                <h3 className={styles.cardTitle}>{ar ? item.titleAr : item.title}</h3>
-                <p className={styles.cardExcerpt}>{ar ? item.excerptAr : item.excerpt}</p>
-                <motion.span className={styles.cardLink} whileHover={{ gap: 12 }}>
-                  {ar ? 'اقرأ المزيد' : 'Read More'}
+                <div className={styles.articleMeta}>
+                  <span className={styles.articleCategory}>{ar ? item.categoryAr : item.category}</span>
+                  <time>{item.date}</time>
+                </div>
+                <h3 className={styles.articleTitle}>{ar ? item.titleAr : item.title}</h3>
+                <p className={styles.articleExcerpt}>{ar ? item.excerptAr : item.excerpt}</p>
+                <motion.span className={styles.articleLink} whileHover={{ gap: 12 }}>
+                  {ar ? 'قراءة' : 'Read'}
                   <ArrowUpRight size={14} />
                 </motion.span>
               </motion.article>
-            </BrokenGridItem>
-          ))}
-        </BrokenGrid>
+            ))}
+          </div>
+        </div>
       </Container>
-      <SectionSeparator variant="line" />
     </Section>
   );
 }
