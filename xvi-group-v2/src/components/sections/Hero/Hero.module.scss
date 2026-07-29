@@ -1,107 +1,112 @@
-// XVI GROUP — Hero Section Styles (v4 — Premium Hero Experience)
-// Cinematic composition, parallax, luxury spacing, mobile-first
+// XVI GROUP — Hero (Sprint 01)
+// Editorial executive · split layout · premium motion
 
 @import '../../../styles/mixins/devices';
 
-// ============================================
-// HERO — ROOT
-// ============================================
-
 .hero {
   position: relative;
-  width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   overflow: hidden;
   background: #FAFAF8;
+  padding-top: 76px;
 
-  // RTL: Flip hero layout — illustration LEFT, content RIGHT
-  &.heroRTL {
-    justify-content: flex-end;
+  @include from-laptop { padding-top: 84px; }
+  @include from-desktop { padding-top: 92px; }
 
-    .layerContent {
-      text-align: right;
-
-      @include desktop {
-        padding-left: 80px;
-        padding-right: 140px;
-      }
-
-      @include laptop {
-        padding-left: 48px;
-        padding-right: 80px;
-      }
-    }
-
-    .eyebrow::before {
-      margin-right: 0;
-      margin-left: 14px;
-    }
-
-    .headlineHighlight::after {
-      left: auto;
-      right: 0;
-    }
-
-    .meridianLine {
-      transform-origin: right center;
-    }
-
-    .stat::before {
-      left: auto;
-      right: 0;
-    }
-
-    .layerAI {
-      right: auto;
-      left: 0;
-      transform: translateY(-50%) scaleX(-1);
-    }
-
-    .ctaArrow {
-      margin-left: 0;
-      margin-right: 10px;
-
-      [dir="rtl"] & {
-        margin-right: 10px;
-        margin-left: 0;
-      }
-    }
-
-    .scrollIndicator {
-      left: auto;
-      right: 50%;
-      transform: translateX(50%);
-    }
-  }
-
-  // Subtle warm tint
-  &::before {
+  &::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 25% 85%, rgba(201, 169, 110, 0.025) 0%, transparent 55%),
-      radial-gradient(ellipse at 75% 15%, rgba(201, 169, 110, 0.015) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(201, 169, 110, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(10, 22, 40, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
 }
 
-// ============================================
-// LAYER 1: ARCHITECTURAL GRID — parallax
-// ============================================
+.heroLTR .heroGrid {
+  direction: ltr;
+}
 
-.layerGrid {
+.heroRTL .heroGrid {
+  direction: rtl;
+}
+
+.heroRTL {
+  .contentCol { text-align: right; }
+  .eyebrow { flex-direction: row-reverse; }
+  .ctas { flex-direction: row-reverse; }
+  .ctaArrow { transform: scaleX(-1); }
+  .stat::before { left: auto; right: 0; }
+}
+
+.heroLTR,
+.heroRTL {
+  @include from-tablet-landscape {
+    .contentCol { order: 1; }
+    .illustrationCol { order: 2; }
+  }
+}
+
+.ambientLayer {
   position: absolute;
-  inset: -60px;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.5;
-  will-change: transform;
+  overflow: hidden;
+}
+
+.lightOrb1 {
+  position: absolute;
+  top: 8%;
+  right: 15%;
+  width: min(520px, 55vw);
+  height: min(520px, 55vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.09) 0%, transparent 68%);
+  filter: blur(60px);
+  animation: orbDrift 22s ease-in-out infinite;
+}
+
+.lightOrb2 {
+  position: absolute;
+  bottom: 5%;
+  left: 8%;
+  width: min(400px, 45vw);
+  height: min(400px, 45vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(10, 22, 40, 0.04) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: orbDrift 18s ease-in-out infinite reverse;
+}
+
+.lightBeam {
+  position: absolute;
+  top: -20%;
+  right: 25%;
+  width: 1px;
+  height: 140%;
+  background: linear-gradient(180deg, transparent, rgba(201, 169, 110, 0.12) 40%, transparent);
+  transform: rotate(12deg);
+  animation: beamPulse 8s ease-in-out infinite;
+}
+
+.particleCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+
+.gridLayer {
+  position: absolute;
+  inset: -40px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .gridSvg {
@@ -109,603 +114,461 @@
   height: 100%;
 }
 
-// ============================================
-// LAYER 2: AMBIENT ATMOSPHERE — parallax
-// ============================================
-
-.layerAmbient {
-  position: absolute;
-  inset: -40px;
-  z-index: 1;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.goldOrb {
-  position: absolute;
-  top: 15%;
-  right: 25%;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.04) 0%, transparent 70%);
-  filter: blur(80px);
-  animation: orbFloat 20s ease-in-out infinite;
-}
-
-.goldOrbSecondary {
-  position: absolute;
-  bottom: 20%;
-  left: 15%;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(10, 22, 40, 0.02) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: orbFloat 16s ease-in-out infinite reverse;
-}
-
-.floatingDiamond {
-  position: absolute;
-  animation: float 12s ease-in-out infinite;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.diamond1 {
-  top: 12%;
-  right: 18%;
-  width: 72px;
-  height: 72px;
-  animation-delay: 0s;
-  opacity: 0.35;
-}
-
-.diamond2 {
-  top: 65%;
-  right: 10%;
-  width: 52px;
-  height: 52px;
-  animation-delay: -4s;
-  opacity: 0.25;
-}
-
-.diamond3 {
-  top: 38%;
-  right: 38%;
-  width: 36px;
-  height: 36px;
-  animation-delay: -8s;
-  opacity: 0.15;
-}
-
-.particleField {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-// ============================================
-// LAYER 3: AI NETWORK — parallax
-// ============================================
-
-.layerAI {
-  position: absolute;
-  top: 50%;
-  right: -5%;
-  width: 52%;
-  height: 85%;
-  z-index: 2;
-  pointer-events: none;
-  will-change: transform;
-  transform: translateY(-50%);
-
-  @include laptop {
-    width: 50%;
-    right: -2%;
-  }
-
-  @include tablet-landscape {
-    width: 55%;
-    opacity: 0.6;
-    right: -5%;
-  }
-
-  @include tablet-portrait {
-    width: 65%;
-    opacity: 0.35;
-    right: -10%;
-  }
-
-  @include large-mobile {
-    opacity: 0;
-  }
-}
-
-.aiSvg {
-  width: 100%;
-  height: 100%;
-}
-
-// ============================================
-// LAYER 4: CONTENT
-// ============================================
-
-.layerContent {
+.heroGrid {
   position: relative;
-  z-index: 3;
-  width: 100%;
-  max-width: 1200px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
   margin: 0 auto;
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
+  padding: 48px 24px 100px;
+  gap: 40px;
 
-  // Mobile-first
-  padding: 120px 24px 60px;
-
-  @include small-mobile {
-    padding: 112px 20px 48px;
+  @include from-tablet-portrait {
+    padding: 56px 40px 100px;
   }
 
-  @include medium-mobile {
-    padding: 120px 24px 56px;
+  @include from-tablet-landscape {
+    flex-direction: row;
+    align-items: center;
+    padding: 64px 48px 100px;
+    gap: 48px;
+  }
+
+  @include from-laptop {
+    padding: 72px 56px 120px;
+    gap: 64px;
+    min-height: calc(100vh - 84px);
+    min-height: calc(100dvh - 84px);
+  }
+
+  @include from-desktop {
+    padding: 88px 72px 140px;
+    gap: 80px;
+    min-height: calc(100vh - 92px);
+    min-height: calc(100dvh - 92px);
+  }
+}
+
+.contentCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 680px;
+
+  @include from-tablet-landscape {
+    flex: 0 0 48%;
+    max-width: none;
+  }
+
+  @include from-laptop {
+    flex: 0 0 46%;
+  }
+}
+
+.illustrationCol {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  opacity: 0;
+  transform: translateY(32px) scale(0.97);
+  transition:
+    opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 200ms;
+
+  @include from-tablet-landscape {
+    flex: 0 0 52%;
+    min-height: 420px;
   }
 
   @include large-mobile {
-    padding: 128px 28px 64px;
+    min-height: 220px;
+    opacity: 0.5;
   }
+}
 
-  @include tablet-portrait {
-    padding: 140px 40px 80px;
-  }
+.illustrationVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
-  @include tablet-landscape {
-    padding: 160px 48px 80px;
-  }
+.illustrationSvg {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  opacity: 0.92;
+}
 
-  @include laptop {
-    padding: 160px 48px 100px;
-    padding-left: 80px;
-  }
+.illustrationActive .networkLine {
+  animation: linePulse 4s ease-in-out infinite;
+}
 
-  @include desktop {
-    padding: 180px 64px 120px;
-    padding-left: 140px;
-  }
+.drawPath {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: drawIn 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 400ms;
 }
 
 // ============================================
-// ENTRANCE ANIMATIONS — Cinematic stagger
+// CONTENT ENTRANCE
 // ============================================
 
-.contentVisible .eyebrow {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contentVisible .headline {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contentVisible .subheadline {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contentVisible .ctas {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contentVisible .meridianContainer {
-  opacity: 1;
-}
-
-.contentVisible .meridianLine {
-  stroke-dashoffset: 0;
-}
-
-.contentVisible .stats {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contentVisible .scrollIndicator {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-// ============================================
-// EYEBROW — 13px, Inter 500, Gold, tracked +0.1em
-// ============================================
+.contentVisible .eyebrow { opacity: 1; transform: translateY(0); }
+.contentVisible .headline { opacity: 1; transform: translateY(0); }
+.contentVisible .subheadline { opacity: 1; transform: translateY(0); }
+.contentVisible .ctas { opacity: 1; transform: translateY(0); }
+.contentVisible .divider { opacity: 1; }
+.contentVisible .dividerPath { stroke-dashoffset: 0; }
+.contentVisible .stats { opacity: 1; transform: translateY(0); }
 
 .eyebrow {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #C9A96E;
-  margin-bottom: 20px;
+  margin: 0 0 28px;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 0ms;
+  transform: translateY(20px);
+  transition: all 760ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 36px;
-    height: 1.5px;
-    background: #C9A96E;
-    margin-right: 14px;
-    vertical-align: middle;
+  [dir="rtl"] & {
+    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+    letter-spacing: 0.06em;
+    text-transform: none;
+    font-size: 13px;
   }
 
-  @include large-mobile {
-    font-size: 12px;
-    margin-bottom: 16px;
-
-    &::before {
-      width: 28px;
-      margin-right: 10px;
-    }
-  }
+  @include from-laptop { margin-bottom: 32px; font-size: 12px; }
 }
 
-// ============================================
-// HEADLINE — Playfair Display, cinematic
-// Desktop: clamp(2.75rem, 5.5vw, 4.5rem) = 44-72px
-// Mobile: clamp(2rem, 8vw, 2.75rem) = 32-44px
-// ============================================
+.eyebrowLine {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, #C9A96E, rgba(201, 169, 110, 0.3));
+  flex-shrink: 0;
+}
 
 .headline {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.25rem, 8vw, 3rem);
-  font-weight: 700;
-  line-height: 1.05;
+  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
+  font-size: clamp(2.5rem, 7.5vw, 3.5rem);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  line-height: 0.98;
   letter-spacing: -0.03em;
   color: #0A1628;
-  margin: 0 0 28px;
-  max-width: 720px;
+  margin: 0 0 32px;
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 150ms;
+  transform: translateY(28px);
+  transition: all 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 120ms;
 
-  @include tablet-portrait {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    max-width: 760px;
+  [dir="rtl"] & {
+    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: 0;
+    font-size: clamp(2.25rem, 6.5vw, 3.25rem);
   }
 
-  @include tablet-landscape {
-    font-size: clamp(3rem, 5.5vw, 4.5rem);
-    max-width: 800px;
+  @include from-tablet-portrait {
+    font-size: clamp(3rem, 6vw, 4.25rem);
   }
 
-  @include laptop {
-    font-size: clamp(3.25rem, 5.5vw, 5rem);
-    margin-bottom: 32px;
-    max-width: 840px;
-  }
-
-  @include desktop {
-    font-size: clamp(3.5rem, 5.5vw, 5.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
+  @include from-tablet-landscape {
+    font-size: clamp(3.25rem, 4.8vw, 5rem);
     margin-bottom: 36px;
-    max-width: 900px;
+  }
+
+  @include from-desktop {
+    font-size: clamp(3.75rem, 5vw, 5.75rem);
+    line-height: 0.95;
+    margin-bottom: 40px;
   }
 }
 
-.headlineHighlight {
-  color: #C9A96E;
+.headlineEm {
+  font-style: italic;
+  font-weight: 350;
+  color: #0A1628;
+}
+
+.headlineAccent {
+  color: #0A1628;
   position: relative;
+  display: inline-block;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: 2px;
+    bottom: 0.06em;
     left: 0;
-    width: 100%;
-    height: 2px;
-    background: #C9A96E;
-    border-radius: 1px;
-    opacity: 0.6;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #C9A96E, rgba(201, 169, 110, 0.4));
+    opacity: 0.75;
   }
 }
-
-// ============================================
-// SUBHEADLINE — Inter, graphite, 1.618
-// ============================================
 
 .subheadline {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+  font-size: clamp(1rem, 2.2vw, 1.1875rem);
   font-weight: 400;
-  line-height: 1.618;
+  line-height: 1.65;
   color: #5A6472;
-  margin: 0 0 40px;
+  margin: 0 0 44px;
   max-width: 520px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 350ms;
+  transform: translateY(22px);
+  transition: all 780ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 280ms;
 
-  @include tablet-portrait {
-    max-width: 560px;
-    font-size: clamp(1.0625rem, 2vw, 1.3125rem);
-    margin-bottom: 48px;
+  [dir="rtl"] & {
+    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+    line-height: 1.85;
+    max-width: 540px;
   }
 
-  @include laptop {
-    max-width: 580px;
-  }
-
-  @include desktop {
-    max-width: 600px;
+  @include from-laptop {
     margin-bottom: 52px;
-  }
-
-  @include large-mobile {
-    margin-bottom: 36px;
+    max-width: 560px;
   }
 }
-
-// ============================================
-// CTAs
-// ============================================
 
 .ctas {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 16px 24px;
   align-items: center;
   margin-bottom: 56px;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 500ms;
+  transform: translateY(18px);
+  transition: all 760ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 420ms;
 
-  @include tablet-portrait {
-    gap: 28px;
-    margin-bottom: 64px;
-  }
-
-  @include laptop {
-    margin-bottom: 72px;
-  }
-
-  @include desktop {
-    margin-bottom: 80px;
-  }
+  @include from-laptop { margin-bottom: 64px; gap: 28px; }
 
   @include large-mobile {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+    align-items: stretch;
     margin-bottom: 44px;
   }
 }
 
+.ctaPrimary {
+  box-shadow: 0 12px 32px rgba(10, 22, 40, 0.15) !important;
+}
+
+.ctaGhost {
+  letter-spacing: 0.04em !important;
+}
+
 .ctaArrow {
   display: inline-block;
-  margin-left: 10px;
-  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  [dir="rtl"] & {
-    margin-left: 0;
-    margin-right: 10px;
-  }
+  margin-inline-start: 10px;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ctas a:hover .ctaArrow,
 .ctas button:hover .ctaArrow {
-  transform: translateX(5px);
+  transform: translateX(6px);
 }
 
-// ============================================
-// MERIDIAN LINE
-// ============================================
+.heroRTL .ctas a:hover .ctaArrow,
+.heroRTL .ctas button:hover .ctaArrow {
+  transform: translateX(-6px) scaleX(-1);
+}
 
-.meridianContainer {
-  max-width: 480px;
-  margin-bottom: 40px;
-  overflow: hidden;
+.divider {
+  max-width: 520px;
+  margin-bottom: 44px;
   opacity: 0;
-  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 600ms;
+  transition: opacity 700ms ease;
+  transition-delay: 540ms;
 
-  @include tablet-portrait {
-    max-width: 520px;
-    margin-bottom: 48px;
-  }
-
-  @include large-mobile {
-    max-width: 100%;
-    margin-bottom: 32px;
-  }
+  @include large-mobile { margin-bottom: 32px; }
 }
 
-.meridianLine {
+.dividerSvg {
   display: block;
   width: 100%;
-  height: 2px;
-  stroke-dasharray: 480;
-  stroke-dashoffset: 480;
-  transition: stroke-dashoffset 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 600ms;
+  height: 6px;
 }
 
-// ============================================
-// STATS
-// ============================================
+.dividerPath {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  transition: stroke-dashoffset 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 560ms;
+}
 
 .stats {
   display: flex;
-  gap: 56px;
+  flex-wrap: wrap;
+  gap: 40px 56px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 750ms;
-
-  @include tablet-landscape {
-    gap: 48px;
-  }
+  transform: translateY(24px);
+  transition: all 860ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 680ms;
 
   @include tablet-portrait {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    max-width: 420px;
+    gap: 32px 48px;
+    max-width: 480px;
   }
 
-  @include large-mobile {
-    gap: 28px;
-  }
-
-  @include medium-mobile {
-    gap: 24px;
-  }
+  @include large-mobile { gap: 28px; }
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   position: relative;
+  padding-top: 12px;
 
   &::before {
     content: '';
     position: absolute;
-    top: -2px;
+    top: 0;
     left: 0;
-    width: 24px;
+    width: 28px;
     height: 1.5px;
     background: #C9A96E;
-    opacity: 0.5;
+    opacity: 0.65;
   }
 }
 
 .statNumber {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 700;
-  color: #C9A96E;
-  line-height: 1.2;
+  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
+  color: #0A1628;
+  line-height: 1;
   letter-spacing: -0.02em;
-}
 
-.statLabel {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: #5A6472;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-
-  @include large-mobile {
-    font-size: 12px;
+  [dir="rtl"] & {
+    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
+    font-weight: 600;
   }
 }
 
-// ============================================
-// SCROLL INDICATOR
-// ============================================
+.statLabel {
+  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5A6472;
+
+  [dir="rtl"] & {
+    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+  }
+}
 
 .scrollIndicator {
   position: absolute;
-  bottom: 40px;
+  bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  z-index: 3;
   opacity: 0;
-  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 1200ms;
-
-  @include large-mobile {
-    bottom: 24px;
-  }
+  transition: opacity 900ms ease;
+  transition-delay: 1100ms;
 }
 
-.scrollLine {
-  width: 1px;
-  height: 32px;
-  background: linear-gradient(to bottom, transparent, #C9A96E);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
+.scrollVisible { opacity: 1; }
 
 .scrollText {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #C9A96E;
-  opacity: 0.6;
+  opacity: 0.7;
+
+  [dir="rtl"] & {
+    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-size: 12px;
+  }
 }
 
-// ============================================
-// KEYFRAMES
-// ============================================
+.scrollTrack {
+  width: 1px;
+  height: 40px;
+  background: rgba(201, 169, 110, 0.2);
+  position: relative;
+  overflow: hidden;
+}
 
-@keyframes orbFloat {
+.scrollThumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: #C9A96E;
+  animation: scrollSlide 2.2s ease-in-out infinite;
+}
+
+@keyframes orbDrift {
   0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(15px, -20px); }
-  66% { transform: translate(-10px, 10px); }
+  50% { transform: translate(20px, -24px); }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(1deg); }
+@keyframes beamPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
 }
 
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50% { opacity: 0.8; transform: scaleY(1.2); }
+@keyframes drawIn {
+  to { stroke-dashoffset: 0; }
 }
 
-// ============================================
-// REDUCED MOTION
-// ============================================
+@keyframes linePulse {
+  0%, 100% { opacity: 0.07; }
+  50% { opacity: 0.18; }
+}
+
+@keyframes scrollSlide {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(28px); opacity: 0; }
+}
 
 @include reduced-motion {
-  .layerGrid,
-  .layerAmbient,
-  .layerAI {
+  .lightOrb1, .lightOrb2, .lightBeam, .scrollThumb, .illustrationActive .networkLine {
+    animation: none !important;
+  }
+
+  .illustrationCol, .eyebrow, .headline, .subheadline, .ctas, .stats, .scrollIndicator {
+    opacity: 1 !important;
     transform: none !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .goldOrb,
-  .goldOrbSecondary,
-  .floatingDiamond {
-    animation: none;
-  }
-
-  .scrollLine {
-    animation: none;
-  }
-
-  .contentVisible .eyebrow,
-  .contentVisible .headline,
-  .contentVisible .subheadline,
-  .contentVisible .ctas,
-  .contentVisible .stats,
-  .contentVisible .scrollIndicator {
-    opacity: 1;
-    transform: none;
-    transition-duration: 0.01ms;
-  }
-
-  .meridianLine {
-    stroke-dashoffset: 0;
-    transition-duration: 0.01ms;
-  }
+  .dividerPath { stroke-dashoffset: 0; }
+  .drawPath { stroke-dashoffset: 0; animation: none; }
 }

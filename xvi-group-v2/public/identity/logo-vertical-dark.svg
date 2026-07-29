@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320" fill="none">
-  <g><rect x="24" y="16" width="152" height="152" rx="14" fill="#0A1628"/><rect x="32" y="24" width="136" height="136" rx="10" stroke="#C9A96E" stroke-width="1" opacity=".18"/><rect x="88" y="36" width="14" height="108" fill="#C9A96E"/><rect x="79" y="82" width="32" height="4" fill="#C9A96E"/></g>
-  <g fill="#0A1628" font-family="Manrope, Arial, sans-serif" text-anchor="middle"><text x="100" y="218" font-size="46" font-weight="800" letter-spacing="8">XVI</text><text x="100" y="254" font-size="22" font-weight="600" letter-spacing="12">GROUP</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" fill="none">
+  <rect x="32" y="16" width="96" height="96" rx="6" stroke="#FFFFFF" stroke-width="1.75" opacity="0.9"/>
+  <line x1="32" y1="64" x2="128" y2="64" stroke="#C9A96E" stroke-width="1.25"/>
+  <line x1="80" y1="16" x2="80" y2="112" stroke="#C9A96E" stroke-width="1" opacity="0.6"/>
+  <path d="M48 98 L80 34 L112 98" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="square"/>
+  <circle cx="80" cy="64" r="4" fill="#C9A96E"/>
+  <text x="80" y="148" text-anchor="middle" font-family="'IBM Plex Sans', Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="0.16em" fill="#FFFFFF">XVI</text>
+  <text x="80" y="176" text-anchor="middle" font-family="'IBM Plex Sans', Arial, sans-serif" font-size="11" font-weight="500" letter-spacing="0.36em" fill="rgba(255,255,255,0.7)">GROUP</text>
 </svg>

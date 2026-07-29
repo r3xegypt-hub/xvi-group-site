@@ -1,13 +1,8 @@
-// XVI GROUP — Asset Pipeline
-// Centralized asset management system
+// XVI GROUP — Asset Pipeline (Sprint 01 — Meridian Mark identity)
 
 import type { Language } from '../types';
 
 const BASE = import.meta.env.BASE_URL;
-
-// ============================================
-// LOGO SYSTEM
-// ============================================
 
 export const LOGO = {
   horizontal: {
@@ -23,6 +18,19 @@ export const LOGO = {
     dark: `${BASE}identity/symbol-dark.svg`,
     light: `${BASE}identity/symbol-light.svg`,
     gold: `${BASE}identity/symbol-dark.svg`,
+  },
+  main: {
+    dark: `${BASE}identity/logo-main-dark.svg`,
+    light: `${BASE}identity/logo-main-light.svg`,
+  },
+  square: {
+    dark: `${BASE}identity/logo-square-dark.svg`,
+    light: `${BASE}identity/logo-square-light.svg`,
+  },
+  concepts: {
+    orbit: `${BASE}identity/concepts/concept-a-orbit.svg`,
+    meridian: `${BASE}identity/concepts/concept-b-meridian.svg`,
+    pillar: `${BASE}identity/concepts/concept-c-pillar.svg`,
   },
   favicon: {
     dark: `${BASE}identity/favicon.svg`,

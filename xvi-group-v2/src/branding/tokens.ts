@@ -30,10 +30,10 @@ export const LIGHT_LUXURY_THEME: ThemeTokens = {
     info: '#3498DB',
   },
   typography: {
-    headingFont: "'Manrope', Arial, sans-serif",
-    bodyFont: "'Manrope', Arial, sans-serif",
-    arabicHeadingFont: "'Amiri', 'Traditional Arabic', serif",
-    arabicBodyFont: "'Tajawal', Arial, sans-serif",
+    headingFont: "'Fraunces', Georgia, serif",
+    bodyFont: "'IBM Plex Sans', Arial, sans-serif",
+    arabicHeadingFont: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
+    arabicBodyFont: "'IBM Plex Sans Arabic', 'Alexandria', Arial, sans-serif",
   },
   spacing: {
     '2xs': '4px',
