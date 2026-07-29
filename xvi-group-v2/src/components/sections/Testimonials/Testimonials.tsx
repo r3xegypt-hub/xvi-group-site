@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { Easing, Variants } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
 import styles from './Testimonials.module.scss';
+
+const ease: Easing = [0.16, 1, 0.3, 1];
 
 const TESTIMONIALS = [
   {
@@ -31,6 +35,12 @@ const TESTIMONIALS = [
   },
 ];
 
+const quoteVariants: Variants = {
+  enter: { opacity: 0, y: 20 },
+  center: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+};
+
 export function Testimonials() {
   const { language } = useLanguage();
   const [active, setActive] = useState(0);
@@ -53,9 +63,18 @@ export function Testimonials() {
             {ar ? 'ثقة القادة' : 'Trusted by Leaders'}
           </h2>
           <div className={styles.quoteBlock}>
-            <blockquote className={styles.quote}>
-              {ar ? t.quoteAr : t.quote}
-            </blockquote>
+            <AnimatePresence mode="wait">
+              <motion.blockquote
+                key={active}
+                className={styles.quote}
+                variants={quoteVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+              >
+                {ar ? t.quoteAr : t.quote}
+              </motion.blockquote>
+            </AnimatePresence>
             <div className={styles.attribution}>
               <span className={styles.attributionName}>{ar ? t.nameAr : t.name}</span>
               <span className={styles.attributionTitle}>{ar ? t.titleAr : t.title}</span>
@@ -63,11 +82,13 @@ export function Testimonials() {
           </div>
           <div className={styles.dots}>
             {TESTIMONIALS.map((_, i) => (
-              <button
+              <motion.button
                 key={i}
                 className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
                 onClick={() => setActive(i)}
                 aria-label={`Testimonial ${i + 1}`}
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
               />
             ))}
           </div>

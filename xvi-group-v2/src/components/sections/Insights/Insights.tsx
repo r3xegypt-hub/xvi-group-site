@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
@@ -38,6 +40,8 @@ const INSIGHTS = [
 export function Insights() {
   const { language } = useLanguage();
   const ar = language === 'ar';
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
     <Section variant="warm" id="insights">
@@ -50,20 +54,31 @@ export function Insights() {
             : 'Strategic perspectives and analysis from our advisory team.'
           }
         />
-        <div className={styles.grid}>
+        <div className={styles.grid} ref={ref}>
           {INSIGHTS.map((item, i) => (
-            <article key={i} className={`${styles.card} ${item.hero ? styles.cardHero : ''}`}>
+            <motion.article
+              key={i}
+              className={`${styles.card} ${item.hero ? styles.cardHero : ''}`}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1],
+                delay: i * 0.12,
+              }}
+              whileHover={{ y: -4, transition: { duration: 0.3 } }}
+            >
               <div className={styles.cardMeta}>
                 <span className={styles.cardCategory}>{ar ? item.categoryAr : item.category}</span>
                 <time className={styles.cardDate}>{item.date}</time>
               </div>
               <h3 className={styles.cardTitle}>{ar ? item.titleAr : item.title}</h3>
               <p className={styles.cardExcerpt}>{ar ? item.excerptAr : item.excerpt}</p>
-              <span className={styles.cardLink}>
+              <motion.span className={styles.cardLink} whileHover={{ gap: '12px' }}>
                 {ar ? 'اقرأ المزيد' : 'Read More'}
                 <ArrowUpRight size={14} />
-              </span>
-            </article>
+              </motion.span>
+            </motion.article>
           ))}
         </div>
       </Container>

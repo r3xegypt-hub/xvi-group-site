@@ -7,9 +7,24 @@
   overflow: hidden;
 }
 
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .inner {
   width: 100%;
   z-index: 2;
+  position: relative;
 }
 
 .split {
