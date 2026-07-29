@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing, Variants } from 'framer-motion';
-import { X, ArrowUpRight, Sparkles, Bot, BarChart3, Globe, Shield, Clock } from 'lucide-react';
+import { X, ArrowUpRight, Sparkles, Bot, BarChart3, Globe, Shield, Brain, Activity } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './AIExecutive.module.scss';
 
@@ -31,6 +31,46 @@ function getTimeContext(ar: boolean) {
   if (h < 12) return ar ? 'صباح الخير' : 'Good morning';
   if (h < 18) return ar ? 'مساء الخير' : 'Good afternoon';
   return ar ? 'مساء الخير' : 'Good evening';
+}
+
+function getContextualSuggestionSet(ar: boolean, lang: string) {
+  const h = new Date().getHours();
+  const isMorning = h < 12;
+  const isAfternoon = h >= 12 && h < 18;
+  if (ar) {
+    if (isMorning) return ['استراتيجية AI', 'تحليل السوق', 'التحول الرقمي', 'حوكمة البيانات'];
+    if (isAfternoon) return ['تحليل الأداء', 'تقييم المخاطر', 'الامتثال', 'تقارير ذكية'];
+    return ['الاستعداد للمستقبل', 'تحليل تنافسي', 'ابتكار', 'توسع'];
+  }
+  if (isMorning) return ['AI Strategy', 'Market Analysis', 'Digital Transformation', 'Data Governance'];
+  if (isAfternoon) return ['Performance Review', 'Risk Assessment', 'Compliance Audit', 'Intelligent Reports'];
+  return ['Future Readiness', 'Competitive Analysis', 'Innovation Roadmap', 'Scale Planning'];
+}
+
+function useTypingAnimation(text: string, enabled: boolean) {
+  const [displayed, setDisplayed] = useState('');
+  const [done, setDone] = useState(false);
+  const indexRef = useRef(0);
+
+  useEffect(() => {
+    if (!enabled) { setDisplayed(text); setDone(true); return; }
+    indexRef.current = 0;
+    setDisplayed('');
+    setDone(false);
+    const chars = text.split('');
+    const timer = setInterval(() => {
+      if (indexRef.current < chars.length) {
+        setDisplayed(chars.slice(0, indexRef.current + 1).join(''));
+        indexRef.current++;
+      } else {
+        clearInterval(timer);
+        setDone(true);
+      }
+    }, 18);
+    return () => clearInterval(timer);
+  }, [text, enabled]);
+
+  return { displayed, done };
 }
 
 function CrystalTrigger({ onClick, open }: { onClick: () => void; open: boolean }) {
@@ -88,21 +128,50 @@ function StatusBar() {
         animate={{ opacity: [0, 0.5, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       />
+      <motion.span
+        className={styles.statusActivity}
+        animate={{ opacity: [0.2, 0.8, 0.2] }}
+        transition={{ duration: 0.8, repeat: Infinity }}
+      >
+        <Activity size={10} />
+      </motion.span>
     </div>
+  );
+}
+
+function TypingDots({ done }: { done: boolean }) {
+  if (done) return null;
+  return (
+    <motion.span
+      style={{ display: 'inline-flex', gap: 2, marginLeft: 4 }}
+      animate={{ opacity: [0.3, 1, 0.3] }}
+      transition={{ duration: 0.6, repeat: Infinity }}
+    >
+      <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C8A65A', display: 'inline-block' }} />
+      <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C8A65A', display: 'inline-block' }} />
+      <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#C8A65A', display: 'inline-block' }} />
+    </motion.span>
   );
 }
 
 export function AIExecutiveConsultant() {
   const [open, setOpen] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false);
   const { language } = useLanguage();
   const ar = language === 'ar';
 
   const greeting = getTimeContext(ar);
 
+  const greetingText = useMemo(() => {
+    if (ar) return `${greeting}، أنا المستشار التنفيذي XVI. كيف يمكنني توجيه استراتيجية مؤسستك اليوم؟`;
+    return `${greeting}. I am the XVI Executive Consultant. How may I direct your enterprise strategy today?`;
+  }, [greeting, ar]);
+
+  const { displayed, done } = useTypingAnimation(greetingText, open && hasOpened);
+
   const suggestionChips = useMemo(() => {
-    if (ar) return ['استراتيجية AI', 'تحليل السوق', 'التحول الرقمي', 'حوكمة البيانات'];
-    return ['AI Strategy', 'Market Analysis', 'Digital Transformation', 'Data Governance'];
-  }, [ar]);
+    return getContextualSuggestionSet(ar, language);
+  }, [ar, language]);
 
   const quickActions = useMemo(() => {
     if (ar) return [
@@ -118,6 +187,13 @@ export function AIExecutiveConsultant() {
       { label: 'Consult', icon: Bot },
     ];
   }, [ar]);
+
+  const handleOpen = useCallback(() => {
+    setOpen((prev) => {
+      if (!prev) setHasOpened(true);
+      return !prev;
+    });
+  }, []);
 
   return (
     <>
@@ -189,13 +265,12 @@ export function AIExecutiveConsultant() {
                   <div className={styles.avatarRing}>
                     <div className={styles.avatarGlow} />
                     <div className={styles.avatarIcon}>
-                      <Sparkles size={28} />
+                      <Brain size={28} />
                     </div>
                   </div>
                   <p className={styles.avatarText}>
-                    {ar
-                      ? `${greeting}، أنا المستشار التنفيذي XVI. كيف يمكنني توجيه استراتيجية مؤسستك اليوم؟`
-                      : `${greeting}. I am the XVI Executive Consultant. How may I direct your enterprise strategy today?`}
+                    {displayed}
+                    <TypingDots done={done} />
                   </p>
                 </motion.div>
 
@@ -255,7 +330,7 @@ export function AIExecutiveConsultant() {
           )}
         </AnimatePresence>
 
-        <CrystalTrigger onClick={() => setOpen(!open)} open={open} />
+        <CrystalTrigger onClick={handleOpen} open={open} />
       </div>
     </>
   );

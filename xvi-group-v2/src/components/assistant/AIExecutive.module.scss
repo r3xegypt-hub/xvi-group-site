@@ -140,6 +140,13 @@
   margin-left: auto;
 }
 
+.statusActivity {
+  display: flex;
+  align-items: center;
+  color: #C8A65A;
+  margin-left: 4px;
+}
+
 .panelHeader {
   padding: 16px 20px;
   border-bottom: 1px solid rgba(17, 17, 17, 0.06);

@@ -8,6 +8,7 @@ import { EditorialHeroVisual } from '../../ui/EditorialHeroVisual';
 import { AINetwork } from '../../ui/AINetwork';
 import { LightBeam } from '../../../motion/LightBeam';
 import { FloatingParticles } from '../../../motion/FloatingParticles';
+import { DataStream } from '../../../motion/DataStream';
 import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -26,6 +27,8 @@ export function Hero() {
       <motion.div className={styles.parallaxBg} style={{ y: yOffset }}>
         <AINetwork nodeCount={40} color="#C8A65A" pulseSpeed={5} className={styles.network} />
       </motion.div>
+
+      <DataStream count={35} color="#C8A65A" speed={0.5} />
 
       <LightBeam position="top-right" intensity={0.1} />
       <LightBeam position="bottom-left" intensity={0.06} />

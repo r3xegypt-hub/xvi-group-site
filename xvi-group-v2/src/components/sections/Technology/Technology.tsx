@@ -21,6 +21,48 @@ const categories = [
   { name: 'Governance', nameAr: 'الحوكمة', techs: ['AI Ethics', 'Policy', 'Risk', 'Audit'], x: 45, y: 90 },
 ];
 
+const connectionPairs: [number, number][] = [
+  [0, 1], [0, 3], [1, 2], [1, 4],
+  [2, 3], [2, 5], [3, 6], [4, 7],
+  [5, 6], [5, 8], [6, 7], [7, 8],
+  [0, 2], [3, 5], [4, 6],
+];
+
+function DataParticles({ active }: { active: number | null }) {
+  if (active === null) return null;
+  return (
+    <>
+      {connectionPairs.map(([from, to], idx) => {
+        const source = categories[from];
+        const target = categories[to];
+        if (!source || !target) return null;
+        const dx = target.x - source.x;
+        const dy = target.y - source.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        return (
+          <motion.circle
+            key={idx}
+            r={1.5}
+            fill="#C8A65A"
+            initial={{ cx: source.x, cy: source.y, opacity: 0 }}
+            animate={{
+              cx: [source.x, target.x],
+              cy: [source.y, target.y],
+              opacity: [0, 0.6, 0],
+            }}
+            transition={{
+              duration: dist * 0.08,
+              repeat: Infinity,
+              delay: idx * 0.12,
+              ease: 'easeInOut',
+            }}
+          />
+        );
+      })}
+    </>
+  );
+}
+
 export function Technology() {
   const { language } = useLanguage();
   const ar = language === 'ar';
@@ -46,14 +88,15 @@ export function Technology() {
                   x1={a.x} y1={a.y} x2={b.x} y2={b.y}
                   stroke="#C8A65A"
                   strokeWidth={0.15}
-                  strokeOpacity={active !== null && (active === i || active === i + j + 1) ? 0.15 : 0.04}
+                  strokeOpacity={active !== null && (active === i || active === i + j + 1) ? 0.2 : 0.04}
                   initial={{ strokeOpacity: 0 }}
-                  whileInView={{ strokeOpacity: active !== null && (active === i || active === i + j + 1) ? 0.15 : 0.04 }}
+                  whileInView={{ strokeOpacity: active !== null && (active === i || active === i + j + 1) ? 0.2 : 0.04 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3 }}
                 />
               ))
             )}
+            <DataParticles active={active} />
           </svg>
           {categories.map((cat, i) => (
             <motion.button
