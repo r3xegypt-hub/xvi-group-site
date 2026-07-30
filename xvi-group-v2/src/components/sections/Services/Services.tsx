@@ -1,73 +1,87 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import type { Easing } from 'framer-motion';
+import { useLanguage } from '../../../hooks/LanguageProvider';
 import styles from './Services.module.scss';
 
-const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const ease: Easing = [0.16, 1, 0.3, 1];
 
-const cards = [
+const services = [
   {
     num: '01',
-    tag: 'STRATEGY',
-    title: 'AI Strategy',
-    desc: 'Enterprise AI roadmap development, governance frameworks, and strategic advisory for decisive leadership.',
-    dark: false,
+    title: { en: 'Strategic AI', ar: 'الذكاء الاستراتيجي' },
+    desc: {
+      en: 'Frame the highest-value decisions before selecting the tools.',
+      ar: 'صياغة أعلى القرارات قيمة قبل اختيار الأدوات.',
+    },
+    bg: 'light' as const,
   },
   {
     num: '02',
-    tag: 'AUTOMATION',
-    title: 'Business Automation',
-    desc: 'Workflow intelligence, process reengineering, and AI-driven automation for operational excellence.',
-    dark: true,
+    title: { en: 'Automation Architecture', ar: 'هندسة الأتمتة' },
+    desc: {
+      en: 'Design operational flows that free expert attention for consequential work.',
+      ar: 'تصميم تدفقات تشغيل تحرر انتباه الخبراء للعمل المهم.',
+    },
+    bg: 'dark' as const,
   },
   {
     num: '03',
-    tag: 'TRANSFORMATION',
-    title: 'Digital Transformation',
-    desc: 'End-to-end digital strategy, legacy modernization, and technology architecture for the next decade.',
-    dark: false,
+    title: { en: 'Executive Adoption', ar: 'التبني التنفيذي' },
+    desc: {
+      en: 'Build clarity, confidence, and governance into every transformation step.',
+      ar: 'بناء الوضوح والثقة والحوكمة في كل خطوة تحول.',
+    },
+    bg: 'bordered' as const,
   },
 ];
 
 export function Services() {
+  const { language } = useLanguage();
+  const ar = language === 'ar';
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
-    <section className={styles.section}>
-      <div className={styles.inner}>
-        <motion.p
-          className={styles.eyebrow}
+    <section id="solutions" className={styles.section} ref={ref}>
+      <div className={styles.container}>
+        <motion.span
+          className={styles.label}
           initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease }}
         >
-          THE XVI PRACTICE
-        </motion.p>
+          {ar ? '٠١ / العمليات الذكية' : '01 / INTELLIGENT OPERATIONS'}
+        </motion.span>
 
         <motion.h2
-          className={styles.title}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          className={styles.heading}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease, delay: 0.1 }}
         >
-          Intelligence, designed to move.
+          {ar
+            ? 'انتقل من حالات الاستخدام المعزولة إلى نظام ذكاء متصل.'
+            : 'Move from isolated use cases to a connected intelligence system.'}
         </motion.h2>
 
         <div className={styles.grid}>
-          {cards.map((card, i) => (
-            <motion.article
-              key={i}
-              className={`${styles.card} ${card.dark ? styles.cardDark : ''}`}
+          {services.map((service, i) => (
+            <motion.div
+              key={service.num}
+              className={`${styles.card} ${styles[service.bg]}`}
               initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, ease, delay: 0.15 + i * 0.1 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, ease, delay: 0.2 + i * 0.1 }}
             >
-              <div className={styles.cardTag}>{card.num} / {card.tag}</div>
-              <h3 className={styles.cardTitle}>{card.title}</h3>
-              <p className={styles.cardDesc}>{card.desc}</p>
-              <span className={`${styles.badge} ${card.dark ? styles.badgeDark : ''}`}>
-                Coming soon
-              </span>
-            </motion.article>
+              <span className={styles.cardNum}>{service.num}</span>
+              <h3 className={styles.cardTitle}>
+                {ar ? service.title.ar : service.title.en}
+              </h3>
+              <p className={styles.cardDesc}>
+                {ar ? service.desc.ar : service.desc.en}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>

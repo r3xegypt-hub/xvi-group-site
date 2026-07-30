@@ -1,18 +1,20 @@
-$color-bg: #F7F6F3;
-$color-surface: #FFFFFF;
-$color-surface-secondary: #ECE8E2;
-$color-text: #111111;
-$color-text-secondary: #666666;
+$color-bg: #f7f6f3;
+$color-surface: #ffffff;
+$color-surface-secondary: #f4f4f2;
+$color-text: #101010;
+$color-text-secondary: #6b6b68;
 $color-text-muted: #999999;
-$color-gold: #C8A65A;
-$color-gold-light: #DFC27A;
-$color-gold-dark: #A88840;
+$color-gold: #c8a65a;
+$color-gold-light: #d4b76e;
+$color-gold-dark: #b7934c;
 $color-gold-muted: rgba(200, 166, 90, 0.12);
 $color-navy: #132238;
-$color-navy-light: #1E3451;
+$color-navy-light: #1e3451;
 $color-navy-muted: rgba(19, 34, 56, 0.05);
 $color-border: rgba(17, 17, 17, 0.06);
-$color-border-light: #F0EDE8;
+$color-border-light: #e3e3e0;
+$color-dark: #101010;
+$color-gray-bg: #e3e3e0;
 
 :root {
   --color-bg: #{$color-bg};
@@ -30,4 +32,6 @@ $color-border-light: #F0EDE8;
   --color-navy-muted: #{$color-navy-muted};
   --color-border: #{$color-border};
   --color-border-light: #{$color-border-light};
+  --color-dark: #{$color-dark};
+  --color-gray-bg: #{$color-gray-bg};
 }

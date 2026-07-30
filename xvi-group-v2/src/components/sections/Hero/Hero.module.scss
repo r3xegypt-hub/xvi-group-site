@@ -1,153 +1,277 @@
 .hero {
+  position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  background: #F7F6F3;
-  padding: 140px 24px 80px;
+  align-items: flex-end;
+  padding: 128px 72px 72px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 120px 24px 48px;
+    align-items: center;
+  }
 }
 
-.inner {
+.bgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #101010 0%, #132238 58%, #1e1a14 100%);
+  z-index: 0;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(200, 166, 90, 0.4);
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+
+  @keyframes particleFloat {
+    0%, 100% { opacity: 0; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-30px); }
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  width: 100%;
 }
 
-.eyebrow {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+.label {
+  display: block;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1.8px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: #C8A65A;
-  margin: 0 0 32px;
+  color: #b7934c;
+  margin-bottom: 24px;
 }
 
-.title {
-  font-family: 'Amiri', serif;
-  font-size: 72px;
-  font-weight: 700;
+.headline {
+  font-family: 'Noto Naskh Arabic', 'Noto Sans', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 600;
   line-height: 1.05;
-  color: #111111;
-  margin: 0 0 20px;
-  max-width: 880px;
+  letter-spacing: -0.02em;
+  color: #f7f6f3;
+  margin: 0 0 24px;
+  max-width: 800px;
 
-  @media (max-width: 1199.98px) {
-    font-size: 54px;
+  [dir='rtl'] & {
+    font-family: 'Noto Naskh Arabic', sans-serif;
   }
+}
 
-  @media (max-width: 809.98px) {
-    font-size: 40px;
-  }
+.letter {
+  display: inline-block;
+  opacity: 0.001;
+  filter: blur(10px);
+  transform: translateY(22px);
+  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+}
+
+.letterVisible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
 }
 
 .subtitle {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.65;
-  color: #666666;
-  margin: 0 0 40px;
-  max-width: 480px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+  line-height: 1.6;
+  color: #c8c3bb;
+  margin: 0 0 32px;
+  max-width: 560px;
 }
 
-.actions {
+.ctaRow {
   display: flex;
   gap: 16px;
-  margin-bottom: 64px;
 }
 
-.cta {
+.ctaGold {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  background: #132238;
-  color: #FFFFFF;
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  padding: 14px 24px;
+  background: #c8a65a;
+  color: #132238;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  border-radius: 999px;
   text-decoration: none;
-  transition: all 300ms ease;
+  border-radius: 999px;
+  transition: all 0.3s ease;
 
   &:hover {
-    background: #1e3350;
+    background: #d4b76e;
     transform: translateY(-1px);
   }
 }
 
-.brandBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 24px 0;
-  border-top: 1px solid rgba(17, 17, 17, 0.06);
-  margin-bottom: 24px;
-}
-
-.brandHeader {
+.aiWidget {
+  margin-top: 64px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 40px;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: 700px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    margin-top: 48px;
+  }
 }
 
-.brandSeal {
+.orbContainer {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.orb {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #c8a65a 50%, #101010 100%);
+  animation: orbPulse 4s ease-in-out infinite;
+}
+
+.orbInner {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.6), transparent 60%);
+}
+
+.orbRing {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(200, 166, 90, 0.3);
+  border-radius: 50%;
+  animation: orbRing 3s ease-in-out infinite;
+}
+
+.orbRing2 {
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(200, 166, 90, 0.15);
+  border-radius: 50%;
+  animation: orbRing 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes orbRing {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.particleOrbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px;
+  background: #c8a65a;
+  border-radius: 50%;
+  animation: orbit 6s linear infinite;
+  transform-origin: 0 0;
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(44px); }
+  to { transform: rotate(360deg) translateX(44px); }
+}
+
+.widgetContent {
+  flex: 1;
+}
+
+.widgetHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid #C8A65A;
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.widgetBadge {
+  font-family: 'Noto Sans', sans-serif;
   font-size: 10px;
   font-weight: 600;
+  text-transform: uppercase;
   letter-spacing: 1px;
-  color: #C8A65A;
-  border-radius: 3px;
+  color: #101010;
+  background: #c8a65a;
+  padding: 3px 8px;
+  border-radius: 4px;
 }
 
-.brandName {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+.widgetTitle {
+  font-family: 'Noto Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1.8px;
-  color: #111111;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.brandDesc {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+.widgetDesc {
+  font-family: 'Noto Sans', sans-serif;
   font-size: 13px;
-  font-weight: 400;
-  color: #666666;
-  margin: 0;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0 16px;
 }
 
-.signature {
+.widgetInput {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  gap: 4px;
 }
 
-.location {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.6px;
-  color: #999999;
+.widgetPrompt {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
 }
 
-.separator {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #C8A65A;
+.cursor {
+  width: 2px;
+  height: 16px;
+  background: #c8a65a;
+  animation: blink 1s step-end infinite;
 }
 
-.arabic {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: #999999;
+@keyframes blink {
+  50% { opacity: 0; }
 }

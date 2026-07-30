@@ -1,56 +1,67 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './Navigation.module.scss';
 
 export function Navigation() {
   const location = useLocation();
+  const { language } = useLanguage();
+  const ar = language === 'ar';
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
+    const onScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    setIsMobileOpen(false);
-  }, [location.pathname]);
+  useEffect(() => setIsMobileOpen(false), [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isMobileOpen]);
 
+  const navLinks = ar ? [
+    { to: '/services', label: 'الحلول' },
+    { to: '/industries', label: 'القطاعات' },
+    { to: '/insights', label: 'رؤى' },
+    { to: '/about', label: 'الشركة' },
+  ] : [
+    { to: '/services', label: 'Solutions' },
+    { to: '/industries', label: 'Industries' },
+    { to: '/insights', label: 'Insights' },
+    { to: '/about', label: 'Company' },
+  ];
+
   return (
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <nav className={styles.nav}>
           <Link to="/" className={styles.logo}>
-            <span className={styles.seal}>XVI</span>
-            <span className={styles.wordmark}>
-              <span>XVI</span>
-              <span className={styles.divider}> / </span>
-              <span>GROUP</span>
+            <span className={styles.logoIcon}>
+              <span className={styles.logoX}>X</span>
             </span>
+            <span className={styles.logoText}>XVI GROUP</span>
           </Link>
 
           <div className={styles.links}>
-            <Link to="/services" className={styles.link}>Services</Link>
-            <Link to="/industries" className={styles.link}>Industries</Link>
-            <Link to="/technology" className={styles.link}>Technology</Link>
-            <Link to="/about" className={styles.link}>About</Link>
-            <Link to="/insights" className={styles.link}>Perspective</Link>
-            <Link to="/contact" className={styles.link}>Contact</Link>
+            {navLinks.map((link) => (
+              <Link key={link.to} to={link.to} className={styles.link}>
+                {link.label}
+              </Link>
+            ))}
           </div>
+
+          <Link to="/contact" className={styles.ctaButton}>
+            {ar ? 'تواصل' : 'Contact'}
+          </Link>
 
           <button
             className={`${styles.mobileToggle} ${isMobileOpen ? styles.mobileToggleOpen : ''}`}
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMobileOpen}
           >
             <span className={styles.bar} />
             <span className={styles.bar} />
@@ -61,14 +72,14 @@ export function Navigation() {
 
       <div className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuInner}>
-          <Link to="/" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Home</Link>
-          <Link to="/services" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Services</Link>
-          <Link to="/industries" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Industries</Link>
-          <Link to="/technology" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Technology</Link>
-          <Link to="/about" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>About</Link>
-          <Link to="/insights" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Perspective</Link>
-          <Link to="/contact" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Contact</Link>
-          <Link to="/careers" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Careers</Link>
+          {navLinks.map((link) => (
+            <Link key={link.to} to={link.to} className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
+          <Link to="/contact" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>
+            {ar ? 'تواصل' : 'Contact'}
+          </Link>
         </div>
       </div>
     </>

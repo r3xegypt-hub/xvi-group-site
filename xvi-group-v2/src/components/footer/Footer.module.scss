@@ -1,6 +1,10 @@
 .footer {
   background: #132238;
-  padding: 48px 24px;
+  padding: 84px 80px 36px;
+
+  @media (max-width: 768px) {
+    padding: 48px 24px 24px;
+  }
 }
 
 .inner {
@@ -8,57 +12,96 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-
-  @media (min-width: 810px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+  gap: 40px;
 }
 
 .brand {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #c8a65a;
+  border-radius: 5px;
+}
+
+.logoX {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #132238;
+  line-height: 1;
 }
 
 .brandName {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 1px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .brandTagline {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  color: #c8c8c3;
 }
 
 .links {
   display: flex;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .link {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
-  font-size: 12px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 13px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 
-  &:hover { color: #C8A65A; }
+  &:hover { color: #c8a65a; }
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
 }
 
 .copyright {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 12px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.3);
+  color: #c8c3bb;
+}
+
+.metaTagline {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12px;
+  color: #c8c8c3;
 }

@@ -19,13 +19,13 @@ import { TechnologyPage } from './pages/technology';
 import { IndustriesPage } from './pages/industries';
 import { InsightsPage } from './pages/insights';
 import { ContactPage } from './pages/contact';
+import { CareersPage } from './pages/careers/Careers';
+import { PrivacyPage } from './pages/privacy/Privacy';
+import { TermsPage } from './pages/terms/Terms';
 import { BusinessConsultingPage } from './pages/services/business-consulting/BusinessConsultingPage';
 import { TechnologyConsultingPage } from './pages/services/technology-consulting/TechnologyConsultingPage';
 import { AITransformationPage } from './pages/services/ai-transformation/AITransformationPage';
 import { ExecutiveTrainingPage } from './pages/services/executive-training/ExecutiveTrainingPage';
-import { CareersPage } from './pages/careers/Careers';
-import { PrivacyPage } from './pages/privacy/Privacy';
-import { TermsPage } from './pages/terms/Terms';
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
@@ -59,7 +59,7 @@ function App() {
                 : <CinematicIntro onFinish={handleFinish} />
               )}
               <CustomCursor />
-              <MouseGlow color="#C8A65A" radius={250} opacity={0.03} />
+              <MouseGlow color="#c8a65a" radius={250} opacity={0.03} />
               <ScrollProgress />
               <PageTransition>
                 <Routes>
