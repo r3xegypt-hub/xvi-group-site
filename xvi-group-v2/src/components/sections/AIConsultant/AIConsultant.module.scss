@@ -20,10 +20,10 @@
 }
 
 .eyebrow {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 1.8px;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: #C8A65A;
   margin: 0 0 16px;
@@ -62,14 +62,14 @@
 }
 
 .prompt {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #C8A65A;
 }
 
 .placeholder {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.35);

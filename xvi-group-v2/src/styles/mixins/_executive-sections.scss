@@ -66,8 +66,9 @@
   margin: 0;
 
   [dir='rtl'] & {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
     letter-spacing: 0;
+    line-height: 1.3;
   }
 }
 
@@ -138,8 +139,9 @@
   margin: 0;
 
   [dir='rtl'] & {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
     letter-spacing: 0;
+    line-height: 1.5;
   }
 }
 
