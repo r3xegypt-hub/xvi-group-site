@@ -2,13 +2,6 @@
   position: relative;
 }
 
-.bgGradient {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -31,10 +24,16 @@
   position: relative;
   width: 100%;
   padding: 48px 40px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55));
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(200,166,90,0.08);
   overflow: hidden;
+}
+
+.editorialImage {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=85');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
 }
 
 .editorialGlow {
@@ -223,4 +222,6 @@
   letter-spacing: 0.03em;
   cursor: pointer;
   transition: background 0.3s ease;
+
+  &:hover { background: #B8963E; }
 }

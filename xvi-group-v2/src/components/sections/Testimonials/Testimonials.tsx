@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Easing, Variants } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
 import { SectionReveal } from '../../../motion/SectionReveal';
 import styles from './Testimonials.module.scss';
 
-const ease: Easing = [0.16, 1, 0.3, 1];
+const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const testimonials = [
   {
     quote: 'XVI Group brought clarity to our AI strategy. Their executive advisory helped us identify the right opportunities and build a roadmap that aligns with our vision.',
-    quoteAr: 'أضافت XVI Group الوضوح لاستراتيجيتنا للذكاء الاصطناعي.',
+    quoteAr: 'أضافت XVI Group الوضوح لاستراتيجيتنا للذكاء الاصطناعي. ساعدتنا استشاراتهم التنفيذية في تحديد الفرص المناسبة.',
     name: 'Khalid Al-Mansouri',
     nameAr: 'خالد المنصوري',
     title: 'Chief Digital Officer · Financial Services',
@@ -21,7 +20,7 @@ const testimonials = [
   },
   {
     quote: 'The strategic depth and technical capability of the XVI team impressed us. Their approach to enterprise AI architecture is thorough and pragmatic.',
-    quoteAr: 'عمق التفكير الاستراتيجي والقدرة التقنية لفريق XVI أثار إعجابنا.',
+    quoteAr: 'عمق التفكير الاستراتيجي والقدرة التقنية لفريق XVI أثار إعجابنا. منهجهم في هندسة الذكاء الاصطناعي شامل وعملي.',
     name: 'Sarah Chen',
     nameAr: 'سارة تشين',
     title: 'VP of Technology · Energy Sector',
@@ -30,7 +29,7 @@ const testimonials = [
   },
   {
     quote: 'The executive program reshaped how our leadership team approaches AI adoption. Practical, strategic, and grounded in real-world experience.',
-    quoteAr: 'أعاد البرنامج التنفيذي تشكيل طريقة تعامل فريق القيادة مع تبني الذكاء الاصطناعي.',
+    quoteAr: 'أعاد البرنامج التنفيذي تشكيل طريقة تعامل فريق القيادة مع تبني الذكاء الاصطناعي. عملي واستراتيجي.',
     name: 'Dr. Amira Hassan',
     nameAr: 'د. أميرة حسن',
     title: 'Managing Director · Healthcare',
@@ -38,12 +37,6 @@ const testimonials = [
     initials: 'AH',
   },
 ];
-
-const quoteVariants: Variants = {
-  enter: { opacity: 0, y: 20, filter: 'blur(4px)' },
-  center: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease } },
-  exit: { opacity: 0, y: -20, filter: 'blur(4px)', transition: { duration: 0.3 } },
-};
 
 export function Testimonials() {
   const { language } = useLanguage();
@@ -61,90 +54,69 @@ export function Testimonials() {
 
   return (
     <Section variant="white" id="testimonials" className={styles.section}>
-      <div className={styles.glassBg} />
       <Container>
-        <SectionReveal variant="scaleIn">
+        <SectionReveal variant="fadeUp">
           <div className={styles.layout}>
-          <div className={styles.portraitCol}>
-            <motion.div
-              className={styles.portraitFrame}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  className={styles.portraitInitials}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, ease }}
-                >
-                  {t.initials}
-                </motion.div>
-              </AnimatePresence>
-              <div className={styles.portraitRing} />
-              <div className={styles.portraitRingOuter} />
-            </motion.div>
-            <div className={styles.portraitGlow} />
-          </div>
-
-          <div className={styles.quoteCol}>
-            <motion.div
-              className={styles.overline}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              <span className={styles.overlineLine} />
-              <span>{ar ? 'ثقة القادة' : 'Trusted by Leaders'}</span>
-              <span className={styles.overlineLine} />
-            </motion.div>
-
-            <div className={styles.quoteBlock}>
-              <AnimatePresence mode="wait">
-                <motion.blockquote
-                  key={active}
-                  className={styles.quote}
-                  variants={quoteVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                >
-                  <span className={styles.quoteMark}>&ldquo;</span>
-                  {ar ? t.quoteAr : t.quote}
-                </motion.blockquote>
-              </AnimatePresence>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  className={styles.attribution}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3, delay: 0.15 }}
-                >
-                  <span className={styles.attributionName}>{ar ? t.nameAr : t.name}</span>
-                  <span className={styles.attributionTitle}>{ar ? t.titleAr : t.title}</span>
-                </motion.div>
-              </AnimatePresence>
+            <div className={styles.portraitCol}>
+              <div className={styles.portraitFrame}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    className={styles.portraitInitials}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4, ease }}
+                  >
+                    {t.initials}
+                  </motion.div>
+                </AnimatePresence>
+                <div className={styles.portraitRing} />
+              </div>
             </div>
 
-            <div className={styles.dots}>
-              {testimonials.map((_, i) => (
-                <motion.button
-                  key={i}
-                  className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
-                  onClick={() => setActive(i)}
-                  aria-label={`Testimonial ${i + 1}`}
-                  whileHover={{ scale: 1.5 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              ))}
+            <div className={styles.quoteCol}>
+              <div className={styles.quoteBlock}>
+                <AnimatePresence mode="wait">
+                  <motion.blockquote
+                    key={active}
+                    className={styles.quote}
+                    initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease } }}
+                    exit={{ opacity: 0, y: -20, filter: 'blur(4px)', transition: { duration: 0.3 } }}
+                  >
+                    <span className={styles.quoteMark}>&ldquo;</span>
+                    {ar ? t.quoteAr : t.quote}
+                  </motion.blockquote>
+                </AnimatePresence>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    className={styles.attribution}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3, delay: 0.15 }}
+                  >
+                    <span className={styles.attributionName}>{ar ? t.nameAr : t.name}</span>
+                    <span className={styles.attributionTitle}>{ar ? t.titleAr : t.title}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className={styles.dots}>
+                {testimonials.map((_, i) => (
+                  <motion.button
+                    key={i}
+                    className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
+                    onClick={() => setActive(i)}
+                    whileHover={{ scale: 1.5 }}
+                    whileTap={{ scale: 0.9 }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
         </SectionReveal>
       </Container>
     </Section>

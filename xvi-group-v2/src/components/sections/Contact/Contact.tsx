@@ -5,10 +5,9 @@ import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
 import { SectionReveal } from '../../../motion/SectionReveal';
-import { AnimatedGradient } from '../../../motion/FloatingParticles';
 import styles from './Contact.module.scss';
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function Contact() {
   const { language } = useLanguage();
@@ -18,11 +17,6 @@ export function Contact() {
 
   return (
     <Section variant="warm" id="contact" className={styles.section}>
-      <AnimatedGradient
-        colors={['rgba(200, 166, 90, 0.03)', 'transparent', 'transparent']}
-        duration={15}
-        className={styles.bgGradient}
-      />
       <Container>
         <div className={styles.layout} ref={ref}>
           <motion.div
@@ -32,10 +26,11 @@ export function Contact() {
             transition={{ duration: 0.7, ease }}
           >
             <div className={styles.editorialFrame}>
+              <div className={styles.editorialImage} />
               <div className={styles.editorialGlow} />
               <div className={styles.editorialContent}>
                 <div className={styles.editorialBadge}>
-                  <MapPin size={16} color="#C8A65A" />
+                  <MapPin size={14} />
                   <span>{ar ? 'العين، الإمارات' : 'Al Ain, UAE'}</span>
                 </div>
                 <h3 className={styles.editorialTitle}>{ar ? 'ابدأ المحادثة' : 'Start the Conversation'}</h3>
@@ -44,25 +39,25 @@ export function Contact() {
                 </p>
                 <div className={styles.editorialDetails}>
                   <div className={styles.detailRow}>
-                    <Mail size={14} color="#C8A65A" />
+                    <Mail size={14} />
                     <div>
                       <span className={styles.detailLabel}>{ar ? 'البريد' : 'Email'}</span>
                       <a href="mailto:contact@xvigroup.com" className={styles.detailValue}>contact@xvigroup.com</a>
                     </div>
                   </div>
                   <div className={styles.detailRow}>
-                    <Phone size={14} color="#C8A65A" />
+                    <Phone size={14} />
                     <div>
                       <span className={styles.detailLabel}>{ar ? 'الهاتف' : 'Phone'}</span>
                       <span className={styles.detailValue}>+971 56 922 0064</span>
                     </div>
                   </div>
                   <div className={styles.detailRow}>
-                    <Clock size={14} color="#C8A65A" />
+                    <Clock size={14} />
                     <span className={styles.detailValue}>{ar ? 'الرد خلال 24 ساعة' : 'Response within 24 hours'}</span>
                   </div>
                   <div className={styles.detailRow}>
-                    <Shield size={14} color="#C8A65A" />
+                    <Shield size={14} />
                     <span className={styles.detailValue}>{ar ? 'استشارة سرية' : 'Confidential consultation'}</span>
                   </div>
                 </div>
@@ -107,7 +102,7 @@ export function Contact() {
                 <motion.button
                   type="submit"
                   className={styles.submit}
-                  whileHover={{ scale: 1.02, backgroundColor: '#B8963E' }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {ar ? 'إرسال طلب الاستشارة' : 'Submit Consultation Request'}

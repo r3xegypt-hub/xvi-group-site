@@ -1,10 +1,11 @@
 .section {
   position: relative;
-  padding-bottom: 60px;
+  overflow: hidden;
 }
 
-.headerBlock {
-  margin-bottom: 60px;
+.header {
+  max-width: 600px;
+  margin-bottom: 64px;
 }
 
 .overline {
@@ -13,21 +14,8 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #999999;
-  margin: 0 0 24px;
-
-  [dir='rtl'] & { letter-spacing: 0.06em; }
-}
-
-.headerSplit {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
+  color: #C8A65A;
+  margin: 0 0 20px;
 }
 
 .title {
@@ -37,147 +25,156 @@
   line-height: 1.08;
   letter-spacing: -0.025em;
   color: #111111;
-  margin: 0;
+  margin: 0 0 20px;
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
 
 .headerDesc {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  font-size: 1rem;
   line-height: 1.7;
   color: #666666;
   margin: 0;
-  align-self: end;
 }
 
-.spreads {
+.chapters {
   display: flex;
   flex-direction: column;
 }
 
-.spread {
+.chapter {
   position: relative;
-  padding: 60px 0;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.04);
-
-  &:last-child { border-bottom: none; }
+  padding: 80px 0;
 
   @media (min-width: 1024px) {
-    padding: 80px 0;
+    padding: 100px 0;
   }
 }
 
-.spreadInner {
+.chapterInner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
+  gap: 40px;
   align-items: center;
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
 
-    &.spreadAlt {
+    &.chapterAlt {
       direction: rtl;
-      .spreadContent { direction: ltr; }
+      .chapterContent { direction: ltr; }
       [dir='rtl'] & {
         direction: ltr;
-        .spreadContent { direction: rtl; }
+        .chapterContent { direction: rtl; }
       }
     }
   }
 }
 
-.spreadVisual {
+.chapterVisual {
   position: relative;
 }
 
-.visualFrame {
+.imagePanel {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
 }
 
-.visualPanel {
+.imageFrame {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 }
 
-.visualSvg {
-  width: 80%;
-  height: 80%;
-}
-
-.visualBadge {
+.imageBg {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(200, 166, 90, 0.1);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #111111;
+  inset: -20px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chapter:hover .imageBg {
+  transform: scale(1.03);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(17,17,17,0.15) 0%, transparent 50%);
+}
+
+.imageBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(200,166,90,0.06);
   pointer-events: none;
 }
 
-.badgeDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 4px rgba(34, 197, 94, 0.4);
-}
-
-.spreadContent {
-  position: relative;
-  padding: 0;
-}
-
-.spreadIndex {
+.imageIndex {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(3rem, 5vw, 5rem);
+  font-size: 3rem;
   font-weight: 400;
+  color: rgba(255,255,255,0.6);
   line-height: 0.8;
-  opacity: 0.08;
-  margin-bottom: 16px;
 }
 
-.spreadTag {
+.chapterQuote {
+  position: relative;
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: rgba(200,166,90,0.04);
+  border-left: 1px solid rgba(200,166,90,0.15);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.9375rem, 1.2vw, 1.125rem);
+  font-style: italic;
+  line-height: 1.6;
+  color: #555555;
+
+  [dir='rtl'] & {
+    border-left: none;
+    border-right: 1px solid rgba(200,166,90,0.15);
+    font-family: 'Alexandria', sans-serif;
+    font-style: normal;
+  }
+}
+
+.quoteMark {
+  color: #C8A65A;
+  font-size: 1.4em;
+  line-height: 0;
+  vertical-align: -0.2em;
+  margin-right: 4px;
+
+  [dir='rtl'] & {
+    margin-right: 0;
+    margin-left: 4px;
+  }
+}
+
+.chapterContent {
+  position: relative;
+}
+
+.chapterTag {
   display: inline-block;
   font-family: 'Inter', sans-serif;
   font-size: 0.5625rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 4px 12px;
-  border: 1px solid;
+  color: #C8A65A;
   margin-bottom: 20px;
 }
 
-.spreadIcon {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid;
-  margin-bottom: 20px;
-}
-
-.spreadTitle {
+.chapterTitle {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(1.5rem, 2.5vw, 2.2rem);
   font-weight: 400;
@@ -188,59 +185,37 @@
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
-.spreadDesc {
+.chapterDesc {
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.7;
   color: #666666;
-  margin: 0 0 24px;
+  margin: 0 0 16px;
   max-width: 480px;
 }
 
-.spreadLink {
+.chapterStat {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #C8A65A;
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+
+.chapterLink {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
+  color: #111111;
   text-decoration: none;
   transition: gap 0.3s ease;
 
-  &:hover { gap: 12px; }
-}
-
-.pullQuote {
-  position: relative;
-  margin-top: 40px;
-  padding: 24px 32px;
-  background: #ECE8E2;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  font-style: italic;
-  line-height: 1.5;
-  color: #555555;
-  max-width: 600px;
-
-  &.pullQuoteAlt {
-    margin-left: auto;
+  &:hover {
+    gap: 12px;
+    color: #C8A65A;
   }
-
-  [dir='rtl'] & {
-    font-family: 'Alexandria', sans-serif;
-    font-style: normal;
-  }
-}
-
-.pullMark {
-  color: #C8A65A;
-  font-size: 1.5em;
-  line-height: 0;
-  vertical-align: -0.25em;
-  margin-right: 6px;
-}
-
-@media (max-width: 768px) {
-  .spread { padding: 40px 0; }
-  .pullQuote { margin-top: 24px; font-size: 0.9375rem; padding: 16px 20px; }
 }

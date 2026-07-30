@@ -3,32 +3,30 @@ import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { IntelligenceCounter } from '../../ui/IntelligenceCounter';
-import { DataStream } from '../../../motion/DataStream';
 import styles from './About.module.scss';
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const timeline = [
   {
     year: '2025', title: 'Founded', titleAr: 'التأسيس',
-    desc: 'XVI GROUP established in Al Ain to bridge strategic advisory with enterprise AI capability — built on a foundation of decades of combined executive experience.', descAr: 'تأسست XVI GROUP في العين.',
-    point: 'FOUNDATION', pointAr: 'التأسيس',
+    desc: 'XVI GROUP established in Al Ain to bridge strategic advisory with enterprise AI capability.',
+    descAr: 'تأسست XVI GROUP في العين لدمج الاستشارات الاستراتيجية مع قدرات الذكاء الاصطناعي.',
   },
   {
     year: '2026', title: 'Early Engagements', titleAr: 'المشاريع الأولى',
-    desc: 'Delivering executive advisory and AI strategy engagements for forward-thinking enterprises across the UAE.', descAr: 'تقديم استشارات تنفيذية.',
-    point: 'EARLY MOMENTUM', pointAr: 'الانطلاقة',
+    desc: 'Delivering executive advisory and AI strategy engagements for forward-thinking enterprises across the UAE.',
+    descAr: 'تقديم استشارات تنفيذية واستراتيجيات ذكاء اصطناعي للمؤسسات في الإمارات.',
   },
   {
-    year: '2026+', title: 'Growth & Scale', titleAr: 'النمو والتوسع',
-    desc: 'Scaling our sovereign intelligence framework across the region — bringing enterprise-grade AI strategy to ambitious organizations.', descAr: 'توسيع إطار الذكاء السيادي.',
-    point: 'REGIONAL AMBITION', pointAr: 'الطموح الإقليمي',
+    year: '2026+', title: 'Regional Growth', titleAr: 'النمو الإقليمي',
+    desc: 'Scaling our sovereign intelligence framework across the region.',
+    descAr: 'توسيع إطار الذكاء السيادي عبر المنطقة.',
   },
   {
-    year: 'Future', title: 'Sovereign Intelligence', titleAr: 'الذكاء السيادي',
-    desc: 'Pioneering sovereign AI infrastructure and executive intelligence systems that put enterprises in control of their AI destiny.', descAr: 'ريادة البنية التحتية السيادية.',
-    point: 'SOVEREIGN AI ERA', pointAr: 'عصر الذكاء السيادي',
+    year: 'Future', title: 'Sovereign AI', titleAr: 'الذكاء السيادي',
+    desc: 'Pioneering sovereign AI infrastructure for enterprises in control of their intelligence destiny.',
+    descAr: 'ريادة البنية التحتية السيادية للذكاء الاصطناعي.',
   },
 ];
 
@@ -39,29 +37,52 @@ export function About() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <Section variant="warm" id="about" className={styles.section}>
-      <DataStream count={15} color="#C8A65A" speed={0.3} />
+    <Section variant="white" id="about" className={styles.section}>
       <Container>
         <motion.div
-          className={styles.editorialIntro}
+          className={styles.introBlock}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease }}
         >
-          <div className={styles.editorialAccent} />
-          <blockquote className={styles.editorialQuote}>
+          <p className={styles.overline}>{ar ? 'عن XVI' : 'ABOUT XVI'}</p>
+          <blockquote className={styles.quote}>
             {ar
               ? 'نجمع بين الرؤية الاستراتيجية والقدرة التنفيذية لتحويل الطموح إلى أداء سيادي قابل للقياس.'
               : 'We combine strategic vision with execution capability to transform ambition into sovereign, measurable performance.'}
           </blockquote>
-          <div className={styles.editorialCredit}>
+          <div className={styles.quoteCredit}>
             <span className={styles.creditLine} />
-            <span className={styles.creditText}>XVI GROUP · {ar ? 'الاستراتيجية والذكاء' : 'Strategy & Intelligence'}</span>
+            <span>XVI GROUP · {ar ? 'الاستراتيجية والذكاء' : 'Strategy & Intelligence'}</span>
           </div>
         </motion.div>
 
-        <div className={styles.timeline} ref={ref}>
+        <div className={styles.imageRow}>
+          <motion.div
+            className={styles.imageFrame}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease }}
+          >
+            <div className={styles.imageBg} />
+            <div className={styles.imageOverlay} />
+          </motion.div>
+
+          <motion.div
+            className={styles.imageCaption}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <span className={styles.captionLine} />
+            <span>{ar ? 'المقر الرئيسي — العين، الإمارات' : 'Headquarters — Al Ain, UAE'}</span>
+          </motion.div>
+        </div>
+
+        <div className={styles.timelineWrap} ref={ref}>
           <motion.div
             className={styles.timelineLine}
             initial={{ scaleY: 0 }}
@@ -87,14 +108,6 @@ export function About() {
               </div>
               <div className={styles.timelineYear}>{item.year}</div>
               <div className={styles.timelineContent}>
-                <motion.span
-                  className={styles.timelinePoint}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: i * 0.15 + 0.3, ease }}
-                >
-                  {ar ? item.pointAr : item.point}
-                </motion.span>
                 <h3 className={styles.timelineTitle}>{ar ? item.titleAr : item.title}</h3>
                 <p className={styles.timelineDesc}>{ar ? item.descAr : item.desc}</p>
               </div>
@@ -109,23 +122,20 @@ export function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease, delay: 0.4 }}
         >
-          <div className={styles.statsRowAccent} />
-          <div className={styles.statsGrid}>
-            <div className={styles.statCell} style={{ border: 'none' }}>
-              <span className={styles.statValue}>Vision</span>
-              <span className={styles.statDivider} />
-              <span className={styles.statLabel}>{ar ? 'استراتيجية' : 'Driven Strategy'}</span>
-            </div>
-            <div className={styles.statCell}>
-              <span className={styles.statValue}>AI</span>
-              <span className={styles.statDivider} />
-              <span className={styles.statLabel}>{ar ? 'ذكاء أصيل' : 'Native Approach'}</span>
-            </div>
-            <div className={styles.statCell}>
-              <span className={styles.statValue}>100%</span>
-              <span className={styles.statDivider} />
-              <span className={styles.statLabel}>{ar ? 'تركيز عميل' : 'Client Focus'}</span>
-            </div>
+          <div className={styles.statCell}>
+            <span className={styles.statValue}>Vision</span>
+            <span className={styles.statAccent} />
+            <span className={styles.statLabel}>{ar ? 'استراتيجية قيادية' : 'Strategic Vision'}</span>
+          </div>
+          <div className={styles.statCell}>
+            <span className={styles.statValue}>AI</span>
+            <span className={styles.statAccent} />
+            <span className={styles.statLabel}>{ar ? 'نهج أصيل' : 'AI-Native Approach'}</span>
+          </div>
+          <div className={styles.statCell}>
+            <span className={styles.statValue}>100%</span>
+            <span className={styles.statAccent} />
+            <span className={styles.statLabel}>{ar ? 'تركيز العميل' : 'Client Focus'}</span>
           </div>
         </motion.div>
       </Container>
