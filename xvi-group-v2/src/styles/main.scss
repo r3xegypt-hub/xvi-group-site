@@ -18,6 +18,8 @@ html {
   background: $color-bg;
   color: $color-text;
   font-size: 16px;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -34,25 +36,31 @@ body {
 [dir='rtl'] body {
   font-family: $font-ar-body;
   line-height: $leading-body-ar;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-heading;
-  font-weight: $weight-regular;
+  font-weight: $weight-semibold;
   line-height: $leading-hero;
   letter-spacing: $tracking-hero;
   color: $color-text;
-  text-shadow:
-    0 1px 2px rgba(0,0,0,0.02),
-    0 4px 12px rgba(0,0,0,0.01);
+
+  @media (hover: hover) {
+    text-shadow:
+      0 1px 2px rgba(0,0,0,0.02),
+      0 4px 12px rgba(0,0,0,0.01);
+  }
 }
 
 [dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3,
 [dir='rtl'] h4, [dir='rtl'] h5, [dir='rtl'] h6 {
   font-family: $font-ar-display;
   letter-spacing: 0;
-  line-height: 1.2;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  line-height: 1.15;
+  text-shadow: none;
+  font-feature-settings: 'kern' 1;
 }
 
 p {
@@ -187,7 +195,7 @@ input, textarea, select {
   transform: translate3d(0, 0, 0);
   will-change: transform;
   mix-blend-mode: normal;
-  transition: width 0.2s, height 0.2s, background 0.2s;
+  transition: width 0.2s cubic-bezier(0.16,1,0.3,1), height 0.2s cubic-bezier(0.16,1,0.3,1), background 0.2s cubic-bezier(0.16,1,0.3,1);
 
   &[data-state="link"],
   &[data-state="button"] {
@@ -214,7 +222,7 @@ input, textarea, select {
   transform: translate3d(0, 0, 0);
   will-change: transform;
   mix-blend-mode: normal;
-  transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+  transition: width 0.3s cubic-bezier(0.16,1,0.3,1), height 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s cubic-bezier(0.16,1,0.3,1), background 0.3s cubic-bezier(0.16,1,0.3,1);
 
   &[data-state="link"] {
     width: 48px;

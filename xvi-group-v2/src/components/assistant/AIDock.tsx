@@ -3,6 +3,7 @@ import type { ReactNode, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
   ChevronRight, Users, Shield, TrendingUp, Target, Lightbulb, Map,
@@ -50,79 +51,8 @@ function ThinkingDots() {
   return <>{dots}</>;
 }
 
-function AnimatedOrb() {
-  return (
-    <div style={{ position: 'relative', width: 80, height: 80, flexShrink: 0 }}>
-      {/* Outer glow rings */}
-      <motion.div
-        style={{
-          position: 'absolute', inset: -20, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(200,166,90,0.06) 0%, transparent 70%)',
-        }}
-        animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        style={{
-          position: 'absolute', inset: -12, borderRadius: '50%',
-          border: '1px solid rgba(200,166,90,0.08)',
-        }}
-        animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-      />
-      <motion.div
-        style={{
-          position: 'absolute', inset: -6, borderRadius: '50%',
-          border: '1px solid rgba(200,166,90,0.12)',
-        }}
-        animate={{ scale: [1, 1.04, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 }}
-      />
-      {/* Main orb */}
-      <motion.div
-        style={{
-          width: 80, height: 80, borderRadius: '50%',
-          background: 'radial-gradient(circle at 35% 35%, #ffffff, #c8a65a 45%, #8a7040 100%)',
-          position: 'relative', overflow: 'hidden',
-        }}
-        animate={{ scale: [1, 1.04, 1] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <div style={{
-          position: 'absolute', top: 6, left: 10, width: 24, height: 12,
-          background: 'radial-gradient(ellipse, rgba(255,255,255,0.5), transparent)',
-          borderRadius: '50%', transform: 'rotate(-20deg)',
-        }} />
-        <motion.div
-          style={{
-            position: 'absolute', inset: 0, borderRadius: '50%',
-            background: 'radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,0.15) 100%)',
-          }}
-          animate={{ opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </motion.div>
-      {/* Orbiting particles */}
-      {Array.from({ length: 5 }).map((_, i) => (
-        <motion.div
-          key={i}
-          style={{
-            position: 'absolute', top: 36, left: 36, width: 4, height: 4,
-            margin: -2, background: '#c8a65a', borderRadius: '50%',
-          }}
-          animate={{
-            x: [Math.cos(i * 1.256) * 50, Math.cos(i * 1.256 + Math.PI * 2) * 50],
-            y: [Math.sin(i * 1.256) * 50, Math.sin(i * 1.256 + Math.PI * 2) * 50],
-            opacity: [0.8, 0.2, 0.8],
-          }}
-          transition={{
-            duration: 6, repeat: Infinity, ease: 'linear',
-            delay: i * 0.3,
-          }}
-        />
-      ))}
-    </div>
-  );
+function AnimatedOrb({ state = 'idle' }: { state?: 'idle' | 'listening' | 'thinking' | 'speaking' }) {
+  return <AIAvatar state={state} />;
 }
 
 function VoiceWaveform() {
@@ -268,6 +198,10 @@ export function AIDock() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<ConsultingView>('overview');
   const [thoughtStage, setThoughtStage] = useState<'ready' | 'thinking' | 'synthesizing' | 'ready-again'>('ready');
+  const avatarState: 'idle' | 'listening' | 'thinking' | 'speaking' =
+    thoughtStage === 'thinking' || thoughtStage === 'synthesizing' ? 'thinking'
+    : thoughtStage === 'ready-again' ? 'speaking'
+    : 'idle';
   const [response, setResponse] = useState<ReactNode | null>(null);
   const [showResponse, setShowResponse] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -624,7 +558,7 @@ export function AIDock() {
               display: 'flex', alignItems: 'center', gap: 12,
               padding: '16px 20px', borderBottom: '1px solid rgba(17,17,17,0.04)',
             }}>
-              <AnimatedOrb />
+              <AnimatedOrb state={avatarState} />
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>
                   XVI EXECUTIVE AI
