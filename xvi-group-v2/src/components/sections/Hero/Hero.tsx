@@ -42,14 +42,21 @@ export function Hero() {
   const [inputFocused, setInputFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [showVoice, setShowVoice] = useState(false);
+  const [thinkingPhase, setThinkingPhase] = useState(0);
 
   useEffect(() => {
     if (isInView) {
       const timer = setTimeout(() => setLettersVisible(true), 300);
       const voiceTimer = setTimeout(() => setShowVoice(true), 2000);
+      const thinkTimer1 = setTimeout(() => setThinkingPhase(1), 3500);
+      const thinkTimer2 = setTimeout(() => setThinkingPhase(2), 5500);
+      const thinkTimer3 = setTimeout(() => setThinkingPhase(0), 7500);
       return () => {
         clearTimeout(timer);
         clearTimeout(voiceTimer);
+        clearTimeout(thinkTimer1);
+        clearTimeout(thinkTimer2);
+        clearTimeout(thinkTimer3);
       };
     }
   }, [isInView]);
@@ -65,6 +72,10 @@ export function Hero() {
   const quickPrompts = ar
     ? ['استكشف الحلول', 'احجز استشارة', 'تقييم الذكاء الاصطناعي', 'تواصل مع خبير']
     : ['Explore Solutions', 'Book Consultation', 'AI Assessment', 'Contact Expert'];
+
+  const thinkingText = ar
+    ? ['تفكير...', 'جاري تجميع الموجز التنفيذي...', 'جاهز لصياغة القرار التالي.']
+    : ['Thinking…', 'Synthesizing your executive brief…', "I'm ready to frame the next strategic decision."];
 
   return (
     <section className={styles.hero}>
@@ -159,13 +170,29 @@ export function Hero() {
               <span className={styles.widgetTitle}>
                 XVI EXECUTIVE AI
               </span>
-              {showVoice && <VoiceWaveform />}
+              {showVoice && (
+                <>
+                  <span className={styles.voiceSignal}>VOICE SIGNAL</span>
+                  <VoiceWaveform />
+                </>
+              )}
             </div>
             <p className={styles.widgetDesc}>
               {ar
                 ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً.'
                 : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.'}
             </p>
+            {isInView && thinkingPhase > 0 && (
+              <motion.p
+                key={thinkingPhase}
+                className={styles.thinkingText}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease }}
+              >
+                {thinkingText[thinkingPhase - 1]}
+              </motion.p>
+            )}
             <div className={styles.widgetInput} style={{ borderColor: inputFocused ? 'rgba(200,166,90,0.4)' : 'rgba(255,255,255,0.1)' }}>
               <input
                 type="text"
@@ -182,19 +209,6 @@ export function Hero() {
                 }}
               />
               <TypingCursor />
-            </div>
-            <div className={styles.quickPrompts}>
-              {quickPrompts.map((prompt, i) => (
-                <motion.button
-                  key={i}
-                  className={styles.promptChip}
-                  whileHover={{ background: 'rgba(200,166,90,0.12)', borderColor: 'rgba(200,166,90,0.3)' }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => setInputValue(prompt)}
-                >
-                  {prompt}
-                </motion.button>
-              ))}
             </div>
           </div>
         </motion.div>

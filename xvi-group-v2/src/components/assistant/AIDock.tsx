@@ -491,7 +491,7 @@ export function AIDock() {
               : 'linear-gradient(135deg, rgba(200,166,90,0.08), rgba(200,166,90,0.02))',
             fontFamily: font, fontSize: '0.75rem',
             fontWeight: 600, color: '#111111', letterSpacing: '0.02em',
-            transition: 'background 0.3s ease',
+            transition: 'background 0.4s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
           <div style={{ position: 'relative', width: 40, height: 40, flexShrink: 0 }}>
@@ -500,6 +500,7 @@ export function AIDock() {
               background: 'radial-gradient(circle at 35% 35%, #ffffff, #c8a65a 45%, #8a7040 100%)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               color: '#132238', fontSize: 18, fontWeight: 700,
+              boxShadow: '0 2px 8px rgba(200,166,90,0.15)',
             }}>X</div>
             <motion.div
               style={{ position: 'absolute', inset: -3, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.12)' }}
@@ -637,12 +638,12 @@ export function AIDock() {
                   }}>
                     <motion.div
                       style={{
-                        width: 20, height: 20, borderRadius: '50%',
-                        border: '2px solid rgba(200,166,90,0.2)',
+                        width: 16, height: 16, borderRadius: '50%',
+                        border: '2px solid rgba(200,166,90,0.15)',
                         borderTopColor: '#c8a65a', flexShrink: 0,
                       }}
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                      transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
                     />
                     <span style={{ fontFamily: font, fontSize: '0.75rem', color: '#666' }}>
                       {isAR && thoughtStage === 'thinking' ? 'تفكير' : ''}
@@ -666,7 +667,9 @@ export function AIDock() {
                   >
                     <div style={{
                       padding: '12px 14px', background: '#ffffff',
-                      borderRadius: 12, border: '1px solid rgba(200,166,90,0.08)',
+                      borderRadius: 12,
+                      border: '1px solid rgba(200,166,90,0.12)',
+                      boxShadow: '0 4px 16px rgba(200,166,90,0.04), 0 1px 2px rgba(0,0,0,0.03)',
                     }}>
                       {response}
                     </div>

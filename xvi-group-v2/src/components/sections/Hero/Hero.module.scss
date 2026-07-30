@@ -233,20 +233,38 @@
   display: inline-flex;
   align-items: center;
   gap: 1.5px;
-  height: 14px;
+  height: 12px;
   margin-left: 4px;
 }
 
 .waveBar {
-  width: 2px;
+  width: 1.5px;
   border-radius: 2px;
-  background: rgba(200, 166, 90, 0.5);
+  background: rgba(200, 166, 90, 0.6);
   animation: waveBounce 0.8s ease-in-out infinite alternate;
 }
 
 @keyframes waveBounce {
   0% { transform: scaleY(0.3); }
   100% { transform: scaleY(1); }
+}
+
+.voiceSignal {
+  font-family: 'Manrope', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(200, 166, 90, 0.5);
+}
+
+.thinkingText {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0 0 16px;
+  letter-spacing: 0.02em;
 }
 
 .widgetBadge {
@@ -312,10 +330,12 @@
   font-size: 11px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.4);
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     color: rgba(255, 255, 255, 0.7);
+    background: rgba(200, 166, 90, 0.08);
+    border-color: rgba(200, 166, 90, 0.2);
   }
 }
 
