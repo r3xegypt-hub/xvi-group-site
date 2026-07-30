@@ -4,7 +4,7 @@ import type { Easing, Variants } from 'framer-motion';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-type RevealVariant = 'fadeUp' | 'scaleIn' | 'slideLeft' | 'slideRight' | 'clipReveal' | 'depthIn';
+type RevealVariant = 'fadeUp' | 'scaleIn' | 'slideLeft' | 'slideRight' | 'clipReveal' | 'depthIn' | 'goldSweep';
 
 interface SectionRevealProps {
   children: React.ReactNode;
@@ -18,28 +18,36 @@ interface SectionRevealProps {
 
 const variantMap: Record<RevealVariant, Variants> = {
   fadeUp: {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+    hidden: { opacity: 0, y: 40, filter: 'blur(2px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease } },
   },
   scaleIn: {
-    hidden: { opacity: 0, scale: 0.94 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease } },
+    hidden: { opacity: 0, scale: 0.94, filter: 'blur(2px)' },
+    visible: { opacity: 1, scale: 1, filter: 'blur(0px)', transition: { duration: 0.8, ease } },
   },
   slideLeft: {
-    hidden: { opacity: 0, x: 60 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } },
+    hidden: { opacity: 0, x: 60, filter: 'blur(2px)' },
+    visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease } },
   },
   slideRight: {
-    hidden: { opacity: 0, x: -60 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease } },
+    hidden: { opacity: 0, x: -60, filter: 'blur(2px)' },
+    visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease } },
   },
   clipReveal: {
-    hidden: { opacity: 0, clipPath: 'inset(0 50% 0 50%)' },
-    visible: { opacity: 1, clipPath: 'inset(0 0% 0 0%)', transition: { duration: 0.8, ease } },
+    hidden: { opacity: 0, clipPath: 'inset(0 50% 0 50%)', filter: 'blur(3px)' },
+    visible: { opacity: 1, clipPath: 'inset(0 0% 0 0%)', filter: 'blur(0px)', transition: { duration: 0.9, ease } },
   },
   depthIn: {
-    hidden: { opacity: 0, y: 30, scale: 0.97, filter: 'blur(4px)' },
-    visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.7, ease } },
+    hidden: { opacity: 0, y: 40, scale: 0.96, filter: 'blur(6px)' },
+    visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.9, ease } },
+  },
+  goldSweep: {
+    hidden: { opacity: 0, clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' },
+    visible: {
+      opacity: 1,
+      clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+      transition: { duration: 1.0, ease },
+    },
   },
 };
 

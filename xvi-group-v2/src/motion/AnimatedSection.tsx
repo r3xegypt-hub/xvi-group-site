@@ -27,11 +27,12 @@ export function AnimatedSection({
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       variants={{
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 30, filter: 'blur(2px)' },
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.7, delay, ease: easeCurve },
+          filter: 'blur(0px)',
+          transition: { duration: 0.8, delay, ease: easeCurve },
         },
       }}
     >
@@ -82,10 +83,11 @@ export function StaggerItem({ children, className }: StaggerItemProps) {
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 30, filter: 'blur(2px)' },
         visible: {
           opacity: 1,
           y: 0,
+          filter: 'blur(0px)',
           transition: { duration: 0.6, ease: easeCurve },
         },
       }}
@@ -106,12 +108,12 @@ export function FadeIn({ children, className, delay = 0, direction = 'up' }: Fad
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px 0px' });
 
-  const variants: Record<string, { opacity: number; y?: number; x?: number; scale?: number }> = {
-    up: { opacity: 0, y: 30 },
-    down: { opacity: 0, y: -20 },
-    left: { opacity: 0, x: -30 },
-    right: { opacity: 0, x: 30 },
-    scale: { opacity: 0, scale: 0.95 },
+  const variants: Record<string, { opacity: number; y?: number; x?: number; scale?: number; filter?: string }> = {
+    up: { opacity: 0, y: 30, filter: 'blur(2px)' },
+    down: { opacity: 0, y: -20, filter: 'blur(2px)' },
+    left: { opacity: 0, x: -30, filter: 'blur(2px)' },
+    right: { opacity: 0, x: 30, filter: 'blur(2px)' },
+    scale: { opacity: 0, scale: 0.95, filter: 'blur(2px)' },
   };
 
   return (
@@ -119,8 +121,8 @@ export function FadeIn({ children, className, delay = 0, direction = 'up' }: Fad
       ref={ref}
       className={className}
       initial={variants[direction]}
-      animate={isInView ? { opacity: 1, y: 0, x: 0, scale: 1 } : variants[direction]}
-      transition={{ duration: 0.7, delay, ease: easeCurve }}
+      animate={isInView ? { opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' } : variants[direction]}
+      transition={{ duration: 0.8, delay, ease: easeCurve }}
     >
       {children}
     </motion.div>

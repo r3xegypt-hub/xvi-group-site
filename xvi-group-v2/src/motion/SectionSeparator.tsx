@@ -24,12 +24,13 @@ export function SectionSeparator({ className, variant = 'line' }: SectionSeparat
       <div ref={ref} className={className} aria-hidden="true" style={{ position: 'relative', height: 80, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <motion.div
           style={{
-            width: 60,
+            width: 120,
             height: 1,
-            background: 'linear-gradient(90deg, transparent, #C8A65A, transparent)',
+            background: 'linear-gradient(90deg, transparent, #C8A65A, #D4B76E, #C8A65A, transparent)',
             scaleX,
             opacity,
             transformOrigin: 'center',
+            boxShadow: '0 0 12px rgba(200, 166, 90, 0.15), 0 0 40px rgba(200, 166, 90, 0.05)',
           }}
         />
       </div>
