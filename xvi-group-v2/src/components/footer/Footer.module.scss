@@ -35,8 +35,9 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background: #c8a65a;
+  background: linear-gradient(135deg, #c8a65a, #b7934c);
   border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(200, 166, 90, 0.15);
 }
 
 .logoX {
@@ -74,14 +75,34 @@
   font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
+  position: relative;
+  padding: 2px 0;
 
-  &:hover { color: #c8a65a; }
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(200, 166, 90, 0.3);
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &:hover {
+    color: #c8a65a;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
 }
 
 .divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.15), transparent);
 }
 
 .meta {

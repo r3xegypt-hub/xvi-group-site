@@ -12,6 +12,7 @@
 
 .bar {
   height: 100%;
-  background: #C9A96E;
-  transition: width 100ms ease-out;
+  background: linear-gradient(90deg, #C8A65A, #D4B76E);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 8px rgba(200, 166, 90, 0.2);
 }

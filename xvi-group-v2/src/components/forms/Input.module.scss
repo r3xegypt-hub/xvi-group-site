@@ -111,6 +111,10 @@
   }
 
   // Premium focus effect
+  &:hover:not(:disabled):not(:focus) {
+    border-color: rgba(201, 169, 110, 0.25);
+  }
+
   &:focus {
     border-color: #C9A96E;
     box-shadow: 
