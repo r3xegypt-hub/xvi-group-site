@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Briefcase, Users, Globe, ArrowUpRight, Heart, Zap, Shield, Target } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { Container } from '../../components/layout/Container';
@@ -154,31 +155,36 @@ export function CareersPage() {
             <h2 className={styles.sectionTitle}>{ar ? 'الفرص المتاحة' : 'Open Positions'}</h2>
             <div className={styles.rolesGrid}>
               {roles.map((role, i) => (
-                <motion.div
+                <Link
+                  to="/contact"
                   key={i}
-                  className={styles.roleCard}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, ease, delay: i * 0.1 }}
+                  style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
                 >
-                  <div className={styles.roleHeader}>
-                    <div className={styles.roleIconWrap}>
-                      <role.icon size={20} strokeWidth={1.5} className={styles.roleIcon} />
+                  <motion.div
+                    className={styles.roleCard}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease, delay: i * 0.1 }}
+                  >
+                    <div className={styles.roleHeader}>
+                      <div className={styles.roleIconWrap}>
+                        <role.icon size={20} strokeWidth={1.5} className={styles.roleIcon} />
+                      </div>
+                      <div className={styles.roleMeta}>
+                        <span className={styles.roleDept}>{ar ? role.dept.ar : role.dept.en}</span>
+                        <span className={styles.roleDot}>·</span>
+                        <span className={styles.roleType}>{ar ? role.type.ar : role.type.en}</span>
+                      </div>
                     </div>
-                    <div className={styles.roleMeta}>
-                      <span className={styles.roleDept}>{ar ? role.dept.ar : role.dept.en}</span>
-                      <span className={styles.roleDot}>·</span>
-                      <span className={styles.roleType}>{ar ? role.type.ar : role.type.en}</span>
+                    <h3 className={styles.roleTitle}>{ar ? role.title.ar : role.title.en}</h3>
+                    <p className={styles.roleDesc}>{ar ? role.desc.ar : role.desc.en}</p>
+                    <div className={styles.roleFooter}>
+                      <span className={styles.roleLocation}>{ar ? role.location.ar : role.location.en}</span>
+                      <ArrowUpRight size={14} className={styles.roleArrow} />
                     </div>
-                  </div>
-                  <h3 className={styles.roleTitle}>{ar ? role.title.ar : role.title.en}</h3>
-                  <p className={styles.roleDesc}>{ar ? role.desc.ar : role.desc.en}</p>
-                  <div className={styles.roleFooter}>
-                    <span className={styles.roleLocation}>{ar ? role.location.ar : role.location.en}</span>
-                    <ArrowUpRight size={14} className={styles.roleArrow} />
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </Link>
               ))}
             </div>
 

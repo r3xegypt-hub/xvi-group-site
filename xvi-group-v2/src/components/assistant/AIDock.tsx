@@ -194,6 +194,210 @@ function RoadmapCard() {
   );
 }
 
+function GreetingWaveform() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 24 }}>
+      {Array.from({ length: 24 }).map((_, i) => (
+        <motion.div
+          key={i}
+          style={{ width: 2, borderRadius: 3, background: 'linear-gradient(180deg, #c8a65a, #d4b76e)', originY: 0.5 }}
+          animate={{
+            height: [3 + Math.random() * 6, 14 + Math.random() * 18, 3 + Math.random() * 6],
+            opacity: [0.2, 1, 0.2],
+          }}
+          transition={{
+            duration: 1.2 + Math.random() * 0.8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: i * 0.04,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function WhatsAppFallback({ query, isAR }: { query: string; isAR: boolean }) {
+  const number = '971569220064';
+  const message = isAR
+    ? `مرحباً، أنا مهتم بـ: ${query}\n\nمن فضلكم أود معرفة المزيد عن خدمات XVI GROUP.`
+    : `Hello, I'm interested in: ${query}\n\nI'd like to learn more about XVI GROUP's services.`;
+  const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+
+  return (
+    <div style={{ marginTop: 12 }}>
+      <div style={{
+        padding: 16, background: 'linear-gradient(135deg, rgba(37,211,102,0.06), rgba(37,211,102,0.02))',
+        borderRadius: 14, border: '1px solid rgba(37,211,102,0.12)',
+      }}>
+        <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#075E54', marginBottom: 6 }}>
+          {isAR ? 'تواصل معنا عبر واتساب' : 'Chat with us on WhatsApp'}
+        </div>
+        <div style={{ fontFamily: font, fontSize: '0.7rem', color: '#666', marginBottom: 12, lineHeight: 1.6 }}>
+          {isAR
+            ? 'سنقوم بإنشاء رسالة مخصصة لك. فقط اضغط على الزر أدناه لإرسالها.'
+            : 'We\'ll generate a custom message for you. Just tap the button below to send it.'}
+        </div>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '10px 20px', background: '#25D366', color: '#fff',
+            borderRadius: 999, textDecoration: 'none',
+            fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+            boxShadow: '0 4px 16px rgba(37,211,102,0.25)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(37,211,102,0.35)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(37,211,102,0.25)'; }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          {isAR ? 'أرسل عبر واتساب' : 'Send via WhatsApp'}
+        </a>
+      </div>
+    </div>
+  );
+}
+
+interface ContentEntry {
+  keywords: string[];
+  response: (isAR: boolean) => ReactNode;
+  cta?: { label: { en: string; ar: string }; to: string };
+}
+
+const contentMap: ContentEntry[] = [
+  {
+    keywords: ['ai transformation', 'ai strategy', 'ai adoption', 'sovereign ai', 'ai consulting', 'تحول ذكاء اصطناعي', 'استراتيجية ذكاء اصطناعي', 'ذكاء سيادي'],
+    response: (isAR) => isAR
+      ? 'نقدم تحولاً شاملاً للذكاء الاصطناعي: استراتيجية مخصصة، حوكمة سيادية، تطوير نماذج، ونشر مع الحفاظ على ملكية بياناتك.'
+      : 'We deliver end-to-end AI transformation: custom strategy, sovereign governance, model development, and deployment with full data ownership.',
+    cta: { label: { en: 'AI Transformation →', ar: 'التحول بالذكاء الاصطناعي ←' }, to: '/services/ai-transformation' },
+  },
+  {
+    keywords: ['business consulting', 'business advisory', 'استشارات الأعمال', 'استشارات إدارية'],
+    response: (isAR) => isAR
+      ? 'نساعد القادة على تحقيق الوضوح الاستراتيجي في عصر الذكاء الاصطناعي — رؤية، خارطة طريق، وتنفيذ بدقة.'
+      : 'We help leaders achieve strategic clarity in the AI era — vision, roadmap, and execution with precision.',
+    cta: { label: { en: 'Business Consulting →', ar: 'استشارات الأعمال ←' }, to: '/services/business-consulting' },
+  },
+  {
+    keywords: ['technology consulting', 'tech consulting', 'digital transformation', 'cloud', 'infrastructure', 'استشارات تكنولوجيا', 'تحول رقمي', 'سحابة'],
+    response: (isAR) => isAR
+      ? 'نهندس الأساس التكنولوجي للمؤسسات الذكية: استراتيجية سحابية، هندسة بيانات، أمان zero-trust.'
+      : 'We architect the technology foundation for AI-native enterprises: cloud strategy, data engineering, zero-trust security.',
+    cta: { label: { en: 'Technology Consulting →', ar: 'استشارات التكنولوجيا ←' }, to: '/services/technology-consulting' },
+  },
+  {
+    keywords: ['executive training', 'leadership training', 'ai training', 'تدريب تنفيذي', 'تدريب قيادات', 'تدريب ذكاء اصطناعي'],
+    response: (isAR) => isAR
+      ? 'نمكن فرق القيادة بمعرفة وأطر العمل بالذكاء الاصطناعي لقيادة الثقة في العصر الرقمي.'
+      : 'We empower leadership teams with AI knowledge and frameworks to lead confidently in the AI era.',
+    cta: { label: { en: 'Executive Training →', ar: 'التدريب التنفيذي ←' }, to: '/services/executive-training' },
+  },
+  {
+    keywords: ['services', 'خدمات', 'what do you do', 'ماذا تقدمون'],
+    response: (isAR) => isAR
+      ? 'نقدم أربع خدمات رئيسية:\n١. استشارات الأعمال — وضوح استراتيجي\n٢. استشارات التكنولوجيا — بنية تحتية ذكية\n٣. التحول بالذكاء الاصطناعي — تبني شامل\n٤. التدريب التنفيذي — تمكين القيادة'
+      : 'We offer four core services:\n1. Business Consulting — strategic clarity\n2. Technology Consulting — smart infrastructure\n3. AI Transformation — end-to-end adoption\n4. Executive Training — leadership empowerment',
+    cta: { label: { en: 'All Services →', ar: 'جميع الخدمات ←' }, to: '/services' },
+  },
+  {
+    keywords: ['industries', 'sectors', 'financial services', 'public sector', 'healthcare', 'education', 'enterprise', 'القطاعات', 'الخدمات المالية', 'القطاع العام', 'الصحة', 'التعليم'],
+    response: (isAR) => isAR
+      ? 'نخدم ستة قطاعات: الخدمات المالية، القطاع العام، المؤسسات الكبرى، الرعاية الصحية، التعليم والتكنولوجيا والاتصالات.'
+      : 'We serve six sectors: Financial Services, Public Sector, Complex Enterprise, Healthcare, Education, and Technology & Telecom.',
+    cta: { label: { en: 'Industries →', ar: 'القطاعات ←' }, to: '/industries' },
+  },
+  {
+    keywords: ['about', 'company', 'who are you', 'vision', 'mission', 'values', 'من أنتم', 'عن الشركة', 'رؤية', 'رسالة'],
+    response: (isAR) => isAR
+      ? 'XVI GROUP هي شركة استشارات تنفيذية متخصصة في تحول الذكاء الاصطناعي، مقرها العين، الإمارات. رؤيتنا: الريادة في شراكة التحول بالذكاء الاصطناعي في المنطقة. قيمنا: الوضوح، الدقة، الشراكة، الأثر.'
+      : 'XVI GROUP is an executive advisory firm specializing in AI transformation, based in Al Ain, UAE. Our vision: to be the leading strategic partner for AI transformation in the region. Values: Clarity, Precision, Partnership, Impact.',
+    cta: { label: { en: 'About Us →', ar: 'عن الشركة ←' }, to: '/about' },
+  },
+  {
+    keywords: ['contact', 'consultation', 'book', 'meeting', 'call', 'تواصل', 'استشارة', 'اتصال', 'موعد'],
+    response: (isAR) => isAR
+      ? 'يسعدنا التواصل معك! يمكنك حجز استشارة مجانية أو مراسلتنا مباشرة.'
+      : 'We\'d love to hear from you! You can book a free consultation or reach out directly.',
+    cta: { label: { en: 'Contact Us →', ar: 'تواصل معنا ←' }, to: '/contact' },
+  },
+  {
+    keywords: ['automation', 'workflow', 'process', 'rpa', 'أتمتة', 'تدفق عمل'],
+    response: (isAR) => isAR
+      ? 'نصمم أنظمة أتمتة ذكية: معالجة المستندات، خدمة العملاء، التقارير المالية، وسلاسل التوريد.'
+      : 'We design intelligent automation systems: document processing, customer service, financial reporting, and supply chain.',
+    cta: { label: { en: 'Automation Scan →', ar: 'فحص الأتمتة ←' }, to: '/services/technology-consulting' },
+  },
+  {
+    keywords: ['governance', 'ai ethics', 'responsible ai', 'compliance', 'حوكمة', 'أخلاقيات ذكاء اصطناعي'],
+    response: (isAR) => isAR
+      ? 'نبني أطر حوكمة شاملة للذكاء الاصطناعي: السياسات، الأخلاقيات، إدارة المخاطر، والامتثال.'
+      : 'We build comprehensive AI governance frameworks: policies, ethics, risk management, and compliance.',
+    cta: { label: { en: 'Governance →', ar: 'الحوكمة ←' }, to: '/services/ai-transformation' },
+  },
+  {
+    keywords: ['methodology', 'process', 'approach', 'how', 'منهجية', 'نهج', 'كيف'],
+    response: (isAR) => isAR
+      ? 'منهجيتنا تعتمد على أربع مراحل: اكتشف ← صمم ← ابنِ ← طوّر.每条 مرحلة تشمل مواءمة تنفيذية وتحقق تقني.'
+      : 'Our methodology follows four phases: Discover → Architect → Build → Evolve. Each phase includes executive alignment and technical validation.',
+    cta: { label: { en: 'Our Approach →', ar: 'منهجيتنا ←' }, to: '/about' },
+  },
+  {
+    keywords: ['insights', 'thought leadership', 'research', 'resources', 'رؤى', 'فكر قيادي', 'أبحاث', 'موارد'],
+    response: (isAR) => isAR
+      ? 'تصفح رؤانا حول استراتيجية الذكاء الاصطناعي، الأتمتة، التبني التنفيذي، ذكاء المخاطر، والتحول الرقمي.'
+      : 'Explore our insights on AI Strategy, Automation, Executive Adoption, Risk Intelligence, and Digital Transformation.',
+    cta: { label: { en: 'Insights →', ar: 'الرؤى ←' }, to: '/insights' },
+  },
+  {
+    keywords: ['careers', 'jobs', 'join', 'hiring', 'work', 'وظائف', 'انضم', 'توظيف'],
+    response: (isAR) => isAR
+      ? 'نبحث عن أفراد استثنائيين! لدينا فرص في استشارات استراتيجية الذكاء الاصطناعي، هندسة الأتمتة، وحوكمة الذكاء الاصطناعي.'
+      : 'We\'re looking for exceptional individuals! Openings in AI Strategy Consulting, Automation Architecture, and AI Governance.',
+    cta: { label: { en: 'Careers →', ar: 'الوظائف ←' }, to: '/careers' },
+  },
+  {
+    keywords: ['pricing', 'cost', 'price', 'fee', 'engagement', 'budget', 'تسعير', 'تكلفة', 'سعر', 'رسوم', 'ميزانية'],
+    response: (isAR) => isAR
+      ? 'هيكل التسعير لدينا:\n• استشارات دورية — اشتراك شهري\n• مشاريع محددة — 4-12 أسبوعاً\n• برامج تحول شاملة — 3-6 أشهر\nللحصول على عرض سعر مخصص، تواصل معنا.'
+      : 'Our pricing structure:\n• Advisory Retainer — monthly engagement\n• Project-Based — 4-12 weeks\n• Transformation Program — 3-6 months\nContact us for a custom quote.',
+    cta: { label: { en: 'Get a Quote →', ar: 'احصل على عرض سعر ←' }, to: '/contact' },
+  },
+  {
+    keywords: ['timeline', 'duration', 'how long', 'roadmap', 'schedule', 'الجدول الزمني', 'المدة', 'خارطة طريق', 'مدة المشروع'],
+    response: (isAR) => isAR
+      ? 'الجدول الزمني النموذجي:\n• الأسبوع 1-2: الاكتشاف والتقييم\n• الأسبوع 3-4: تطوير الاستراتيجية\n• الأسبوع 5-8: التصميم المعماري\n• الأسبوع 9-12: تطوير النموذج التجريبي\n• الأسبوع 13-20: الاختبار والنشر'
+      : 'Typical timeline:\n• Week 1-2: Discovery & Assessment\n• Week 3-4: Strategy Development\n• Week 5-8: Architecture & Design\n• Week 9-12: Pilot Development\n• Week 13-20: Testing & Deployment',
+    cta: { label: { en: 'Timeline →', ar: 'الجدول الزمني ←' }, to: '/services' },
+  },
+];
+
+function findContentMatch(input: string, isAR: boolean): { entry: ContentEntry; score: number } | null {
+  const normalized = input.toLowerCase().trim();
+  let best: { entry: ContentEntry; score: number } | null = null;
+
+  for (const entry of contentMap) {
+    let score = 0;
+    for (const kw of entry.keywords) {
+      const kwLower = kw.toLowerCase();
+      if (normalized.includes(kwLower)) {
+        score += kwLower.split(' ').length;
+      }
+      if (kwLower.includes(normalized) && normalized.length > 2) {
+        score += 3;
+      }
+    }
+    if (score > 0 && (!best || score > best.score)) {
+      best = { entry, score };
+    }
+  }
+
+  return best;
+}
+
 export function AIDock() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<ConsultingView>('overview');
@@ -209,6 +413,22 @@ export function AIDock() {
   const { language } = useLanguage();
   const isAR = language === 'ar';
   const inputRef = useRef<HTMLInputElement>(null);
+  const [greetingStage, setGreetingStage] = useState<'entering' | 'greeting' | 'done'>('entering');
+  const greetDone = useRef(false);
+
+  useEffect(() => {
+    if (greetDone.current) return;
+    greetDone.current = true;
+    const enterTimer = setTimeout(() => {
+      setOpen(true);
+      setTimeout(() => setGreetingStage('greeting'), 1000);
+      setTimeout(() => {
+        setGreetingStage('done');
+        setOpen(false);
+      }, 6000);
+    }, 1200);
+    return () => clearTimeout(enterTimer);
+  }, []);
 
   useEffect(() => {
     if (open && inputRef.current) {
@@ -399,26 +619,71 @@ export function AIDock() {
   const handleInputSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
-    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{inputValue}</span>;
-    const aiResponse = (
-      <div>
-        <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12 }}>
-          Thank you for your question. I recommend scheduling a consultation with our executive team for a comprehensive analysis of <strong style={{ color: '#111' }}>{inputValue}</strong>. Our experts will provide a tailored strategy within 48 hours.
-        </div>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <div style={{ flex: 1, padding: '10px 12px', background: '#132238', borderRadius: 8, textAlign: 'center' }}>
-            <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#fff' }}>Book Consultation</div>
+    const query = inputValue.trim();
+    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{query}</span>;
+
+    const match = findContentMatch(query, isAR);
+    let aiResponse: ReactNode;
+
+    if (match && match.score >= 2) {
+      const { entry } = match;
+      aiResponse = (
+        <div>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7, whiteSpace: 'pre-line' }}>
+            {entry.response(isAR)}
           </div>
-          <div style={{ flex: 1, padding: '10px 12px', background: '#f7f6f3', borderRadius: 8, textAlign: 'center', border: '1px solid rgba(200,166,90,0.1)' }}>
-            <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#111' }}>Download Brief</div>
-          </div>
+          {entry.cta && (
+            <a
+              href={entry.cta.to}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '10px 20px', background: '#132238', color: '#fff',
+                borderRadius: 999, textDecoration: 'none',
+                fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+                transition: 'all 0.25s ease',
+                boxShadow: '0 4px 12px rgba(19,34,56,0.15)',
+                marginTop: 8,
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = '#c8a65a'; e.currentTarget.style.color = '#132238'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = '#132238'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.transform = 'none'; }}
+            >
+              {isAR ? entry.cta.label.ar : entry.cta.label.en}
+            </a>
+          )}
         </div>
-      </div>
-    );
+      );
+    } else {
+      aiResponse = (
+        <div>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7 }}>
+            {isAR
+              ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
+              : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.'}
+          </div>
+          <WhatsAppFallback query={query} isAR={isAR} />
+          <a
+            href="/contact"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '10px 20px', background: 'transparent', color: '#132238',
+              borderRadius: 999, textDecoration: 'none', marginTop: 8,
+              border: '1px solid rgba(200,166,90,0.2)',
+              fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+              transition: 'all 0.25s ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(200,166,90,0.08)'; e.currentTarget.style.borderColor = '#c8a65a'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(200,166,90,0.2)'; }}
+          >
+            {isAR ? 'تواصل معنا ←' : 'Contact Us →'}
+          </a>
+        </div>
+      );
+    }
+
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
     setInputValue('');
     simulateThinking(aiResponse);
-  }, [inputValue, simulateThinking]);
+  }, [inputValue, simulateThinking, isAR]);
 
   const statusText = thoughtStage === 'thinking'
     ? (isAR ? 'تفكير...' : 'Thinking…')
@@ -612,6 +877,57 @@ export function AIDock() {
 
             {/* Body */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
+              {/* Greeting */}
+              {greetingStage === 'greeting' && messageLog.length === 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease }}
+                  style={{ marginBottom: 20, textAlign: 'center', padding: '16px 0' }}
+                >
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.8, ease, delay: 0.2 }}
+                  >
+                    <GreetingWaveform />
+                  </motion.div>
+                  <motion.div
+                    style={{ fontFamily: font, fontSize: '1rem', fontWeight: 700, color: '#111', marginTop: 16, letterSpacing: '0.02em' }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    {isAR ? 'مرحباً بك في XVI' : 'Welcome to XVI'}
+                  </motion.div>
+                  <motion.div
+                    style={{ fontFamily: font, fontSize: '0.75rem', color: '#666', marginTop: 8, lineHeight: 1.6, maxWidth: 340, margin: '8px auto 0' }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.7 }}
+                  >
+                    {isAR
+                      ? 'المستشار التنفيذي للذكاء الاصطناعي. يمكنني الإجابة عن أسئلتك حول خدماتنا، قطاعاتنا، ورؤيتنا.'
+                      : 'Your Executive AI Advisor. I can answer questions about our services, industries, and insights.'}
+                  </motion.div>
+                  <motion.div
+                    style={{ marginTop: 16, display: 'flex', justifyContent: 'center', gap: 6 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 1 }}
+                  >
+                    {[0, 1, 2].map((i) => (
+                      <motion.div
+                        key={i}
+                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#c8a65a' }}
+                        animate={{ scale: [1, 1.6, 1], opacity: [0.3, 0.8, 0.3] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
+                      />
+                    ))}
+                  </motion.div>
+                </motion.div>
+              )}
+
               {/* Message log */}
               {messageLog.map((msg, i) => (
                 <motion.div

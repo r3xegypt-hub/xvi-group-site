@@ -169,10 +169,10 @@ export function InsightsPage() {
                 </div>
                 <h3 className={styles.perspectiveTitle}>{ar ? item.title.ar : item.title.en}</h3>
                 <p className={styles.perspectiveDesc}>{ar ? item.desc.ar : item.desc.en}</p>
-                <div className={styles.perspectiveLink}>
+                <a href="/contact" className={styles.perspectiveLink}>
                   <span>{ar ? 'اقرأ المزيد' : 'Read more'}</span>
                   <ArrowUpRight size={14} />
-                </div>
+                </a>
               </motion.div>
             ))}
           </div>
