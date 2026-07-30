@@ -237,7 +237,7 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
               position: 'absolute', bottom: '16%', zIndex: 1,
-              fontFamily: "'Manrope', Georgia, serif",
+              fontFamily: "'Manrope', sans-serif",
               fontSize: '0.75rem', letterSpacing: '0.35em',
               textTransform: 'uppercase', color: '#111111',
             }}

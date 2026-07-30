@@ -1,14 +1,16 @@
+@import '../../../styles/mixins/devices';
+
 .section {
-  padding: 112px 72px;
+  padding: 96px 48px;
   background: #ffffff;
 
-  @media (max-width: 768px) {
-    padding: 64px 24px;
-  }
+  @include mobile { padding: 48px 16px; }
+  @include tablet-portrait { padding: 64px 32px; }
+  @include tablet-landscape { padding: 80px 40px; }
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -30,8 +32,10 @@
   line-height: 1.15;
   letter-spacing: -0.015em;
   color: #101010;
-  margin: 0 0 56px;
+  margin: 0 0 40px;
   max-width: 680px;
+
+  @include tablet-portrait { margin-bottom: 48px; }
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
@@ -41,9 +45,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  @include below-tablet-landscape { grid-template-columns: repeat(2, 1fr); }
+  @include mobile { grid-template-columns: 1fr; }
 }
 
 .card {

@@ -88,6 +88,9 @@ export function Navigation() {
           <Link to="/contact" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>
             {ar ? 'تواصل' : 'Contact'}
           </Link>
+          <div className={styles.mobileLangWrap}>
+            <LanguageToggle />
+          </div>
         </div>
       </div>
     </>

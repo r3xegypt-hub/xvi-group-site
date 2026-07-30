@@ -1,22 +1,39 @@
-.section {
-  padding: 96px 72px;
-  background: #101010;
+@import '../../../styles/mixins/devices';
 
-  @media (max-width: 768px) {
-    padding: 64px 24px;
+.section {
+  padding: 80px 48px;
+  background: #101010;
+  position: relative;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 48px 16px;
+  }
+
+  @include tablet-portrait {
+    padding: 64px 32px;
+  }
+
+  @include tablet-landscape {
+    padding: 80px 40px;
   }
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 64px;
 
-  @media (max-width: 768px) {
+  @include mobile {
     flex-direction: column;
     gap: 40px;
+  }
+
+  @include tablet-portrait {
+    flex-direction: column;
+    gap: 48px;
   }
 }
 

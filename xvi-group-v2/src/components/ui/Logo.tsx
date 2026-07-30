@@ -36,7 +36,7 @@ function LogoText({ variant, size }: { variant: string; size: string }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
       <span style={{
-        fontFamily: '"Manrope", Georgia, serif',
+        fontFamily: '"Manrope", sans-serif',
         fontSize: textSize,
         fontWeight: 400,
         letterSpacing: '-0.02em',
@@ -106,7 +106,7 @@ export function LogoWordmark({ variant = 'dark', className }: { variant?: 'dark'
         <circle cx="16" cy="16" r="2.5" fill={textColor} />
       </svg>
       <span style={{
-        fontFamily: "'Manrope', Georgia, serif",
+        fontFamily: "'Manrope', sans-serif",
         fontSize: '1.125rem',
         fontWeight: 400,
         letterSpacing: '-0.02em',

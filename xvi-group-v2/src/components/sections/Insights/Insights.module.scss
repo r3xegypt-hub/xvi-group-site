@@ -1,25 +1,31 @@
+@import '../../../styles/mixins/devices';
+
 .section {
   background: #F7F6F3;
-  padding: 100px 24px;
+  padding: 64px 16px;
+
+  @include tablet-portrait {
+    padding: 80px 32px;
+  }
+
+  @include tablet-landscape {
+    padding: 100px 40px;
+  }
 }
 
 .inner {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .title {
-  font-family: 'Alexandria', serif;
-  font-size: 52px;
+  font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
   font-weight: 700;
   line-height: 1.1;
   color: #111111;
   margin: 0 0 48px;
   text-align: center;
-
-  @media (max-width: 809.98px) {
-    font-size: 36px;
-  }
 }
 
 .grid {
@@ -27,7 +33,7 @@
   grid-template-columns: 1fr;
   gap: 24px;
 
-  @media (min-width: 810px) {
+  @include from-tablet-portrait {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -45,7 +51,7 @@
 }
 
 .cardTitle {
-  font-family: 'Alexandria', serif;
+  font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
   font-size: 27px;
   font-weight: 700;
   line-height: 1.2;

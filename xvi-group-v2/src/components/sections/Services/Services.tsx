@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import { MouseReactive } from '../../../motion/MouseReactive';
 import styles from './Services.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -67,8 +68,8 @@ export function Services() {
 
         <div className={styles.grid}>
           {services.map((service, i) => (
+            <MouseReactive key={service.num} intensity={6} perspective={1000}>
             <motion.div
-              key={service.num}
               className={`${styles.card} ${styles[service.bg]}`}
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -82,6 +83,7 @@ export function Services() {
                 {ar ? service.desc.ar : service.desc.en}
               </p>
             </motion.div>
+            </MouseReactive>
           ))}
         </div>
       </div>

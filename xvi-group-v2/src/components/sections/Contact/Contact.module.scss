@@ -1,10 +1,22 @@
+@import '../../../styles/mixins/devices';
+
 .section {
-  padding: 112px 72px;
+  padding: 80px 48px;
   background: #ffffff;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 
-  @media (max-width: 768px) {
-    padding: 64px 24px;
+  @include mobile {
+    padding: 48px 16px;
+  }
+
+  @include tablet-portrait {
+    padding: 64px 32px;
+  }
+
+  @include tablet-landscape {
+    padding: 80px 40px;
   }
 }
 
@@ -53,7 +65,7 @@
   gap: 48px;
   flex-wrap: wrap;
 
-  @media (max-width: 768px) {
+  @include mobile {
     flex-direction: column;
     gap: 24px;
   }

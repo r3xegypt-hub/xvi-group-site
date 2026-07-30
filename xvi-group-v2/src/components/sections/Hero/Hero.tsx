@@ -1,37 +1,14 @@
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useAnimationControls } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import { AIAvatar } from '../../assistant/AIAvatar';
+import { VoiceWaveform } from '../../assistant/AIDock';
+import { FlowingWave } from '../../../motion/FlowingWave';
+import { MouseReactive } from '../../../motion/MouseReactive';
 import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
-
-function TypingCursor() {
-  return (
-    <motion.span
-      className={styles.cursor}
-      animate={{ opacity: [1, 0] }}
-      transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
-    />
-  );
-}
-
-function VoiceWaveform() {
-  return (
-    <span className={styles.voiceWave}>
-      {Array.from({ length: 8 }).map((_, i) => (
-        <span
-          key={i}
-          className={styles.waveBar}
-          style={{
-            animationDelay: `${i * 0.08}s`,
-            height: `${4 + Math.random() * 12}px`,
-          }}
-        />
-      ))}
-    </span>
-  );
-}
 
 export function Hero() {
   const { language } = useLanguage();
@@ -43,9 +20,14 @@ export function Hero() {
   const [inputValue, setInputValue] = useState('');
   const [showVoice, setShowVoice] = useState(false);
   const [thinkingPhase, setThinkingPhase] = useState(0);
+  const bgControls = useAnimationControls();
 
   useEffect(() => {
     if (isInView) {
+      bgControls.start({
+        backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+        transition: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
+      });
       const timer = setTimeout(() => setLettersVisible(true), 300);
       const voiceTimer = setTimeout(() => setShowVoice(true), 2000);
       const thinkTimer1 = setTimeout(() => setThinkingPhase(1), 3500);
@@ -59,7 +41,7 @@ export function Hero() {
         clearTimeout(thinkTimer3);
       };
     }
-  }, [isInView]);
+  }, [isInView, bgControls]);
 
   const headline = ar
     ? 'اجعل الذكاء ميزة استراتيجية'
@@ -79,7 +61,26 @@ export function Hero() {
 
   return (
     <section className={styles.hero}>
-      <div className={styles.bgGradient} />
+      <motion.div
+        className={styles.bgGradient}
+        animate={bgControls}
+        style={{
+          background: 'linear-gradient(135deg, #0a1628 0%, #101010 35%, #1e1a14 65%, #0f0b06 100%)',
+          backgroundSize: '200% 200%',
+        }}
+      />
+      <motion.div
+        style={{
+          position: 'absolute', inset: 0, zIndex: 1,
+          backgroundImage: 'radial-gradient(ellipse 60% 40% at 20% 30%, rgba(200,166,90,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 50% at 80% 70%, rgba(200,166,90,0.03) 0%, transparent 60%)',
+          backgroundSize: '100% 100%',
+        }}
+        animate={{
+          backgroundPosition: ['0% 0%', '2% 3%', '0% 0%'],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <FlowingWave color="#C8A65A" opacity={0.08} speed={0.8} />
       <div className={styles.particles}>
         {Array.from({ length: 20 }).map((_, i) => (
           <div
@@ -106,15 +107,26 @@ export function Hero() {
         </motion.span>
 
         <h1 className={styles.headline}>
-          {headline.split('').map((char, i) => (
-            <span
-              key={i}
-              className={`${styles.letter} ${lettersVisible ? styles.letterVisible : ''}`}
-              style={{ transitionDelay: `${i * 0.03}s` }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </span>
-          ))}
+          {ar
+            ? headline.split(' ').map((word, i) => (
+                <span
+                  key={i}
+                  className={`${styles.word} ${lettersVisible ? styles.wordVisible : ''}`}
+                  style={{ transitionDelay: `${i * 0.15}s` }}
+                >
+                  {word}{i < headline.split(' ').length - 1 ? '\u00A0' : ''}
+                </span>
+              ))
+            : headline.split('').map((char, i) => (
+                <span
+                  key={i}
+                  className={`${styles.letter} ${lettersVisible ? styles.letterVisible : ''}`}
+                  style={{ transitionDelay: `${i * 0.03}s` }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))
+          }
         </h1>
 
         <motion.p
@@ -138,28 +150,17 @@ export function Hero() {
         </motion.div>
 
         {/* AI Executive Widget - matches prototype */}
+        <MouseReactive intensity={5} perspective={1200}>
         <motion.div
           className={styles.aiWidget}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease, delay: 1.2 }}
         >
-          <div className={styles.orbContainer}>
-            <div className={styles.orb}>
-              <div className={styles.orbInner} />
-              <div className={styles.orbRing} />
-              <div className={styles.orbRing2} />
+          <div className={styles.orbContainerLarge}>
+            <div style={{ transform: 'scale(1.6)', transformOrigin: 'center' }}>
+              <AIAvatar state={thinkingPhase > 0 ? 'thinking' : showVoice ? 'listening' : 'idle'} />
             </div>
-            {[0, 1, 2, 4].map((i) => (
-              <div
-                key={i}
-                className={styles.particleOrbit}
-                style={{
-                  animationDelay: `${i * 0.8}s`,
-                  transform: `rotate(${i * 72}deg)`,
-                }}
-              />
-            ))}
           </div>
 
           <div className={styles.widgetContent}>
@@ -168,11 +169,13 @@ export function Hero() {
                 {ar ? 'جاهز' : 'Ready'}
               </span>
               <span className={styles.widgetTitle}>
-                XVI EXECUTIVE AI
+                {ar ? 'المستشار الذكي' : 'XVI EXECUTIVE AI'}
               </span>
               {showVoice && (
                 <>
-                  <span className={styles.voiceSignal}>VOICE SIGNAL</span>
+                  <span className={styles.voiceSignal}>
+                    {ar ? 'إشارة صوتية' : 'VOICE SIGNAL'}
+                  </span>
                   <VoiceWaveform />
                 </>
               )}
@@ -211,7 +214,11 @@ export function Hero() {
                   fontFamily: "'Manrope', sans-serif",
                 }}
               />
-              <TypingCursor />
+              <motion.span
+                className={styles.cursor}
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
             </div>
             <div className={styles.quickPrompts}>
               {quickPrompts.map((prompt, i) => (
@@ -229,6 +236,7 @@ export function Hero() {
             </div>
           </div>
         </motion.div>
+        </MouseReactive>
       </div>
     </section>
   );

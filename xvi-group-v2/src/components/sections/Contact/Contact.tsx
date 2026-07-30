@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import { FloatingParticles } from '../../../motion/FloatingParticles';
 import styles from './Contact.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -14,6 +15,7 @@ export function Contact() {
 
   return (
     <section className={styles.section} ref={ref}>
+      <FloatingParticles count={15} color="#C8A65A" speed={0.8} />
       <div className={styles.container}>
         <motion.h2
           className={styles.heading}

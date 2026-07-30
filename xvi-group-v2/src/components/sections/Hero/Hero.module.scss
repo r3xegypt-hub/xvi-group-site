@@ -1,3 +1,5 @@
+@import '../../../styles/mixins/devices';
+
 .hero {
   position: relative;
   min-height: 100vh;
@@ -6,8 +8,16 @@
   padding: 128px 72px 72px;
   overflow: hidden;
 
-  @media (max-width: 768px) {
-    padding: 120px 24px 48px;
+  @include tablet-portrait {
+    padding: 110px 32px 48px;
+  }
+
+  @include tablet-landscape {
+    padding: 120px 40px 56px;
+  }
+
+  @include mobile {
+    padding: 100px 20px 40px;
     align-items: center;
   }
 }
@@ -44,7 +54,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -60,21 +70,22 @@
 }
 
 .headline {
-  font-family: 'Alexandria', 'Noto Naskh Arabic', serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
   color: #f7f6f3;
   margin: 0 0 24px;
-  max-width: 800px;
+  max-width: 850px;
   text-shadow:
     0 1px 2px rgba(0,0,0,0.1),
     0 8px 24px rgba(0,0,0,0.06),
     0 24px 48px rgba(0,0,0,0.03);
 
   [dir='rtl'] & {
-    font-family: 'Alexandria', 'Noto Naskh Arabic', serif;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: 0;
     text-shadow:
       0 1px 2px rgba(0,0,0,0.1),
       0 8px 24px rgba(0,0,0,0.06);
@@ -86,7 +97,7 @@
   opacity: 0.001;
   filter: blur(10px);
   transform: translateY(22px);
-  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .letterVisible {
@@ -95,15 +106,33 @@
   transform: translateY(0);
 }
 
+.word {
+  display: inline-block;
+  opacity: 0.001;
+  filter: blur(8px);
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.wordVisible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
 .subtitle {
-  font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
   line-height: 1.7;
   color: #d4d0ca;
   font-weight: 400;
   margin: 0 0 36px;
   max-width: 580px;
   text-shadow: 0 1px 4px rgba(0,0,0,0.08);
+
+  [dir='rtl'] & {
+    line-height: 1.8;
+  }
 }
 
 .ctaRow {
@@ -143,7 +172,7 @@
   -webkit-backdrop-filter: blur(12px);
   max-width: 700px;
 
-  @media (max-width: 768px) {
+  @include mobile {
     flex-direction: column;
     gap: 24px;
     padding: 24px;
@@ -156,6 +185,40 @@
   width: 80px;
   height: 80px;
   flex-shrink: 0;
+}
+
+.orbContainerLarge {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,166,90,0.08) 0%, transparent 70%);
+    animation: orbGlow 3s ease-in-out infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,166,90,0.03) 0%, transparent 60%);
+    animation: orbGlow 4s ease-in-out infinite 0.5s;
+  }
+
+}
+
+@keyframes orbGlow {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
 }
 
 .orb {

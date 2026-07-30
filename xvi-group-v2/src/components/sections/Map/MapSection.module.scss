@@ -1,3 +1,5 @@
+@import '../../../styles/mixins/devices';
+
 .section {
   position: relative;
   overflow: hidden;
@@ -10,7 +12,12 @@
   align-items: start;
   margin-top: 40px;
 
-  @media (min-width: 1024px) {
+  @include from-tablet-landscape {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @include from-laptop {
     grid-template-columns: 1.4fr 1fr;
     gap: 48px;
   }
@@ -26,7 +33,7 @@
   height: 400px;
   overflow: hidden;
 
-  @media (min-width: 768px) {
+  @include from-tablet-portrait {
     height: 480px;
   }
 }
@@ -95,7 +102,7 @@
 }
 
 .glassTitle {
-  font-family: 'Manrope', Georgia, serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
   color: #111111;
@@ -166,7 +173,7 @@
 }
 
 .secondaryValue {
-  font-family: 'Manrope', Georgia, serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #111111;

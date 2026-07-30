@@ -1,3 +1,5 @@
+@import '../../styles/mixins/devices';
+
 // XVI GROUP — Textarea SCSS Module (v2)
 // 7 device categories with per-device sizing
 
@@ -30,12 +32,12 @@
   font-size: 14px;
 
   // Medium Mobile+
-  @media (min-width: 375px) {
+  @include from-medium-mobile {
     font-size: 15px;
   }
 
   // Large Mobile+
-  @media (min-width: 429px) {
+  @include from-large-mobile {
     font-size: 16px;
   }
 }
@@ -69,21 +71,21 @@
   font-size: 14px;
 
   // Medium Mobile
-  @media (min-width: 375px) {
+  @include from-medium-mobile {
     min-height: 110px;
     padding: 22px 14px 8px;
     font-size: 15px;
   }
 
   // Large Mobile
-  @media (min-width: 429px) {
+  @include from-large-mobile {
     min-height: 120px;
     padding: 22px 16px 8px;
     font-size: 16px;
   }
 
   // Tablet Portrait+
-  @media (min-width: 768px) {
+  @include from-tablet-portrait {
     min-height: 140px;
     padding: 24px 16px 8px;
   }
@@ -130,7 +132,7 @@
 
   font-size: 11px;
 
-  @media (min-width: 375px) {
+  @include from-medium-mobile {
     font-size: 12px;
   }
 }
@@ -142,7 +144,7 @@
 
   font-size: 11px;
 
-  @media (min-width: 375px) {
+  @include from-medium-mobile {
     font-size: 12px;
   }
 }

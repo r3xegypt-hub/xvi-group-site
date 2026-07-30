@@ -169,7 +169,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             </motion.span>
             <motion.h1
               style={{
-                fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif",
+                fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif",
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: ar ? 400 : 600, lineHeight: 1.05,
                 letterSpacing: ar ? 0 : '-0.03em', color: '#111111', margin: '0 0 20px',
               }}
@@ -194,7 +194,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
         <Container>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 48 }}>
             <div>
-              <h2 style={{ fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
+              <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.problem.title)}
               </h2>
@@ -203,7 +203,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
               </p>
             </div>
             <div>
-              <h2 style={{ fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
+              <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.solution.title)}
               </h2>
@@ -218,7 +218,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
       <div style={{ position: 'relative', padding: '100px 0', background: '#ECE8E2' }}>
         <Container>
           <h2 style={{
-            fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+            fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
             fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 48px',
           }}>
             {ar ? 'عملية العمل' : 'Our Process'}
@@ -230,7 +230,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: '2.5rem', fontWeight: 700, opacity: 0.08, color: '#C8A65A', lineHeight: 1 }}>
                     {step.step}
                   </span>
-                  <h3 style={{ fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif", fontSize: '1.25rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '12px 0 8px' }}>
+                  <h3 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.25rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '12px 0 8px' }}>
                     {L(step.title)}
                   </h3>
                   <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.875rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
@@ -247,7 +247,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
         <Container>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
             <h2 style={{
-              fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+              fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
               fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
             }}>
               {ar ? 'الفوائد الرئيسية' : 'Key Benefits'}
@@ -282,7 +282,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
         <Container>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
             <h2 style={{
-              fontFamily: ar ? "'Alexandria', serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+              fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
               fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
             }}>
               {ar ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}

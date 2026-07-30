@@ -1,16 +1,21 @@
+@import '../../../styles/mixins/devices';
+
 // XVI GROUP — Card SCSS Module (v2)
 // 7 device categories with per-device sizing
 
 .card {
-  background-color: #ffffff;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
   box-shadow:
-    0 1px 3px rgba(10, 22, 40, 0.03),
+    0 1px 2px rgba(10, 22, 40, 0.02),
     0 4px 12px rgba(10, 22, 40, 0.02),
-    0 12px 32px rgba(10, 22, 40, 0.02);
+    0 12px 32px rgba(10, 22, 40, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(17, 17, 17, 0.06);
   position: relative;
   isolation: isolate;
 
@@ -18,11 +23,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(200,166,90,0.06), transparent, rgba(200,166,90,0.03));
+    background: linear-gradient(135deg, rgba(200,166,90,0.08), transparent 40%, rgba(200,166,90,0.04));
     opacity: 0;
-    transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
@@ -37,20 +42,38 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 30%;
-    background: linear-gradient(to top, rgba(200, 166, 90, 0.015), transparent);
+    height: 35%;
+    background: linear-gradient(to top, rgba(200, 166, 90, 0.025), transparent);
     pointer-events: none;
+  }
+
+  // Reflection shine overlay
+  .reflection {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
   }
 
   // Hover only on capable devices
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      transform: translateY(-8px);
+      transform: translateY(-10px) scale(1.01);
       box-shadow:
         0 8px 24px rgba(10, 22, 40, 0.06),
         0 24px 64px rgba(10, 22, 40, 0.08),
-        0 0 0 1px rgba(200, 166, 90, 0.08);
-      border-color: rgba(200, 166, 90, 0.1);
+        0 0 0 1px rgba(200, 166, 90, 0.1),
+        0 0 40px rgba(200, 166, 90, 0.03);
+      border-color: rgba(200, 166, 90, 0.15);
+      background: rgba(255, 255, 255, 0.95);
     }
 
     &:hover::before {
@@ -101,9 +124,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(200, 166, 90, 0.06);
+  background: linear-gradient(135deg, rgba(200, 166, 90, 0.08), rgba(200, 166, 90, 0.03));
   border-radius: 14px;
   transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
   // Medium Mobile
   @media (min-width: 375px) {
@@ -120,8 +144,9 @@
   }
 
   .card:hover & {
-    background: rgba(200, 166, 90, 0.1);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, rgba(200, 166, 90, 0.14), rgba(200, 166, 90, 0.06));
+    transform: scale(1.06);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(200, 166, 90, 0.08);
   }
 
   svg {
@@ -132,7 +157,6 @@
 }
 
 .title {
-  font-family: 'Manrope', Georgia, serif;
   font-weight: 600;
   line-height: 1.25;
   color: #0a1628;
@@ -154,7 +178,6 @@
 }
 
 .description {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.618;
   color: #5a6472;
@@ -180,7 +203,6 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: #c9a96e;
@@ -271,7 +293,6 @@
 }
 
 .statNumber {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 700;
   line-height: 1.2;
   color: #c9a96e;
@@ -307,7 +328,6 @@
 }
 
 .statLabel {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.43;
   color: #c8cdd5;
@@ -378,7 +398,6 @@
 }
 
 .quoteMark {
-  font-family: 'Manrope', Georgia, serif;
   line-height: 1;
   color: rgba(201, 169, 110, 0.2);
   position: absolute;
@@ -405,7 +424,6 @@
 }
 
 .quote {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   font-style: italic;
   line-height: 1.618;
@@ -469,7 +487,6 @@
 }
 
 .authorName {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 600;
   color: #0a1628;
   margin-bottom: 2px;
@@ -489,7 +506,6 @@
 }
 
 .authorTitle {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   color: #5a6472;
 
@@ -643,7 +659,6 @@
 }
 
 .name {
-  font-family: 'Manrope', Georgia, serif;
   font-weight: 600;
   color: #0a1628;
   margin-bottom: 4px;
@@ -663,7 +678,6 @@
 }
 
 .role {
-  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   color: #c9a96e;
 

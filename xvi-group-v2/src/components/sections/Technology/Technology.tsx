@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import { ConstellationParticles } from '../../../motion/ConstellationParticles';
 import styles from './Technology.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -14,6 +15,7 @@ export function Technology() {
 
   return (
     <section className={styles.section} ref={ref}>
+      <ConstellationParticles count={20} color="#C8A65A" connectionDistance={30} />
       <div className={styles.container}>
         <div className={styles.textSide}>
           <motion.span

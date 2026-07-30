@@ -46,14 +46,14 @@ export function AIAvatar({ state }: AIAvatarProps) {
       {/* Outer glow */}
       <motion.div
         style={{
-          position: 'absolute', inset: -24, borderRadius: '50%',
+          position: 'absolute', inset: -32, borderRadius: '50%',
           background: state === 'thinking'
-            ? 'radial-gradient(circle, rgba(200,166,90,0.1) 0%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(200,166,90,0.04) 0%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(200,166,90,0.15) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(200,166,90,0.06) 0%, transparent 70%)',
         }}
         animate={{
-          scale: state === 'thinking' ? [1, 1.15, 1] : [1, 1.06, 1],
-          opacity: state === 'thinking' ? [0.3, 0.7, 0.3] : [0.2, 0.4, 0.2],
+          scale: state === 'thinking' ? [1, 1.18, 1] : [1, 1.08, 1],
+          opacity: state === 'thinking' ? [0.3, 0.8, 0.3] : [0.2, 0.5, 0.2],
         }}
         transition={{ duration: state === 'thinking' ? 1.5 : 3, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -63,16 +63,36 @@ export function AIAvatar({ state }: AIAvatarProps) {
         style={{
           position: 'absolute', inset: -8, borderRadius: '50%',
           border: '1px solid rgba(200,166,90,0.08)',
+          boxShadow: 'inset 0 0 20px rgba(200,166,90,0.02)',
         }}
         animate={{
-          scale: [1, 1.04, 1],
-          opacity: state === 'thinking' ? [0.3, 0.7, 0.3] : [0.15, 0.3, 0.15],
+          scale: [1, 1.06, 1],
+          opacity: state === 'thinking' ? [0.3, 0.8, 0.3] : [0.15, 0.4, 0.15],
           rotate: state === 'listening' ? [0, 360] : [0, 0],
         }}
         transition={{
           scale: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
           opacity: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
           rotate: state === 'listening' ? { duration: 8, repeat: Infinity, ease: 'linear' } : undefined,
+        }}
+      />
+
+      {/* Secondary ring */}
+      <motion.div
+        style={{
+          position: 'absolute', inset: -16, borderRadius: '50%',
+          border: '1px solid rgba(200,166,90,0.04)',
+        }}
+        animate={{
+          scale: [1, 1.04, 1],
+          opacity: [0.1, 0.25, 0.1],
+          rotate: state === 'listening' ? [360, 0] : [0, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          rotate: state === 'listening' ? { duration: 10, repeat: Infinity, ease: 'linear' } : undefined,
         }}
       />
 

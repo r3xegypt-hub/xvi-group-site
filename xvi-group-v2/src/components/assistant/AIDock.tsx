@@ -55,7 +55,7 @@ function AnimatedOrb({ state = 'idle' }: { state?: 'idle' | 'listening' | 'think
   return <AIAvatar state={state} />;
 }
 
-function VoiceWaveform() {
+export function VoiceWaveform() {
   const bars = 16;
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 1.5, height: 16 }}>
@@ -537,18 +537,28 @@ export function AIDock() {
               background: 'rgba(255,255,255,0.985)',
               backdropFilter: 'blur(60px)',
               WebkitBackdropFilter: 'blur(60px)',
-              border: '1px solid rgba(200,166,90,0.1)',
               borderRadius: 28,
               boxShadow:
                 '0 32px 100px rgba(17,17,17,0.12), 0 8px 24px rgba(17,17,17,0.04), 0 0 80px rgba(200,166,90,0.03), inset 0 1px 0 rgba(255,255,255,0.9)',
               display: 'flex', flexDirection: 'column', overflow: 'hidden',
             }}
           >
+            {/* Holographic border overlay */}
+            <motion.div
+              style={{
+                position: 'absolute', inset: 0, borderRadius: 28,
+                pointerEvents: 'none', zIndex: 1,
+                background: 'linear-gradient(135deg, rgba(200,166,90,0.08) 0%, transparent 50%, rgba(200,166,90,0.04) 100%)',
+              }}
+              animate={{ opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
             {/* Top glow */}
             <div style={{
               position: 'absolute', top: 0, left: '15%', right: '15%', height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.15), transparent)',
-              pointerEvents: 'none',
+              background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.18), transparent)',
+              pointerEvents: 'none', zIndex: 2,
             }} />
 
             {/* Scan line */}
@@ -566,14 +576,15 @@ export function AIDock() {
             <div style={{
               display: 'flex', alignItems: 'center', gap: 14,
               padding: '12px 20px', borderBottom: '1px solid rgba(17,17,17,0.03)',
-              background: 'rgba(255,255,255,0.7)',
+              background: 'rgba(255,255,255,0.75)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
+              position: 'relative', zIndex: 2,
             }}>
-              <AnimatedOrb state={avatarState} />
+              <AIAvatar state={avatarState} />
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', color: '#111111', textTransform: 'uppercase' }}>
-                  XVI EXECUTIVE AI
+                  {isAR ? 'المستشار الذكي' : 'XVI EXECUTIVE AI'}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
                   <motion.span
@@ -582,7 +593,7 @@ export function AIDock() {
                     transition={{ duration: 1.5, repeat: Infinity }}
                   />
                   <span style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    Executive Intelligence · {thoughtStage === 'ready' || thoughtStage === 'ready-again' ? 'Ready' : thoughtStage === 'thinking' ? 'Processing' : 'Synthesizing'}
+                    {isAR ? 'الذكاء التنفيذي · إشارة صوتية' : 'Executive Intelligence · VOICE SIGNAL'}
                   </span>
                 </div>
               </div>

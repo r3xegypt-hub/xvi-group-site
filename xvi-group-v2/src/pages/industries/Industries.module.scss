@@ -1,12 +1,16 @@
+@import '../../styles/mixins/devices';
+
 .hero {
   position: relative;
   min-height: 75vh;
   display: flex;
   align-items: flex-end;
-  padding: 160px 72px 80px;
+  padding: 130px 48px 64px;
   overflow: hidden;
 
-  @media (max-width: 768px) { padding: 140px 24px 60px; min-height: 65vh; }
+  @include mobile { padding: 110px 16px 40px; min-height: 55vh; }
+  @include tablet-portrait { padding: 120px 32px 48px; min-height: 60vh; }
+  @include tablet-landscape { padding: 130px 40px 56px; }
 }
 
 .heroBg {
@@ -75,7 +79,7 @@
   color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
 }
 
 .heroSub {
@@ -91,10 +95,11 @@
 
 /* INDUSTRIES SECTION */
 .industriesSection {
-  padding: 96px 72px;
+  padding: 80px 48px;
   background: #f7f6f3;
 
-  @media (max-width: 768px) { padding: 56px 24px; }
+  @include mobile { padding: 48px 16px; }
+  @include tablet-portrait { padding: 64px 32px; }
 }
 
 .industriesInner {
@@ -104,7 +109,7 @@
   grid-template-columns: 320px 1fr;
   gap: 64px;
 
-  @media (max-width: 768px) {
+  @include mobile {
     grid-template-columns: 1fr;
     gap: 32px;
   }
@@ -118,7 +123,7 @@
   top: 120px;
   align-self: flex-start;
 
-  @media (max-width: 768px) { position: static; }
+  @include mobile { position: static; }
 }
 
 .industryTab {
@@ -193,7 +198,7 @@
   color: #101010;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Alexandria', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
 }
 
 .detailDesc {
@@ -271,7 +276,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @include below-tablet-landscape { grid-template-columns: 1fr; }
 }
 
 .capabilitiesGrid {
@@ -280,7 +285,7 @@
   gap: 16px;
   margin-bottom: 32px;
 
-  @media (max-width: 480px) { grid-template-columns: 1fr; }
+  @include mobile { grid-template-columns: 1fr; }
 }
 
 .capabilityCard {
@@ -324,11 +329,12 @@
 
 /* CTA */
 .ctaSection {
-  padding: 80px 72px;
+  padding: 64px 48px;
   background: #101010;
   text-align: center;
 
-  @media (max-width: 768px) { padding: 56px 24px; }
+  @include mobile { padding: 48px 16px; }
+  @include tablet-portrait { padding: 56px 32px; }
 }
 
 .ctaInner { max-width: 700px; margin: 0 auto; }

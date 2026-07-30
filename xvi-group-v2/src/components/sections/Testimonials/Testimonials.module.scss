@@ -1,3 +1,5 @@
+@import '../../../styles/mixins/devices';
+
 .section {
   position: relative;
   overflow: hidden;
@@ -21,7 +23,12 @@
   position: relative;
   z-index: 1;
 
-  @media (min-width: 1024px) {
+  @include tablet-portrait {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @include from-tablet-landscape {
     grid-template-columns: 1fr 1.6fr;
     gap: 64px;
   }
@@ -45,7 +52,7 @@
 }
 
 .portraitInitials {
-  font-family: 'Manrope', Georgia, serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 3.5rem;
   font-weight: 400;
   color: #C8A65A;
@@ -108,7 +115,7 @@
 }
 
 .quote {
-  font-family: 'Manrope', Georgia, serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   font-weight: 400;
   line-height: 1.5;

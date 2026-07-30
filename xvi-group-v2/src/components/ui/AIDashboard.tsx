@@ -89,7 +89,7 @@ export function AIDashboard() {
               }}
             >
               <div style={{
-                fontFamily: "'Manrope', Georgia, serif",
+                fontFamily: "'Manrope', sans-serif",
                 fontSize: 'clamp(1.25rem, 2vw, 1.75rem)',
                 fontWeight: 400,
                 color: '#C8A65A',

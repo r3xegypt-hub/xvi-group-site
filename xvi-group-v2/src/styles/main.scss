@@ -36,7 +36,7 @@ body {
 [dir='rtl'] body {
   font-family: $font-ar-body;
   line-height: $leading-body-ar;
-  font-feature-settings: 'kern' 1, 'liga' 1;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'ss01' 1, 'ss02' 1;
   text-rendering: optimizeLegibility;
 }
 

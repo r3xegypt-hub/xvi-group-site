@@ -125,7 +125,7 @@ export function PremiumServicePanel({
       }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
           <span style={{
-            fontFamily: "'Manrope', Georgia, serif", fontSize: '2.5rem',
+            fontFamily: "'Manrope', sans-serif", fontSize: '2.5rem',
             fontWeight: 400, lineHeight: 1, opacity: 0.08, color,
           }}>
             {index}
@@ -161,7 +161,7 @@ export function PremiumServicePanel({
         </div>
 
         <h3 style={{
-          fontFamily: "'Manrope', Georgia, serif", fontSize: '1.375rem',
+          fontFamily: "'Manrope', sans-serif", fontSize: '1.375rem',
           fontWeight: 400, color: '#111111', margin: 0,
         }}>
           {title}

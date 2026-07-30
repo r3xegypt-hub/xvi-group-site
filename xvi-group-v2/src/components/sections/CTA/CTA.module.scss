@@ -1,10 +1,20 @@
+@import '../../../styles/mixins/devices';
+
 .section {
   background: #F7F6F3;
-  padding: 100px 24px;
+  padding: 80px 16px;
+
+  @include tablet-portrait {
+    padding: 80px 32px;
+  }
+
+  @include tablet-landscape {
+    padding: 96px 40px;
+  }
 }
 
 .inner {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -19,7 +29,7 @@
 }
 
 .title {
-  font-family: 'Alexandria', serif;
+  font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
   font-size: 58px;
   font-weight: 700;
   line-height: 1.1;
@@ -27,11 +37,11 @@
   margin: 0 0 40px;
   max-width: 700px;
 
-  @media (max-width: 1199.98px) {
+  @include below-tablet-landscape {
     font-size: 52px;
   }
 
-  @media (max-width: 809.98px) {
+  @include mobile {
     font-size: 44px;
   }
 }

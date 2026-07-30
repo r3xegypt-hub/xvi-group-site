@@ -1,12 +1,16 @@
+@import '../../styles/mixins/devices';
+
 .hero {
   position: relative;
   min-height: 80vh;
   display: flex;
   align-items: flex-end;
-  padding: 160px 72px 80px;
+  padding: 130px 48px 64px;
   overflow: hidden;
 
-  @media (max-width: 768px) { padding: 140px 24px 60px; min-height: 70vh; }
+  @include mobile { padding: 110px 16px 40px; min-height: 60vh; }
+  @include tablet-portrait { padding: 120px 32px 48px; min-height: 65vh; }
+  @include tablet-landscape { padding: 130px 40px 56px; }
 }
 
 .heroBg {
@@ -56,7 +60,7 @@
   color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
 }
 
 .heroSub {
@@ -72,25 +76,28 @@
 
 /* SERVICE SECTIONS */
 .serviceSection {
-  padding: 96px 72px;
+  padding: 80px 48px;
 
-  @media (max-width: 768px) { padding: 56px 24px; }
+  @include mobile { padding: 48px 16px; }
+  @include tablet-portrait { padding: 64px 32px; }
+  @include tablet-landscape { padding: 80px 40px; }
 }
 
 .dark { color: #f7f6f3; }
 .bordered { border-top: 1px solid #e3e3e0; }
 
 .serviceInner {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 64px;
 
-  @media (max-width: 768px) {
+  @include mobile {
     grid-template-columns: 1fr;
     gap: 32px;
   }
+  @include tablet-portrait { grid-template-columns: 1fr; gap: 40px; }
 }
 
 .serviceHeader {
@@ -120,7 +127,7 @@
   margin: 0 0 8px;
 
   .dark & { color: #f7f6f3; }
-  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
 }
 
 .serviceSubtitle {
@@ -236,7 +243,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 
-  @media (max-width: 768px) { grid-template-columns: 1fr; }
+  @include below-tablet-landscape { grid-template-columns: 1fr; }
 }
 
 .serviceCta {
@@ -258,10 +265,11 @@
 
 /* PROCESS */
 .processSection {
-  padding: 96px 72px;
+  padding: 80px 48px;
   background: #f4f4f2;
 
-  @media (max-width: 768px) { padding: 56px 24px; }
+  @include mobile { padding: 48px 16px; }
+  @include tablet-portrait { padding: 64px 32px; }
 }
 
 .processInner {
@@ -277,7 +285,7 @@
   color: #101010;
   margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
 }
 
 .processSub {
@@ -296,8 +304,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 
-  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 480px) { grid-template-columns: 1fr; }
+  @include below-tablet-landscape { grid-template-columns: repeat(2, 1fr); }
+  @include mobile { grid-template-columns: 1fr; }
 }
 
 .processCard {
@@ -344,7 +352,7 @@
   color: #101010;
   margin: 0 0 8px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
 }
 
 .processDesc {
@@ -359,11 +367,12 @@
 
 /* CTA */
 .ctaSection {
-  padding: 120px 72px;
+  padding: 80px 48px;
   background: #101010;
   text-align: center;
 
-  @media (max-width: 768px) { padding: 72px 24px; }
+  @include mobile { padding: 56px 16px; }
+  @include tablet-portrait { padding: 64px 32px; }
 }
 
 .ctaInner { max-width: 700px; margin: 0 auto; }
@@ -377,7 +386,7 @@
   color: #f7f6f3;
   margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
 }
 
 .ctaSub {

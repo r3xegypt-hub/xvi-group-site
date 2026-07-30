@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XVI GROUP — Motion Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Alexandria:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Alexandria', 'Manrope', sans-serif;
+    background: #0f1724;
+    color: #f0ede5;
+    padding: 40px;
+    overflow-x: hidden;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: #c8a65a;
+  }
+  .sub {
+    color: #8a8f99;
+    font-size: 1rem;
+    margin-bottom: 60px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 80px;
+    border-bottom: 1px solid rgba(200,166,90,0.06);
+    padding-bottom: 60px;
+  }
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #c8a65a;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .section-desc {
+    color: #8a8f99;
+    font-size: 0.875rem;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  /* Grid */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+  /* Card demo */
+  .demo-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(200,166,90,0.08);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.16,1,0.3,1);
+    cursor: pointer;
+  }
+  .demo-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(200,166,90,0.06), transparent, rgba(200,166,90,0.03));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1);
+    pointer-events: none;
+  }
+  .demo-card:hover { transform: translateY(-8px); }
+  .demo-card:hover::before { opacity: 1; }
+
+  .demo-card .icon {
+    width: 40px; height: 40px;
+    background: rgba(200,166,90,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .demo-card:hover .icon {
+    background: rgba(200,166,90,0.18);
+    transform: scale(1.08);
+  }
+  .demo-card h3 {
+    font-size: 1rem; font-weight: 600; color: #f0ede5;
+    margin-bottom: 6px;
+  }
+  .demo-card p {
+    font-size: 0.8125rem; color: #8a8f99; line-height: 1.6;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(200,166,90,0.1);
+    color: #c8a65a;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-top: 12px;
+  }
+
+  /* Live animation demos */
+  .demo-box {
+    width: 100%;
+    height: 120px;
+    background: rgba(200,166,90,0.04);
+    border: 1px solid rgba(200,166,90,0.06);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  /* Orb */
+  .orb {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff, #c8a65a 45%, #8a7040 100%);
+    box-shadow: 0 0 30px rgba(200,166,90,0.2);
+  }
+  .orb-breathing {
+    animation: orbBreathe 3s cubic-bezier(0.16,1,0.3,1) infinite;
+  }
+  @keyframes orbBreathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.06); opacity: 1; box-shadow: 0 0 50px rgba(200,166,90,0.35); }
+  }
+  .orb-thinking {
+    animation: orbThink 0.9s linear infinite;
+  }
+  @keyframes orbThink {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(0.92); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  .orb-listening {
+    animation: orbListen 0.4s ease-in-out infinite alternate;
+  }
+  @keyframes orbListen {
+    0% { transform: scaleY(1) scaleX(1); }
+    25% { transform: scaleY(1.08) scaleX(0.96); }
+    50% { transform: scaleY(0.96) scaleX(1.08); }
+    75% { transform: scaleY(1.04) scaleX(0.98); }
+    100% { transform: scale(1); }
+  }
+
+  /* Wave */
+  .wave { display: flex; align-items: center; gap: 3px; height: 40px; }
+  .wave-bar {
+    width: 3px; height: 100%;
+    background: #c8a65a;
+    border-radius: 999px;
+    animation: waveAnim 0.6s ease-in-out infinite alternate;
+  }
+  .wave-bar:nth-child(1) { animation-delay: 0s; height: 30%; }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; height: 90%; }
+  .wave-bar:nth-child(4) { animation-delay: 0.15s; height: 70%; }
+  .wave-bar:nth-child(5) { animation-delay: 0.05s; height: 40%; }
+  @keyframes waveAnim {
+    0% { transform: scaleY(0.6); opacity: 0.5; }
+    100% { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* Scan line */
+  .scan-line {
+    position: absolute; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,166,90,0.15), transparent);
+    animation: scanMove 4s ease-in-out infinite;
+  }
+  @keyframes scanMove {
+    0%, 100% { top: 0; }
+    50% { top: 100%; }
+  }
+
+  /* Particle */
+  .particle-field { position: relative; width: 100%; height: 100%; }
+  .particle {
+    position: absolute; width: 2px; height: 2px;
+    background: rgba(200,166,90,0.3);
+    border-radius: 50%;
+  }
+  .p1 { top: 20%; left: 20%; animation: floatP 3s ease-in-out infinite; }
+  .p2 { top: 60%; left: 70%; animation: floatP 4s ease-in-out infinite 0.5s; }
+  .p3 { top: 80%; left: 30%; animation: floatP 3.5s ease-in-out infinite 1s; }
+  .p4 { top: 30%; left: 80%; animation: floatP 4.2s ease-in-out infinite 0.3s; }
+  .p5 { top: 70%; left: 40%; animation: floatP 3.8s ease-in-out infinite 0.8s; }
+  @keyframes floatP {
+    0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+    50% { transform: translate(10px, -10px); opacity: 0.5; }
+  }
+
+  /* Letter reveal */
+  .letter-reveal { display: inline-flex; flex-wrap: wrap; direction: ltr; }
+  .letter {
+    display: inline-block; opacity: 0; transform: translateY(20px);
+    animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  @keyframes letterIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .scroll-demo {
+    height: 60px; overflow: hidden; position: relative;
+  }
+  .scroll-track {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .scroll-item {
+    height: 16px; width: 100%;
+    background: rgba(200,166,90,0.06);
+    border-radius: 4px;
+    transform: translateY(0);
+    opacity: 1;
+    transition: all 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .scroll-item:nth-child(2) { width: 85%; }
+  .scroll-item:nth-child(3) { width: 70%; }
+
+  /* Typography demo */
+  .typo-demo h2 {
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .typo-demo .gold { color: #c8a65a; }
+  .font-manrope { font-family: 'Manrope', sans-serif; }
+  .font-alexandria { font-family: 'Alexandria', sans-serif; }
+
+  /* Stagger grid */
+  .stagger-item {
+    animation: staggerIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    opacity: 0; transform: translateY(16px);
+  }
+  @keyframes staggerIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative; padding: 20px 0;
+  }
+  .timeline::before {
+    content: ''; position: absolute;
+    top: 0; bottom: 0; right: 20px; width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(200,166,90,0.2), transparent);
+  }
+  .tl-item {
+    padding-right: 48px; position: relative; margin-bottom: 28px;
+  }
+  .tl-item::before {
+    content: ''; position: absolute;
+    right: 16px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #c8a65a;
+    box-shadow: 0 0 12px rgba(200,166,90,0.3);
+  }
+  .tl-item .title {
+    font-weight: 600; font-size: 0.9375rem; color: #f0ede5;
+  }
+  .tl-item .sub {
+    font-size: 0.8125rem; color: #8a8f99; margin-top: 2px;
+  }
+  .tl-item .timing {
+    font-size: 0.6875rem; color: #c8a65a; font-weight: 600;
+    letter-spacing: 0.06em; margin-top: 4px;
+  }
+
+  /* Easing curve */
+  .curve-box {
+    width: 100%; height: 80px;
+    position: relative;
+    border: 1px solid rgba(200,166,90,0.08);
+    border-radius: 8px; overflow: hidden;
+    background: rgba(200,166,90,0.02);
+  }
+  .curve-line {
+    position: absolute; bottom: 0; left: 0; width: 2px; height: 0;
+    background: #c8a65a;
+  }
+  .curve-ball {
+    position: absolute; width: 8px; height: 8px;
+    border-radius: 50%; background: #c8a65a;
+    box-shadow: 0 0 12px rgba(200,166,90,0.4);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-size: 0.625rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px;
+    margin-left: 6px;
+  }
+  .tag-ease { background: rgba(200,166,90,0.1); color: #c8a65a; }
+  .tag-dur { background: rgba(255,255,255,0.04); color: #8a8f99; }
+  .tag-delay { background: rgba(200,166,90,0.06); color: #d4b76e; }
+
+  @media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    body { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+    <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#c8a65a,#8a7040);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:#0f1724;">X</div>
+    <div>
+      <h1>Motion Design System</h1>
+      <div class="sub">XVI GROUP — مقترح نظام الحركة</div>
+    </div>
+  </div>
+
+  <!-- 01 — Philosophy -->
+  <div class="section">
+    <div class="section-title">01 — فلسفة الحركة</div>
+    <div class="section-desc">كل حركة في الموقع لازم تحس إنها مقصودة وهادفة. لا حركة عشوائية. الـ Motion يخدم المحتوى ويعزز الشعور بالفخامة.</div>
+    <div class="grid-3">
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🎯</div>
+        <h3>هادفة وموجهة</h3>
+        <p>كل أنيميشن يوجه انتباه الزائر للمحتوى المهم. الحركة مش زينة، هي إرشاد بصري.</p>
+      </div>
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🧘</div>
+        <h3>هادئة وفخمة</h3>
+        <p>مافيش حركة سريعة أو عصبية. كل الحركات ناعمة بمُخَصَّصات (easing) فاخرة تخلي التجربة مريحة.</p>
+      </div>
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">⚡</div>
+        <h3>أداء عالي</h3>
+        <p>نستخدم GPU-accelerated properties (transform, opacity) فقط. لا نهدر أداء الموقع عشان أنيميشن.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 — Easing System -->
+  <div class="section">
+    <div class="section-title">02 — نظام الـ Easing</div>
+    <div class="section-desc">نظام Easing واحد لكل الموقع. نفس المنحنى في كل مكان يضمن التناسق.</div>
+    <div class="grid-3">
+      <div>
+        <div class="curve-box" id="curve1">
+          <div class="curve-line" id="line1" style="animation:lineGrow 2s ease-in-out infinite alternate;"></div>
+          <div class="curve-ball" id="ball1" style="animation:ballMove 2s cubic-bezier(0.16,1,0.3,1) infinite alternate;"></div>
+        </div>
+        <div style="margin-top:8px;">
+          <span class="tag tag-ease">Standard</span>
+          <span style="font-size:0.75rem;color:#8a8f99;">cubic-bezier(0.16, 1, 0.3, 1)</span>
+        </div>
+        <p style="font-size:0.75rem;color:#8a8f99;margin-top:4px;">الحركة الأساسية — ٩٠٪ من الموقع</p>
+      </div>
+      <div>
+        <div class="curve-box" id="curve2">
+          <div class="curve-line" id="line2" style="animation:lineGrow 1.5s ease-out infinite alternate;"></div>
+          <div class="curve-ball" id="ball2" style="animation:ballMove 1.5s ease-out infinite alternate;"></div>
+        </div>
+        <div style="margin-top:8px;">
+          <span class="tag tag-ease">Exit</span>
+          <span style="font-size:0.75rem;color:#8a8f99;">ease-out</span>
+        </div>
+        <p style="font-size:0.75rem;color:#8a8f99;margin-top:4px;">للخروج — اختفاء العناصر</p>
+      </div>
+      <div>
+        <div class="curve-box" id="curve3">
+          <div class="curve-line" id="line3" style="animation:lineGrow 0.8s linear infinite alternate;"></div>
+          <div class="curve-ball" id="ball3" style="animation:ballMove 0.8s linear infinite alternate;"></div>
+        </div>
+        <div style="margin-top:8px;">
+          <span class="tag tag-ease">Linear</span>
+          <span style="font-size:0.75rem;color:#8a8f99;">linear</span>
+        </div>
+        <p style="font-size:0.75rem;color:#8a8f99;margin-top:4px;">للدوران المستمر فقط (تحميل)</p>
+      </div>
+    </div>
+    <div style="margin-top:20px;background:rgba(200,166,90,0.03);border-radius:12px;padding:20px;">
+      <div style="font-size:0.8125rem;color:#c8a65a;font-weight:600;margin-bottom:4px;">📐 منحنى الـ Standard</div>
+      <code style="font-size:0.75rem;color:#8a8f99;font-family:'JetBrains Mono',monospace;">const ease = [0.16, 1, 0.3, 1];</code>
+      <p style="font-size:0.75rem;color:#8a8f99;margin-top:4px;">بداية سريعة (acceleration) ← ثم استطالة أنيقة (deceleration). يحسّس المستخدم بالاستجابة لكن بدون خشونة.</p>
+    </div>
+  </div>
+
+  <!-- 03 — Motion Timeline -->
+  <div class="section">
+    <div class="section-title">03 — التوقيت الزمني (Timeline)</div>
+    <div class="section-desc">كل صفحة لها تسلسل زمني يحدد ترتيب ظهور العناصر.</div>
+    <div class="grid-2">
+      <div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="title">🌑 الخلفية (Background)</div>
+            <div class="sub">fade in + blur reveal</div>
+            <div class="timing">⏱ 0ms → 600ms</div>
+          </div>
+          <div class="tl-item">
+            <div class="title">🏷️ التصنيف (Label)</div>
+            <div class="sub">fade up + 10px</div>
+            <div class="timing">⏱ 200ms → 800ms</div>
+          </div>
+          <div class="tl-item">
+            <div class="title">📰 العنوان (Headline)</div>
+            <div class="sub">letter reveal — كل حرف بتأخير 30ms</div>
+            <div class="timing">⏱ 400ms → 2000ms</div>
+          </div>
+          <div class="tl-item">
+            <div class="title">📝 الوصف (Subtitle)</div>
+            <div class="sub">fade up + 20px</div>
+            <div class="timing">⏱ 800ms → 1400ms</div>
+          </div>
+          <div class="tl-item">
+            <div class="title">🟡 الأزرار (CTA)</div>
+            <div class="sub">fade up + scale reveal</div>
+            <div class="timing">⏱ 1000ms → 1600ms</div>
+          </div>
+          <div class="tl-item">
+            <div class="title">🤖 المساعد الذكي (AI Widget)</div>
+            <div class="sub">fade up + breathing start</div>
+            <div class="timing">⏱ 1200ms → 2000ms</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(200,166,90,0.02);border:1px solid rgba(200,166,90,0.06);border-radius:16px;padding:24px;">
+          <div style="font-size:0.8125rem;font-weight:600;color:#f0ede5;margin-bottom:16px;">🎬 مثال مباشر — تسلسل الـ Hero</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="stagger-item" style="animation-delay:0.1s;padding:10px 14px;background:rgba(200,166,90,0.04);border-radius:8px;font-size:0.8125rem;color:#f0ede5;">
+              <span style="color:#c8a65a;">🏷️</span> XVI GROUP / التحول الذكي
+            </div>
+            <div class="stagger-item" style="animation-delay:0.3s;padding:10px 14px;background:rgba(200,166,90,0.04);border-radius:8px;font-size:1.2rem;font-weight:700;color:#f0ede5;">
+              اجعل الذكاء ميزة استراتيجية
+            </div>
+            <div class="stagger-item" style="animation-delay:0.5s;padding:10px 14px;background:rgba(200,166,90,0.04);border-radius:8px;font-size:0.8125rem;color:#8a8f99;">
+              نتشارك مع فرق القيادة لتحويل الذكاء الاصطناعي...
+            </div>
+            <div class="stagger-item" style="animation-delay:0.7s;padding:10px 14px;background:rgba(200,166,90,0.04);border-radius:8px;font-size:0.8125rem;color:#8a8f99;">
+              <span style="display:inline-block;padding:6px 16px;background:rgba(200,166,90,0.1);border-radius:999px;color:#c8a65a;">استكشف نهجنا</span>
+            </div>
+            <div class="stagger-item" style="animation-delay:0.9s;padding:10px 14px;background:rgba(200,166,90,0.04);border-radius:8px;display:flex;align-items:center;gap:10px;">
+              <div class="orb orb-breathing" style="width:20px;height:20px;"></div>
+              <span style="font-size:0.75rem;color:#c8a65a;">XVI EXECUTIVE AI · VOICE SIGNAL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 — Component Animations -->
+  <div class="section">
+    <div class="section-title">04 — حركات كل مكوّن</div>
+    <div class="section-desc">كل جزء من الموقع عنده شخصيته الحركية الخاصة.</div>
+    <div class="grid-3">
+
+      <!-- Hero -->
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🎬</div>
+        <h3>Hero Section</h3>
+        <p style="margin-bottom:12px;">
+          <span class="tag tag-ease">Letter Reveal</span>
+          <span class="tag tag-dur">600ms</span>
+          <span class="tag tag-delay">stagger 30ms</span>
+        </p>
+        <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+          العنوان يظهر حرف حرف بتأخير 30ms بين كل حرف. يعطي إحساس بالترقّب والفخامة.
+          الحركة من تحت لأعلى مع Fade In.
+        </p>
+        <div class="badge">⬆️ Fade + TranslateY(20px)</div>
+      </div>
+
+      <!-- Cards -->
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🃏</div>
+        <h3>الكروت (Cards)</h3>
+        <p style="margin-bottom:12px;">
+          <span class="tag tag-ease">Perspective</span>
+          <span class="tag tag-dur">600ms</span>
+          <span class="tag tag-delay">Hover</span>
+        </p>
+        <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+          عند التمرير: تظهر الكروت متتالية (stagger) بفارق 100ms. عند hover: ارتفاع 8px مع ظل أعمق.
+        </p>
+        <div class="badge">🔼 TranslateY(-8px) + Shadow</div>
+      </div>
+
+      <!-- AI Avatar -->
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🤖</div>
+        <h3>المساعد الذكي</h3>
+        <p style="margin-bottom:12px;">
+          <span class="tag tag-ease">Custom</span>
+          <span class="tag tag-dur">1.5-4s</span>
+        </p>
+        <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+          ثلاث حالات: Idle (تنفس ناعم كل 3s)، Listening (اهتزاز خفيف مع الموجات)، Thinking (دوران مع نبض)
+        </p>
+        <div class="badge">🔄 Breathing + Listening + Thinking</div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🧭</div>
+        <h3>القائمة (Navigation)</h3>
+        <p style="margin-bottom:12px;">
+          <span class="tag tag-ease">Standard</span>
+          <span class="tag tag-dur">300ms</span>
+        </p>
+        <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+          الروابط: underline animation من اليسار لليمين. عرض الخط يبدأ من 0 إلى 100%. اللوجو: scale ناعم عند hover.
+        </p>
+        <div class="badge">➡️ Underline Grow + Scale</div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">🔘</div>
+        <h3>الأزرار</h3>
+        <p style="margin-bottom:12px;">
+          <span class="tag tag-ease">Spring</span>
+          <span class="tag tag-dur">200ms</span>
+        </p>
+        <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+          Click: scale(0.97) مع ارتداد سريع. Hover: خلفية أفتح. Transition: 200ms ease-out.
+        </p>
+        <div class="badge">💫 Scale + Background Shift</div>
+      </div>
+
+      <!-- Scroll -->
+      <div class="demo-card" style="cursor:default;">
+        <div class="icon">📜</div>
+        <h3>التمرير (Scroll)</h3>
+        <p style="margin-bottom:12px;">
+          <span class="tag tag-ease">Standard</span>
+          <span class="tag tag-dur">600ms</span>
+        </p>
+        <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+          كل سكشن يظهر مع fade + translateY عند دخوله الـ viewport. نستخدم Intersection Observer. البارالاكس بسيط للخلفيات.
+        </p>
+        <div class="badge">📥 Reveal on Scroll</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 — AI Assistant States -->
+  <div class="section">
+    <div class="section-title">05 — حالات المساعد الذكي</div>
+    <div class="section-desc">المساعد عنده ٤ حالات، كل حالة لها حركة مختلفة.</div>
+    <div class="grid-3">
+      <div>
+        <div class="demo-box">
+          <div class="orb orb-breathing"></div>
+        </div>
+        <div style="text-align:center;">
+          <span class="tag tag-ease">Idle</span>
+          <p style="font-size:0.75rem;color:#8a8f99;margin-top:6px;">تنفس ناعم — scale 1 ↔ 1.06 كل 3 ثواني</p>
+        </div>
+      </div>
+      <div>
+        <div class="demo-box">
+          <div class="orb orb-listening"></div>
+          <div class="wave" style="position:absolute;bottom:16px;">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <span class="tag tag-ease">Listening</span>
+          <p style="font-size:0.75rem;color:#8a8f99;margin-top:6px;">اهتزاز خفيف + موجات صوتية متحركة</p>
+        </div>
+      </div>
+      <div>
+        <div class="demo-box">
+          <div class="orb orb-thinking"></div>
+          <div class="scan-line"></div>
+        </div>
+        <div style="text-align:center;">
+          <span class="tag tag-ease">Thinking</span>
+          <p style="font-size:0.75rem;color:#8a8f99;margin-top:6px;">دوران 360° مستمر + خط مسح ضوئي</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 — Scroll Reveal Examples -->
+  <div class="section">
+    <div class="section-title">06 —Scroll Reveal (ظهور عند التمرير)</div>
+    <div class="section-desc">العناصر تظهر بشكل متسلسل وأنيق عند التمرير.</div>
+    <div class="grid-2">
+      <div>
+        <div style="background:rgba(200,166,90,0.02);border:1px solid rgba(200,166,90,0.06);border-radius:16px;padding:24px;">
+          <div style="font-size:0.8125rem;font-weight:600;color:#f0ede5;margin-bottom:16px;">📋 بطاقة خدمة (Service Card)</div>
+          <div class="stagger-item" style="animation-delay:0.1s;padding:20px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(200,166,90,0.06);">
+            <div style="width:40px;height:40px;background:rgba(200,166,90,0.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">🔧</div>
+            <div style="font-weight:600;color:#f0ede5;margin-bottom:4px;">استشارات الذكاء الاصطناعي</div>
+            <div style="font-size:0.75rem;color:#8a8f99;">نصمم استراتيجيات AI مخصصة...</div>
+          </div>
+          <div class="stagger-item" style="animation-delay:0.2s;padding:20px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(200,166,90,0.06);margin-top:12px;">
+            <div style="width:40px;height:40px;background:rgba(200,166,90,0.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">📊</div>
+            <div style="font-weight:600;color:#f0ede5;margin-bottom:4px;">تحليل البيانات</div>
+            <div style="font-size:0.75rem;color:#8a8f99;">نحول البيانات لقرارات استراتيجية...</div>
+          </div>
+          <div class="stagger-item" style="animation-delay:0.3s;padding:20px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(200,166,90,0.06);margin-top:12px;">
+            <div style="width:40px;height:40px;background:rgba(200,166,90,0.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">⚡</div>
+            <div style="font-weight:600;color:#f0ede5;margin-bottom:4px;">الأتمتة الذكية</div>
+            <div style="font-size:0.75rem;color:#8a8f99;">نؤتمت العمليات التشغيلية...</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(200,166,90,0.02);border:1px solid rgba(200,166,90,0.06);border-radius:16px;padding:24px;">
+          <div style="font-size:0.8125rem;font-weight:600;color:#f0ede5;margin-bottom:16px;">🏆 إحصائيات (Stat Card)</div>
+          <div class="stagger-item" style="animation-delay:0.1s;">
+            <div style="text-align:center;padding:28px;background:linear-gradient(135deg,#132238,#1a2d45);border-radius:16px;border:1px solid rgba(200,166,90,0.1);">
+              <div style="font-size:2.5rem;font-weight:700;color:#c8a65a;">150+</div>
+              <div style="font-size:0.875rem;color:#8a8f99;margin-top:4px;">عميل نجحنا معهم</div>
+            </div>
+          </div>
+          <div class="stagger-item" style="animation-delay:0.2s;display:flex;gap:12px;margin-top:12px;">
+            <div style="flex:1;text-align:center;padding:20px;background:linear-gradient(135deg,#132238,#1a2d45);border-radius:16px;border:1px solid rgba(200,166,90,0.1);">
+              <div style="font-size:1.5rem;font-weight:700;color:#c8a65a;">98%</div>
+              <div style="font-size:0.75rem;color:#8a8f99;margin-top:4px;">رضا العملاء</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:20px;background:linear-gradient(135deg,#132238,#1a2d45);border-radius:16px;border:1px solid rgba(200,166,90,0.1);">
+              <div style="font-size:1.5rem;font-weight:700;color:#c8a65a;">12</div>
+              <div style="font-size:0.75rem;color:#8a8f99;margin-top:4px;">جائزة دولية</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 — Touch / Mobile Behavior -->
+  <div class="section">
+    <div class="section-title">07 — سلوك اللمس (Touch / Mobile)</div>
+    <div class="section-desc">على الموبايل، ما في hover. نعتمد على animations تلقائية و tap states.</div>
+    <div class="grid-3">
+      <div>
+        <div class="demo-card" style="cursor:default;">
+          <div class="icon">📱</div>
+          <h3>بدون Hover</h3>
+          <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+            نستخدم <code style="font-size:0.6875rem;color:#c8a65a;">@media (hover: none)</code> لإيقاف hover effects. الأنيميشن تشتغل مرة وحدة عند أول ظهور (entry animation).
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="demo-card" style="cursor:default;">
+          <div class="icon">👆</div>
+          <h3>Tap State</h3>
+          <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+            الأزرار: scale(0.97) لمدة 150ms عند اللمس. الكروت: ارتفاع خفيف + ظل. عند رفع الإصبع ترجع طبيعي.
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="demo-card" style="cursor:default;">
+          <div class="icon">🔄</div>
+          <h3>Intersection Observer</h3>
+          <p style="font-size:0.75rem;color:#8a8f99;line-height:1.7;">
+            كل العناصر تستخدم Intersection Observer. تشتغل مرة واحدة (once: true) عشان أداء أفضل. لا نكرر الأنيميشن.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 — Implementation -->
+  <div class="section">
+    <div class="section-title">08 — خطة التنفيذ</div>
+    <div class="section-desc">كيف سنطبّق الحركات من غير ما نأثر على الهوية والبيانات.</div>
+    <div class="grid-2">
+      <div>
+        <div style="background:rgba(200,166,90,0.03);border:1px solid rgba(200,166,90,0.08);border-radius:16px;padding:24px;">
+          <div style="font-weight:600;color:#c8a65a;margin-bottom:12px;">🔧 التقنيات</div>
+          <ul style="list-style:none;font-size:0.8125rem;color:#8a8f99;line-height:2;">
+            <li>✅ Framer Motion — للـ React animations (مثبّت أصلاً)</li>
+            <li>✅ CSS Transitions — للـ hover states البسيطة</li>
+            <li>✅ `transform` + `opacity` فقط — لضمان أداء 60fps</li>
+            <li>✅ `will-change: transform` — للمتحركات فقط</li>
+            <li>✅ `Intersection Observer` — للظهور عند التمرير</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(200,166,90,0.03);border:1px solid rgba(200,166,90,0.08);border-radius:16px;padding:24px;">
+          <div style="font-weight:600;color:#c8a65a;margin-bottom:12px;">📦 الملفات المتأثرة</div>
+          <ul style="list-style:none;font-size:0.8125rem;color:#8a8f99;line-height:2;">
+            <li>📄 <code>Hero.tsx</code> — letter reveal + stagger</li>
+            <li>📄 <code>Card.module.scss</code> — hover + entry</li>
+            <li>📄 <code>AIDock.tsx</code> — state transitions</li>
+            <li>📄 <code>AIAvatar.tsx</code> — breathing + thinking</li>
+            <li>📄 <code>main.scss</code> — إضافة keyframes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;background:rgba(200,166,90,0.02);border:1px solid rgba(200,166,90,0.06);border-radius:16px;padding:24px;">
+      <div style="font-weight:600;color:#c8a65a;margin-bottom:8px;">✅ التأثير على الهوية والبيانات</div>
+      <p style="font-size:0.8125rem;color:#8a8f99;line-height:1.7;">
+        <strong style="color:#f0ede5;">لا يوجد أي تأثير.</strong> اللوجو، الألوان، الخطوط، المحتوى، الأيقونات — كلها ثابتة. الحركات مجرد طبقة إضافية فوقها. المساعد الذكي يشتغل بنفس الوظيفة لكن بحركات أوسع. الموقع يبقى متجاوب وسريع. لو عطلنا الـ JavaScript، الموقع يشتغل بشكل طبيعي (progressive enhancement).
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding:40px 0;border-top:1px solid rgba(200,166,90,0.06);margin-top:40px;">
+    <div style="font-size:0.75rem;color:#c8a65a;font-weight:600;letter-spacing:0.08em;">XVI GROUP — MOTION DESIGN SYSTEM v1.0</div>
+    <div style="font-size:0.6875rem;color:#8a8f99;margin-top:4px;">جاهز للتنفيذ بعد الموافقة</div>
+  </div>
+
+</div>
+</body>
+</html>
