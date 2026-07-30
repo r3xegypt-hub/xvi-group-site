@@ -14,7 +14,7 @@
 
 .label {
   display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.4px;
@@ -24,7 +24,7 @@
 }
 
 .heading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 600;
   line-height: 1.15;
@@ -33,7 +33,7 @@
   margin: 0 0 56px;
   max-width: 680px;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
 
 .grid {
@@ -94,7 +94,7 @@
 }
 
 .cardNum {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 48px;
   font-weight: 700;
   color: rgba(16, 16, 16, 0.06);
@@ -103,21 +103,21 @@
 }
 
 .cardTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
   color: #101010;
   margin: 20px 0 12px;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .cardDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.6;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }

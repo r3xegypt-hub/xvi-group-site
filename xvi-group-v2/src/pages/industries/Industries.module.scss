@@ -57,7 +57,7 @@
 
 .label {
   display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.4px;
@@ -67,7 +67,7 @@
 }
 
 .heroTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 600;
   line-height: 1.1;
@@ -75,18 +75,18 @@
   color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
 }
 
 .heroSub {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.0625rem;
   line-height: 1.6;
   color: #c8c3bb;
   margin: 0;
   max-width: 520px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* INDUSTRIES SECTION */
@@ -129,7 +129,7 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 12px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   font-weight: 500;
   color: #6b6b68;
@@ -137,7 +137,7 @@
   transition: all 0.3s ease;
   text-align: left;
 
-  [dir='rtl'] & { text-align: right; font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { text-align: right; font-family: 'Alexandria', sans-serif; }
 
   &:hover { background: rgba(200, 166, 90, 0.06); color: #101010; }
 }
@@ -179,7 +179,7 @@
 }
 
 .detailNum {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 48px;
   font-weight: 700;
   color: rgba(200, 166, 90, 0.15);
@@ -187,24 +187,91 @@
 }
 
 .detailTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
   color: #101010;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .detailDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.75;
   color: #6b6b68;
   margin: 0 0 32px;
   max-width: 600px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+/* CHALLENGES */
+.challengesSection {
+  margin-bottom: 32px;
+}
+
+.challengesLabel {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #c8a65a;
+  margin-bottom: 12px;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.challengesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.challengeItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #101010;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.challengeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c8a65a;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* CAP LABEL */
+.capLabel {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 12px;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.capGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
 }
 
 .capabilitiesGrid {
@@ -230,12 +297,12 @@
 }
 
 .capabilityText {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: #101010;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .detailCta {
@@ -245,7 +312,7 @@
   padding: 12px 24px;
   background: #101010;
   color: #ffffff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
@@ -267,7 +334,7 @@
 .ctaInner { max-width: 700px; margin: 0 auto; }
 
 .ctaHeading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 600;
   letter-spacing: 2px;
@@ -277,11 +344,11 @@
 }
 
 .ctaSub {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }

@@ -3,16 +3,18 @@
 
 .card {
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
-  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06), 0 4px 16px rgba(10, 22, 40, 0.03);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.04);
 
   // Hover only on capable devices
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(10, 22, 40, 0.1), 0 4px 16px rgba(200, 166, 90, 0.06);
+      border-color: rgba(200, 166, 90, 0.15);
     }
   }
 
@@ -52,26 +54,34 @@
 }
 
 .iconWrapper {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 12px;
-  color: #c9a96e;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #c8a65a;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(200, 166, 90, 0.06);
+  border-radius: 14px;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
 
   // Medium Mobile
   @media (min-width: 375px) {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 14px;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 18px;
   }
 
   // Large Mobile+
   @media (min-width: 429px) {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 16px;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 20px;
+  }
+
+  .card:hover & {
+    background: rgba(200, 166, 90, 0.1);
+    transform: scale(1.05);
   }
 
   svg {
@@ -82,7 +92,7 @@
 }
 
 .title {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-weight: 600;
   line-height: 1.25;
   color: #0a1628;
@@ -104,7 +114,7 @@
 }
 
 .description {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.618;
   color: #5a6472;
@@ -130,7 +140,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: #c9a96e;
@@ -158,45 +168,46 @@
 // ============================================
 
 .stat {
-  background-color: #0a1628;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #132238 0%, #1a2d45 100%);
+  border-radius: 16px;
   color: #ffffff;
+  border: 1px solid rgba(200, 166, 90, 0.1);
 
   // Small Mobile
-  padding: 20px;
+  padding: 24px;
 
   // Medium Mobile
   @media (min-width: 375px) {
-    padding: 24px;
+    padding: 28px;
   }
 
   // Large Mobile
   @media (min-width: 429px) {
-    padding: 28px;
+    padding: 32px;
   }
 
   // Tablet Portrait
   @media (min-width: 768px) {
-    padding: 32px;
+    padding: 36px;
   }
 
   // Tablet Landscape+
   @media (min-width: 1024px) {
-    padding: 36px;
+    padding: 40px;
   }
 
   text-align: center;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10, 22, 40, 0.15);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(19, 34, 56, 0.2), 0 0 0 1px rgba(200, 166, 90, 0.15);
     }
   }
 }
 
 .statNumber {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 700;
   line-height: 1.2;
   color: #c9a96e;
@@ -232,7 +243,7 @@
 }
 
 .statLabel {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.43;
   color: #c8cdd5;
@@ -251,35 +262,45 @@
 // ============================================
 
 .testimonial {
-  background-color: #fafaf8;
+  background: linear-gradient(135deg, #fafaf8 0%, #f7f6f3 100%);
   position: relative;
+  border-radius: 16px;
+  border: 1px solid rgba(17, 17, 17, 0.04);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
   // Small Mobile
-  padding: 20px;
+  padding: 24px;
 
   // Medium Mobile
   @media (min-width: 375px) {
-    padding: 24px;
+    padding: 28px;
   }
 
   // Large Mobile
   @media (min-width: 429px) {
-    padding: 28px;
+    padding: 32px;
   }
 
   // Tablet Portrait
   @media (min-width: 768px) {
-    padding: 32px;
+    padding: 36px;
   }
 
   // Tablet Landscape+
   @media (min-width: 1024px) {
-    padding: 40px;
+    padding: 44px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    }
   }
 }
 
 .quoteMark {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   line-height: 1;
   color: rgba(201, 169, 110, 0.2);
   position: absolute;
@@ -306,7 +327,7 @@
 }
 
 .quote {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   font-style: italic;
   line-height: 1.618;
@@ -370,7 +391,7 @@
 }
 
 .authorName {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 600;
   color: #0a1628;
   margin-bottom: 2px;
@@ -390,7 +411,7 @@
 }
 
 .authorTitle {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   color: #5a6472;
 
@@ -414,35 +435,45 @@
 
 .industry {
   text-align: center;
+  border-radius: 16px;
+  border: 1px solid rgba(17, 17, 17, 0.04);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
   // Small Mobile
-  padding: 16px;
+  padding: 20px;
 
   // Medium Mobile
   @media (min-width: 375px) {
-    padding: 20px;
+    padding: 24px;
   }
 
   // Large Mobile
   @media (min-width: 429px) {
-    padding: 24px;
+    padding: 28px;
   }
 
   // Tablet Portrait+
   @media (min-width: 768px) {
-    padding: 32px;
+    padding: 36px;
   }
 
   @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+      border-color: rgba(200, 166, 90, 0.15);
+    }
+
     &:hover .iconWrapper {
-      color: #c9a96e;
+      color: #c8a65a;
+      background: rgba(200, 166, 90, 0.08);
     }
   }
 }
 
 .industry .iconWrapper {
-  color: #0a1628;
-  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  color: #132238;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 // ============================================
@@ -451,10 +482,18 @@
 
 .team {
   overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(17, 17, 17, 0.04);
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
   @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+    }
+
     &:hover .image {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
   }
 }
@@ -468,7 +507,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .content {
@@ -487,7 +526,7 @@
 }
 
 .name {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-weight: 600;
   color: #0a1628;
   margin-bottom: 4px;
@@ -507,7 +546,7 @@
 }
 
 .role {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: 'Manrope', -apple-system, sans-serif;
   font-weight: 400;
   color: #c9a96e;
 

@@ -33,7 +33,7 @@
 
 .label {
   display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.4px;
@@ -43,7 +43,7 @@
 }
 
 .heading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 3.5vw, 2.25rem);
   font-weight: 600;
   line-height: 1.15;
@@ -51,17 +51,17 @@
   color: #101010;
   margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
 
 .body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.7;
   color: #6b6b68;
   margin: 0 0 32px;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .cta {
@@ -70,7 +70,7 @@
   padding: 16px 22px;
   background: #101010;
   color: #ffffff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
@@ -94,21 +94,21 @@
 }
 
 .itemTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
   color: #101010;
   margin: 0 0 8px;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .itemDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.6;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }

@@ -36,7 +36,7 @@ function LogoText({ variant, size }: { variant: string; size: string }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
       <span style={{
-        fontFamily: '"DM Serif Display", Georgia, serif',
+        fontFamily: '"Manrope", Georgia, serif',
         fontSize: textSize,
         fontWeight: 400,
         letterSpacing: '-0.02em',
@@ -45,7 +45,7 @@ function LogoText({ variant, size }: { variant: string; size: string }) {
       }}>
         XVI
         <span style={{
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontFamily: "'Manrope', sans-serif",
           fontSize: groupSize,
           fontWeight: 500,
           letterSpacing: '0.1em',
@@ -106,7 +106,7 @@ export function LogoWordmark({ variant = 'dark', className }: { variant?: 'dark'
         <circle cx="16" cy="16" r="2.5" fill={textColor} />
       </svg>
       <span style={{
-        fontFamily: "'DM Serif Display', Georgia, serif",
+        fontFamily: "'Manrope', Georgia, serif",
         fontSize: '1.125rem',
         fontWeight: 400,
         letterSpacing: '-0.02em',
@@ -115,7 +115,7 @@ export function LogoWordmark({ variant = 'dark', className }: { variant?: 'dark'
       }}>
         XVI
         <span style={{
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontFamily: "'Manrope', sans-serif",
           fontSize: '0.5625rem',
           fontWeight: 500,
           letterSpacing: '0.1em',

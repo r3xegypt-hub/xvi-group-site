@@ -22,12 +22,12 @@ export const COLORS = {
 };
 
 export const FONTS = {
-  display: '"DM Serif Display", Georgia, "Times New Roman", serif',
-  heading: '"DM Serif Display", Georgia, "Times New Roman", serif',
-  body: '"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+  display: '"Manrope", Georgia, "Times New Roman", serif',
+  heading: '"Manrope", Georgia, "Times New Roman", serif',
+  body: '"Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   mono: '"JetBrains Mono", "Fira Code", Consolas, monospace',
-  arabicDisplay: '"Amiri", "Noto Naskh Arabic", serif',
-  arabicBody: '"Tajawal", "Plus Jakarta Sans", sans-serif',
+  arabicDisplay: '"Alexandria", "Noto Naskh Arabic", serif',
+  arabicBody: '"Alexandria", "Manrope", sans-serif',
 };
 
 export const LIGHT_LUXURY_THEME: ThemeTokens = {

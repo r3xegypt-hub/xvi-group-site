@@ -57,7 +57,7 @@
 
 .label {
   display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.4px;
@@ -65,11 +65,11 @@
   color: #b7934c;
   margin-bottom: 20px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .heroTitle {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 400;
   line-height: 1.1;
@@ -77,18 +77,18 @@
   color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
 }
 
 .heroSub {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.0625rem;
   line-height: 1.6;
   color: #c8c3bb;
   margin: 0;
   max-width: 520px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* VISION & MISSION */
@@ -113,7 +113,7 @@
 
 .sectionLabel {
   display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -121,11 +121,11 @@
   color: #c8a65a;
   margin-bottom: 24px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
 
 .sectionHeading {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 400;
   line-height: 1.2;
@@ -134,7 +134,7 @@
   margin: 0;
   max-width: 700px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
 }
 
 .quoteBlock {
@@ -150,7 +150,7 @@
 }
 
 .quoteText {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 400;
   line-height: 1.4;
@@ -158,7 +158,7 @@
   margin: 0;
   font-style: italic;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 /* VALUES */
@@ -214,23 +214,23 @@
 }
 
 .valueTitle {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: 1.25rem;
   font-weight: 400;
   color: #101010;
   margin: 0 0 12px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .valueDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.65;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* WHY XVI */
@@ -283,23 +283,23 @@
 }
 
 .whyTitle {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: 1.25rem;
   font-weight: 400;
   color: #101010;
   margin: 0 0 12px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .whyDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.65;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* METHODOLOGY */
@@ -343,7 +343,7 @@
 }
 
 .methodNum {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: 2.5rem;
   font-weight: 400;
   color: rgba(200, 166, 90, 0.2);
@@ -368,23 +368,23 @@
 }
 
 .methodTitle {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: 1.125rem;
   font-weight: 400;
   color: #f7f6f3;
   margin: 0 0 12px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .methodDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* JOURNEY */
@@ -419,7 +419,7 @@
 }
 
 .journeyNum {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: #c8a65a;
@@ -440,13 +440,13 @@
 }
 
 .journeyLabel {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #101010;
   padding-top: 4px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* PROCESS */
@@ -487,7 +487,7 @@
 }
 
 .processNum {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: 2rem;
   font-weight: 400;
   color: rgba(200, 166, 90, 0.3);
@@ -496,23 +496,23 @@
 }
 
 .processTitle {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: 1.125rem;
   font-weight: 400;
   color: #101010;
   margin: 0 0 12px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .processDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   line-height: 1.65;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* FAQ */
@@ -553,7 +553,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #101010;
@@ -563,7 +563,7 @@
   cursor: pointer;
 
   [dir='rtl'] & {
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Alexandria', sans-serif;
     text-align: right;
   }
 }
@@ -581,13 +581,13 @@
 
   p {
     padding: 0 24px 20px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 0.9375rem;
     line-height: 1.7;
     color: #6b6b68;
     margin: 0;
 
-    [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+    [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
   }
 }
 
@@ -606,23 +606,23 @@
 }
 
 .ctaHeading {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Manrope', Georgia, serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 400;
   color: #f7f6f3;
   margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .ctaSub {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.0625rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.5);
   margin: 0 0 40px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .ctaActions {
@@ -638,7 +638,7 @@
   padding: 16px 32px;
   background: #c8a65a;
   color: #132238;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
@@ -652,5 +652,5 @@
     box-shadow: 0 8px 24px rgba(200, 166, 90, 0.3);
   }
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }

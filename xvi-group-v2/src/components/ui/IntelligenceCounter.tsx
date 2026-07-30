@@ -21,7 +21,7 @@ export function IntelligenceCounter({ value, label, labelAr, className, prefix }
     <div ref={ref} className={className}>
       <motion.span
         style={{
-          fontFamily: "'DM Serif Display', Georgia, serif",
+          fontFamily: "'Manrope', Georgia, serif",
           fontSize: 'clamp(2rem, 3vw, 3rem)',
           fontWeight: 400,
           color: '#111111',
@@ -65,7 +65,7 @@ export function IntelligenceCounter({ value, label, labelAr, className, prefix }
       />
       <span
         style={{
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontFamily: "'Manrope', sans-serif",
           fontSize: '0.8125rem',
           fontWeight: 400,
           color: '#999999',

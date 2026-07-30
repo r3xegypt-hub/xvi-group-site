@@ -289,7 +289,7 @@ export function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            {ar ? 'four منهجية مُجربة للتحول الذكي' : 'A proven methodology for intelligent transformation'}
+            {ar ? 'منهجية مُجربة للتحول الذكي' : 'A proven methodology for intelligent transformation'}
           </motion.h2>
           <div className={styles.methodGrid}>
             {methodologySteps.map((step, i) => (

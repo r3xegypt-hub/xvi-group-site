@@ -25,7 +25,7 @@ export function ScrollIndicator({ className }: ScrollIndicatorProps) {
     >
       <motion.span
         style={{
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontFamily: "'Manrope', sans-serif",
           fontSize: '0.5625rem',
           fontWeight: 600,
           letterSpacing: '0.2em',

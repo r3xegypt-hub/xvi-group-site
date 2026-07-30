@@ -1,13 +1,13 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { Sparkles, Brain, X, ArrowUpRight, BarChart3, Globe, Zap, MessageSquare, FileText, Clock, CheckCircle2, ChevronRight, Send, ArrowRight } from 'lucide-react';
+import { Sparkles, Brain, X, ArrowUpRight, BarChart3, Globe, Zap, MessageSquare, FileText, Clock, CheckCircle2, ChevronRight, Send, ArrowRight, Users, Shield, Map, TrendingUp, Target, Lightbulb } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
-const font = "'Plus Jakarta Sans', sans-serif";
+const font = "'Manrope', sans-serif";
 
-type ConversationState = 'idle' | 'menu' | 'service' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline';
+type ConversationState = 'idle' | 'menu' | 'service' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'strategy' | 'reports' | 'recommend';
 
 interface Message {
   id: string;
@@ -75,10 +75,10 @@ const quickActions = [
   { id: 'deliverables', icon: BarChart3, label: { en: 'Deliverables', ar: 'المخرجات' } },
   { id: 'automation', icon: Zap, label: { en: 'Automation Scan', ar: 'فحص الأتمتة' } },
   { id: 'timeline', icon: Clock, label: { en: 'Project Timeline', ar: 'الجدول الزمني' } },
+  { id: 'strategy', icon: Target, label: { en: 'Transformation Strategy', ar: 'استراتيجية التحول' } },
+  { id: 'reports', icon: TrendingUp, label: { en: 'Executive Reports', ar: 'التقارير التنفيذية' } },
+  { id: 'recommend', icon: Lightbulb, label: { en: 'Recommend Solution', ar: 'توصية حل' } },
 ];
-
-// @ts-ignore
-import { Map } from 'lucide-react';
 
 function ServiceCard({ service, onClick }: { service: typeof services[0]; onClick: () => void }) {
   return (
@@ -256,9 +256,98 @@ function TimelineCard() {
   );
 }
 
-// @ts-ignore
-import React from 'react';
-import { Users, Shield } from 'lucide-react';
+function StrategyCard() {
+  const phases = [
+    { icon: Target, title: 'Assess', desc: 'Current state analysis, data audit, use case identification', color: '#C8A65A' },
+    { icon: Lightbulb, title: 'Design', desc: 'AI vision, technology architecture, governance framework', color: '#C8A65A' },
+    { icon: Zap, title: 'Build', desc: 'Pilot development, testing, performance validation', color: '#132238' },
+    { icon: TrendingUp, title: 'Scale', desc: 'Production deployment, change management, optimization', color: '#132238' },
+  ];
+
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Digital Transformation Strategy
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {phases.map((phase, i) => (
+          <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px', background: '#f7f6f3', borderRadius: 8 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 8, background: `${phase.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: phase.color }}>
+              <phase.icon size={16} />
+            </div>
+            <div>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{phase.title}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 2 }}>{phase.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 12, fontStyle: 'italic' }}>
+        Each phase includes executive alignment, technical validation, and measurable milestones.
+      </div>
+    </div>
+  );
+}
+
+function ReportsCard() {
+  const metrics = [
+    { label: 'AI Adoption Rate', value: '67%', trend: '+12%', status: 'positive' },
+    { label: 'Automation Coverage', value: '43%', trend: '+8%', status: 'positive' },
+    { label: 'Decision Speed', value: '2.4x', trend: '+0.6x', status: 'positive' },
+    { label: 'Cost Reduction', value: '18%', trend: '+3%', status: 'positive' },
+  ];
+
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Executive Dashboard Preview
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {metrics.map((m, i) => (
+          <div key={i} style={{ padding: '12px', background: '#f7f6f3', borderRadius: 8, textAlign: 'center' }}>
+            <div style={{ fontFamily: font, fontSize: '0.625rem', color: '#999', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{m.label}</div>
+            <div style={{ fontFamily: font, fontSize: '1.25rem', fontWeight: 700, color: '#111111', marginTop: 4 }}>{m.value}</div>
+            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#2D6A4F', marginTop: 2 }}>{m.trend}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 12, fontStyle: 'italic' }}>
+        Sample metrics. Actual dashboards are customized to your KPIs and transformation goals.
+      </div>
+    </div>
+  );
+}
+
+function RecommendCard() {
+  const recommendations = [
+    { industry: 'Financial Services', solution: 'Risk Intelligence + Regulatory Automation', priority: 'High' },
+    { industry: 'Public Sector', solution: 'Citizen Services Modernization + Data Governance', priority: 'High' },
+    { industry: 'Enterprise', solution: 'Connected Intelligence + Process Optimization', priority: 'Medium' },
+    { industry: 'Healthcare', solution: 'Clinical Intelligence + Patient Journey Optimization', priority: 'Medium' },
+  ];
+
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Sector-Specific Recommendations
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {recommendations.map((rec, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '10px 12px', background: '#f7f6f3', borderRadius: 8 }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: rec.priority === 'High' ? '#C8A65A' : '#999', marginTop: 6, flexShrink: 0 }} />
+            <div>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{rec.industry}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 2 }}>{rec.solution}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 12, fontStyle: 'italic' }}>
+        Contact us for a personalized recommendation based on your specific context.
+      </div>
+    </div>
+  );
+}
 
 export function AIDock() {
   const [open, setOpen] = useState(false);
@@ -291,6 +380,9 @@ export function AIDock() {
       deliverables: { en: 'Here are the executive deliverables you can expect:', ar: 'هذه المخرجات التنفيذية التي يمكن توقعها:' },
       automation: { en: 'Quick scan of automation opportunities across your operations:', ar: 'فحص سريع لفرص الأتمتة عبر عملياتك:' },
       timeline: { en: 'Typical project timeline for an AI transformation engagement:', ar: 'الجدول الزمني النموذجي لمشروع تحول بالذكاء الاصطناعي:' },
+      strategy: { en: 'Our digital transformation strategy framework:', ar: 'إطار استراتيجيتنا للتحول الرقمي:' },
+      reports: { en: 'Preview of executive reporting dashboards:', ar: 'معاينة لوحات التقارير التنفيذية:' },
+      recommend: { en: 'Sector-specific AI recommendations:', ar: 'توصيات ذكاء اصطناعي مخصصة لكل قطاع:' },
     };
 
     addMessage('user', isAR ? quickActions.find(a => a.id === actionId)?.label.ar || '' : quickActions.find(a => a.id === actionId)?.label.en || '');
@@ -320,6 +412,12 @@ export function AIDock() {
       addMessage('card', '', <AutomationCard />);
     } else if (actionId === 'timeline') {
       addMessage('card', '', <TimelineCard />);
+    } else if (actionId === 'strategy') {
+      addMessage('card', '', <StrategyCard />);
+    } else if (actionId === 'reports') {
+      addMessage('card', '', <ReportsCard />);
+    } else if (actionId === 'recommend') {
+      addMessage('card', '', <RecommendCard />);
     }
   }, [isAR, addMessage]);
 
@@ -470,7 +568,7 @@ export function AIDock() {
                     />
                   </div>
                   <p style={{
-                    fontFamily: "'Amiri', serif",
+                    fontFamily: "'Alexandria', serif",
                     fontSize: '0.9375rem', lineHeight: 1.6, color: '#666',
                     maxWidth: 320, margin: '0 auto 20px',
                   }}>

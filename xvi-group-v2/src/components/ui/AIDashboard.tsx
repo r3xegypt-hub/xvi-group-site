@@ -89,7 +89,7 @@ export function AIDashboard() {
               }}
             >
               <div style={{
-                fontFamily: "'DM Serif Display', Georgia, serif",
+                fontFamily: "'Manrope', Georgia, serif",
                 fontSize: 'clamp(1.25rem, 2vw, 1.75rem)',
                 fontWeight: 400,
                 color: '#C8A65A',
@@ -98,7 +98,7 @@ export function AIDashboard() {
                 {kpi.value}
               </div>
               <div style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontFamily: "'Manrope', sans-serif",
                 fontSize: '0.625rem',
                 fontWeight: 500,
                 color: 'rgba(255,255,255,0.35)',
@@ -109,7 +109,7 @@ export function AIDashboard() {
               </div>
               <motion.div
                 style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontFamily: "'Manrope', sans-serif",
                   fontSize: '0.5625rem',
                   fontWeight: 500,
                   color: kpi.trend.startsWith('+') ? '#2D6A4F' : '#C8A65A',

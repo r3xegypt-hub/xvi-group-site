@@ -38,7 +38,7 @@
 
 .label {
   display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.4px;
@@ -48,7 +48,7 @@
 }
 
 .heroTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 600;
   line-height: 1.1;
@@ -56,18 +56,18 @@
   color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
 }
 
 .heroSub {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.0625rem;
   line-height: 1.6;
   color: #c8c3bb;
   margin: 0;
   max-width: 560px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* SERVICE SECTIONS */
@@ -100,7 +100,7 @@
 }
 
 .serviceNum {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 64px;
   font-weight: 700;
   color: rgba(200, 166, 90, 0.15);
@@ -112,7 +112,7 @@
 .serviceIcon { color: #c8a65a; }
 
 .serviceTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 600;
   line-height: 1.1;
@@ -120,21 +120,21 @@
   margin: 0 0 8px;
 
   .dark & { color: #f7f6f3; }
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
 }
 
 .serviceSubtitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.0625rem;
   font-weight: 500;
   color: #b7934c;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .serviceDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.75;
   color: #6b6b68;
@@ -142,7 +142,7 @@
   max-width: 640px;
 
   .dark & { color: rgba(255, 255, 255, 0.6); }
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .capabilities {
@@ -156,13 +156,13 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: #101010;
 
   .dark & { color: rgba(255, 255, 255, 0.7); }
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .capDot {
@@ -173,11 +173,77 @@
   flex-shrink: 0;
 }
 
+/* OUTCOMES */
+.outcomesSection {
+  margin-bottom: 32px;
+}
+
+.outcomesLabel {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #c8a65a;
+  margin-bottom: 16px;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.outcomesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.outcomeItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #101010;
+
+  .dark & { color: rgba(255, 255, 255, 0.7); }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.outcomeIcon {
+  color: #c8a65a;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* CAP LABEL */
+.capLabel {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 12px;
+
+  .dark & { color: rgba(255, 255, 255, 0.4); }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.capGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
+
 .serviceCta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   color: #c8a65a;
@@ -204,14 +270,25 @@
 }
 
 .processHeading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.015em;
   color: #101010;
-  margin: 0 0 56px;
+  margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+}
+
+.processSub {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #6b6b68;
+  margin: 0 0 56px;
+  max-width: 600px;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .processGrid {
@@ -233,34 +310,51 @@
   &:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06); }
 }
 
+.processCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
 .processNum {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 36px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 48px;
   font-weight: 700;
   color: rgba(200, 166, 90, 0.2);
   line-height: 1;
-  display: block;
-  margin-bottom: 16px;
 }
 
+.processIconWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(200, 166, 90, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processIcon { color: #c8a65a; }
+
 .processTitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
   color: #101010;
   margin: 0 0 8px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; }
 }
 
 .processDesc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   line-height: 1.6;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 /* CTA */
@@ -275,15 +369,33 @@
 .ctaInner { max-width: 700px; margin: 0 auto; }
 
 .ctaHeading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: #f7f6f3;
-  margin: 0 0 32px;
+  margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Amiri', serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', serif; letter-spacing: 0; }
+}
+
+.ctaSub {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: rgba(247, 246, 243, 0.6);
+  margin: 0 0 40px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.ctaActions {
+  display: flex;
+  justify-content: center;
 }
 
 .ctaBtn {
@@ -293,7 +405,7 @@
   padding: 16px 32px;
   background: #c8a65a;
   color: #132238;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
