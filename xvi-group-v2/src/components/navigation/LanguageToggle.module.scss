@@ -4,16 +4,16 @@
   align-items: center;
   gap: 0;
   padding: 3px;
-  background: rgba(17, 17, 17, 0.03);
-  border: 1px solid rgba(17, 17, 17, 0.06);
+  background: rgba(19, 34, 56, 0.04);
+  border: 1px solid rgba(19, 34, 56, 0.07);
   border-radius: 999px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    border-color: rgba(200, 166, 90, 0.3);
-    background: rgba(200, 166, 90, 0.04);
-    box-shadow: 0 0 12px rgba(200, 166, 90, 0.03);
+    border-color: rgba(200, 166, 90, 0.35);
+    background: rgba(200, 166, 90, 0.05);
+    box-shadow: 0 0 16px rgba(200, 166, 90, 0.05);
   }
 
   &:focus-visible {
@@ -30,13 +30,14 @@
 .option {
   position: relative;
   z-index: 1;
-  padding: 4px 10px;
-  font-size: 0.6875rem;
+  padding: 5px 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #999999;
-  letter-spacing: 0.04em;
-  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.06em;
+  transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  line-height: 1;
 
   [dir='rtl'] & {
     letter-spacing: 0;
@@ -44,7 +45,7 @@
 }
 
 .active {
-  color: #111111;
+  color: #c8a65a;
 
   .toggle:hover & {
     color: #c8a65a;
@@ -57,11 +58,22 @@
   top: 3px;
   width: calc(50% - 3px);
   height: calc(100% - 6px);
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 999px;
-  border: 1px solid rgba(17, 17, 17, 0.04);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(200, 166, 90, 0.04), 0 2px 8px rgba(200, 166, 90, 0.06);
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.7, 1);
+  border: 1px solid rgba(200, 166, 90, 0.12);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(200, 166, 90, 0.04),
+    0 2px 8px rgba(200, 166, 90, 0.08);
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.7, 1),
+              box-shadow 0.4s ease;
+
+  .toggle:hover & {
+    box-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.05),
+      0 0 0 1px rgba(200, 166, 90, 0.08),
+      0 4px 12px rgba(200, 166, 90, 0.12);
+  }
 }
 
 .thumbRight {

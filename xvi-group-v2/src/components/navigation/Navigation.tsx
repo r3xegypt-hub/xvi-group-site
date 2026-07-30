@@ -11,6 +11,9 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const isActive = (path: string) =>
+    location.pathname === path || location.pathname.startsWith(path + '/');
+
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -52,7 +55,7 @@ export function Navigation() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`${styles.link}${location.pathname === link.to ? ` ${styles.activeLink}` : ''}`}
+                className={`${styles.link}${isActive(link.to) ? ` ${styles.activeLink}` : ''}`}
               >
                 {link.label}
               </Link>
