@@ -523,44 +523,55 @@ export function AIDock() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.96 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.4, ease }}
+            exit={{ opacity: 0, y: 30, scale: 0.96 }}
+            transition={{ duration: 0.5, ease }}
             onClick={(e) => e.stopPropagation()}
             style={{
-              position: 'fixed', bottom: 96, left: '50%', zIndex: 601,
+              position: 'fixed', bottom: 100, left: '50%', zIndex: 601,
               transform: 'translateX(-50%)',
               width: 480, maxWidth: 'calc(100vw - 48px)',
               maxHeight: '70vh',
-              background: 'rgba(255,255,255,0.97)',
-              backdropFilter: 'blur(40px)',
-              WebkitBackdropFilter: 'blur(40px)',
-              border: '1px solid rgba(200,166,90,0.12)',
-              borderRadius: 24,
-              boxShadow: '0 32px 100px rgba(17,17,17,0.1), 0 8px 24px rgba(17,17,17,0.04), inset 0 1px 0 rgba(255,255,255,0.9)',
+              background: 'rgba(255,255,255,0.985)',
+              backdropFilter: 'blur(60px)',
+              WebkitBackdropFilter: 'blur(60px)',
+              border: '1px solid rgba(200,166,90,0.1)',
+              borderRadius: 28,
+              boxShadow:
+                '0 32px 100px rgba(17,17,17,0.12), 0 8px 24px rgba(17,17,17,0.04), 0 0 80px rgba(200,166,90,0.03), inset 0 1px 0 rgba(255,255,255,0.9)',
               display: 'flex', flexDirection: 'column', overflow: 'hidden',
             }}
           >
+            {/* Top glow */}
+            <div style={{
+              position: 'absolute', top: 0, left: '15%', right: '15%', height: 1,
+              background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.15), transparent)',
+              pointerEvents: 'none',
+            }} />
+
             {/* Scan line */}
             <motion.div
               style={{
-                position: 'absolute', left: 0, right: 0, height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.2), transparent)',
+                position: 'absolute', left: 0, right: 0, height: 0.5,
+                background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.12), transparent)',
                 pointerEvents: 'none', zIndex: 1,
               }}
-              animate={{ top: ['-2%', '102%'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              animate={{ top: ['-1%', '101%'] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             />
 
             {/* Header */}
             <div style={{
-              display: 'flex', alignItems: 'center', gap: 12,
-              padding: '16px 20px', borderBottom: '1px solid rgba(17,17,17,0.04)',
+              display: 'flex', alignItems: 'center', gap: 14,
+              padding: '12px 20px', borderBottom: '1px solid rgba(17,17,17,0.03)',
+              background: 'rgba(255,255,255,0.7)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
             }}>
               <AnimatedOrb state={avatarState} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>
+                <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', color: '#111111', textTransform: 'uppercase' }}>
                   XVI EXECUTIVE AI
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
@@ -569,7 +580,7 @@ export function AIDock() {
                     animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   />
-                  <span style={{ fontFamily: font, fontSize: '0.625rem', color: '#999', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                     Executive Intelligence · {thoughtStage === 'ready' || thoughtStage === 'ready-again' ? 'Ready' : thoughtStage === 'thinking' ? 'Processing' : 'Synthesizing'}
                   </span>
                 </div>
@@ -579,10 +590,11 @@ export function AIDock() {
               )}
               <motion.button
                 onClick={() => setOpen(false)}
-                whileHover={{ scale: 1.1, color: '#111111' }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', padding: 4 }}
+                whileHover={{ scale: 1.1, color: '#111111', background: 'rgba(200,166,90,0.05)' }}
+                whileTap={{ scale: 0.9 }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ccc', padding: 6, borderRadius: '50%', transition: 'all 0.25s ease' }}
               >
-                <X size={16} />
+                <X size={14} />
               </motion.button>
             </div>
 
