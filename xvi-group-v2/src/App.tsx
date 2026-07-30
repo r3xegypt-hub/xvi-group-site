@@ -11,6 +11,7 @@ import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
 import { CustomCursor } from './motion/CustomCursor';
+import { MouseGlow } from './motion/MouseGlow';
 import { LuxuryLoader } from './components/ui/LuxuryLoader';
 import { CinematicIntro } from './components/ui/CinematicIntro';
 import { AIDock } from './components/assistant/AIDock';
@@ -58,6 +59,7 @@ function App() {
                 : <CinematicIntro onFinish={handleFinish} />
               )}
               <CustomCursor />
+              <MouseGlow color="#C8A65A" radius={250} opacity={0.03} />
               <ScrollProgress />
               <PageTransition>
                 <Routes>

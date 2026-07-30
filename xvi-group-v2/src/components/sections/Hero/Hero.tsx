@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import type { Easing } from 'framer-motion';
-import { ArrowUpRight, Sparkles, Bot, Shield, Activity } from 'lucide-react';
+import { ArrowUpRight, Bot, Shield, Activity, Sparkles } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { AINetwork } from '../../ui/AINetwork';
@@ -11,49 +11,55 @@ import { DataStream } from '../../../motion/DataStream';
 import { MouseReactive } from '../../../motion/MouseReactive';
 import { HeroGlassPanel } from '../../ui/HeroGlassPanel';
 import { ScrollIndicator } from '../../ui/ScrollIndicator';
+import { StaggerLines, StaggerText } from '../../../motion/StaggerText';
 import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
-
-const headlineWords = [
-  { text: 'The', className: styles.headlineLight },
-  { text: 'Intelligence', className: styles.headlineGold },
-  { text: 'Behind', className: styles.headlineLight },
-  { text: 'The', className: styles.headlineLight },
-  { text: 'Ambitious', className: styles.headlineGold + ' ' + styles.headlineItalic },
-];
-
-const headlineWordsAr = [
-  { text: 'الاستخبارات', className: styles.headlineGold },
-  { text: 'وراء', className: styles.headlineLight },
-  { text: 'الطموح', className: styles.headlineGold },
-];
-
-function WordReveal({ words, delay = 0 }: { words: { text: string; className: string }[]; delay?: number }) {
-  return (
-    <span className={styles.wordLine}>
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          className={word.className}
-          initial={{ opacity: 0, y: 40, rotateX: 12 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          transition={{ duration: 0.6, ease, delay: delay + i * 0.08 }}
-          style={{ display: 'inline-block', marginRight: '0.15em' }}
-        >
-          {word.text}
-          <span style={{ display: 'inline-block', width: '0.05em' }} />
-        </motion.span>
-      ))}
-    </span>
-  );
-}
 
 const executiveBadges = [
   { icon: Bot, label: 'Executive Advisory', color: '#C8A65A' },
   { icon: Shield, label: 'Sovereign AI', color: '#132238' },
   { icon: Activity, label: 'Measurable Impact', color: '#C8A65A' },
 ];
+
+function MagneticCTA({ href, children, className }: { href: string; children: React.ReactNode; className: string }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 200, damping: 20 });
+  const springY = useSpring(y, { stiffness: 200, damping: 20 });
+
+  const handleMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left - rect.width / 2) * 0.25;
+    const py = (e.clientY - rect.top - rect.height / 2) * 0.25;
+    x.set(px);
+    y.set(py);
+  };
+
+  const handleLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      className={className}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={{ x: springX, y: springY }}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+    >
+      {children}
+    </motion.a>
+  );
+}
 
 export function Hero() {
   const { language } = useLanguage();
@@ -90,7 +96,6 @@ export function Hero() {
 
       <Container className={styles.inner}>
         <MouseReactive intensity={6} perspective={1200}>
-          {/* Executive badges floating in the background */}
           <div className={styles.badges}>
             {executiveBadges.map((badge, i) => {
               const Icon = badge.icon;
@@ -98,9 +103,10 @@ export function Hero() {
                 <motion.div
                   key={i}
                   className={styles.badge}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, ease, delay: 0.5 + i * 0.15 }}
+                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.9 }}
+                  transition={{ type: 'spring', stiffness: 150, damping: 15, delay: 0.5 + i * 0.15 }}
+                  whileHover={{ y: -2, scale: 1.02 }}
                   style={{
                     background: `${badge.color}06`,
                     borderColor: `${badge.color}12`,
@@ -114,15 +120,13 @@ export function Hero() {
             })}
           </div>
 
-          <motion.div
-            className={styles.split}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-          >
+          <motion.div className={styles.split}>
             <div className={styles.contentCol}>
               <motion.p
                 className={styles.eyebrow}
-                variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.15 } } }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.6, ease, delay: 0.15 }}
               >
                 <motion.span
                   animate={{ opacity: [0.4, 1, 0.4] }}
@@ -132,34 +136,41 @@ export function Hero() {
                 {ar ? 'استشارات تنفيذية · ذكاء · تحول' : 'Executive Advisory · Intelligence · Transformation'}
               </motion.p>
 
-              <motion.h1
-                className={styles.headline}
-                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delay: 0.25, duration: 0.8 } } }}
-              >
+              <h1 className={styles.headline}>
                 {ar ? (
-                  <WordReveal words={headlineWordsAr} delay={0.3} />
+                  <StaggerLines
+                    lines={['الاستخبارات', 'وراء', 'الطموح']}
+                    as="div"
+                    delay={0.2}
+                    lineStagger={0.2}
+                  />
                 ) : (
-                  <WordReveal words={headlineWords} delay={0.3} />
+                  <StaggerLines
+                    lines={['The Intelligence', 'Behind The', 'Ambitious']}
+                    as="div"
+                    delay={0.2}
+                    lineStagger={0.2}
+                  />
                 )}
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                className={styles.subhead}
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.6 } } }}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, ease, delay: 0.9 }}
               >
-                {ar ? 'استراتيجية. ذكاء اصطناعي. عمليات. — من الرؤية إلى التنفيذ.' : 'Strategy. AI. Operations. — From vision to execution.'}
-              </motion.p>
+                <p className={styles.subhead}>
+                  {ar ? 'استراتيجية. ذكاء اصطناعي. عمليات. — من الرؤية إلى التنفيذ.' : 'Strategy. AI. Operations. — From vision to execution.'}
+                </p>
+              </motion.div>
 
               <motion.div
                 className={styles.actions}
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.7 } } }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, ease, delay: 1.1 }}
               >
-                <motion.a
-                  href="/contact"
-                  className={styles.ctaPrimary}
-                  whileHover={{ scale: 1.02, backgroundColor: '#B8963E' }}
-                  whileTap={{ scale: 0.98 }}
-                >
+                <MagneticCTA href="/contact" className={styles.ctaPrimary}>
                   <motion.span
                     animate={{ rotate: [0, 45, 0] }}
                     transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
@@ -173,7 +184,7 @@ export function Hero() {
                     animate={{ opacity: [0, 0.4, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                   />
-                </motion.a>
+                </MagneticCTA>
                 <a href="/services" className={styles.ctaSecondary}>
                   {ar ? 'منهجيتنا' : 'Our Approach'}
                 </a>
@@ -182,7 +193,9 @@ export function Hero() {
 
             <motion.div
               className={styles.visualCol}
-              variants={{ hidden: { opacity: 0, scale: 0.92 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.9, ease, delay: 0.3 } } }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.9, ease, delay: 0.3 }}
             >
               <div className={styles.visualFrame}>
                 <div className={styles.visualGlow} />
@@ -265,12 +278,11 @@ export function Hero() {
                   </text>
                 </svg>
 
-                {/* Floating data panels */}
                 <motion.div
                   className={styles.floatingData}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{ duration: 0.6, ease, delay: 0.8 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.8 }}
                 >
                   <span className={styles.dataDot} />
                   <span className={styles.dataValue}>99.9%</span>
@@ -280,8 +292,8 @@ export function Hero() {
                   className={styles.floatingData}
                   style={{ top: '60%', right: '-8%' }}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{ duration: 0.6, ease, delay: 1.0 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 1.0 }}
                 >
                   <span className={styles.dataDot} />
                   <span className={styles.dataValue}>2.4s</span>
@@ -298,15 +310,15 @@ export function Hero() {
           animate={isInView ? 'visible' : 'hidden'}
         >
           {[
-            { number: '12+', label: ar ? 'سنوات من الخبرة' : 'Years of Experience' },
-            { number: '200+', label: ar ? 'مشروع مكتمل' : 'Projects Delivered' },
-            { number: '100%', label: ar ? 'التزام بالنتائج' : 'Commitment to Results' },
+            { number: 'AI', label: ar ? 'نهج أصيل' : 'AI-Native' },
+            { number: '100%', label: ar ? 'تركيز العميل' : 'Client-First' },
+            { number: '24/7', label: ar ? 'التزام كامل' : 'Always-On' },
           ].map((stat, i) => (
             <motion.div
               key={stat.number}
               className={styles.stat}
               custom={i}
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, ease, delay: 0.9 + i * 0.15 } }) }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: (i: number) => ({ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 15, delay: 0.9 + i * 0.15 } }) }}
               whileHover={{ y: -4 }}
             >
               <span className={styles.statNumber}>{stat.number}</span>
