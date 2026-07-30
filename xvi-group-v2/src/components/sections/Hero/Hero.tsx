@@ -80,6 +80,7 @@ export function Hero() {
         }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
       />
+      <div className={styles.lightRays} />
       <FlowingWave color="#C8A65A" opacity={0.08} speed={0.8} />
       <div className={styles.particles}>
         {Array.from({ length: 20 }).map((_, i) => (
