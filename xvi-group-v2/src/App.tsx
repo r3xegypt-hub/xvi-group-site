@@ -23,6 +23,9 @@ import { BusinessConsultingPage } from './pages/services/business-consulting/Bus
 import { TechnologyConsultingPage } from './pages/services/technology-consulting/TechnologyConsultingPage';
 import { AITransformationPage } from './pages/services/ai-transformation/AITransformationPage';
 import { ExecutiveTrainingPage } from './pages/services/executive-training/ExecutiveTrainingPage';
+import { CareersPage } from './pages/careers/Careers';
+import { PrivacyPage } from './pages/privacy/Privacy';
+import { TermsPage } from './pages/terms/Terms';
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
@@ -71,6 +74,9 @@ function App() {
                   <Route path="/industries" element={<PageShell><IndustriesPage /></PageShell>} />
                   <Route path="/insights" element={<PageShell><InsightsPage /></PageShell>} />
                   <Route path="/contact" element={<PageShell><ContactPage /></PageShell>} />
+                  <Route path="/careers" element={<PageShell><CareersPage /></PageShell>} />
+                  <Route path="/privacy" element={<PageShell><PrivacyPage /></PageShell>} />
+                  <Route path="/terms" element={<PageShell><TermsPage /></PageShell>} />
                   <Route path="*" element={<PageShell><Home /></PageShell>} />
                 </Routes>
               </PageTransition>

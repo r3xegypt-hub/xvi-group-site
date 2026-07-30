@@ -39,6 +39,9 @@ export function Navigation() {
 
           <div className={styles.links}>
             <Link to="/services" className={styles.link}>Services</Link>
+            <Link to="/industries" className={styles.link}>Industries</Link>
+            <Link to="/technology" className={styles.link}>Technology</Link>
+            <Link to="/about" className={styles.link}>About</Link>
             <Link to="/insights" className={styles.link}>Perspective</Link>
             <Link to="/contact" className={styles.link}>Contact</Link>
           </div>
@@ -60,8 +63,12 @@ export function Navigation() {
         <div className={styles.mobileMenuInner}>
           <Link to="/" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Home</Link>
           <Link to="/services" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Services</Link>
+          <Link to="/industries" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Industries</Link>
+          <Link to="/technology" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Technology</Link>
+          <Link to="/about" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>About</Link>
           <Link to="/insights" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Perspective</Link>
           <Link to="/contact" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Contact</Link>
+          <Link to="/careers" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Careers</Link>
         </div>
       </div>
     </>
