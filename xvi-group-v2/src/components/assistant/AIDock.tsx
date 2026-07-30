@@ -1,20 +1,13 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { Sparkles, Brain, X, ArrowUpRight, BarChart3, Globe, Zap, MessageSquare, FileText, Clock, CheckCircle2, ChevronRight, Send, ArrowRight, Users, Shield, Map, TrendingUp, Target, Lightbulb } from 'lucide-react';
+import { Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2, ChevronRight, Users, Shield, TrendingUp, Target, Lightbulb, Map } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 const font = "'Manrope', sans-serif";
 
-type ConversationState = 'idle' | 'menu' | 'service' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'strategy' | 'reports' | 'recommend';
-
-interface Message {
-  id: string;
-  type: 'assistant' | 'user' | 'card';
-  content: string;
-  card?: React.ReactNode;
-}
+type ConsultingView = 'overview' | 'services' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'strategy' | 'reports' | 'recommend';
 
 const services = [
   { id: 'strategy', icon: Brain, title: { en: 'AI Strategy', ar: 'استراتيجية الذكاء الاصطناعي' }, desc: { en: 'Define your AI vision and roadmap', ar: 'تحديد رؤيتك وخريطة طريق الذكاء الاصطناعي' } },
@@ -68,6 +61,7 @@ function AIOrb({ isOpen }: { isOpen: boolean }) {
 }
 
 const quickActions = [
+  { id: 'strategy', icon: Target, label: { en: 'Transformation Strategy', ar: 'استراتيجية التحول' } },
   { id: 'services', icon: Brain, label: { en: 'Our Services', ar: 'خدماتنا' } },
   { id: 'roadmap', icon: Map, label: { en: 'Generate Roadmap', ar: 'إنشاء خارطة طريق' } },
   { id: 'readiness', icon: CheckCircle2, label: { en: 'AI Readiness', ar: 'استعداد الذكاء الاصطناعي' } },
@@ -75,36 +69,9 @@ const quickActions = [
   { id: 'deliverables', icon: BarChart3, label: { en: 'Deliverables', ar: 'المخرجات' } },
   { id: 'automation', icon: Zap, label: { en: 'Automation Scan', ar: 'فحص الأتمتة' } },
   { id: 'timeline', icon: Clock, label: { en: 'Project Timeline', ar: 'الجدول الزمني' } },
-  { id: 'strategy', icon: Target, label: { en: 'Transformation Strategy', ar: 'استراتيجية التحول' } },
   { id: 'reports', icon: TrendingUp, label: { en: 'Executive Reports', ar: 'التقارير التنفيذية' } },
   { id: 'recommend', icon: Lightbulb, label: { en: 'Recommend Solution', ar: 'توصية حل' } },
 ];
-
-function ServiceCard({ service, onClick }: { service: typeof services[0]; onClick: () => void }) {
-  return (
-    <motion.button
-      onClick={onClick}
-      whileHover={{ y: -2, borderColor: 'rgba(200,166,90,0.3)' }}
-      whileTap={{ scale: 0.98 }}
-      style={{
-        display: 'flex', alignItems: 'center', gap: 12,
-        padding: '14px 16px', background: 'rgba(200,166,90,0.03)',
-        border: '1px solid rgba(200,166,90,0.08)', borderRadius: 12,
-        cursor: 'pointer', textAlign: 'left', width: '100%',
-        transition: 'all 0.2s ease',
-      }}
-    >
-      <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(200,166,90,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C8A65A' }}>
-        <service.icon size={16} />
-      </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{service.title.en}</div>
-        <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{service.desc.en}</div>
-      </div>
-      <ChevronRight size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
-    </motion.button>
-  );
-}
 
 function RoadmapCard() {
   const phases = [
@@ -351,75 +318,173 @@ function RecommendCard() {
 
 export function AIDock() {
   const [open, setOpen] = useState(false);
-  const [state, setState] = useState<ConversationState>('idle');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [view, setView] = useState<ConsultingView>('overview');
+  const [card, setCard] = useState<React.ReactNode>(null);
   const { language } = useLanguage();
   const isAR = language === 'ar';
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+  const handleToggle = useCallback(() => {
+    setOpen((p) => !p);
+    if (open) {
+      setView('overview');
+      setCard(null);
+    }
+  }, [open]);
 
-  useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
+  const handleAction = useCallback((actionId: string) => {
+    const action = quickActions.find(a => a.id === actionId);
+    if (!action) return;
+    setView(actionId as ConsultingView);
 
-  const handleToggle = useCallback(() => setOpen((p) => !p), []);
-
-  const addMessage = useCallback((type: 'assistant' | 'user' | 'card', content: string, card?: React.ReactNode) => {
-    setMessages((prev) => [...prev, { id: Date.now().toString(), type, content, card }]);
-  }, []);
-
-  const handleQuickAction = useCallback((actionId: string) => {
-    setState(actionId as ConversationState);
-
-    const responses: Record<string, { en: string; ar: string }> = {
-      services: { en: 'Here are our core advisory services. Select one to learn more:', ar: 'هذه هي خدماتنا الاستشارية الأساسية. اختر واحدة لمعرفة المزيد:' },
-      roadmap: { en: 'Here is a sample AI transformation roadmap we typically deliver:', ar: 'هذه خارطة طريق تحول الذكاء الاصطناعي النموذجية التي نقدمها عادة:' },
-      readiness: { en: 'Assess your organization\'s AI readiness with these key indicators:', ar: 'قيّم استعداد مؤسستك للذكاء الاصطناعي بهذه المؤشرات الرئيسية:' },
-      pricing: { en: 'Our pricing is structured around three engagement models:', ar: 'تسعيرنا منظم حول ثلاث نماذج تعاون:' },
-      deliverables: { en: 'Here are the executive deliverables you can expect:', ar: 'هذه المخرجات التنفيذية التي يمكن توقعها:' },
-      automation: { en: 'Quick scan of automation opportunities across your operations:', ar: 'فحص سريع لفرص الأتمتة عبر عملياتك:' },
-      timeline: { en: 'Typical project timeline for an AI transformation engagement:', ar: 'الجدول الزمني النموذجي لمشروع تحول بالذكاء الاصطناعي:' },
-      strategy: { en: 'Our digital transformation strategy framework:', ar: 'إطار استراتيجيتنا للتحول الرقمي:' },
-      reports: { en: 'Preview of executive reporting dashboards:', ar: 'معاينة لوحات التقارير التنفيذية:' },
-      recommend: { en: 'Sector-specific AI recommendations:', ar: 'توصيات ذكاء اصطناعي مخصصة لكل قطاع:' },
+    const cards: Record<string, { title: { en: string; ar: string }; component: React.ReactNode }> = {
+      services: {
+        title: { en: 'Our Advisory Services', ar: 'خدماتنا الاستشارية' },
+        component: (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {services.map((s) => (
+              <motion.button
+                key={s.id}
+                whileHover={{ y: -2, borderColor: 'rgba(200,166,90,0.3)' }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '14px 16px', background: 'rgba(200,166,90,0.03)',
+                  border: '1px solid rgba(200,166,90,0.08)', borderRadius: 12,
+                  cursor: 'pointer', textAlign: 'left', width: '100%',
+                  fontFamily: font, transition: 'all 0.2s ease',
+                }}
+              >
+                <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(200,166,90,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C8A65A' }}>
+                  <s.icon size={16} />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{isAR ? s.title.ar : s.title.en}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{isAR ? s.desc.ar : s.desc.en}</div>
+                </div>
+                <ChevronRight size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
+              </motion.button>
+            ))}
+          </div>
+        ),
+      },
+      roadmap: { title: { en: 'AI Transformation Roadmap', ar: 'خارطة طريق التحول' }, component: <RoadmapCard /> },
+      readiness: { title: { en: 'AI Readiness Assessment', ar: 'تقييم الاستعداد للذكاء الاصطناعي' }, component: <ReadinessCard /> },
+      pricing: { title: { en: 'Pricing Methodology', ar: 'منهجية التسعير' }, component: <PricingCard /> },
+      deliverables: { title: { en: 'Executive Deliverables', ar: 'المخرجات التنفيذية' }, component: <DeliverablesCard /> },
+      automation: { title: { en: 'Automation Opportunity Scan', ar: 'فحص فرص الأتمتة' }, component: <AutomationCard /> },
+      timeline: { title: { en: 'Project Timeline', ar: 'الجدول الزمني للمشروع' }, component: <TimelineCard /> },
+      strategy: { title: { en: 'Digital Transformation Strategy', ar: 'استراتيجية التحول الرقمي' }, component: <StrategyCard /> },
+      reports: { title: { en: 'Executive Dashboard Reports', ar: 'التقارير التنفيذية' }, component: <ReportsCard /> },
+      recommend: { title: { en: 'Sector Recommendations', ar: 'توصيات القطاعات' }, component: <RecommendCard /> },
     };
 
-    addMessage('user', isAR ? quickActions.find(a => a.id === actionId)?.label.ar || '' : quickActions.find(a => a.id === actionId)?.label.en || '');
-    addMessage('assistant', isAR ? responses[actionId]?.ar || '' : responses[actionId]?.en || '');
+    setCard(
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{
+          fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#C8A65A',
+          padding: '8px 12px', background: 'rgba(200,166,90,0.04)', borderRadius: 8,
+        }}>
+          {isAR ? cards[actionId]?.title.ar : cards[actionId]?.title.en}
+        </div>
+        {cards[actionId]?.component}
+        <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+          {quickActions.filter(a => a.id !== actionId).slice(0, 4).map((a) => (
+            <motion.button
+              key={a.id}
+              onClick={() => handleAction(a.id)}
+              whileHover={{ background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A' }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                padding: '6px 10px', background: 'rgba(200,166,90,0.03)',
+                border: '1px solid rgba(200,166,90,0.06)', borderRadius: 999,
+                cursor: 'pointer', fontFamily: font, fontSize: '0.625rem',
+                fontWeight: 500, color: '#666', transition: 'all 0.2s ease',
+                whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 4,
+              }}
+            >
+              <a.icon size={10} />
+              {isAR ? a.label.ar : a.label.en}
+            </motion.button>
+          ))}
+        </div>
+      </div>
+    );
+  }, [isAR]);
 
-    if (actionId === 'services') {
-      addMessage('card', '', <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
-        {services.map((s) => (
-          <ServiceCard key={s.id} service={s} onClick={() => {
-            setState('service');
-            addMessage('assistant', isAR
-              ? `خدمة ${s.title.ar}: ${s.desc.ar}. نقدم استشارات مخصصة في هذا المجال.`
-              : `${s.title.en}: ${s.desc.en}. We deliver tailored advisory in this domain.`
-            );
-          }} />
-        ))}
-      </div>);
-    } else if (actionId === 'roadmap') {
-      addMessage('card', '', <RoadmapCard />);
-    } else if (actionId === 'readiness') {
-      addMessage('card', '', <ReadinessCard />);
-    } else if (actionId === 'pricing') {
-      addMessage('card', '', <PricingCard />);
-    } else if (actionId === 'deliverables') {
-      addMessage('card', '', <DeliverablesCard />);
-    } else if (actionId === 'automation') {
-      addMessage('card', '', <AutomationCard />);
-    } else if (actionId === 'timeline') {
-      addMessage('card', '', <TimelineCard />);
-    } else if (actionId === 'strategy') {
-      addMessage('card', '', <StrategyCard />);
-    } else if (actionId === 'reports') {
-      addMessage('card', '', <ReportsCard />);
-    } else if (actionId === 'recommend') {
-      addMessage('card', '', <RecommendCard />);
+  const renderContent = () => {
+    if (view !== 'overview' && card) {
+      return (
+        <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
+          {card}
+        </div>
+      );
     }
-  }, [isAR, addMessage]);
+
+    return (
+      <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
+        {/* Greeting */}
+        <div style={{ textAlign: 'center', padding: '8px 0 20px' }}>
+          <div style={{
+            width: 56, height: 56, borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(200,166,90,0.1), rgba(200,166,90,0.02))',
+            border: '1px solid rgba(200,166,90,0.1)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#C8A65A', margin: '0 auto 12px', position: 'relative',
+          }}>
+            <Brain size={24} />
+            <motion.div
+              style={{ position: 'absolute', inset: -4, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.08)' }}
+              animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          </div>
+          <p style={{ fontFamily: font, fontSize: '0.9375rem', lineHeight: 1.6, color: '#666', margin: '0 0 4px' }}>
+            {isAR ? 'مرحباً، أنا المستشار التنفيذي لـ XVI' : 'Welcome, I am the XVI Executive Advisor'}
+          </p>
+          <p style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', margin: 0 }}>
+            {isAR ? 'اختر مجالاً لبدء الاستشارة' : 'Select a domain to begin the consultation'}
+          </p>
+        </div>
+
+        {/* Action grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {quickActions.map((action) => (
+            <motion.button
+              key={action.id}
+              onClick={() => handleAction(action.id)}
+              whileHover={{ y: -2, background: 'rgba(200,166,90,0.06)', borderColor: 'rgba(200,166,90,0.2)' }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                padding: '14px 12px',
+                background: 'rgba(200,166,90,0.02)',
+                border: '1px solid rgba(200,166,90,0.06)',
+                borderRadius: 14,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <div style={{
+                width: 36, height: 36, borderRadius: 10,
+                background: 'rgba(200,166,90,0.06)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, color: '#C8A65A',
+              }}>
+                <action.icon size={16} />
+              </div>
+              <span style={{
+                fontFamily: font, fontSize: '0.6875rem',
+                fontWeight: 500, color: '#111111', lineHeight: 1.3,
+                textAlign: 'left',
+              }}>
+                {isAR ? action.label.ar : action.label.en}
+              </span>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -549,165 +614,32 @@ export function AIDock() {
               </motion.button>
             </div>
 
-            {/* Messages area */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {messages.length === 0 && (
-                <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                  <div style={{
-                    width: 56, height: 56, borderRadius: '50%',
-                    background: 'linear-gradient(135deg, rgba(200,166,90,0.1), rgba(200,166,90,0.02))',
-                    border: '1px solid rgba(200,166,90,0.1)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#C8A65A', margin: '0 auto 16px', position: 'relative',
-                  }}>
-                    <Brain size={24} />
-                    <motion.div
-                      style={{ position: 'absolute', inset: -4, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.08)' }}
-                      animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.4, 0.2] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                    />
-                  </div>
-                  <p style={{
-                    fontFamily: "'Alexandria', serif",
-                    fontSize: '0.9375rem', lineHeight: 1.6, color: '#666',
-                    maxWidth: 320, margin: '0 auto 20px',
-                  }}>
-                    {isAR
-                      ? 'مرحباً. أنا مستشار XVI التنفيذي. كيف يمكنني توجيه استراتيجية مؤسستك اليوم؟'
-                      : 'Good afternoon. I am the XVI Executive Advisor. How may I direct your enterprise strategy today?'}
-                  </p>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                    {quickActions.slice(0, 4).map((action) => (
-                      <motion.button
-                        key={action.id}
-                        onClick={() => handleQuickAction(action.id)}
-                        whileHover={{ y: -2, background: 'rgba(200,166,90,0.08)', borderColor: 'rgba(200,166,90,0.2)' }}
-                        whileTap={{ scale: 0.97 }}
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: 8,
-                          padding: '10px 12px',
-                          background: 'rgba(200,166,90,0.03)',
-                          border: '1px solid rgba(200,166,90,0.06)',
-                          borderRadius: 10,
-                          cursor: 'pointer',
-                          fontFamily: font, fontSize: '0.75rem',
-                          fontWeight: 500, color: '#111111',
-                          transition: 'all 0.2s ease',
-                        }}
-                      >
-                        <action.icon size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
-                        {isAR ? action.label.ar : action.label.en}
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-              )}
+            {/* Consulting Content */}
+            {renderContent()}
 
-              {messages.map((msg) => (
-                <motion.div
-                  key={msg.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
+            {/* Navigation bar */}
+            {view !== 'overview' && (
+              <div style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '10px 16px', borderTop: '1px solid rgba(17,17,17,0.04)',
+              }}>
+                <motion.button
+                  onClick={() => { setView('overview'); setCard(null); }}
+                  whileHover={{ color: '#111111' }}
                   style={{
-                    display: 'flex',
-                    justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start',
+                    display: 'flex', alignItems: 'center', gap: 4,
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    fontFamily: font, fontSize: '0.6875rem', fontWeight: 500, color: '#999',
+                    transition: 'color 0.2s ease',
                   }}
                 >
-                  {msg.type === 'user' ? (
-                    <div style={{
-                      maxWidth: '80%', padding: '10px 14px',
-                      background: '#132238', color: '#f7f6f3',
-                      fontFamily: font, fontSize: '0.8125rem',
-                      borderRadius: '12px 12px 4px 12px',
-                    }}>
-                      {msg.content}
-                    </div>
-                  ) : (
-                    <div style={{ maxWidth: '90%' }}>
-                      {msg.content && (
-                        <div style={{
-                          padding: '10px 14px',
-                          background: '#f7f6f3',
-                          fontFamily: font, fontSize: '0.8125rem',
-                          color: '#111111',
-                          borderRadius: '12px 12px 12px 4px',
-                          lineHeight: 1.5,
-                        }}>
-                          {msg.content}
-                        </div>
-                      )}
-                      {msg.card}
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Quick actions bar */}
-            {messages.length > 0 && (
-              <div style={{
-                display: 'flex', gap: 6, padding: '8px 16px',
-                borderTop: '1px solid rgba(17,17,17,0.04)',
-                overflowX: 'auto',
-              }}>
-                {quickActions.map((action) => (
-                  <motion.button
-                    key={action.id}
-                    onClick={() => handleQuickAction(action.id)}
-                    whileHover={{ background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A' }}
-                    whileTap={{ scale: 0.97 }}
-                    style={{
-                      padding: '6px 10px',
-                      background: 'transparent',
-                      border: '1px solid rgba(17,17,17,0.06)',
-                      borderRadius: 999,
-                      cursor: 'pointer',
-                      fontFamily: font, fontSize: '0.625rem',
-                      fontWeight: 500, color: '#666',
-                      transition: 'all 0.2s ease',
-                      whiteSpace: 'nowrap',
-                      display: 'flex', alignItems: 'center', gap: 4,
-                    }}
-                  >
-                    <action.icon size={10} />
-                    {isAR ? action.label.ar : action.label.en}
-                  </motion.button>
-                ))}
+                  {isAR ? 'العودة للرئيسية' : 'Back to overview'}
+                </motion.button>
+                <span style={{ fontFamily: font, fontSize: '0.5625rem', color: '#ccc', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                  XVI EXECUTIVE CONSULTATION
+                </span>
               </div>
             )}
-
-            {/* Input area */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              padding: '10px 16px',
-              borderTop: '1px solid rgba(17,17,17,0.04)',
-            }}>
-              <input
-                type="text"
-                placeholder={isAR ? 'اكتب استفسارك الاستراتيجي...' : 'Type your strategic inquiry...'}
-                style={{
-                  flex: 1, border: 'none', background: 'rgba(17,17,17,0.02)',
-                  padding: '10px 14px', borderRadius: 12,
-                  fontFamily: font, fontSize: '0.8125rem',
-                  color: '#111111', outline: 'none',
-                }}
-              />
-              <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: '#B8963E' }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  width: 40, height: 40,
-                  background: '#C8A65A', color: '#FFFFFF',
-                  border: 'none', cursor: 'pointer', borderRadius: 12,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
-                }}
-              >
-                <Send size={16} />
-              </motion.button>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
