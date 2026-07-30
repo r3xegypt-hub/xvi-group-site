@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import type { Easing } from 'framer-motion';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Bot, Shield, Activity } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { AINetwork } from '../../ui/AINetwork';
@@ -49,6 +49,12 @@ function WordReveal({ words, delay = 0 }: { words: { text: string; className: st
   );
 }
 
+const executiveBadges = [
+  { icon: Bot, label: 'Executive Advisory', color: '#C8A65A' },
+  { icon: Shield, label: 'Sovereign AI', color: '#132238' },
+  { icon: Activity, label: 'Measurable Impact', color: '#C8A65A' },
+];
+
 export function Hero() {
   const { language } = useLanguage();
   const ar = language === 'ar';
@@ -84,6 +90,30 @@ export function Hero() {
 
       <Container className={styles.inner}>
         <MouseReactive intensity={6} perspective={1200}>
+          {/* Executive badges floating in the background */}
+          <div className={styles.badges}>
+            {executiveBadges.map((badge, i) => {
+              const Icon = badge.icon;
+              return (
+                <motion.div
+                  key={i}
+                  className={styles.badge}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5, ease, delay: 0.5 + i * 0.15 }}
+                  style={{
+                    background: `${badge.color}06`,
+                    borderColor: `${badge.color}12`,
+                    color: badge.color,
+                  }}
+                >
+                  <Icon size={10} />
+                  <span>{badge.label}</span>
+                </motion.div>
+              );
+            })}
+          </div>
+
           <motion.div
             className={styles.split}
             initial="hidden"
@@ -234,6 +264,29 @@ export function Hero() {
                     {ar ? 'نظام استخبارات تحليلي' : 'ANALYTICAL INTELLIGENCE SYSTEM'}
                   </text>
                 </svg>
+
+                {/* Floating data panels */}
+                <motion.div
+                  className={styles.floatingData}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+                  transition={{ duration: 0.6, ease, delay: 0.8 }}
+                >
+                  <span className={styles.dataDot} />
+                  <span className={styles.dataValue}>99.9%</span>
+                  <span className={styles.dataLabel}>UPTIME</span>
+                </motion.div>
+                <motion.div
+                  className={styles.floatingData}
+                  style={{ top: '60%', right: '-8%' }}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+                  transition={{ duration: 0.6, ease, delay: 1.0 }}
+                >
+                  <span className={styles.dataDot} />
+                  <span className={styles.dataValue}>2.4s</span>
+                  <span className={styles.dataLabel}>RESPONSE</span>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>

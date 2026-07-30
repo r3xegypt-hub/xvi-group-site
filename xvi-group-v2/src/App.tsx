@@ -13,7 +13,7 @@ import { PageTransition } from './components/ui/PageTransition';
 import { CustomCursor } from './motion/CustomCursor';
 import { LuxuryLoader } from './components/ui/LuxuryLoader';
 import { CinematicIntro } from './components/ui/CinematicIntro';
-import { AIExecutiveConsultant } from './components/assistant/AIExecutiveConsultant';
+import { AIDock } from './components/assistant/AIDock';
 import { Home } from './pages/home';
 import { ServicesPage } from './pages/services';
 import { AboutPage } from './pages/about';
@@ -67,7 +67,7 @@ function App() {
                   <Route path="*" element={<PageShell><Home /></PageShell>} />
                 </Routes>
               </PageTransition>
-              <AIExecutiveConsultant />
+              <AIDock />
             </div>
           </MotionProvider>
         </LanguageProvider>
