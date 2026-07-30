@@ -352,7 +352,7 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
                       x={50} y={72}
                       textAnchor="middle"
                       fill="#c8a65a"
-                      fontFamily="'Playfair Display', Georgia, serif"
+                      fontFamily="'Space Grotesk', 'Playfair Display', Georgia, serif"
                       fontSize={9}
                       fontWeight={500}
                       letterSpacing="0.02em"

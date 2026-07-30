@@ -1,9 +1,9 @@
-$font-display: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-body: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-display: 'Space Grotesk', 'Manrope', sans-serif;
+$font-heading: 'Space Grotesk', 'Manrope', sans-serif;
+$font-body: 'Manrope', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
-$font-ar-display: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
-$font-ar-body: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif;
+$font-ar-display: 'Noto Kufi Arabic', 'Alexandria', sans-serif;
+$font-ar-body: 'Alexandria', 'IBM Plex Sans Arabic', 'Noto Naskh Arabic', sans-serif;
 
 $text-display: clamp(3rem, 7vw, 5rem);
 $text-hero: clamp(2.5rem, 6vw, 4.5rem);
