@@ -1,16 +1,14 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import type { Easing } from 'framer-motion';
-import { ArrowUpRight, Clock, Shield, MapPin } from 'lucide-react';
+import { ArrowUpRight, MapPin, Clock, Shield, Mail, Phone } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
 import { SectionReveal } from '../../../motion/SectionReveal';
-import { PremiumCard } from '../../ui/PremiumCard';
 import { AnimatedGradient } from '../../../motion/FloatingParticles';
 import styles from './Contact.module.scss';
 
-const ease: Easing = [0.16, 1, 0.3, 1];
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export function Contact() {
   const { language } = useLanguage();
@@ -26,45 +24,46 @@ export function Contact() {
         className={styles.bgGradient}
       />
       <Container>
-        <div className={styles.split} ref={ref}>
+        <div className={styles.layout} ref={ref}>
           <motion.div
-            className={styles.visualCol}
+            className={styles.editorialCol}
             initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, ease }}
           >
-            <div className={styles.visualFrame}>
-              <div className={styles.visualGrid}>
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <motion.span
-                    key={i}
-                    className={styles.visualCell}
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 0.04 } : { opacity: 0 }}
-                    transition={{ delay: 0.3 + i * 0.02, duration: 0.4 }}
-                  />
-                ))}
-              </div>
-              <div className={styles.visualContent}>
-                <motion.div
-                  className={styles.visualIcon}
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <MapPin size={28} />
-                </motion.div>
-                <h3 className={styles.visualCity}>{ar ? 'العين، الإمارات' : 'Al Ain, UAE'}</h3>
-                <p className={styles.visualAddress}>
-                  {ar ? 'مدينة العين' : 'Al Ain — Abu Dhabi'}
+            <div className={styles.editorialFrame}>
+              <div className={styles.editorialGlow} />
+              <div className={styles.editorialContent}>
+                <div className={styles.editorialBadge}>
+                  <MapPin size={16} color="#C8A65A" />
+                  <span>{ar ? 'العين، الإمارات' : 'Al Ain, UAE'}</span>
+                </div>
+                <h3 className={styles.editorialTitle}>{ar ? 'ابدأ المحادثة' : 'Start the Conversation'}</h3>
+                <p className={styles.editorialDesc}>
+                  {ar ? 'كل تحول عظيم يبدأ بمحادثة. دعنا نناقش كيف يمكن لـ XVI تحويل مؤسستك.' : 'Every great transformation starts with a conversation. Let\'s discuss how XVI can transform your enterprise.'}
                 </p>
-                <div className={styles.visualDetails}>
-                  <div className={styles.visualDetail}>
-                    <Clock size={14} />
-                    <span>{ar ? 'الرد خلال ٢٤ ساعة' : 'Response within 24 hours'}</span>
+                <div className={styles.editorialDetails}>
+                  <div className={styles.detailRow}>
+                    <Mail size={14} color="#C8A65A" />
+                    <div>
+                      <span className={styles.detailLabel}>{ar ? 'البريد' : 'Email'}</span>
+                      <a href="mailto:contact@xvigroup.com" className={styles.detailValue}>contact@xvigroup.com</a>
+                    </div>
                   </div>
-                  <div className={styles.visualDetail}>
-                    <Shield size={14} />
-                    <span>{ar ? 'استشارة سرية' : 'Confidential consultation'}</span>
+                  <div className={styles.detailRow}>
+                    <Phone size={14} color="#C8A65A" />
+                    <div>
+                      <span className={styles.detailLabel}>{ar ? 'الهاتف' : 'Phone'}</span>
+                      <span className={styles.detailValue}>+971 56 922 0064</span>
+                    </div>
+                  </div>
+                  <div className={styles.detailRow}>
+                    <Clock size={14} color="#C8A65A" />
+                    <span className={styles.detailValue}>{ar ? 'الرد خلال 24 ساعة' : 'Response within 24 hours'}</span>
+                  </div>
+                  <div className={styles.detailRow}>
+                    <Shield size={14} color="#C8A65A" />
+                    <span className={styles.detailValue}>{ar ? 'استشارة سرية' : 'Confidential consultation'}</span>
                   </div>
                 </div>
               </div>
@@ -72,55 +71,50 @@ export function Contact() {
           </motion.div>
 
           <SectionReveal variant="slideRight" className={styles.formCol}>
-            <PremiumCard glassIntensity="heavy" hoverScale={false}>
-            <div className={styles.formHeader}>
-              <span className={styles.formEyebrow}>
-                {ar ? 'احجز استشارتك' : 'Book Your Consultation'}
-              </span>
-              <h2 className={styles.formTitle}>
-                {ar ? 'ابدأ الحوار' : 'Start the Conversation'}
-              </h2>
-              <p className={styles.formDesc}>
-                {ar ? 'دعنا نناقش كيف يمكن لـ XVI تحويل مؤسستك.' : "Let's discuss how XVI can transform your enterprise."}
-              </p>
-            </div>
+            <div className={styles.formCard}>
+              <div className={styles.formAccent} />
+              <div className={styles.formHeader}>
+                <p className={styles.formEyebrow}>
+                  {ar ? 'احجز استشارتك' : 'Book Your Consultation'}
+                </p>
+              </div>
 
-            <form className={styles.form}>
-              <div className={styles.formRow}>
-                <div className={styles.field}>
-                  <input type="text" className={styles.input} placeholder={ar ? 'الاسم الكامل' : 'Full name'} />
-                  <span className={styles.fieldLine} />
+              <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+                <div className={styles.formRow}>
+                  <div className={styles.field}>
+                    <input type="text" className={styles.input} placeholder={ar ? 'الاسم الكامل' : 'Full name'} />
+                    <span className={styles.fieldLine} />
+                  </div>
+                  <div className={styles.field}>
+                    <input type="email" className={styles.input} placeholder={ar ? 'البريد الإلكتروني' : 'Email address'} />
+                    <span className={styles.fieldLine} />
+                  </div>
+                </div>
+                <div className={styles.formRow}>
+                  <div className={styles.field}>
+                    <input type="tel" className={styles.input} placeholder="+971" />
+                    <span className={styles.fieldLine} />
+                  </div>
+                  <div className={styles.field}>
+                    <input type="text" className={styles.input} placeholder={ar ? 'المؤسسة' : 'Company'} />
+                    <span className={styles.fieldLine} />
+                  </div>
                 </div>
                 <div className={styles.field}>
-                  <input type="email" className={styles.input} placeholder={ar ? 'البريد الإلكتروني' : 'Email address'} />
+                  <textarea className={styles.textarea} rows={3} placeholder={ar ? 'كيف يمكننا مساعدتك؟' : 'How can we help?'} />
                   <span className={styles.fieldLine} />
                 </div>
-              </div>
-              <div className={styles.formRow}>
-                <div className={styles.field}>
-                  <input type="tel" className={styles.input} placeholder="+971" />
-                  <span className={styles.fieldLine} />
-                </div>
-                <div className={styles.field}>
-                  <input type="text" className={styles.input} placeholder={ar ? 'المؤسسة' : 'Company'} />
-                  <span className={styles.fieldLine} />
-                </div>
-              </div>
-              <div className={styles.field}>
-                <textarea className={styles.textarea} rows={3} placeholder={ar ? 'كيف يمكننا مساعدتك؟' : 'How can we help?'} />
-                <span className={styles.fieldLine} />
-              </div>
-              <motion.button
-                type="submit"
-                className={styles.submit}
-                whileHover={{ scale: 1.02, backgroundColor: '#B8963E' }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {ar ? 'إرسال طلب الاستشارة' : 'Submit Consultation Request'}
-                <ArrowUpRight size={14} />
-              </motion.button>
-            </form>
-            </PremiumCard>
+                <motion.button
+                  type="submit"
+                  className={styles.submit}
+                  whileHover={{ scale: 1.02, backgroundColor: '#B8963E' }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {ar ? 'إرسال طلب الاستشارة' : 'Submit Consultation Request'}
+                  <ArrowUpRight size={14} />
+                </motion.button>
+              </form>
+            </div>
           </SectionReveal>
         </div>
       </Container>

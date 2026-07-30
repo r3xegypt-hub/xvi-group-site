@@ -1,199 +1,209 @@
-// XVI GROUP — Industries (Sprint 02)
-// Executive consulting layout
-
-@import '../../../styles/mixins/devices';
-@import '../../../styles/mixins/executive-sections';
-
 .section {
-  @include exec-section-ambient;
-}
-
-.inner {
   position: relative;
-  z-index: 1;
 }
 
-.header {
-  @include exec-section-header-center;
+.headerBlock {
+  margin-bottom: 48px;
 }
 
 .overline {
-  @include exec-overline-center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #999999;
+  margin: 0 0 24px;
+
+  [dir='rtl'] & { letter-spacing: 0.06em; }
+}
+
+.headerSplit {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
 }
 
 .title {
-  @include exec-title;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #111111;
+  margin: 0;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
 
-.description {
-  @include exec-description;
-  margin-inline: auto;
+.headerDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
+  align-self: end;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 20px;
 
-  @include tablet-portrait {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
   }
 }
 
 .card {
-  @include exec-glass-card;
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(200, 166, 90, 0.06);
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+
+  &:hover {
+    border-color: rgba(200, 166, 90, 0.15);
+    box-shadow: 0 12px 40px rgba(200, 166, 90, 0.04);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 200px 1fr;
+
+    &:nth-child(2n) {
+      direction: rtl;
+      .cardBody { direction: ltr; }
+      [dir='rtl'] & {
+        direction: ltr;
+        .cardBody { direction: rtl; }
+      }
+    }
+  }
+}
+
+.cardVisual {
+  position: relative;
+  min-height: 180px;
   display: flex;
-  flex-direction: column;
-  padding: 36px 32px 32px;
-  cursor: default;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 
-  @include large-mobile {
-    padding: 28px 24px 24px;
+  @media (min-width: 768px) {
+    min-height: auto;
   }
 }
 
-.cardFeatured {
-  @include desktop {
-    grid-column: span 2;
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    grid-template-rows: auto auto auto;
-    column-gap: 48px;
-    padding: 44px 48px 40px;
-
-    .cardHeader {
-      grid-column: 1;
-      grid-row: 1;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 24px;
-    }
-
-    .cardTitle {
-      grid-column: 2;
-      grid-row: 1;
-      align-self: end;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-    }
-
-    .cardDescription {
-      grid-column: 2;
-      grid-row: 2;
-    }
-
-    .cardFooter {
-      grid-column: 2;
-      grid-row: 3;
-    }
-  }
-}
-
-.cardHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 28px;
-}
-
-.cardIcon {
-  @include exec-icon-glow;
-  width: 64px;
-  height: 64px;
-  color: #C9A96E;
-
-  @include large-mobile {
-    width: 52px;
-    height: 52px;
-  }
-}
-
-.industryIcon {
-  width: 100%;
-  height: 100%;
+.cardSvg {
+  width: 70%;
+  height: 70%;
 }
 
 .cardStat {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: end;
-
-  [dir="rtl"] & {
-    align-items: flex-start;
-    text-align: start;
-  }
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border: 1px solid rgba(200, 166, 90, 0.06);
 }
 
-.statValue {
-  font-family: var(--font-display-en, 'Fraunces', Georgia, serif);
-  font-size: 1.75rem;
+.cardStatValue {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
   font-weight: 400;
-  letter-spacing: -0.03em;
-  color: #0A1628;
+  color: #111111;
   line-height: 1;
-
-  [dir="rtl"] & {
-    font-family: var(--font-display-ar, 'Alexandria', sans-serif);
-    font-weight: 600;
-  }
 }
 
-.statLabel {
-  font-family: var(--font-body-en, 'IBM Plex Sans', sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+.cardStatLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #5A6472;
-  margin-top: 4px;
+  color: #999999;
+}
 
-  [dir="rtl"] & {
-    font-family: var(--font-body-ar, 'IBM Plex Sans Arabic', sans-serif);
-    text-transform: none;
-    letter-spacing: 0;
-  }
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
 }
 
 .cardTitle {
-  @include exec-card-title;
-  margin: 0 0 14px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: #111111;
+  margin: 0;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
-.cardDescription {
-  @include exec-card-body;
-  margin: 0 0 28px;
-  flex: 1;
+.cardDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
 }
 
-.cardFooter {
+.cardMetrics {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 18px;
-  border-top: 1px solid rgba(201, 169, 110, 0.1);
+  gap: 20px;
+  margin-top: 4px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.metricValue {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #999999;
 }
 
 .cardLink {
-  @include exec-link-arrow;
-}
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 4px;
+  transition: gap 0.3s ease;
 
-.cardAccent {
-  width: 24px;
-  height: 1px;
-  background: linear-gradient(90deg, #C9A96E, transparent);
-  opacity: 0.5;
-  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  .card:hover & {
-    width: 44px;
-    opacity: 0.85;
-  }
-}
-
-@include exec-reduced-motion {
-  .card, .cardIcon, .cardAccent {
-    transition-duration: 0.01ms !important;
-  }
-  .card:hover { transform: none; }
+  &:hover { gap: 10px; }
 }

@@ -1,135 +1,132 @@
-// XVI GROUP — Industries Section (Sprint 02)
-// Executive consulting layout with animated iconography
-
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { Container } from '../../layout/Container';
 import { Section } from '../../layout/Section';
-import { useScrollReveal, useScrollRevealGroup } from '../../../motion/hooks/useScrollReveal';
 import styles from './Industries.module.scss';
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 const INDUSTRIES = [
   {
-    icon: (
-      <svg viewBox="0 0 56 56" fill="none" className={styles.industryIcon}>
-        <rect x="8" y="8" width="40" height="40" rx="2" stroke="currentColor" strokeWidth="1" opacity="0.2" />
-        <rect x="14" y="14" width="28" height="28" rx="1" stroke="currentColor" strokeWidth="1.2" />
-        <circle cx="28" cy="28" r="8" stroke="currentColor" strokeWidth="1.5">
-          <animate attributeName="r" values="7;9;7" dur="3s" repeatCount="indefinite" />
-        </circle>
-        <circle cx="28" cy="28" r="2" fill="currentColor" opacity="0.4" />
-      </svg>
-    ),
-    title: 'Technology',
-    titleAr: 'التكنولوجيا',
-    description: 'Digital transformation, cloud architecture, and AI implementation for technology enterprises.',
-    descriptionAr: 'التحول الرقمي وهندسة الحوسبة السحابية وتطبيق الذكاء الاصطناعي لمؤسسات التكنولوجيا.',
-    stat: '40+',
-    statLabel: 'Tech mandates',
-    statLabelAr: 'تكليف تقني',
+    title: 'Technology', titleAr: 'التكنولوجيا',
+    description: 'Digital infrastructure, cloud architecture, and AI platform strategy for technology enterprises scaling for the next decade.',
+    descriptionAr: 'البنية التحتية الرقمية وهندسة السحابة.', stat: '40+', statLabel: 'Engagements', statLabelAr: 'مشروع',
+    color: '#C8A65A',
+    lines: [
+      { label: 'Cloud-Native', value: '90%' },
+      { label: 'AI-Adopted', value: '75%' },
+    ],
   },
   {
-    icon: (
-      <svg viewBox="0 0 56 56" fill="none" className={styles.industryIcon}>
-        <path d="M28 6L50 28L28 50L6 28Z" stroke="currentColor" strokeWidth="1" opacity="0.15" />
-        <path d="M28 14L42 28L28 42L14 28Z" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="14" y1="28" x2="42" y2="28" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
-        <line x1="28" y1="14" x2="28" y2="42" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
-        <circle cx="28" cy="28" r="2" fill="currentColor" opacity="0.5">
-          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite" />
-        </circle>
-      </svg>
-    ),
-    title: 'Finance',
-    titleAr: 'المالية',
-    description: 'Strategic advisory for banking, investment, and financial services across the Gulf.',
-    descriptionAr: 'استشارات استراتيجية للبنوك والاستثمارات والخدمات المالية في جميع أنحاء الخليج.',
-    stat: '25+',
-    statLabel: 'Financial institutions',
-    statLabelAr: 'مؤسسة مالية',
+    title: 'Finance', titleAr: 'المالية',
+    description: 'Strategic AI advisory for banking, investment management, and financial services navigating digital transformation.',
+    descriptionAr: 'استشارات ذكاء اصطناعي للخدمات المالية.', stat: '25+', statLabel: 'Institutions', statLabelAr: 'مؤسسة',
+    color: '#132238',
+    lines: [
+      { label: 'Risk Models', value: '40+' },
+      { label: 'Compliance', value: '100%' },
+    ],
   },
   {
-    icon: (
-      <svg viewBox="0 0 56 56" fill="none" className={styles.industryIcon}>
-        <circle cx="28" cy="20" r="10" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M12 48C12 38 18 32 28 32C38 32 44 38 44 48" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="28" y1="10" x2="28" y2="6" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-        <circle cx="28" cy="20" r="3" fill="currentColor" opacity="0.15">
-          <animate attributeName="opacity" values="0.1;0.3;0.1" dur="2.8s" repeatCount="indefinite" />
-        </circle>
-      </svg>
-    ),
-    title: 'Healthcare',
-    titleAr: 'الصحة',
-    description: 'Healthcare transformation, digital health platforms, and operational excellence.',
-    descriptionAr: 'تحول الرعاية الصحية ومنصات الصحة الرقمية والتميز التشغيلي.',
-    stat: '18+',
-    statLabel: 'Health systems',
-    statLabelAr: 'نظام صحي',
+    title: 'Healthcare', titleAr: 'الصحة',
+    description: 'AI-powered clinical intelligence, operational optimization, and digital health platform strategy for healthcare systems.',
+    descriptionAr: 'ذكاء اصطناعي للرعاية الصحية.', stat: '18+', statLabel: 'Health Systems', statLabelAr: 'نظام صحي',
+    color: '#C8A65A',
+    lines: [
+      { label: 'Clinical AI', value: '12+' },
+      { label: 'Efficiency', value: '+35%' },
+    ],
   },
   {
-    icon: (
-      <svg viewBox="0 0 56 56" fill="none" className={styles.industryIcon}>
-        <path d="M28 4L48 16V40L28 52L8 40V16L28 4Z" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="28" y1="4" x2="28" y2="52" stroke="currentColor" strokeWidth="0.6" opacity="0.2" />
-        <line x1="8" y1="28" x2="48" y2="28" stroke="currentColor" strokeWidth="0.6" opacity="0.2" />
-        <circle cx="28" cy="28" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.08">
-          <animate attributeName="r" values="3.5;5;3.5" dur="3.2s" repeatCount="indefinite" />
-        </circle>
-      </svg>
-    ),
-    title: 'Energy',
-    titleAr: 'الطاقة',
-    description: 'Energy transition strategy, sustainability advisory, and operational optimization.',
-    descriptionAr: 'استراتيجية انتقال الطاقة والاستشارات البيئية وتحسين الأداء.',
-    stat: '12+',
-    statLabel: 'Energy projects',
-    statLabelAr: 'مشروع طاقة',
+    title: 'Energy', titleAr: 'الطاقة',
+    description: 'Energy transition AI, sustainability analytics, and operational intelligence for the evolving energy landscape.',
+    descriptionAr: 'ذكاء اصطناعي لتحول الطاقة.', stat: '12+', statLabel: 'Projects', statLabelAr: 'مشروع',
+    color: '#132238',
+    lines: [
+      { label: 'Optimization', value: '+25%' },
+      { label: 'Emissions', value: '-40%' },
+    ],
   },
 ];
 
 export function Industries() {
   const { language } = useLanguage();
-  const headerRef = useScrollReveal({ direction: 'up', duration: 800 });
-  const gridRef = useScrollRevealGroup({ direction: 'up', duration: 700, stagger: 100 });
   const ar = language === 'ar';
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <Section variant="default" id="industries" className={styles.section}>
+    <Section variant="warm" id="industries" className={styles.section}>
       <Container>
-        <div className={styles.inner}>
-          <div ref={headerRef} className={styles.header}>
-            <p className={styles.overline}>{ar ? 'القطاعات' : 'Industries'}</p>
-            <h2 className={styles.title}>{ar ? 'القطاعات التي نخدمها' : 'Sectors We Serve'}</h2>
-            <p className={styles.description}>
-              {ar
-                ? 'خبرة عميقة في القطاعات الرئيسية التي تشكّل اقتصاد الغد.'
-                : 'Deep expertise in the core sectors shaping tomorrow\'s economy.'}
+        <motion.div
+          className={styles.headerBlock}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+        >
+          <p className={styles.overline}>{ar ? 'القطاعات' : 'INDUSTRIES'}</p>
+          <div className={styles.headerSplit}>
+            <h2 className={styles.title}>{ar ? 'خبرة قطاعية عميقة' : 'Sector Expertise'}</h2>
+            <p className={styles.headerDesc}>
+              {ar ? 'خبرة عميقة في القطاعات الرئيسية التي تشكّل اقتصاد الغد.' : 'Deep experience across the sectors shaping tomorrow\'s economy.'}
             </p>
           </div>
+        </motion.div>
 
-          <div ref={gridRef} className={styles.grid}>
-            {INDUSTRIES.map((industry, i) => (
-              <article key={i} className={`${styles.card} ${i === 0 ? styles.cardFeatured : ''}`}>
-                <div className={styles.cardHeader}>
-                  <div className={styles.cardIcon}>{industry.icon}</div>
-                  <div className={styles.cardStat}>
-                    <span className={styles.statValue}>{industry.stat}</span>
-                    <span className={styles.statLabel}>{ar ? industry.statLabelAr : industry.statLabel}</span>
-                  </div>
+        <div className={styles.grid} ref={ref}>
+          {INDUSTRIES.map((item, i) => (
+            <motion.article
+              key={i}
+              className={styles.card}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, ease, delay: 0.2 + i * 0.1 }}
+            >
+              <div className={styles.cardVisual} style={{ background: `linear-gradient(135deg, ${item.color}04, transparent)` }}>
+                <svg viewBox="0 0 200 200" className={styles.cardSvg}>
+                  <rect x="10" y="10" width="180" height="180" rx="1" stroke={item.color} strokeWidth="0.3" opacity="0.1" />
+                  <circle cx="100" cy="100" r="60" fill="none" stroke={item.color} strokeWidth="0.2" strokeDasharray="3 6" opacity="0.15" />
+                  <circle cx="100" cy="100" r="3" fill={item.color} opacity="0.2" />
+                  {item.lines.map((_, j) => {
+                    const angle = (j * 60 + i * 30) * Math.PI / 180;
+                    return (
+                      <line key={j}
+                        x1="100" y1="100"
+                        x2={100 + 70 * Math.cos(angle)} y2={100 + 70 * Math.sin(angle)}
+                        stroke={item.color} strokeWidth="0.15" opacity="0.06" />
+                    );
+                  })}
+                </svg>
+                <div className={styles.cardStat}>
+                  <span className={styles.cardStatValue}>{item.stat}</span>
+                  <span className={styles.cardStatLabel}>{ar ? item.statLabelAr : item.statLabel}</span>
                 </div>
-                <h3 className={styles.cardTitle}>{ar ? industry.titleAr : industry.title}</h3>
-                <p className={styles.cardDescription}>{ar ? industry.descriptionAr : industry.description}</p>
-                <div className={styles.cardFooter}>
-                  <span className={styles.cardAccent} aria-hidden="true" />
-                  <span className={styles.cardLink}>
-                    {ar ? 'استكشف' : 'Explore'}
-                    <ArrowUpRight size={14} aria-hidden="true" />
-                  </span>
+              </div>
+              <div className={styles.cardBody}>
+                <h3 className={styles.cardTitle}>{ar ? item.titleAr : item.title}</h3>
+                <p className={styles.cardDesc}>{ar ? item.descriptionAr : item.description}</p>
+                <div className={styles.cardMetrics}>
+                  {item.lines.map((line, j) => (
+                    <div key={j} className={styles.metric}>
+                      <span className={styles.metricValue} style={{ color: item.color }}>{line.value}</span>
+                      <span className={styles.metricLabel}>{line.label}</span>
+                    </div>
+                  ))}
                 </div>
-              </article>
-            ))}
-          </div>
+                <motion.a
+                  href="#"
+                  className={styles.cardLink}
+                  whileHover={{ x: 4 }}
+                  style={{ color: item.color }}
+                >
+                  {ar ? 'استكشف' : 'Explore'} <ArrowUpRight size={14} />
+                </motion.a>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </Container>
     </Section>
