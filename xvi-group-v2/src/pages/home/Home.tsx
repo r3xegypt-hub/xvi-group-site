@@ -1,27 +1,21 @@
-import { Hero } from '../../components/sections/Hero';
-import { Services } from '../../components/sections/Services';
-import { About } from '../../components/sections/About';
-import { Technology } from '../../components/sections/Technology';
-import { AIProcessFlow } from '../../components/ui/AIProcessFlow';
-import { Insights } from '../../components/sections/Insights';
-import { Testimonials } from '../../components/sections/Testimonials';
-import { CTA } from '../../components/sections/CTA';
-import { AIDashboard } from '../../components/ui/AIDashboard';
-import { Contact } from '../../components/sections/Contact';
+import { Hero } from '../../components/sections/Hero/Hero';
+import { Services } from '../../components/sections/Services/Services';
+import { Industries } from '../../components/sections/Industries/Industries';
+import { Technology } from '../../components/sections/Technology/Technology';
+import { AIConsultant } from '../../components/sections/AIConsultant/AIConsultant';
+import { Insights } from '../../components/sections/Insights/Insights';
+import { CTA } from '../../components/sections/CTA/CTA';
 
 export function Home() {
   return (
     <>
       <Hero />
       <Services />
-      <About />
+      <Industries />
       <Technology />
-      <AIProcessFlow />
+      <AIConsultant />
       <Insights />
-      <Testimonials />
       <CTA />
-      <AIDashboard />
-      <Contact />
     </>
   );
 }

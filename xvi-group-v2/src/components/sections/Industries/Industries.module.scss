@@ -1,118 +1,76 @@
 .section {
-  position: relative;
+  background: #FFFFFF;
+  padding: 100px 24px;
 }
 
-.headerBlock {
-  margin-bottom: 48px;
-  max-width: 600px;
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-.overline {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+.eyebrow {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: rgba(200,166,90,0.6);
-  margin: 0 0 20px;
+  color: #C8A65A;
+  margin: 0 0 16px;
 }
 
 .title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-  color: #FFFFFF;
-  margin: 0 0 20px;
+  font-family: 'Amiri', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #111111;
+  margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
-}
-
-.headerDesc {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.55);
-  margin: 0;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2px;
-  background: rgba(255,255,255,0.04);
-
-  @media (min-width: 640px) {
-    grid-template-columns: 1fr 1fr;
+  @media (max-width: 809.98px) {
+    font-size: 36px;
   }
 }
 
-.world {
-  position: relative;
-  overflow: hidden;
+.desc {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #666666;
+  margin: 0 0 48px;
+  max-width: 520px;
 }
 
-.worldImage {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.list {
+  display: flex;
+  flex-direction: column;
+}
 
-  @media (min-width: 1024px) {
-    aspect-ratio: 3 / 2;
+.item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 
-.world:hover .worldImage {
-  transform: scale(1.04);
-}
-
-.worldOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(17,17,17,0.1) 0%, rgba(17,17,17,0.6) 60%, rgba(17,17,17,0.8) 100%);
-  transition: background 0.4s ease;
-}
-
-.world:hover .worldOverlay {
-  background: linear-gradient(180deg, rgba(17,17,17,0.05) 0%, rgba(17,17,17,0.45) 60%, rgba(17,17,17,0.7) 100%);
-}
-
-.worldContent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 32px;
-  z-index: 1;
-}
-
-.worldTitle {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  font-weight: 400;
-  color: #FFFFFF;
-  margin: 0 0 8px;
-
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
-}
-
-.worldDesc {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8125rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.55);
-  margin: 0 0 12px;
-  max-width: 340px;
-}
-
-.worldStat {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.6875rem;
+.num {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 14px;
   font-weight: 500;
   color: #C8A65A;
-  letter-spacing: 0.04em;
+  min-width: 36px;
+}
+
+.label {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  line-height: 2.6;
+  color: #132238;
 }

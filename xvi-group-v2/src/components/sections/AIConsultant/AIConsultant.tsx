@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import styles from './CTA.module.scss';
+import styles from './AIConsultant.module.scss';
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-export function CTA() {
+export function AIConsultant() {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
@@ -14,7 +14,7 @@ export function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease }}
         >
-          START WITH A CONVERSATION
+          MEET THE XVI EXECUTIVE ADVISOR
         </motion.p>
 
         <motion.h2
@@ -24,23 +24,24 @@ export function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease, delay: 0.1 }}
         >
-          Your next operating advantage starts here.
+          A calmer way to ask the hard questions.
         </motion.h2>
 
         <motion.div
-          className={styles.actions}
+          className={styles.console}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease, delay: 0.25 }}
         >
-          <a href="/contact" className={styles.cta}>
-            Begin a conversation
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className={styles.inputRow}>
+            <span className={styles.prompt}>&gt;</span>
+            <span className={styles.placeholder}>What should we automate next?</span>
+            <svg className={styles.arrow} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
-          </a>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -1,29 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
-import { useLanguage } from '../../hooks/LanguageProvider';
-import { NAVIGATION } from '../../config';
-import { LanguageToggle } from './LanguageToggle';
-import { LogoWordmark } from '../ui/Logo';
 import styles from './Navigation.module.scss';
 
 export function Navigation() {
-  const { language } = useLanguage();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const items = language === 'ar' ? NAVIGATION.ar : NAVIGATION.en;
-
   useEffect(() => {
-    let lastY = 0;
     const onScroll = () => {
-      const y = window.scrollY;
-      setIsScrolled(y > 40);
-      if (y > 80 && y > lastY + 8) setIsHidden(true);
-      else if (y < lastY - 8 || y < 80) setIsHidden(false);
-      lastY = y;
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -31,7 +17,7 @@ export function Navigation() {
 
   useEffect(() => {
     setIsMobileOpen(false);
-  }, [location.pathname, language]);
+  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? 'hidden' : '';
@@ -40,63 +26,42 @@ export function Navigation() {
 
   return (
     <>
-      <header
-        className={`${styles.header} ${isScrolled ? styles.scrolled : ''} ${isHidden && !isMobileOpen ? styles.hidden : ''}`}
-      >
-        <nav className={styles.nav} role="navigation">
-          <Link to="/" className={styles.logo} aria-label="XVI GROUP Home">
-            <LogoWordmark variant="dark" />
+      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
+        <nav className={styles.nav}>
+          <Link to="/" className={styles.logo}>
+            <span className={styles.seal}>XVI</span>
+            <span className={styles.wordmark}>
+              <span>XVI</span>
+              <span className={styles.divider}> / </span>
+              <span>GROUP</span>
+            </span>
           </Link>
 
           <div className={styles.links}>
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`${styles.link} ${location.pathname === item.href ? styles.linkActive : ''}`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <Link to="/services" className={styles.link}>Services</Link>
+            <Link to="/insights" className={styles.link}>Perspective</Link>
+            <Link to="/contact" className={styles.link}>Contact</Link>
           </div>
 
-          <div className={styles.actions}>
-            <LanguageToggle className={styles.langToggle} />
-            <Link to="/contact" className={styles.cta}>
-              <span>{language === 'ar' ? 'تواصل' : "Let's Talk"}</span>
-              <ArrowUpRight size={12} />
-            </Link>
-            <button
-              className={styles.mobileToggle}
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMobileOpen}
-            >
-              {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
+          <button
+            className={`${styles.mobileToggle} ${isMobileOpen ? styles.mobileToggleOpen : ''}`}
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileOpen}
+          >
+            <span className={styles.bar} />
+            <span className={styles.bar} />
+            <span className={styles.bar} />
+          </button>
         </nav>
       </header>
 
-      <div
-        className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}
-        aria-hidden={!isMobileOpen}
-      >
+      <div className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuInner}>
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className={styles.mobileLink}
-              onClick={() => setIsMobileOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link to="/contact" className={styles.mobileCta} onClick={() => setIsMobileOpen(false)}>
-            {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
-            <ArrowUpRight size={14} />
-          </Link>
+          <Link to="/" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Home</Link>
+          <Link to="/services" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Services</Link>
+          <Link to="/insights" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Perspective</Link>
+          <Link to="/contact" className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>Contact</Link>
         </div>
       </div>
     </>
