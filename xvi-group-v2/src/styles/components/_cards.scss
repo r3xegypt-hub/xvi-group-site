@@ -1,26 +1,61 @@
-// XVI GROUP — Card Components
-// All card variants and states
-
 // ============================================
 // BASE CARD
 // ============================================
 
+$xvi-card-bg: rgba(255, 255, 255, 0.88);
+$xvi-card-border: rgba(17, 17, 17, 0.04);
+$xvi-card-border-hover: rgba(200, 166, 90, 0.15);
+$xvi-card-shadow: 0 1px 2px rgba(10, 22, 40, 0.02), 0 4px 12px rgba(10, 22, 40, 0.02), 0 12px 32px rgba(10, 22, 40, 0.02);
+$xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 22, 40, 0.06), 0 0 0 1px rgba(200, 166, 90, 0.1), 0 0 60px rgba(200, 166, 90, 0.03);
+
 .xvi-card {
-  background-color: $color-card;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
-  box-shadow: $shadow-sm;
-  transition: all $duration-slow $ease-out-quint;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 100%);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid $xvi-card-border;
+  border-radius: 20px;
+  box-shadow: $xvi-card-shadow;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(200, 166, 90, 0.12), transparent 40%, rgba(200, 166, 90, 0.06));
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 10% 0%, rgba(200, 166, 90, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: $shadow-lg;
-    border-color: $color-border-hover;
+    box-shadow: $xvi-card-shadow-hover;
+    border-color: $xvi-card-border-hover;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.90) 100%);
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 
   &:focus-within {
-    outline: 2px solid $color-gold;
+    outline: 2px solid #c8a65a;
     outline-offset: 2px;
   }
 }
@@ -31,9 +66,8 @@
 
 .xvi-card--service {
   position: relative;
-  padding: $space-10;
+  padding: 40px;
 
-  // Gold accent bar
   &::before {
     content: '';
     position: absolute;
@@ -41,55 +75,80 @@
     left: 0;
     right: 0;
     height: 3px;
-    background-color: $color-gold;
+    background: linear-gradient(90deg, #c8a65a, #d4b872, #c8a65a);
+    background-size: 200% 100%;
+    background-position: 100% 0;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform $duration-slow $ease-out-expo;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background-position 0.6s ease;
   }
 
   &:hover::before {
     transform: scaleX(1);
+    background-position: 0 0;
   }
 
   .xvi-card__icon {
     width: 48px;
     height: 48px;
-    margin-bottom: $space-6;
-    color: $color-gold;
-    transition: transform $duration-base $ease-spring;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(200, 166, 90, 0.1), rgba(200, 166, 90, 0.03));
+    border-radius: 14px;
+    color: #c8a65a;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 8px rgba(200, 166, 90, 0.04);
 
     svg {
-      width: 100%;
-      height: 100%;
+      width: 24px;
+      height: 24px;
       stroke-width: 1.5;
     }
   }
 
   &:hover .xvi-card__icon {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    background: linear-gradient(135deg, rgba(200, 166, 90, 0.18), rgba(200, 166, 90, 0.08));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 16px rgba(200, 166, 90, 0.12);
   }
 
   .xvi-card__title {
-    @include heading-h5;
-    margin-bottom: $space-4;
+    font-weight: 600;
+    font-size: 1.375rem;
+    line-height: 1.25;
+    color: #0a1628;
+    margin-bottom: 8px;
   }
 
   .xvi-card__description {
-    @include body-base;
-    margin-bottom: $space-6;
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1.618;
+    color: #5a6472;
+    margin-bottom: 20px;
   }
 
   .xvi-card__link {
-    @include button-text;
-    color: $color-gold;
-    font-size: $font-size-xs;
     display: inline-flex;
     align-items: center;
-    gap: $space-2;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #c8a65a;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: gap 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     &::after {
       content: '→';
-      transition: transform $duration-base $ease-out-expo;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    &:hover {
+      gap: 12px;
     }
 
     &:hover::after {
@@ -97,8 +156,8 @@
     }
   }
 
-  @media (max-width: $breakpoint-tablet - 1) {
-    padding: $space-6;
+  @media (max-width: 767px) {
+    padding: 24px;
   }
 }
 
@@ -116,20 +175,16 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform $duration-slow $ease-out-quint;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba($color-navy, 0.4) 0%,
-        transparent 50%
-      );
+      background: linear-gradient(to top, rgba(19, 34, 56, 0.4) 0%, transparent 50%);
       opacity: 0;
-      transition: opacity $duration-slow $ease-out-expo;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
 
@@ -142,43 +197,55 @@
   }
 
   .xvi-card__content {
-    padding: $space-8;
+    padding: 32px;
   }
 
   .xvi-card__tag {
-    @include overline;
-    margin-bottom: $space-4;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c8a65a;
+    margin-bottom: 16px;
     display: inline-block;
   }
 
   .xvi-card__title {
-    @include heading-h5;
-    margin-bottom: $space-3;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: #0a1628;
+    margin-bottom: 8px;
   }
 
   .xvi-card__excerpt {
-    @include body-base;
-    margin-bottom: $space-6;
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1.618;
+    color: #5a6472;
+    margin-bottom: 24px;
   }
 
   .xvi-card__stats {
     display: flex;
-    gap: $space-6;
-    padding-top: $space-6;
-    border-top: 1px solid $color-border;
+    gap: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(17, 17, 17, 0.04);
 
     .xvi-card__stat {
       text-align: center;
 
       &-number {
-        @include heading-h5;
-        color: $color-gold;
-        font-size: $font-size-xl;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #c8a65a;
+        line-height: 1.2;
       }
 
       &-label {
-        @include body-sm;
-        color: $color-grey;
+        font-weight: 400;
+        font-size: 0.8125rem;
+        color: #5a6472;
       }
     }
   }
@@ -197,7 +264,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform $duration-slow $ease-out-quint;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
 
@@ -206,42 +273,51 @@
   }
 
   .xvi-card__content {
-    padding: $space-8;
+    padding: 32px;
   }
 
   .xvi-card__meta {
     display: flex;
     align-items: center;
-    gap: $space-3;
-    margin-bottom: $space-4;
+    gap: 12px;
+    margin-bottom: 16px;
 
     .xvi-card__category {
-      @include overline;
-      font-size: $font-size-xs;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c8a65a;
     }
 
     .xvi-card__dot {
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background-color: $color-grey;
+      background-color: #5a6472;
     }
 
     .xvi-card__date {
-      @include body-sm;
-      color: $color-grey;
+      font-weight: 400;
+      font-size: 0.8125rem;
+      color: #5a6472;
     }
   }
 
   .xvi-card__title {
-    @include heading-h5;
-    font-size: $font-size-lg;
-    margin-bottom: $space-3;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    color: #0a1628;
+    margin-bottom: 8px;
   }
 
   .xvi-card__excerpt {
-    @include body-base;
-    margin-bottom: $space-6;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.618;
+    color: #5a6472;
+    margin-bottom: 24px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -251,7 +327,7 @@
   .xvi-card__author {
     display: flex;
     align-items: center;
-    gap: $space-3;
+    gap: 12px;
 
     &-avatar {
       width: 32px;
@@ -261,16 +337,17 @@
     }
 
     &-info {
-      @include body-sm;
+      font-weight: 400;
+      font-size: 0.8125rem;
     }
 
     &-name {
-      font-weight: $font-weight-medium;
-      color: $color-navy;
+      font-weight: 600;
+      color: #132238;
     }
 
     &-read-time {
-      color: $color-grey;
+      color: #5a6472;
     }
   }
 }
@@ -280,33 +357,51 @@
 // ============================================
 
 .xvi-card--stat {
-  background-color: $color-navy;
+  background: linear-gradient(145deg, #132238 0%, #1a2d45 100%);
   border-color: transparent;
-  padding: $space-10;
+  padding: 44px;
   text-align: center;
+  border: 1px solid rgba(200, 166, 90, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 70%;
+    background: radial-gradient(ellipse at top right, rgba(200, 166, 90, 0.06), transparent);
+    pointer-events: none;
+  }
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: $shadow-xl;
+    transform: translateY(-6px);
+    box-shadow:
+      0 20px 56px rgba(19, 34, 56, 0.25),
+      0 0 0 1px rgba(200, 166, 90, 0.2),
+      0 0 40px rgba(200, 166, 90, 0.04);
+    background: linear-gradient(145deg, #1a2d45 0%, #132238 100%);
   }
 
   .xvi-card__number {
-    @include heading-h2;
-    color: $color-gold;
-    font-size: $font-size-4xl;
-    margin-bottom: $space-2;
-    font-family: $font-body;
-    font-weight: $font-weight-bold;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1.2;
+    color: #c8a65a;
+    margin-bottom: 4px;
   }
 
   .xvi-card__suffix {
-    color: $color-gold;
-    font-size: $font-size-2xl;
+    font-size: 0.75em;
+    color: #c8a65a;
   }
 
   .xvi-card__label {
-    @include body-base;
-    color: $color-grey;
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: #c8cdd5;
   }
 }
 
@@ -315,27 +410,29 @@
 // ============================================
 
 .xvi-card--testimonial {
-  background-color: $color-warm;
-  padding: $space-10;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(247, 246, 243, 0.95) 100%);
+  padding: 44px;
   position: relative;
+  border: 1px solid rgba(17, 17, 17, 0.04);
 
-  &::before {
-    content: '"';
+  &::after {
+    content: '';
     position: absolute;
-    top: $space-6;
-    left: $space-8;
-    font-family: $font-heading;
-    font-size: 6rem;
-    line-height: 1;
-    color: rgba($color-gold, 0.2);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.08), transparent);
     pointer-events: none;
   }
 
   .xvi-card__quote {
-    @include body-lg;
+    font-weight: 400;
     font-style: italic;
-    color: $color-navy;
-    margin-bottom: $space-8;
+    font-size: 1.0625rem;
+    line-height: 1.618;
+    color: #0a1628;
+    margin-bottom: 24px;
     position: relative;
     z-index: 1;
   }
@@ -343,9 +440,9 @@
   .xvi-card__author {
     display: flex;
     align-items: center;
-    gap: $space-4;
-    padding-top: $space-6;
-    border-top: 1px solid $color-border;
+    gap: 16px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201, 169, 110, 0.12);
 
     &-avatar {
       width: 48px;
@@ -355,14 +452,16 @@
     }
 
     &-name {
-      @include heading-h6;
-      font-size: $font-size-base;
-      margin-bottom: $space-1;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0a1628;
+      margin-bottom: 2px;
     }
 
     &-title {
-      @include body-sm;
-      color: $color-grey;
+      font-weight: 400;
+      font-size: 0.875rem;
+      color: #5a6472;
     }
   }
 }
@@ -372,15 +471,15 @@
 // ============================================
 
 .xvi-card--industry {
-  padding: $space-8;
+  padding: 40px;
   text-align: center;
 
   .xvi-card__icon {
     width: 56px;
     height: 56px;
-    margin: 0 auto $space-6;
-    color: $color-navy;
-    transition: color $duration-base $ease-out-expo;
+    margin: 0 auto 24px;
+    color: #132238;
+    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
     svg {
       width: 100%;
@@ -390,16 +489,22 @@
   }
 
   &:hover .xvi-card__icon {
-    color: $color-gold;
+    color: #c8a65a;
   }
 
   .xvi-card__title {
-    @include heading-h6;
-    margin-bottom: $space-3;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.25;
+    color: #0a1628;
+    margin-bottom: 8px;
   }
 
   .xvi-card__description {
-    @include body-sm;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.618;
+    color: #5a6472;
   }
 }
 
@@ -416,7 +521,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform $duration-slow $ease-out-quint;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
 
@@ -425,17 +530,20 @@
   }
 
   .xvi-card__content {
-    padding: $space-6;
+    padding: 24px;
   }
 
   .xvi-card__name {
-    @include heading-h6;
-    margin-bottom: $space-1;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: #0a1628;
+    margin-bottom: 4px;
   }
 
   .xvi-card__role {
-    @include body-sm;
-    color: $color-gold;
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: #c8a65a;
   }
 }
 
@@ -444,25 +552,26 @@
 // ============================================
 
 .xvi-card-grid {
-  @include grid;
+  display: grid;
+  gap: 24px;
 
   &--2 {
-    @include grid-columns(2);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   &--3 {
-    @include grid-columns(3);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   &--4 {
-    @include grid-columns(4);
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  @media (max-width: $breakpoint-tablet - 1) {
-    @include grid-columns(1);
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
   }
 
-  @media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop - 1) {
-    @include grid-columns(2);
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
