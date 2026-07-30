@@ -33,7 +33,7 @@
   margin: 0 0 56px;
   max-width: 680px;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; letter-spacing: 0; }
 }
 
 .grid {
@@ -89,7 +89,7 @@
   color: #101010;
   margin: 20px 0 12px;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
 }
 
 .cardDesc {
@@ -99,5 +99,5 @@
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
 }

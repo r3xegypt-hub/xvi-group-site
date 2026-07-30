@@ -51,7 +51,7 @@
   color: #101010;
   margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; letter-spacing: 0; }
 }
 
 .body {
@@ -61,7 +61,7 @@
   color: #6b6b68;
   margin: 0 0 32px;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
 }
 
 .cta {
@@ -100,7 +100,7 @@
   color: #101010;
   margin: 0 0 8px;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
 }
 
 .itemDesc {
@@ -110,5 +110,5 @@
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Noto Naskh Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Amiri', sans-serif; }
 }
