@@ -10,7 +10,7 @@ import { PageTransition } from './components/ui/PageTransition';
 import { CustomCursor } from './motion/CustomCursor';
 import { MouseGlow } from './motion/MouseGlow';
 import { LuxuryLoader } from './components/ui/LuxuryLoader';
-import { CinematicIntro } from './components/ui/CinematicIntro';
+import { CinematicExecutiveLaunch } from './components/ui/CinematicExecutiveLaunch';
 import { AIDock } from './components/assistant/AIDock';
 import { Home } from './pages/home';
 import { ServicesPage } from './pages/services';
@@ -41,10 +41,11 @@ function PageShell({ children }: { children: React.ReactNode }) {
 
 function App() {
   const [pending, setPending] = useState(true);
-  const introSeenRef = useRef(sessionStorage.getItem('xviIntroDone') === 'true');
+  const introSeenRef = useRef(localStorage.getItem('xviIntroDone') === 'true');
 
   const handleFinish = useCallback(() => {
-    sessionStorage.setItem('xviIntroDone', 'true');
+    localStorage.setItem('xviIntroDone', 'true');
+    localStorage.setItem('xviCinematicDate', String(Date.now()));
     setPending(false);
   }, []);
 
@@ -56,7 +57,7 @@ function App() {
             <div className="xvi-app">
               {pending && (introSeenRef.current
                 ? <LuxuryLoader onFinish={handleFinish} />
-                : <CinematicIntro onFinish={handleFinish} />
+                : <CinematicExecutiveLaunch onFinish={handleFinish} />
               )}
               <CustomCursor />
               <MouseGlow color="#c8a65a" radius={250} opacity={0.03} />
