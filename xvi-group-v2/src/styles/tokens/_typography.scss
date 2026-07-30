@@ -25,7 +25,7 @@ $leading-h1: 1.1;
 $leading-h2: 1.15;
 $leading-h3: 1.2;
 $leading-h4: 1.28;
-$leading-body: 1.65;
+$leading-body: 1.618;
 $leading-body-ar: 1.8;
 $leading-tight: 1.15;
 
@@ -69,6 +69,7 @@ $weight-black: 900;
   --leading-body-ar: #{$leading-body-ar};
   --tracking-display: #{$tracking-display};
   --tracking-wide: #{$tracking-wide};
+  --font-feature-settings-en: 'kern' 1, 'liga' 1, 'clig' 1, 'calt' 1;
 }
 
 html[lang="ar"] {
