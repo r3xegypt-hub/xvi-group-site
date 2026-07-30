@@ -182,6 +182,9 @@ export function Hero() {
                 ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً.'
                 : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.'}
             </p>
+            <p className={styles.widgetPresence}>
+              {ar ? 'حضور ذكاء استراتيجية.' : 'A strategic intelligence presence.'}
+            </p>
             {isInView && thinkingPhase > 0 && (
               <motion.p
                 key={thinkingPhase}
