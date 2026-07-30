@@ -159,7 +159,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
           >
             <motion.span
               style={{
-                fontFamily: "'Noto Sans', sans-serif", fontSize: '0.75rem', fontWeight: 600,
+                fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '0.75rem', fontWeight: 600,
                 letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C8A65A',
                 display: 'block', marginBottom: 20,
               }}
@@ -169,7 +169,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             </motion.span>
             <motion.h1
               style={{
-                fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif",
+                fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif",
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: ar ? 400 : 600, lineHeight: 1.05,
                 letterSpacing: ar ? 0 : '-0.03em', color: '#111111', margin: '0 0 20px',
               }}
@@ -179,7 +179,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             </motion.h1>
             <motion.p
               style={{
-                fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '1.125rem', lineHeight: 1.7,
+                fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '1.125rem', lineHeight: 1.7,
                 color: '#666666', margin: 0, maxWidth: 520,
               }}
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.3 } } }}
@@ -194,20 +194,20 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
         <Container>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 48 }}>
             <div>
-              <h2 style={{ fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
+              <h2 style={{ fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.problem.title)}
               </h2>
-              <p style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
+              <p style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
                 {L(content.problem.desc)}
               </p>
             </div>
             <div>
-              <h2 style={{ fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
+              <h2 style={{ fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.solution.title)}
               </h2>
-              <p style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
+              <p style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
                 {L(content.solution.desc)}
               </p>
             </div>
@@ -218,7 +218,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
       <div style={{ position: 'relative', padding: '100px 0', background: '#ECE8E2' }}>
         <Container>
           <h2 style={{
-            fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+            fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
             fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 48px',
           }}>
             {ar ? 'عملية العمل' : 'Our Process'}
@@ -227,13 +227,13 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             {content.process.map((step, i) => (
               <PremiumCard key={i} glassIntensity={i % 2 === 0 ? 'light' : 'medium'} delay={i * 0.08}>
                 <div style={{ padding: 32 }}>
-                  <span style={{ fontFamily: "'Noto Sans', sans-serif", fontSize: '2.5rem', fontWeight: 700, opacity: 0.08, color: '#C8A65A', lineHeight: 1 }}>
+                  <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '2.5rem', fontWeight: 700, opacity: 0.08, color: '#C8A65A', lineHeight: 1 }}>
                     {step.step}
                   </span>
-                  <h3 style={{ fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif", fontSize: '1.25rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '12px 0 8px' }}>
+                  <h3 style={{ fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '1.25rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '12px 0 8px' }}>
                     {L(step.title)}
                   </h3>
-                  <p style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '0.875rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
+                  <p style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '0.875rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
                     {L(step.desc)}
                   </p>
                 </div>
@@ -247,7 +247,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
         <Container>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
             <h2 style={{
-              fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+              fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
               fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
             }}>
               {ar ? 'الفوائد الرئيسية' : 'Key Benefits'}
@@ -268,7 +268,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   }}
                 >
                   <Check size={16} color="#C8A65A" />
-                  <span style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '0.875rem', color: '#444444' }}>
+                  <span style={{ fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '0.875rem', color: '#444444' }}>
                     {L(b)}
                   </span>
                 </motion.div>
@@ -282,7 +282,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
         <Container>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
             <h2 style={{
-              fontFamily: ar ? "'Amiri', serif" : "'Noto Sans', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+              fontFamily: ar ? "'Amiri', serif" : "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
               fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
             }}>
               {ar ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}
@@ -304,7 +304,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   <summary style={{
                     display: 'flex', alignItems: 'center', gap: 12,
                     padding: '18px 24px',
-                    fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '0.9375rem', fontWeight: 500,
+                    fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '0.9375rem', fontWeight: 500,
                     color: '#111111', cursor: 'pointer',
                     listStyle: 'none',
                   }}>
@@ -313,7 +313,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   </summary>
                   <p style={{
                     padding: '0 24px 18px 52px',
-                    fontFamily: ar ? "'Tajawal', sans-serif" : "'Noto Sans', sans-serif", fontSize: '0.875rem', lineHeight: 1.7,
+                    fontFamily: ar ? "'Tajawal', sans-serif" : "'Plus Jakarta Sans', sans-serif", fontSize: '0.875rem', lineHeight: 1.7,
                     color: '#666666', margin: 0,
                   }}>
                     {L(item.a)}

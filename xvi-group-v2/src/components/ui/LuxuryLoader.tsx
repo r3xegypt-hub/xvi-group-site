@@ -91,7 +91,7 @@ export function LuxuryLoader({ onFinish }: LuxuryLoaderProps) {
 
           <motion.p
             style={{
-              fontFamily: "'Playfair Display', Georgia, serif",
+              fontFamily: "'DM Serif Display', Georgia, serif",
               fontSize: '1.5rem',
               color: '#111111',
               letterSpacing: '0.15em',

@@ -125,14 +125,14 @@ export function PremiumServicePanel({
       }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
           <span style={{
-            fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2.5rem',
+            fontFamily: "'DM Serif Display', Georgia, serif", fontSize: '2.5rem',
             fontWeight: 400, lineHeight: 1, opacity: 0.08, color,
           }}>
             {index}
           </span>
           {tag && (
             <span style={{
-              fontFamily: "'Inter', sans-serif", fontSize: '0.5rem', fontWeight: 600,
+              fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '0.5rem', fontWeight: 600,
               letterSpacing: '0.14em', textTransform: 'uppercase',
               padding: '4px 10px', background: `${color}08`, color,
               border: `1px solid ${color}10`,
@@ -161,14 +161,14 @@ export function PremiumServicePanel({
         </div>
 
         <h3 style={{
-          fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.375rem',
+          fontFamily: "'DM Serif Display', Georgia, serif", fontSize: '1.375rem',
           fontWeight: 400, color: '#111111', margin: 0,
         }}>
           {title}
         </h3>
 
         <p style={{
-          fontFamily: "'Inter', sans-serif", fontSize: '0.875rem',
+          fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '0.875rem',
           lineHeight: 1.7, color: '#666666', margin: 0, maxWidth: 480,
         }}>
           {desc}
@@ -177,7 +177,7 @@ export function PremiumServicePanel({
         <motion.span
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            fontFamily: "'Inter', sans-serif", fontSize: '0.8125rem',
+            fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '0.8125rem',
             fontWeight: 500, color, textDecoration: 'none', marginTop: 4,
             transition: 'gap 0.3s ease',
           }}

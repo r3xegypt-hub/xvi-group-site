@@ -152,8 +152,8 @@ export function AIProcessFlow() {
             >
               <step.icon size={22} />
             </motion.div>
-            <div style={{ fontSize: '0.875rem', fontWeight: 600, fontFamily: "'Inter', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase', color: step.color }}>{step.title}</div>
-            <div style={{ fontSize: '0.8125rem', lineHeight: 1.7, fontFamily: "'Inter', sans-serif", color: '#666666' }}>{step.desc}</div>
+            <div style={{ fontSize: '0.875rem', fontWeight: 600, fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '0.08em', textTransform: 'uppercase', color: step.color }}>{step.title}</div>
+            <div style={{ fontSize: '0.8125rem', lineHeight: 1.7, fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#666666' }}>{step.desc}</div>
           </motion.div>
         ))}
       </div>

@@ -1,10 +1,43 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { Sparkles, Bot, BarChart3, Globe, Brain, X, ArrowUpRight, Zap, MessageSquare } from 'lucide-react';
+import { Sparkles, Brain, X, ArrowUpRight, BarChart3, Globe, Zap, MessageSquare, FileText, Clock, CheckCircle2, ChevronRight, Send, ArrowRight } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
+const font = "'Plus Jakarta Sans', sans-serif";
+
+type ConversationState = 'idle' | 'menu' | 'service' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline';
+
+interface Message {
+  id: string;
+  type: 'assistant' | 'user' | 'card';
+  content: string;
+  card?: React.ReactNode;
+}
+
+const services = [
+  { id: 'strategy', icon: Brain, title: { en: 'AI Strategy', ar: 'استراتيجية الذكاء الاصطناعي' }, desc: { en: 'Define your AI vision and roadmap', ar: 'تحديد رؤيتك وخريطة طريق الذكاء الاصطناعي' } },
+  { id: 'automation', icon: Zap, title: { en: 'Automation Architecture', ar: 'هندسة الأتمتة' }, desc: { en: 'Design intelligent automation systems', ar: 'تصميم أنظمة الأتمتة الذكية' } },
+  { id: 'adoption', icon: Users, title: { en: 'Executive Adoption', ar: 'التبني التنفيذي' }, desc: { en: 'Enable leadership to champion AI', ar: 'تمكين القيادة من قيادة الت变革' } },
+  { id: 'governance', icon: Shield, title: { en: 'AI Governance', ar: 'حوكمة الذكاء الاصطناعي' }, desc: { en: 'Build responsible AI frameworks', ar: 'بناء أطر ذكاء اصطناعي مسؤولة' } },
+];
+
+const readinessChecks = [
+  { en: 'Data Infrastructure', ar: 'البنية التحتية للبيانات', desc: { en: 'Do you have centralized, clean data?', ar: 'هل لديك بيانات مركزة ونظيفة؟' } },
+  { en: 'Executive Sponsorship', ar: 'الرعاية التنفيذية', desc: { en: 'Is there C-suite commitment?', ar: 'هل هناك التزام من المستوى التنفيذي؟' } },
+  { en: 'Technical Talent', ar: 'الكفاءات التقنية', desc: { en: 'Do you have AI/ML engineers?', ar: 'هل لديك مهندسو ذكاء اصطناعي؟' } },
+  { en: 'Use Case Clarity', ar: 'وضوح حالات الاستخدام', desc: { en: 'Are high-value problems identified?', ar: 'هل تم تحديد المشكلات عالية القيمة؟' } },
+  { en: 'Change Readiness', ar: 'استعداد التغيير', desc: { en: 'Is the organization ready to adapt?', ar: 'هل المؤسسة مستعدة للتكيّف؟' } },
+];
+
+const automationOpps = [
+  { en: 'Document Processing', ar: 'معالجة المستندات', impact: { en: 'High', ar: 'عالي' }, effort: { en: 'Low', ar: 'منخفض' } },
+  { en: 'Customer Service', ar: 'خدمة العملاء', impact: { en: 'High', ar: 'عالي' }, effort: { en: 'Medium', ar: 'متوسط' } },
+  { en: 'Financial Reporting', ar: 'التقارير المالية', impact: { en: 'Medium', ar: 'متوسط' }, effort: { en: 'Low', ar: 'منخفض' } },
+  { en: 'Supply Chain', ar: 'سلسلة التوريد', impact: { en: 'High', ar: 'عالي' }, effort: { en: 'High', ar: 'عالي' } },
+  { en: 'HR Processes', ar: 'عمليات الموارد البشرية', impact: { en: 'Medium', ar: 'متوسط' }, effort: { en: 'Medium', ar: 'متوسط' } },
+];
 
 function AIOrb({ isOpen }: { isOpen: boolean }) {
   return (
@@ -21,18 +54,12 @@ function AIOrb({ isOpen }: { isOpen: boolean }) {
     >
       <Brain size={20} />
       <motion.div
-        style={{
-          position: 'absolute', inset: -4, borderRadius: '50%',
-          border: '1px solid rgba(200,166,90,0.08)',
-        }}
+        style={{ position: 'absolute', inset: -4, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.08)' }}
         animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        style={{
-          position: 'absolute', inset: -10, borderRadius: '50%',
-          border: '1px solid rgba(200,166,90,0.04)',
-        }}
+        style={{ position: 'absolute', inset: -10, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.04)' }}
         animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.3, 0.15] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
       />
@@ -40,45 +67,261 @@ function AIOrb({ isOpen }: { isOpen: boolean }) {
   );
 }
 
-const font = "'Noto Sans', sans-serif";
+const quickActions = [
+  { id: 'services', icon: Brain, label: { en: 'Our Services', ar: 'خدماتنا' } },
+  { id: 'roadmap', icon: Map, label: { en: 'Generate Roadmap', ar: 'إنشاء خارطة طريق' } },
+  { id: 'readiness', icon: CheckCircle2, label: { en: 'AI Readiness', ar: 'استعداد الذكاء الاصطناعي' } },
+  { id: 'pricing', icon: FileText, label: { en: 'Pricing Model', ar: 'نموذج التسعير' } },
+  { id: 'deliverables', icon: BarChart3, label: { en: 'Deliverables', ar: 'المخرجات' } },
+  { id: 'automation', icon: Zap, label: { en: 'Automation Scan', ar: 'فحص الأتمتة' } },
+  { id: 'timeline', icon: Clock, label: { en: 'Project Timeline', ar: 'الجدول الزمني' } },
+];
 
-const arContent = {
-  advisorLabel: 'المستشار الذكي',
-  title: 'مستشار XVI التنفيذي',
-  status: 'SYSTEM ONLINE · ANALYTICAL AI',
-  greeting: 'مساء الخير. أنا المستشار التنفيذي لـ XVI. كيف يمكنني توجيه استراتيجية مؤسستك اليوم؟',
-  inputPlaceholder: 'اكتب استفسارك الاستراتيجي...',
-  shortcuts: [
-    { icon: BarChart3, label: 'المؤشرات' },
-    { icon: Globe, label: 'السوق' },
-    { icon: Zap, label: 'الاستراتيجية' },
-    { icon: MessageSquare, label: 'الاستشارة' },
-  ],
-  suggestions: ['استراتيجية الذكاء الاصطناعي', 'تحليل السوق', 'التحول الرقمي', 'حوكمة البيانات'],
-};
+// @ts-ignore
+import { Map } from 'lucide-react';
 
-const enContent = {
-  advisorLabel: 'AI Advisor',
-  title: 'XVI Executive Advisor',
-  status: 'SYSTEM ONLINE · ANALYTICAL AI',
-  greeting: 'Good afternoon. I am the XVI Executive Advisor. How may I direct your enterprise strategy today?',
-  inputPlaceholder: 'Type your strategic inquiry...',
-  shortcuts: [
-    { icon: BarChart3, label: 'Metrics' },
-    { icon: Globe, label: 'Market' },
-    { icon: Zap, label: 'Strategy' },
-    { icon: MessageSquare, label: 'Consult' },
-  ],
-  suggestions: ['AI Strategy', 'Market Analysis', 'Digital Transformation', 'Data Governance'],
-};
+function ServiceCard({ service, onClick }: { service: typeof services[0]; onClick: () => void }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ y: -2, borderColor: 'rgba(200,166,90,0.3)' }}
+      whileTap={{ scale: 0.98 }}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 12,
+        padding: '14px 16px', background: 'rgba(200,166,90,0.03)',
+        border: '1px solid rgba(200,166,90,0.08)', borderRadius: 12,
+        cursor: 'pointer', textAlign: 'left', width: '100%',
+        transition: 'all 0.2s ease',
+      }}
+    >
+      <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(200,166,90,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C8A65A' }}>
+        <service.icon size={16} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{service.title.en}</div>
+        <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{service.desc.en}</div>
+      </div>
+      <ChevronRight size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
+    </motion.button>
+  );
+}
+
+function RoadmapCard() {
+  const phases = [
+    { phase: 'Phase 1', title: 'Assessment', duration: '2-3 weeks', tasks: ['Stakeholder interviews', 'Data audit', 'Use case identification'] },
+    { phase: 'Phase 2', title: 'Strategy', duration: '2-4 weeks', tasks: ['AI roadmap', 'Priority matrix', 'ROI projections'] },
+    { phase: 'Phase 3', title: 'Pilot', duration: '4-8 weeks', tasks: ['MVP development', 'Testing', 'Performance validation'] },
+    { phase: 'Phase 4', title: 'Scale', duration: '8-12 weeks', tasks: ['Production deployment', 'Change management', 'Optimization'] },
+  ];
+
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Sample AI Transformation Roadmap
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {phases.map((p, i) => (
+          <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <div style={{ width: 48, fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#C8A65A', flexShrink: 0 }}>{p.phase}</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{p.title}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{p.duration}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 4 }}>{p.tasks.join(' · ')}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ReadinessCard() {
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        AI Readiness Checklist
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {readinessChecks.map((check, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', background: '#f7f6f3', borderRadius: 8 }}>
+            <CheckCircle2 size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
+            <div>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 500, color: '#111111' }}>{check.en}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999' }}>{check.desc.en}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PricingCard() {
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Pricing Methodology
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {[
+          { type: 'Advisory Retainer', desc: 'Ongoing strategic guidance', range: 'Monthly engagement' },
+          { type: 'Project-Based', desc: 'Defined scope and deliverables', range: '4-12 weeks' },
+          { type: 'Transformation Program', desc: 'End-to-end AI transformation', range: '3-6 months' },
+        ].map((item, i) => (
+          <div key={i} style={{ padding: '12px 16px', background: '#f7f6f3', borderRadius: 8 }}>
+            <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{item.type}</div>
+            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 4 }}>{item.desc}</div>
+            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#C8A65A', marginTop: 4, fontWeight: 500 }}>{item.range}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 12, fontStyle: 'italic' }}>
+        Pricing is customized based on scope, complexity, and engagement duration.
+      </div>
+    </div>
+  );
+}
+
+function DeliverablesCard() {
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Sample Executive Deliverables
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[
+          { name: 'AI Strategy Document', desc: 'Comprehensive AI vision, objectives, and phased roadmap' },
+          { name: 'Technology Assessment', desc: 'Current state analysis and target architecture' },
+          { name: 'ROI Analysis', desc: 'Projected returns for each AI initiative' },
+          { name: 'Governance Framework', desc: 'Policies, ethics, and risk management' },
+          { name: 'Implementation Playbook', desc: 'Step-by-step execution guide' },
+        ].map((item, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '8px 12px', background: '#f7f6f3', borderRadius: 8 }}>
+            <FileText size={14} style={{ color: '#C8A65A', flexShrink: 0, marginTop: 2 }} />
+            <div>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 500, color: '#111111' }}>{item.name}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999' }}>{item.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AutomationCard() {
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Automation Opportunity Scan
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '8px 12px', alignItems: 'center' }}>
+        <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#999', textTransform: 'uppercase' }}>Process</div>
+        <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#999', textTransform: 'uppercase' }}>Impact</div>
+        <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#999', textTransform: 'uppercase' }}>Effort</div>
+        {automationOpps.map((opp, i) => (
+          <React.Fragment key={i}>
+            <div style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111111' }}>{opp.en}</div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', color: opp.impact.en === 'High' ? '#2D6A4F' : '#666', fontWeight: 500 }}>{opp.impact.en}</div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', color: opp.effort.en === 'Low' ? '#2D6A4F' : opp.effort.en === 'Medium' ? '#D4A017' : '#666', fontWeight: 500 }}>{opp.effort.en}</div>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TimelineCard() {
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Typical Project Timeline
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        {[
+          { week: 'Week 1-2', activity: 'Discovery & Assessment', color: '#C8A65A' },
+          { week: 'Week 3-4', activity: 'Strategy Development', color: '#C8A65A' },
+          { week: 'Week 5-8', activity: 'Architecture & Design', color: '#132238' },
+          { week: 'Week 9-12', activity: 'Pilot Development', color: '#132238' },
+          { week: 'Week 13-16', activity: 'Testing & Validation', color: '#666' },
+          { week: 'Week 17-20', activity: 'Production Deployment', color: '#666' },
+        ].map((item, i) => (
+          <div key={i} style={{ display: 'flex', gap: 12, padding: '10px 0', borderBottom: i < 5 ? '1px solid rgba(0,0,0,0.04)' : 'none' }}>
+            <div style={{ width: 72, fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: item.color, flexShrink: 0 }}>{item.week}</div>
+            <div style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111111' }}>{item.activity}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// @ts-ignore
+import React from 'react';
+import { Users, Shield } from 'lucide-react';
 
 export function AIDock() {
   const [open, setOpen] = useState(false);
+  const [state, setState] = useState<ConversationState>('idle');
+  const [messages, setMessages] = useState<Message[]>([]);
   const { language } = useLanguage();
   const isAR = language === 'ar';
-  const content = isAR ? arContent : enContent;
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
 
   const handleToggle = useCallback(() => setOpen((p) => !p), []);
+
+  const addMessage = useCallback((type: 'assistant' | 'user' | 'card', content: string, card?: React.ReactNode) => {
+    setMessages((prev) => [...prev, { id: Date.now().toString(), type, content, card }]);
+  }, []);
+
+  const handleQuickAction = useCallback((actionId: string) => {
+    setState(actionId as ConversationState);
+
+    const responses: Record<string, { en: string; ar: string }> = {
+      services: { en: 'Here are our core advisory services. Select one to learn more:', ar: 'هذه هي خدماتنا الاستشارية الأساسية. اختر واحدة لمعرفة المزيد:' },
+      roadmap: { en: 'Here is a sample AI transformation roadmap we typically deliver:', ar: 'هذه خارطة طريق تحول الذكاء الاصطناعي النموذجية التي نقدمها عادة:' },
+      readiness: { en: 'Assess your organization\'s AI readiness with these key indicators:', ar: 'قيّم استعداد مؤسستك للذكاء الاصطناعي بهذه المؤشرات الرئيسية:' },
+      pricing: { en: 'Our pricing is structured around three engagement models:', ar: 'تسعيرنا منظم حول ثلاث نماذج تعاون:' },
+      deliverables: { en: 'Here are the executive deliverables you can expect:', ar: 'هذه المخرجات التنفيذية التي يمكن توقعها:' },
+      automation: { en: 'Quick scan of automation opportunities across your operations:', ar: 'فحص سريع لفرص الأتمتة عبر عملياتك:' },
+      timeline: { en: 'Typical project timeline for an AI transformation engagement:', ar: 'الجدول الزمني النموذجي لمشروع تحول بالذكاء الاصطناعي:' },
+    };
+
+    addMessage('user', isAR ? quickActions.find(a => a.id === actionId)?.label.ar || '' : quickActions.find(a => a.id === actionId)?.label.en || '');
+    addMessage('assistant', isAR ? responses[actionId]?.ar || '' : responses[actionId]?.en || '');
+
+    if (actionId === 'services') {
+      addMessage('card', '', <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
+        {services.map((s) => (
+          <ServiceCard key={s.id} service={s} onClick={() => {
+            setState('service');
+            addMessage('assistant', isAR
+              ? `خدمة ${s.title.ar}: ${s.desc.ar}. نقدم استشارات مخصصة في هذا المجال.`
+              : `${s.title.en}: ${s.desc.en}. We deliver tailored advisory in this domain.`
+            );
+          }} />
+        ))}
+      </div>);
+    } else if (actionId === 'roadmap') {
+      addMessage('card', '', <RoadmapCard />);
+    } else if (actionId === 'readiness') {
+      addMessage('card', '', <ReadinessCard />);
+    } else if (actionId === 'pricing') {
+      addMessage('card', '', <PricingCard />);
+    } else if (actionId === 'deliverables') {
+      addMessage('card', '', <DeliverablesCard />);
+    } else if (actionId === 'automation') {
+      addMessage('card', '', <AutomationCard />);
+    } else if (actionId === 'timeline') {
+      addMessage('card', '', <TimelineCard />);
+    }
+  }, [isAR, addMessage]);
 
   return (
     <>
@@ -134,30 +377,9 @@ export function AIDock() {
           }}
         >
           <AIOrb isOpen={open} />
-          <span style={{ whiteSpace: 'nowrap' }}>{content.advisorLabel}</span>
+          <span style={{ whiteSpace: 'nowrap' }}>{isAR ? 'المستشار الذكي' : 'AI Advisor'}</span>
           {open ? <X size={14} /> : <Sparkles size={14} />}
         </motion.button>
-
-        <div style={{ width: 1, height: 28, background: 'rgba(17,17,17,0.04)' }} />
-
-        {content.shortcuts.map((s, i) => (
-          <motion.button
-            key={i}
-            whileHover={{ scale: 1.08, color: '#C8A65A' }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              width: 32, height: 32, display: 'flex', alignItems: 'center',
-              justifyContent: 'center', border: 'none', cursor: 'pointer',
-              background: 'transparent', color: '#999999',
-              transition: 'color 0.2s ease',
-              fontFamily: font, fontSize: '0.5rem',
-              fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase',
-            }}
-            title={s.label}
-          >
-            <s.icon size={16} />
-          </motion.button>
-        ))}
       </motion.div>
 
       {/* Floating panel */}
@@ -173,7 +395,7 @@ export function AIDock() {
               position: 'fixed', bottom: 100, left: '50%', zIndex: 601,
               transform: 'translateX(-50%)',
               width: 440, maxWidth: 'calc(100vw - 48px)',
-              maxHeight: '60vh',
+              maxHeight: '65vh',
               background: 'rgba(255,255,255,0.97)',
               backdropFilter: 'blur(40px)',
               WebkitBackdropFilter: 'blur(40px)',
@@ -209,9 +431,9 @@ export function AIDock() {
               </div>
               <div>
                 <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>
-                  {content.title}
+                  {isAR ? 'مستشار XVI التنفيذي' : 'XVI Executive Advisor'}
                 </div>
-                <div style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                <div style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                   <motion.span
                     style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: '#2D6A4F', marginRight: 6 }}
                     animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
@@ -223,89 +445,142 @@ export function AIDock() {
               <motion.button
                 onClick={() => setOpen(false)}
                 whileHover={{ scale: 1.1, color: '#111111' }}
-                style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#999999', padding: 4 }}
+                style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#999', padding: 4 }}
               >
                 <X size={16} />
               </motion.button>
             </div>
 
-            {/* Body */}
-            <div style={{ padding: 20, flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {/* Avatar area */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, textAlign: 'center' }}>
-                <div style={{
-                  width: 64, height: 64, borderRadius: '50%',
-                  background: 'linear-gradient(135deg, rgba(200,166,90,0.1), rgba(200,166,90,0.02))',
-                  border: '1px solid rgba(200,166,90,0.1)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#C8A65A', position: 'relative',
-                }}>
-                  <Brain size={28} />
-                  <motion.div
-                    style={{ position: 'absolute', inset: -4, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.08)' }}
-                    animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.4, 0.2] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  />
+            {/* Messages area */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {messages.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                  <div style={{
+                    width: 56, height: 56, borderRadius: '50%',
+                    background: 'linear-gradient(135deg, rgba(200,166,90,0.1), rgba(200,166,90,0.02))',
+                    border: '1px solid rgba(200,166,90,0.1)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#C8A65A', margin: '0 auto 16px', position: 'relative',
+                  }}>
+                    <Brain size={24} />
+                    <motion.div
+                      style={{ position: 'absolute', inset: -4, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.08)' }}
+                      animate={{ scale: [1, 1.06, 1], opacity: [0.2, 0.4, 0.2] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                  </div>
+                  <p style={{
+                    fontFamily: "'Amiri', serif",
+                    fontSize: '0.9375rem', lineHeight: 1.6, color: '#666',
+                    maxWidth: 320, margin: '0 auto 20px',
+                  }}>
+                    {isAR
+                      ? 'مرحباً. أنا مستشار XVI التنفيذي. كيف يمكنني توجيه استراتيجية مؤسستك اليوم؟'
+                      : 'Good afternoon. I am the XVI Executive Advisor. How may I direct your enterprise strategy today?'}
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    {quickActions.slice(0, 4).map((action) => (
+                      <motion.button
+                        key={action.id}
+                        onClick={() => handleQuickAction(action.id)}
+                        whileHover={{ y: -2, background: 'rgba(200,166,90,0.08)', borderColor: 'rgba(200,166,90,0.2)' }}
+                        whileTap={{ scale: 0.97 }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 8,
+                          padding: '10px 12px',
+                          background: 'rgba(200,166,90,0.03)',
+                          border: '1px solid rgba(200,166,90,0.06)',
+                          borderRadius: 10,
+                          cursor: 'pointer',
+                          fontFamily: font, fontSize: '0.75rem',
+                          fontWeight: 500, color: '#111111',
+                          transition: 'all 0.2s ease',
+                        }}
+                      >
+                        <action.icon size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
+                        {isAR ? action.label.ar : action.label.en}
+                      </motion.button>
+                    ))}
+                  </div>
                 </div>
-                <p style={{
-                  fontFamily: isAR ? "'Amiri', serif" : "'Noto Sans', sans-serif",
-                  fontSize: '0.9375rem', lineHeight: 1.6, color: '#666666',
-                  maxWidth: 340, margin: 0,
-                }}>
-                  {content.greeting}
-                </p>
-              </div>
+              )}
 
-              {/* Quick actions */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                {content.shortcuts.map((s, i) => (
+              {messages.map((msg) => (
+                <motion.div
+                  key={msg.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    display: 'flex',
+                    justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start',
+                  }}
+                >
+                  {msg.type === 'user' ? (
+                    <div style={{
+                      maxWidth: '80%', padding: '10px 14px',
+                      background: '#132238', color: '#f7f6f3',
+                      fontFamily: font, fontSize: '0.8125rem',
+                      borderRadius: '12px 12px 4px 12px',
+                    }}>
+                      {msg.content}
+                    </div>
+                  ) : (
+                    <div style={{ maxWidth: '90%' }}>
+                      {msg.content && (
+                        <div style={{
+                          padding: '10px 14px',
+                          background: '#f7f6f3',
+                          fontFamily: font, fontSize: '0.8125rem',
+                          color: '#111111',
+                          borderRadius: '12px 12px 12px 4px',
+                          lineHeight: 1.5,
+                        }}>
+                          {msg.content}
+                        </div>
+                      )}
+                      {msg.card}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Quick actions bar */}
+            {messages.length > 0 && (
+              <div style={{
+                display: 'flex', gap: 6, padding: '8px 16px',
+                borderTop: '1px solid rgba(17,17,17,0.04)',
+                overflowX: 'auto',
+              }}>
+                {quickActions.map((action) => (
                   <motion.button
-                    key={i}
-                    whileHover={{ y: -2, background: 'rgba(200,166,90,0.08)', borderColor: 'rgba(200,166,90,0.2)' }}
+                    key={action.id}
+                    onClick={() => handleQuickAction(action.id)}
+                    whileHover={{ background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A' }}
                     whileTap={{ scale: 0.97 }}
                     style={{
-                      display: 'flex', alignItems: 'center', gap: 10,
-                      padding: '10px 14px',
-                      background: 'rgba(200,166,90,0.03)',
-                      border: '1px solid rgba(200,166,90,0.06)',
-                      borderRadius: 12,
-                      cursor: 'pointer',
-                      fontFamily: font, fontSize: '0.75rem',
-                      fontWeight: 500, color: '#111111',
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    <s.icon size={14} style={{ color: '#C8A65A', flexShrink: 0 }} />
-                    {s.label}
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* Suggestions */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {content.suggestions.map((chip, i) => (
-                  <motion.button
-                    key={i}
-                    whileHover={{ background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A', color: '#C8A65A' }}
-                    whileTap={{ scale: 0.97 }}
-                    style={{
-                      padding: '6px 14px',
+                      padding: '6px 10px',
                       background: 'transparent',
                       border: '1px solid rgba(17,17,17,0.06)',
                       borderRadius: 999,
                       cursor: 'pointer',
-                      fontFamily: font, fontSize: '0.65625rem',
-                      fontWeight: 500, color: '#666666',
+                      fontFamily: font, fontSize: '0.625rem',
+                      fontWeight: 500, color: '#666',
                       transition: 'all 0.2s ease',
+                      whiteSpace: 'nowrap',
+                      display: 'flex', alignItems: 'center', gap: 4,
                     }}
                   >
-                    {chip}
+                    <action.icon size={10} />
+                    {isAR ? action.label.ar : action.label.en}
                   </motion.button>
                 ))}
               </div>
-            </div>
+            )}
 
-            {/* Footer input */}
+            {/* Input area */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: 8,
               padding: '10px 16px',
@@ -313,11 +588,10 @@ export function AIDock() {
             }}>
               <input
                 type="text"
-                placeholder={content.inputPlaceholder}
+                placeholder={isAR ? 'اكتب استفسارك الاستراتيجي...' : 'Type your strategic inquiry...'}
                 style={{
                   flex: 1, border: 'none', background: 'rgba(17,17,17,0.02)',
-                  padding: '10px 14px',
-                  borderRadius: 12,
+                  padding: '10px 14px', borderRadius: 12,
                   fontFamily: font, fontSize: '0.8125rem',
                   color: '#111111', outline: 'none',
                 }}
@@ -328,13 +602,12 @@ export function AIDock() {
                 style={{
                   width: 40, height: 40,
                   background: '#C8A65A', color: '#FFFFFF',
-                  border: 'none', cursor: 'pointer',
-                  borderRadius: 12,
+                  border: 'none', cursor: 'pointer', borderRadius: 12,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0,
                 }}
               >
-                <ArrowUpRight size={18} />
+                <Send size={16} />
               </motion.button>
             </div>
           </motion.div>
