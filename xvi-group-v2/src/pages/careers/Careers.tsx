@@ -12,30 +12,6 @@ import styles from './Careers.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-const openings = [
-  {
-    id: 'senior-ai-strategist',
-    title: { en: 'Senior AI Strategist', ar: 'استراتيجي ذكاء اصطناعي أول' },
-    department: { en: 'Strategy', ar: 'الاستراتيجية' },
-    location: { en: 'Al Ain, UAE / Remote', ar: 'العين، الإمارات / عن بُعد' },
-    type: { en: 'Full-time', ar: 'دوام كامل' },
-  },
-  {
-    id: 'business-consultant',
-    title: { en: 'Business Transformation Consultant', ar: 'استشاري تحويل أعمال' },
-    department: { en: 'Consulting', ar: 'الاستشارات' },
-    location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات' },
-    type: { en: 'Full-time', ar: 'دوام كامل' },
-  },
-  {
-    id: 'ai-engineer',
-    title: { en: 'AI Solutions Engineer', ar: 'مهندس حلول ذكاء اصطناعي' },
-    department: { en: 'Technology', ar: 'التكنولوجيا' },
-    location: { en: 'Remote (MENA)', ar: 'عن بُعد (الشرق الأوسط)' },
-    type: { en: 'Full-time', ar: 'دوام كامل' },
-  },
-];
-
 export function CareersPage() {
   const { language } = useLanguage();
   const ar = language === 'ar';
@@ -83,9 +59,9 @@ export function CareersPage() {
             <h2 className={styles.sectionTitle}>{ar ? 'لماذا XVI؟' : 'Why XVI?'}</h2>
             <div className={styles.valuesGrid}>
               {[
-                { icon: Briefcase, title: ar ? 'عمل ذو معنى' : 'Meaningful Work', desc: ar ? 'نعمل مع أكبر المؤسسات في المنطقة على تحويلات حقيقية بالذكاء الاصطناعي.' : 'We work with leading enterprises on real AI transformations.' },
-                { icon: Users, title: ar ? 'فريق عالمي' : 'Global Team', desc: ar ? 'فريق متعدد الجنسيات يعمل عن بُعد من مختلف أنحاء المنطقة والعالم.' : 'A multinational team working remotely across the region and beyond.' },
-                { icon: Globe, title: ar ? 'نمو بلا حدود' : 'Limitless Growth', desc: ar ? 'فرص للتطور المهني والتعلم المستمر والمشاركة في مؤتمرات عالمية.' : 'Opportunities for professional development, continuous learning, and global conferences.' },
+                { icon: Briefcase, title: ar ? 'عمل ذو معنى' : 'Meaningful Work', desc: ar ? 'فرص للعمل على تحويلات حقيقية بالذكاء الاصطناعي في_sector مختلف.' : 'Opportunities to work on real AI transformations across sectors.' },
+                { icon: Users, title: ar ? 'فريق متميز' : 'Distinction Team', desc: ar ? 'انضم إلى فريق يلتبت بالتميز والابتكار في كل ما نفعله.' : 'Join a team committed to excellence and innovation in everything we do.' },
+                { icon: Globe, title: ar ? 'نمو بلا حدود' : 'Limitless Growth', desc: ar ? 'فرص للتطور المهني والتعلم المستمر.' : 'Opportunities for professional development and continuous learning.' },
               ].map((value, i) => (
                 <motion.div
                   key={i}
@@ -109,32 +85,27 @@ export function CareersPage() {
         <Section variant="warm" className={styles.openingsSection}>
           <Container>
             <h2 className={styles.sectionTitle}>{ar ? 'الفرص المتاحة' : 'Open Positions'}</h2>
-            <div className={styles.openingsList}>
-              {openings.map((job, i) => (
-                <motion.div
-                  key={job.id}
-                  className={styles.openingCard}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, ease, delay: i * 0.1 }}
-                >
-                  <div className={styles.openingInfo}>
-                    <h3 className={styles.openingTitle}>{ar ? job.title.ar : job.title.en}</h3>
-                    <div className={styles.openingMeta}>
-                      <span>{ar ? job.department.ar : job.department.en}</span>
-                      <span className={styles.dot} />
-                      <span>{ar ? job.location.ar : job.location.en}</span>
-                      <span className={styles.dot} />
-                      <span>{ar ? job.type.ar : job.type.en}</span>
-                    </div>
-                  </div>
-                  <a href={`mailto:careers@xvigroup.com?subject=Application: ${job.title.en}`} className={styles.applyLink}>
-                    {ar ? 'قدم الآن' : 'Apply'}
-                    <ArrowUpRight size={16} />
-                  </a>
-                </motion.div>
-              ))}
+            <div className={styles.comingSoonCard}>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease }}
+                className={styles.comingSoonInner}
+              >
+                <h3 className={styles.comingSoonTitle}>
+                  {ar ? 'الوظائف قادمة قريباً' : 'Positions Opening Soon'}
+                </h3>
+                <p className={styles.comingSoonDesc}>
+                  {ar
+                    ? 'نحن في مرحلة بناء الفريق. ستظهر الفرص المتاحة هنا قريباً.'
+                    : 'We are in the team-building phase. Open positions will appear here soon.'}
+                </p>
+                <a href="/contact" className={styles.contactLink}>
+                  {ar ? 'تواصل معنا' : 'Get in touch'}
+                  <ArrowUpRight size={14} />
+                </a>
+              </motion.div>
             </div>
           </Container>
         </Section>

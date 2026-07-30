@@ -207,7 +207,7 @@
   [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
 }
 
-.metricsGrid {
+.capabilitiesGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -216,32 +216,26 @@
   @media (max-width: 480px) { grid-template-columns: 1fr; }
 }
 
-.metricCard {
-  padding: 24px;
+.capabilityCard {
+  padding: 20px;
   background: #f4f4f2;
   border-radius: 12px;
   text-align: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    background: rgba(200, 166, 90, 0.08);
+    transform: translateY(-2px);
+  }
 }
 
-.metricValue {
-  display: block;
+.capabilityText {
   font-family: 'Noto Sans', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #c8a65a;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.metricLabel {
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: #6b6b68;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: #101010;
 
-  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; text-transform: none; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Tajawal', sans-serif; }
 }
 
 .detailCta {

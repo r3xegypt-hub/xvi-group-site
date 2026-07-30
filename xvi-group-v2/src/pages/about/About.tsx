@@ -30,12 +30,6 @@ const values = [
   },
 ];
 
-const timeline = [
-  { year: '2025', title: { en: 'Founded', ar: 'التأسيس' }, desc: { en: 'XVI GROUP established in Al Ain, UAE with a mission to bring clarity to enterprise AI.', ar: 'تأسست مجموعة XVI في العين، الإمارات بهدف إ bring الوضوح للذكاء الاصطناعي المؤسسي.' } },
-  { year: '2025', title: { en: 'First Engagements', ar: 'أولى التوريدات' }, desc: { en: 'Advisory mandates across financial services and public sector in the MENA region.', ar: '.randes استشارية عبر الخدمات المالية والقطاع العام في منطقة الشرق الأوسط.' } },
-  { year: '2026', title: { en: 'Regional Expansion', ar: 'التوسع الإقليمي' }, desc: { en: 'Expanding operations across the Gulf with a growing team of AI strategists and transformation specialists.', ar: 'توسيع العمليات عبر الخليج مع فريق متنامي من استراتيجيي الذكاء الاصطناعي المتخصصين في التحول.' } },
-];
-
 const stats = [
   { value: 'MENA', label: { en: 'Region', ar: 'المنطقة' } },
   { value: '2025', label: { en: 'Founded', ar: 'التأسيس' } },
@@ -99,7 +93,7 @@ export function AboutPage() {
             <Quote size={40} strokeWidth={1} className={styles.quoteIcon} />
             <blockquote className={styles.quoteText}>
               {ar
-                ? 'لا نبيع التكنولوجيا. نبيع الوضوح. التكنولوجيا هي الأداة، وال清晰 هو النتيجة.'
+                ? 'لا نبيع التكنولوجيا. نبيع الوضوح. التكنولوجيا هي الأداة، والوضوح هو النتيجة.'
                 : 'We don\'t sell technology. We sell clarity. Technology is the tool; clarity is the outcome.'}
             </blockquote>
           </motion.div>
@@ -144,7 +138,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* TIMELINE */}
+      {/* OUR STORY */}
       <section className={styles.timelineSection}>
         <div className={styles.timelineInner}>
           <motion.span
@@ -153,7 +147,7 @@ export function AboutPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            {ar ? 'الرحلة' : 'JOURNEY'}
+            {ar ? 'قصتنا' : 'OUR STORY'}
           </motion.span>
           <motion.h2
             className={styles.sectionHeading}
@@ -161,29 +155,19 @@ export function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            {ar ? 'من الرؤية إلى الواقع' : 'From vision to reality'}
+            {ar ? 'مبني على رؤية واضحة' : 'Built on a clear vision'}
           </motion.h2>
-          <div className={styles.timeline}>
-            {timeline.map((item, i) => (
-              <motion.div
-                key={i}
-                className={styles.timelineItem}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease, delay: i * 0.15 }}
-              >
-                <div className={styles.timelineMarker}>
-                  <span className={styles.timelineYear}>{item.year}</span>
-                  <div className={styles.timelineLine} />
-                </div>
-                <div className={styles.timelineContent}>
-                  <h3 className={styles.timelineTitle}>{ar ? item.title.ar : item.title.en}</h3>
-                  <p className={styles.timelineDesc}>{ar ? item.desc.ar : item.desc.en}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.p
+            className={styles.timelineDesc}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            {ar
+              ? 'XVI GROUP تأسست في العين، الإمارات العربية المتحدة. نحن نؤمن بأن الذكاء الاصطناعي يجب أن يكون أداة استراتيجية واضحة، لا مصطلحات معقدة. مهمتنا هي مساعدة المؤسسات على اتخاذ قرارات ذكية יותר.'
+              : 'XVI GROUP was founded in Al Ain, UAE. We believe AI should be a clear strategic tool — not complex jargon. Our mission is helping enterprises make smarter decisions.'}
+          </motion.p>
         </div>
       </section>
 

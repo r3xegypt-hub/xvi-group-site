@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { useLanguage } from '../../hooks/LanguageProvider';
 import { Sparkles, Bot, BarChart3, Globe, Brain, X, ArrowUpRight, Zap, MessageSquare } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -39,19 +40,43 @@ function AIOrb({ isOpen }: { isOpen: boolean }) {
   );
 }
 
-const shortcuts = [
-  { icon: BarChart3, label: 'Metrics' },
-  { icon: Globe, label: 'Market' },
-  { icon: Zap, label: 'Strategy' },
-  { icon: MessageSquare, label: 'Consult' },
-];
+const font = "'Noto Sans', sans-serif";
 
-const suggestions = [
-  'AI Strategy', 'Market Analysis', 'Digital Transformation', 'Data Governance',
-];
+const arContent = {
+  advisorLabel: 'المستشار الذكي',
+  title: 'مستشار XVI التنفيذي',
+  status: 'SYSTEM ONLINE · ANALYTICAL AI',
+  greeting: 'مساء الخير. أنا المستشار التنفيذي لـ XVI. كيف يمكنني توجيه استراتيجية مؤسستك اليوم؟',
+  inputPlaceholder: 'اكتب استفسارك الاستراتيجي...',
+  shortcuts: [
+    { icon: BarChart3, label: 'المؤشرات' },
+    { icon: Globe, label: 'السوق' },
+    { icon: Zap, label: 'الاستراتيجية' },
+    { icon: MessageSquare, label: 'الاستشارة' },
+  ],
+  suggestions: ['استراتيجية الذكاء الاصطناعي', 'تحليل السوق', 'التحول الرقمي', 'حوكمة البيانات'],
+};
+
+const enContent = {
+  advisorLabel: 'AI Advisor',
+  title: 'XVI Executive Advisor',
+  status: 'SYSTEM ONLINE · ANALYTICAL AI',
+  greeting: 'Good afternoon. I am the XVI Executive Advisor. How may I direct your enterprise strategy today?',
+  inputPlaceholder: 'Type your strategic inquiry...',
+  shortcuts: [
+    { icon: BarChart3, label: 'Metrics' },
+    { icon: Globe, label: 'Market' },
+    { icon: Zap, label: 'Strategy' },
+    { icon: MessageSquare, label: 'Consult' },
+  ],
+  suggestions: ['AI Strategy', 'Market Analysis', 'Digital Transformation', 'Data Governance'],
+};
 
 export function AIDock() {
   const [open, setOpen] = useState(false);
+  const { language } = useLanguage();
+  const isAR = language === 'ar';
+  const content = isAR ? arContent : enContent;
 
   const handleToggle = useCallback(() => setOpen((p) => !p), []);
 
@@ -83,11 +108,12 @@ export function AIDock() {
           transform: 'translateX(-50%)',
           display: 'flex', alignItems: 'center', gap: 8,
           padding: '6px 8px',
-          background: 'rgba(255,255,255,0.85)',
-          backdropFilter: 'blur(32px)',
-          WebkitBackdropFilter: 'blur(32px)',
-          border: '1px solid rgba(200,166,90,0.08)',
-          boxShadow: '0 4px 24px rgba(17,17,17,0.04)',
+          background: 'rgba(255,255,255,0.88)',
+          backdropFilter: 'blur(40px)',
+          WebkitBackdropFilter: 'blur(40px)',
+          border: '1px solid rgba(200,166,90,0.1)',
+          borderRadius: 999,
+          boxShadow: '0 8px 32px rgba(17,17,17,0.06), 0 1px 2px rgba(17,17,17,0.04), inset 0 1px 0 rgba(255,255,255,0.8)',
         }}
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -101,19 +127,20 @@ export function AIDock() {
             display: 'flex', alignItems: 'center', gap: 8,
             padding: '6px 16px 6px 6px',
             border: 'none', cursor: 'pointer',
+            borderRadius: 999,
             background: 'linear-gradient(135deg, rgba(200,166,90,0.08), rgba(200,166,90,0.02))',
-            fontFamily: "'Inter', sans-serif", fontSize: '0.75rem',
+            fontFamily: font, fontSize: '0.75rem',
             fontWeight: 600, color: '#111111', letterSpacing: '0.02em',
           }}
         >
           <AIOrb isOpen={open} />
-          <span style={{ whiteSpace: 'nowrap' }}>AI Advisor</span>
+          <span style={{ whiteSpace: 'nowrap' }}>{content.advisorLabel}</span>
           {open ? <X size={14} /> : <Sparkles size={14} />}
         </motion.button>
 
         <div style={{ width: 1, height: 28, background: 'rgba(17,17,17,0.04)' }} />
 
-        {shortcuts.map((s, i) => (
+        {content.shortcuts.map((s, i) => (
           <motion.button
             key={i}
             whileHover={{ scale: 1.08, color: '#C8A65A' }}
@@ -123,7 +150,7 @@ export function AIDock() {
               justifyContent: 'center', border: 'none', cursor: 'pointer',
               background: 'transparent', color: '#999999',
               transition: 'color 0.2s ease',
-              fontFamily: "'Inter', sans-serif", fontSize: '0.5rem',
+              fontFamily: font, fontSize: '0.5rem',
               fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase',
             }}
             title={s.label}
@@ -147,11 +174,12 @@ export function AIDock() {
               transform: 'translateX(-50%)',
               width: 440, maxWidth: 'calc(100vw - 48px)',
               maxHeight: '60vh',
-              background: 'rgba(255,255,255,0.96)',
-              backdropFilter: 'blur(32px)',
-              WebkitBackdropFilter: 'blur(32px)',
-              border: '1px solid rgba(200,166,90,0.1)',
-              boxShadow: '0 24px 80px rgba(17,17,17,0.06)',
+              background: 'rgba(255,255,255,0.97)',
+              backdropFilter: 'blur(40px)',
+              WebkitBackdropFilter: 'blur(40px)',
+              border: '1px solid rgba(200,166,90,0.12)',
+              borderRadius: 20,
+              boxShadow: '0 32px 100px rgba(17,17,17,0.1), 0 8px 24px rgba(17,17,17,0.04), inset 0 1px 0 rgba(255,255,255,0.9)',
               display: 'flex', flexDirection: 'column', overflow: 'hidden',
             }}
           >
@@ -180,10 +208,10 @@ export function AIDock() {
                 <Brain size={18} />
               </div>
               <div>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>
-                  XVI Executive Advisor
+                <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>
+                  {content.title}
                 </div>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.5625rem', color: '#999999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                <div style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                   <motion.span
                     style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: '#2D6A4F', marginRight: 6 }}
                     animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
@@ -220,17 +248,17 @@ export function AIDock() {
                   />
                 </div>
                 <p style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontFamily: isAR ? "'Amiri', serif" : "'Noto Sans', sans-serif",
                   fontSize: '0.9375rem', lineHeight: 1.6, color: '#666666',
                   maxWidth: 340, margin: 0,
                 }}>
-                  Good afternoon. I am the XVI Executive Advisor. How may I direct your enterprise strategy today?
+                  {content.greeting}
                 </p>
               </div>
 
               {/* Quick actions */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                {shortcuts.map((s, i) => (
+                {content.shortcuts.map((s, i) => (
                   <motion.button
                     key={i}
                     whileHover={{ y: -2, background: 'rgba(200,166,90,0.08)', borderColor: 'rgba(200,166,90,0.2)' }}
@@ -240,8 +268,9 @@ export function AIDock() {
                       padding: '10px 14px',
                       background: 'rgba(200,166,90,0.03)',
                       border: '1px solid rgba(200,166,90,0.06)',
+                      borderRadius: 12,
                       cursor: 'pointer',
-                      fontFamily: "'Inter', sans-serif", fontSize: '0.75rem',
+                      fontFamily: font, fontSize: '0.75rem',
                       fontWeight: 500, color: '#111111',
                       transition: 'all 0.2s ease',
                     }}
@@ -254,7 +283,7 @@ export function AIDock() {
 
               {/* Suggestions */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {suggestions.map((chip, i) => (
+                {content.suggestions.map((chip, i) => (
                   <motion.button
                     key={i}
                     whileHover={{ background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A', color: '#C8A65A' }}
@@ -263,8 +292,9 @@ export function AIDock() {
                       padding: '6px 14px',
                       background: 'transparent',
                       border: '1px solid rgba(17,17,17,0.06)',
+                      borderRadius: 999,
                       cursor: 'pointer',
-                      fontFamily: "'Inter', sans-serif", fontSize: '0.65625rem',
+                      fontFamily: font, fontSize: '0.65625rem',
                       fontWeight: 500, color: '#666666',
                       transition: 'all 0.2s ease',
                     }}
@@ -283,11 +313,12 @@ export function AIDock() {
             }}>
               <input
                 type="text"
-                placeholder="Type your strategic inquiry..."
+                placeholder={content.inputPlaceholder}
                 style={{
                   flex: 1, border: 'none', background: 'rgba(17,17,17,0.02)',
                   padding: '10px 14px',
-                  fontFamily: "'Inter', sans-serif", fontSize: '0.8125rem',
+                  borderRadius: 12,
+                  fontFamily: font, fontSize: '0.8125rem',
                   color: '#111111', outline: 'none',
                 }}
               />
@@ -298,6 +329,7 @@ export function AIDock() {
                   width: 40, height: 40,
                   background: '#C8A65A', color: '#FFFFFF',
                   border: 'none', cursor: 'pointer',
+                  borderRadius: 12,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0,
                 }}

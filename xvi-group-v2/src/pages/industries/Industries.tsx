@@ -16,10 +16,10 @@ const industries = [
       en: 'Risk intelligence, regulatory compliance, and customer experience transformation for banks, insurers, and fintech operators across the MENA region.',
       ar: 'ذكاء المخاطر والامتثال التنظيمي وتحويل تجربة العملاء للبنوك والشركات التقنية المالية في المنطقة.',
     },
-    metrics: [
-      { label: { en: 'Risk Reduction', ar: 'تقليل المخاطر' }, value: '40%' },
-      { label: { en: 'Process Speed', ar: 'سرعة العمليات' }, value: '3x' },
-      { label: { en: 'Compliance Score', ar: 'تصنيف الامتثال' }, value: '98%' },
+    capabilities: [
+      { en: 'Risk Intelligence & Modeling', ar: 'ذكاء ونمذجة المخاطر' },
+      { en: 'Regulatory Compliance Automation', ar: 'أتمتة الامتثال التنظيمي' },
+      { en: 'Customer Experience Transformation', ar: 'تحويل تجربة العملاء' },
     ],
   },
   {
@@ -30,10 +30,10 @@ const industries = [
       en: 'Citizen services modernization, operational efficiency, and data-driven governance for government entities and public institutions.',
       ar: 'تحديث الخدمات المدنية والكفاءة التشغيلية والحوكمة المبنية على البيانات للكيانات الحكومية.',
     },
-    metrics: [
-      { label: { en: 'Service Efficiency', ar: 'كفاءة الخدمة' }, value: '60%' },
-      { label: { en: 'Cost Savings', ar: 'توفير التكاليف' }, value: '35%' },
-      { label: { en: 'Citizen Satisfaction', ar: 'رضا المواطن' }, value: '92%' },
+    capabilities: [
+      { en: 'Citizen Services Modernization', ar: 'تحديث الخدمات المدنية' },
+      { en: 'Operational Efficiency', ar: 'الكفاءة التشغيلية' },
+      { en: 'Data-Driven Governance', ar: 'الحوكمة المبنية على البيانات' },
     ],
   },
   {
@@ -44,10 +44,10 @@ const industries = [
       en: 'Connected intelligence across people, processes, and platforms for large-scale organizations navigating digital transformation.',
       ar: 'ذكاء متصل عبر الأشخاص والعمليات والمنصات للمؤسسات الكبيرة التي تمر بتحول رقمي.',
     },
-    metrics: [
-      { label: { en: 'Decision Speed', ar: 'سرعة القرار' }, value: '5x' },
-      { label: { en: 'Operational Cost', ar: 'التكلفة التشغيلية' }, value: '-28%' },
-      { label: { en: 'Innovation Rate', ar: 'معدل الابتكار' }, value: '2.5x' },
+    capabilities: [
+      { en: 'Connected Intelligence', ar: 'ذكاء متصل' },
+      { en: 'Process Optimization', ar: 'تحسين العمليات' },
+      { en: 'Platform Integration', ar: 'تكامل المنصات' },
     ],
   },
   {
@@ -58,10 +58,10 @@ const industries = [
       en: 'Clinical intelligence, patient journey optimization, and regulatory AI for healthcare providers and pharmaceutical companies.',
       ar: 'الذكاء السريري وتحسين رحلة المريض والذكاء التنظيمي لمقدمي الخدمات الصحية وشركات الأدوية.',
     },
-    metrics: [
-      { label: { en: 'Diagnostic Accuracy', ar: 'دقة التشخيص' }, value: '95%' },
-      { label: { en: 'Patient Throughput', ar: 'تسعير المرضى' }, value: '+45%' },
-      { label: { en: 'Compliance', ar: 'الامتثال' }, value: '100%' },
+    capabilities: [
+      { en: 'Clinical Intelligence', ar: 'الذكاء السريري' },
+      { en: 'Patient Journey Optimization', ar: 'تحسين رحلة المريض' },
+      { en: 'Regulatory AI', ar: 'الذكاء التنظيمي' },
     ],
   },
 ];
@@ -152,17 +152,16 @@ export function IndustriesPage() {
                 <p className={styles.detailDesc}>
                   {ar ? industries[active].desc.ar : industries[active].desc.en}
                 </p>
-                <div className={styles.metricsGrid}>
-                  {industries[active].metrics.map((m, i) => (
+                <div className={styles.capabilitiesGrid}>
+                  {industries[active].capabilities.map((cap, i) => (
                     <motion.div
                       key={i}
-                      className={styles.metricCard}
+                      className={styles.capabilityCard}
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: i * 0.1 }}
                     >
-                      <span className={styles.metricValue}>{m.value}</span>
-                      <span className={styles.metricLabel}>{ar ? m.label.ar : m.label.en}</span>
+                      <span className={styles.capabilityText}>{ar ? cap.ar : cap.en}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -195,7 +194,7 @@ export function IndustriesPage() {
             transition={{ delay: 0.1 }}
           >
             {ar
-              ? 'القطاعات التي نعمل بها —金融服务、القطاع العام、المؤسسات المعقدة، والصحة.'
+              ? 'القطاعات التي نعمل بها — الخدمات المالية، القطاع العام، المؤسسات المعقدة، والصحة.'
               : 'Financial Services — Public Sector — Complex Enterprise — Healthcare & Life Sciences'}
           </motion.p>
         </div>
