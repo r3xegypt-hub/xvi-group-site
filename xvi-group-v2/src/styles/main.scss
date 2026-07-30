@@ -164,6 +164,21 @@ input, textarea, select {
   100% { background-position: -200% 0; }
 }
 
+// Language switch transition
+html.lang-switching {
+  .xvi-app {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+}
+
+html:not(.lang-switching) {
+  .xvi-app {
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
 @keyframes goldBreathing {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(1.05); }

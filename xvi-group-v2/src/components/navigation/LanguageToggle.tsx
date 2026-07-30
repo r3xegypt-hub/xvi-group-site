@@ -26,6 +26,7 @@ export function LanguageToggle({ fullWidth = false, className = '' }: LanguageTo
       aria-label={language === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
       role="switch"
       aria-checked={language === 'ar'}
+      aria-live="polite"
     >
       <span
         className={[

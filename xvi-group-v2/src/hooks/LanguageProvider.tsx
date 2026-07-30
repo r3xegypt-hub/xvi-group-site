@@ -70,9 +70,20 @@ export function LanguageProvider({ children, defaultLanguage = 'en' }: LanguageP
     localStorage.setItem('xvi-language', lang);
   }, []);
 
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   const toggleLanguage = useCallback(() => {
-    setLanguage(language === 'en' ? 'ar' : 'en');
-  }, [language, setLanguage]);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    document.documentElement.classList.add('lang-switching');
+    setTimeout(() => {
+      setLanguage(language === 'en' ? 'ar' : 'en');
+      setTimeout(() => {
+        document.documentElement.classList.remove('lang-switching');
+        setIsTransitioning(false);
+      }, 400);
+    }, 150);
+  }, [language, setLanguage, isTransitioning]);
 
   const t = useCallback((key: string, params?: Record<string, string | number>): string => {
     const keys = key.split('.');
