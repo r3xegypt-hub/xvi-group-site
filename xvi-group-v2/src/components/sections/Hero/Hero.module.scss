@@ -68,9 +68,16 @@
   color: #f7f6f3;
   margin: 0 0 24px;
   max-width: 800px;
+  text-shadow:
+    0 1px 2px rgba(0,0,0,0.1),
+    0 8px 24px rgba(0,0,0,0.06),
+    0 24px 48px rgba(0,0,0,0.03);
 
   [dir='rtl'] & {
     font-family: 'Alexandria', 'Noto Naskh Arabic', serif;
+    text-shadow:
+      0 1px 2px rgba(0,0,0,0.1),
+      0 8px 24px rgba(0,0,0,0.06);
   }
 }
 
@@ -90,11 +97,13 @@
 
 .subtitle {
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
-  line-height: 1.6;
-  color: #c8c3bb;
-  margin: 0 0 32px;
-  max-width: 560px;
+  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  line-height: 1.7;
+  color: #d4d0ca;
+  font-weight: 400;
+  margin: 0 0 36px;
+  max-width: 580px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 .ctaRow {

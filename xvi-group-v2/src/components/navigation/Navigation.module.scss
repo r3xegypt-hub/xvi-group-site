@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
+  padding: 10px 16px 10px 20px;
   background: rgba(247, 246, 243, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -68,7 +68,7 @@
 .links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 
   @media (max-width: 768px) {
     display: none;
@@ -77,30 +77,63 @@
 
 .link {
   font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   color: #101010;
   text-decoration: none;
   letter-spacing: 0.02em;
   transition: color 0.2s ease;
+  position: relative;
 
   &:hover { color: #c8a65a; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #c8a65a;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.langNavItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  margin-left: 4px;
+  border-left: 1px solid rgba(17, 17, 17, 0.08);
+
+  [dir='rtl'] & {
+    border-left: none;
+    border-right: 1px solid rgba(17, 17, 17, 0.08);
+    margin-left: 0;
+    margin-right: 4px;
+  }
 }
 
 .ctaButton {
   display: inline-flex;
   align-items: center;
-  padding: 8px 18px;
+  padding: 8px 20px;
   background: #132238;
   color: #ffffff;
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   border-radius: 999px;
   transition: all 0.2s ease;
 
-  &:hover { background: #1e3451; }
+  &:hover { background: #1e3451; opacity: 1; }
 
   @media (max-width: 768px) {
     display: none;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { LanguageToggle } from './LanguageToggle';
 import styles from './Navigation.module.scss';
 
 export function Navigation() {
@@ -52,6 +53,9 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
+            <span className={styles.langNavItem}>
+              <LanguageToggle />
+            </span>
           </div>
 
           <Link to="/contact" className={styles.ctaButton}>
