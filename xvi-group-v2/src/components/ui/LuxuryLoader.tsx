@@ -4,7 +4,11 @@ import type { Easing } from 'framer-motion';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-export function LuxuryLoader() {
+interface LuxuryLoaderProps {
+  onFinish?: () => void;
+}
+
+export function LuxuryLoader({ onFinish }: LuxuryLoaderProps) {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
@@ -13,7 +17,7 @@ export function LuxuryLoader() {
       setProgress((p) => {
         if (p >= 100) {
           clearInterval(timer);
-          setTimeout(() => setLoading(false), 600);
+          setTimeout(() => { setLoading(false); onFinish?.(); }, 600);
           return 100;
         }
         return p + Math.random() * 8 + 2;

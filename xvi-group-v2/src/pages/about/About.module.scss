@@ -1,0 +1,94 @@
+.pageHero {
+  position: relative;
+  padding: 160px 0 80px;
+  overflow: hidden;
+}
+
+.heroInner {
+  max-width: 680px;
+}
+
+.overline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C8A65A;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin: 0 0 20px;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
+}
+
+.subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
+  max-width: 520px;
+}
+
+.statsSection {
+  padding: 60px 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  padding: 32px 16px;
+  border-right: 1px solid rgba(17, 17, 17, 0.04);
+
+  &:last-child { border-right: none; }
+
+  [dir='rtl'] & {
+    border-right: none;
+    border-left: 1px solid rgba(17, 17, 17, 0.04);
+    &:last-child { border-left: none; }
+  }
+}
+
+.statNumber {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 400;
+  color: #111111;
+  line-height: 1;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.statLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: #999999;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  .statItem:nth-child(2) { border-right: none; [dir='rtl'] & { border-left: none; } }
+}
