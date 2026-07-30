@@ -210,6 +210,20 @@ export function Hero() {
               />
               <TypingCursor />
             </div>
+            <div className={styles.quickPrompts}>
+              {quickPrompts.map((prompt, i) => (
+                <motion.button
+                  key={i}
+                  className={styles.promptChip}
+                  whileHover={{ background: 'rgba(200,166,90,0.12)', borderColor: 'rgba(200,166,90,0.3)' }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setInputValue(prompt)}
+                  style={{ transition: 'all 0.3s cubic-bezier(0.16,1,0.3,1)' }}
+                >
+                  {prompt}
+                </motion.button>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
