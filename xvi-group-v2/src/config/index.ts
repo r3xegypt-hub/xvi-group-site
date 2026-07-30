@@ -139,9 +139,8 @@ export const CONTACT_INFO = {
   email: 'contact@xvigroup.com',
   phone: '+971 2 XXX XXXX',
   locations: [
-    { city: { en: 'Abu Dhabi', ar: 'أبو ظبي' }, isHeadquarters: true },
-    { city: { en: 'Dubai', ar: 'دبي' }, isHeadquarters: false },
-    { city: { en: 'Riyadh', ar: 'الرياض' }, isHeadquarters: false },
+    { city: { en: 'Al Ain', ar: 'العين' }, isHeadquarters: true },
+    { city: { en: 'Abu Dhabi', ar: 'أبو ظبي' }, isHeadquarters: false },
   ],
   social: {
     linkedin: 'https://linkedin.com/company/xvi-group',

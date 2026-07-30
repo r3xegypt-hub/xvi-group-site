@@ -62,10 +62,10 @@ export function AboutPage() {
           <Container>
             <div className={styles.statsGrid}>
               {[
-                { number: '200+', label: ar ? 'مشروع مكتمل' : 'Projects Delivered' },
-                { number: '12', label: ar ? 'دولة' : 'Countries' },
-                { number: '98%', label: ar ? 'احتفاظ بالعملاء' : 'Client Retention' },
-                { number: '24/7', label: ar ? 'دعم متوفر' : 'Support Available' },
+                { number: 'Vision', label: ar ? 'قائد بالرؤية' : 'Vision-Led' },
+                { number: 'AI', label: ar ? 'ذكاء أصيل' : 'AI-Native' },
+                { number: '100%', label: ar ? 'تركيز العميل' : 'Client-First' },
+                { number: '24/7', label: ar ? 'التزام كامل' : 'Always-On' },
               ].map((stat, i) => (
                 <motion.div
                   key={i}

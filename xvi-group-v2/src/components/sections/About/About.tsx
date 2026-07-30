@@ -12,37 +12,37 @@ const ease: Easing = [0.16, 1, 0.3, 1];
 
 const timeline = [
   {
-    year: '2020',
+    year: '2025',
     title: 'Founded',
     titleAr: 'التأسيس',
-    desc: 'XVI GROUP established in Dubai to bridge strategic advisory with enterprise AI capability.',
-    descAr: 'تأسست XVI GROUP في دبي لسد الفجوة بين الاستشارات الاستراتيجية وقدرات الذكاء الاصطناعي.',
-    point: 'ENTITY ESTABLISHED',
-    pointAr: 'تأسيس الكيان',
-  },
-  {
-    year: '2022',
-    title: '50+ Projects',
-    titleAr: '٥٠+ مشروع',
-    desc: 'Expanded across MENA with a portfolio of digital transformation and AI strategy engagements.',
-    descAr: 'التوسع عبر منطقة الشرق الأوسط وشمال أفريقيا بمحفظة من مشاريع التحول الرقمي.',
-    point: 'REGIONAL EXPANSION',
-    pointAr: 'التوسع الإقليمي',
-  },
-  {
-    year: '2024',
-    title: '200+ Enterprise Clients',
-    titleAr: '٢٠٠+ عميل مؤسسي',
-    desc: 'Became the trusted AI partner for leading enterprises across 12 countries.',
-    descAr: 'أصبحنا الشريك الموثوق للذكاء الاصطناعي للمؤسسات الرائدة في ١٢ دولة.',
-    point: 'MARKET LEADERSHIP',
-    pointAr: 'الريادة السوقية',
+    desc: 'XVI GROUP established in Al Ain to bridge strategic advisory with enterprise AI capability — built on a foundation of decades of combined executive experience.',
+    descAr: 'تأسست XVI GROUP في العين لسد الفجوة بين الاستشارات الاستراتيجية وقدرات الذكاء الاصطناعي.',
+    point: 'FOUNDATION',
+    pointAr: 'التأسيس',
   },
   {
     year: '2026',
+    title: 'Early Engagements',
+    titleAr: 'المشاريع الأولى',
+    desc: 'Delivering executive advisory and AI strategy engagements for forward-thinking enterprises across the UAE.',
+    descAr: 'تقديم استشارات تنفيذية واستراتيجيات ذكاء اصطناعي لمؤسسات رائدة في الإمارات.',
+    point: 'EARLY MOMENTUM',
+    pointAr: 'الانطلاقة',
+  },
+  {
+    year: '2026+',
+    title: 'Growth & Scale',
+    titleAr: 'النمو والتوسع',
+    desc: 'Scaling our sovereign intelligence framework across the region — bringing enterprise-grade AI strategy to ambitious organizations.',
+    descAr: 'توسيع إطار الذكاء السيادي عبر المنطقة — لنشر استراتيجيات الذكاء الاصطناعي للمؤسسات الطموحة.',
+    point: 'REGIONAL AMBITION',
+    pointAr: 'الطموح الإقليمي',
+  },
+  {
+    year: 'Future',
     title: 'Sovereign Intelligence',
     titleAr: 'الذكاء السيادي',
-    desc: 'Pioneering sovereign AI infrastructure and executive intelligence systems.',
+    desc: 'Pioneering sovereign AI infrastructure and executive intelligence systems that put enterprises in control of their AI destiny.',
     descAr: 'ريادة البنية التحتية السيادية للذكاء الاصطناعي وأنظمة الاستخبارات التنفيذية.',
     point: 'SOVEREIGN AI ERA',
     pointAr: 'عصر الذكاء السيادي',
@@ -133,22 +133,21 @@ export function About() {
           transition={{ duration: 0.6, ease, delay: 0.4 }}
         >
           <IntelligenceCounter
-            value="200+"
-            label="Projects"
-            labelAr="مشروع"
+            value="Vision"
+            label="Driven Strategy"
+            labelAr="استراتيجية"
             className={styles.stat}
           />
           <IntelligenceCounter
-            value="12"
-            label="Countries"
-            labelAr="دولة"
+            value="AI"
+            label="Native Approach"
+            labelAr="ذكاء أصيل"
             className={styles.stat}
-            prefix=""
           />
           <IntelligenceCounter
             value="100%"
-            label="Delivery"
-            labelAr="التزام"
+            label="Client Focus"
+            labelAr="تركيز عميل"
             className={styles.stat}
           />
         </motion.div>

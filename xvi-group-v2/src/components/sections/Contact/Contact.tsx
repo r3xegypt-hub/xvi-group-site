@@ -53,9 +53,9 @@ export function Contact() {
                 >
                   <MapPin size={28} />
                 </motion.div>
-                <h3 className={styles.visualCity}>{ar ? 'دبي، الإمارات' : 'Dubai, UAE'}</h3>
+                <h3 className={styles.visualCity}>{ar ? 'العين، الإمارات' : 'Al Ain, UAE'}</h3>
                 <p className={styles.visualAddress}>
-                  {ar ? 'مركز دبي المالي العالمي' : 'Dubai International Financial Centre'}
+                  {ar ? 'مدينة العين' : 'Al Ain — Abu Dhabi'}
                 </p>
                 <div className={styles.visualDetails}>
                   <div className={styles.visualDetail}>

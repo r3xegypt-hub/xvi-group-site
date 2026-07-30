@@ -5,6 +5,7 @@ import { useLanguage } from '../../hooks/LanguageProvider';
 import { Container } from '../../components/layout/Container';
 import { Section } from '../../components/layout/Section';
 import { Contact } from '../../components/sections/Contact';
+import { MapSection } from '../../components/sections/Map/MapSection';
 import { CTA } from '../../components/sections/CTA';
 import { FlowingWave } from '../../motion/FlowingWave';
 import styles from './Contact.module.scss';
@@ -51,6 +52,8 @@ export function ContactPage() {
       </Section>
 
       <Contact />
+
+      <MapSection />
 
       <CTA />
     </>

@@ -21,6 +21,10 @@ import { TechnologyPage } from './pages/technology';
 import { IndustriesPage } from './pages/industries';
 import { InsightsPage } from './pages/insights';
 import { ContactPage } from './pages/contact';
+import { BusinessConsultingPage } from './pages/services/business-consulting/BusinessConsultingPage';
+import { TechnologyConsultingPage } from './pages/services/technology-consulting/TechnologyConsultingPage';
+import { AITransformationPage } from './pages/services/ai-transformation/AITransformationPage';
+import { ExecutiveTrainingPage } from './pages/services/executive-training/ExecutiveTrainingPage';
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
@@ -59,6 +63,10 @@ function App() {
                 <Routes>
                   <Route path="/" element={<PageShell><Home /></PageShell>} />
                   <Route path="/services" element={<PageShell><ServicesPage /></PageShell>} />
+                  <Route path="/services/business-consulting" element={<PageShell><BusinessConsultingPage /></PageShell>} />
+                  <Route path="/services/technology-consulting" element={<PageShell><TechnologyConsultingPage /></PageShell>} />
+                  <Route path="/services/ai-transformation" element={<PageShell><AITransformationPage /></PageShell>} />
+                  <Route path="/services/executive-training" element={<PageShell><ExecutiveTrainingPage /></PageShell>} />
                   <Route path="/about" element={<PageShell><AboutPage /></PageShell>} />
                   <Route path="/technology" element={<PageShell><TechnologyPage /></PageShell>} />
                   <Route path="/industries" element={<PageShell><IndustriesPage /></PageShell>} />
