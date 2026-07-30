@@ -229,6 +229,26 @@
   margin-bottom: 10px;
 }
 
+.voiceWave {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5px;
+  height: 14px;
+  margin-left: 4px;
+}
+
+.waveBar {
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(200, 166, 90, 0.5);
+  animation: waveBounce 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes waveBounce {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
 .widgetBadge {
   font-family: 'Manrope', sans-serif;
   font-size: 10px;
@@ -266,6 +286,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   gap: 4px;
+  transition: border-color 0.2s ease;
 }
 
 .widgetPrompt {
@@ -274,13 +295,34 @@
   color: rgba(255, 255, 255, 0.3);
 }
 
+.quickPrompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.promptChip {
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
 .cursor {
+  display: inline-block;
   width: 2px;
   height: 16px;
   background: #c8a65a;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
+  vertical-align: middle;
 }

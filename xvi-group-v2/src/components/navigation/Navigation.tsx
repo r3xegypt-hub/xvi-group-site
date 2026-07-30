@@ -49,7 +49,11 @@ export function Navigation() {
 
           <div className={styles.links}>
             {navLinks.map((link) => (
-              <Link key={link.to} to={link.to} className={styles.link}>
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`${styles.link}${location.pathname === link.to ? ` ${styles.activeLink}` : ''}`}
+              >
                 {link.label}
               </Link>
             ))}

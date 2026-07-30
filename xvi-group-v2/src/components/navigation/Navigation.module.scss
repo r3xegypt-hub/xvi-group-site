@@ -20,13 +20,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px 10px 20px;
+  padding: 8px 16px 8px 20px;
   background: rgba(247, 246, 243, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(19, 34, 56, 0.12);
   border-radius: 999px;
   box-shadow: 0 12px 34px rgba(16, 16, 16, 0.08);
+  transition: box-shadow 0.3s ease;
 }
 
 .logo {
@@ -34,6 +35,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  position: relative;
 }
 
 .logoIcon {
@@ -46,6 +48,11 @@
   border-radius: 6px;
   transform: rotate(0deg);
   flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .logo:hover & {
+    transform: rotate(-3deg) scale(1.05);
+  }
 }
 
 .logoX {
@@ -58,17 +65,22 @@
 
 .logoText {
   font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   color: #101010;
   white-space: nowrap;
+  transition: color 0.2s ease;
+
+  .logo:hover & {
+    color: #c8a65a;
+  }
 }
 
 .links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 36px;
 
   @media (max-width: 768px) {
     display: none;
@@ -81,26 +93,37 @@
   font-weight: 600;
   color: #101010;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   transition: color 0.2s ease;
   position: relative;
+  padding: 4px 0;
 
   &:hover { color: #c8a65a; }
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -2px;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 1.5px;
     background: #c8a65a;
     transform: scaleX(0);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 2px;
   }
 
   &:hover::after {
     transform: scaleX(1);
+  }
+
+  &.activeLink {
+    color: #c8a65a;
+
+    &::after {
+      transform: scaleX(1);
+      opacity: 0.5;
+    }
   }
 }
 
@@ -108,7 +131,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 0 8px;
+  padding: 0 10px;
   margin-left: 4px;
   border-left: 1px solid rgba(17, 17, 17, 0.08);
 
@@ -123,17 +146,42 @@
 .ctaButton {
   display: inline-flex;
   align-items: center;
-  padding: 8px 20px;
+  padding: 8px 22px;
   background: #132238;
   color: #ffffff;
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   font-weight: 600;
+  letter-spacing: 0.02em;
   text-decoration: none;
   border-radius: 999px;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 
-  &:hover { background: #1e3451; opacity: 1; }
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200, 166, 90, 0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    background: #1e3451;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(19, 34, 56, 0.15);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(19, 34, 56, 0.1);
+  }
 
   @media (max-width: 768px) {
     display: none;
@@ -160,11 +208,12 @@
   background: #101010;
   transition: all 0.3s ease;
   transform-origin: center;
+  border-radius: 2px;
 }
 
 .mobileToggleOpen {
   .bar:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
-  .bar:nth-child(2) { opacity: 0; }
+  .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 }
 
@@ -180,7 +229,7 @@
   z-index: 999;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mobileMenuOpen {
@@ -194,7 +243,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  gap: 32px;
+  gap: 36px;
 }
 
 .mobileLink {
@@ -204,6 +253,7 @@
   color: #101010;
   text-decoration: none;
   transition: color 0.2s ease;
+  letter-spacing: 0.02em;
 
   &:hover { color: #c8a65a; }
 }

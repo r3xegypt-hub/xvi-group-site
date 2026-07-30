@@ -6,17 +6,51 @@ import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
+function TypingCursor() {
+  return (
+    <motion.span
+      className={styles.cursor}
+      animate={{ opacity: [1, 0] }}
+      transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
+    />
+  );
+}
+
+function VoiceWaveform() {
+  return (
+    <span className={styles.voiceWave}>
+      {Array.from({ length: 8 }).map((_, i) => (
+        <span
+          key={i}
+          className={styles.waveBar}
+          style={{
+            animationDelay: `${i * 0.08}s`,
+            height: `${4 + Math.random() * 12}px`,
+          }}
+        />
+      ))}
+    </span>
+  );
+}
+
 export function Hero() {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [lettersVisible, setLettersVisible] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [showVoice, setShowVoice] = useState(false);
 
   useEffect(() => {
     if (isInView) {
       const timer = setTimeout(() => setLettersVisible(true), 300);
-      return () => clearTimeout(timer);
+      const voiceTimer = setTimeout(() => setShowVoice(true), 2000);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(voiceTimer);
+      };
     }
   }, [isInView]);
 
@@ -27,6 +61,10 @@ export function Hero() {
   const subtitle = ar
     ? 'نتشارك مع فرق القيادة لتحويل الذكاء الاصطناعي والأتمتة والبيانات إلى قرارات أوضح ونماذج تشغيل أقوى.'
     : 'We partner with leadership teams to turn artificial intelligence, automation, and data into clearer decisions and stronger operating models.';
+
+  const quickPrompts = ar
+    ? ['استكشف الحلول', 'احجز استشارة', 'تقييم الذكاء الاصطناعي', 'تواصل مع خبير']
+    : ['Explore Solutions', 'Book Consultation', 'AI Assessment', 'Contact Expert'];
 
   return (
     <section className={styles.hero}>
@@ -88,6 +126,7 @@ export function Hero() {
           </a>
         </motion.div>
 
+        {/* AI Executive Widget - matches prototype */}
         <motion.div
           className={styles.aiWidget}
           initial={{ opacity: 0, y: 30 }}
@@ -100,7 +139,7 @@ export function Hero() {
               <div className={styles.orbRing} />
               <div className={styles.orbRing2} />
             </div>
-            {[0, 1, 2, 3, 4].map((i) => (
+            {[0, 1, 2, 4].map((i) => (
               <div
                 key={i}
                 className={styles.particleOrbit}
@@ -114,17 +153,48 @@ export function Hero() {
 
           <div className={styles.widgetContent}>
             <div className={styles.widgetHeader}>
-              <span className={styles.widgetBadge}>{ar ? 'جاهز' : 'Ready'}</span>
-              <span className={styles.widgetTitle}>{ar ? 'المساعد التنفيذي الذكي' : 'XVI EXECUTIVE AI'}</span>
+              <span className={styles.widgetBadge}>
+                {ar ? 'جاهز' : 'Ready'}
+              </span>
+              <span className={styles.widgetTitle}>
+                XVI EXECUTIVE AI
+              </span>
+              {showVoice && <VoiceWaveform />}
             </div>
             <p className={styles.widgetDesc}>
               {ar
                 ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً.'
                 : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.'}
             </p>
-            <div className={styles.widgetInput}>
-              <span className={styles.widgetPrompt}>{ar ? 'ask me anything...' : 'ask me anything...'}</span>
-              <span className={styles.cursor} />
+            <div className={styles.widgetInput} style={{ borderColor: inputFocused ? 'rgba(200,166,90,0.4)' : 'rgba(255,255,255,0.1)' }}>
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onFocus={() => setInputFocused(true)}
+                onBlur={() => setInputFocused(false)}
+                placeholder={ar ? 'اسألني عن أي شيء...' : 'ask me anything...'}
+                className={styles.widgetPrompt}
+                style={{
+                  background: 'none', border: 'none', outline: 'none',
+                  flex: 1, color: 'rgba(255,255,255,0.7)', fontSize: 13,
+                  fontFamily: "'Manrope', sans-serif",
+                }}
+              />
+              <TypingCursor />
+            </div>
+            <div className={styles.quickPrompts}>
+              {quickPrompts.map((prompt, i) => (
+                <motion.button
+                  key={i}
+                  className={styles.promptChip}
+                  whileHover={{ background: 'rgba(200,166,90,0.12)', borderColor: 'rgba(200,166,90,0.3)' }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setInputValue(prompt)}
+                >
+                  {prompt}
+                </motion.button>
+              ))}
             </div>
           </div>
         </motion.div>

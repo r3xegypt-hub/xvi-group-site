@@ -36,6 +36,9 @@ export function Footer() {
         <div className={styles.meta}>
           <span className={styles.copyright}>© 2026 XVI GROUP</span>
           <span className={styles.metaTagline}>
+            {ar ? 'ذكاء — أتمتة — تحول' : 'Intelligence, made consequential.'}
+          </span>
+          <span className={styles.metaSub}>
             {ar ? 'ذكاء — أتمتة — تحول' : 'AI — Automation — Transformation'}
           </span>
         </div>
