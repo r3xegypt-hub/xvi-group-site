@@ -26,19 +26,19 @@ export function AIAvatar({ state }: AIAvatarProps) {
       }}
       animate={
         state === 'idle' ? {
-          y: [0, -3, 0],
-          scale: [1, 1.01, 1],
+          y: [0, -2, 0],
+          scale: [1, 1.008, 1],
         } : state === 'thinking' ? {
           y: 0,
-          scale: [1, 1.02, 1],
+          scale: [1, 1.015, 1],
         } : state === 'listening' ? {
-          x: [0, 1, -1, 0],
+          x: [0, 0.8, -0.8, 0],
         } : {
-          y: [0, -1, 0],
+          y: [0, -0.8, 0],
         }
       }
       transition={{
-        duration: state === 'idle' ? 4 : state === 'thinking' ? 2.5 : state === 'listening' ? 3 : 2,
+        duration: state === 'idle' ? 6 : state === 'thinking' ? 3 : state === 'listening' ? 4 : 3,
         repeat: Infinity,
         ease: 'easeInOut',
       }}
@@ -52,10 +52,10 @@ export function AIAvatar({ state }: AIAvatarProps) {
             : 'radial-gradient(circle, rgba(200,166,90,0.06) 0%, transparent 70%)',
         }}
         animate={{
-          scale: state === 'thinking' ? [1, 1.18, 1] : [1, 1.08, 1],
-          opacity: state === 'thinking' ? [0.3, 0.8, 0.3] : [0.2, 0.5, 0.2],
+          scale: state === 'thinking' ? [1, 1.15, 1] : [1, 1.06, 1],
+          opacity: state === 'thinking' ? [0.25, 0.7, 0.25] : [0.15, 0.4, 0.15],
         }}
-        transition={{ duration: state === 'thinking' ? 1.5 : 3, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: state === 'thinking' ? 2 : 4, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Holographic ring */}
@@ -66,14 +66,14 @@ export function AIAvatar({ state }: AIAvatarProps) {
           boxShadow: 'inset 0 0 20px rgba(200,166,90,0.02)',
         }}
         animate={{
-          scale: [1, 1.06, 1],
-          opacity: state === 'thinking' ? [0.3, 0.8, 0.3] : [0.15, 0.4, 0.15],
+          scale: [1, 1.05, 1],
+          opacity: state === 'thinking' ? [0.25, 0.7, 0.25] : [0.12, 0.35, 0.12],
           rotate: state === 'listening' ? [0, 360] : [0, 0],
         }}
         transition={{
-          scale: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
-          opacity: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
-          rotate: state === 'listening' ? { duration: 8, repeat: Infinity, ease: 'linear' } : undefined,
+          scale: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+          opacity: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' },
+          rotate: state === 'listening' ? { duration: 10, repeat: Infinity, ease: 'linear' } : undefined,
         }}
       />
 
@@ -84,15 +84,15 @@ export function AIAvatar({ state }: AIAvatarProps) {
           border: '1px solid rgba(200,166,90,0.04)',
         }}
         animate={{
-          scale: [1, 1.04, 1],
-          opacity: [0.1, 0.25, 0.1],
+          scale: [1, 1.03, 1],
+          opacity: [0.08, 0.2, 0.08],
           rotate: state === 'listening' ? [360, 0] : [0, 0],
         }}
         transition={{
-          duration: 4,
+          duration: 5,
           repeat: Infinity,
           ease: 'easeInOut',
-          rotate: state === 'listening' ? { duration: 10, repeat: Infinity, ease: 'linear' } : undefined,
+          rotate: state === 'listening' ? { duration: 12, repeat: Infinity, ease: 'linear' } : undefined,
         }}
       />
 
@@ -212,10 +212,10 @@ export function AIAvatar({ state }: AIAvatarProps) {
         {/* Scanning line */}
         <motion.rect
           x="14" y="8" width="36" height="1"
-          fill="rgba(200,166,90,0.15)"
+          fill="rgba(200,166,90,0.12)"
           animate={{ y: state === 'thinking' ? [0, 46, 0] : [0, 46, 0] }}
           transition={{
-            duration: state === 'thinking' ? 2 : 4,
+            duration: state === 'thinking' ? 3 : 6,
             repeat: Infinity,
             ease: 'linear',
           }}

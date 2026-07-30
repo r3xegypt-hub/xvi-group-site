@@ -466,20 +466,20 @@ export function AIDock() {
           transform: 'translateX(-50%)',
           display: 'flex', alignItems: 'center', gap: 8,
           padding: '6px 8px',
-          background: 'rgba(255,255,255,0.88)',
-          backdropFilter: 'blur(40px)',
-          WebkitBackdropFilter: 'blur(40px)',
-          border: '1px solid rgba(200,166,90,0.1)',
+          background: 'rgba(255,255,255,0.92)',
+          backdropFilter: 'blur(60px)',
+          WebkitBackdropFilter: 'blur(60px)',
+          border: '1px solid rgba(200,166,90,0.12)',
           borderRadius: 999,
-          boxShadow: '0 8px 32px rgba(17,17,17,0.06), 0 1px 2px rgba(17,17,17,0.04), inset 0 1px 0 rgba(255,255,255,0.8)',
+          boxShadow: '0 8px 32px rgba(17,17,17,0.06), 0 1px 2px rgba(17,17,17,0.04), 0 0 40px rgba(200,166,90,0.02), inset 0 1px 0 rgba(255,255,255,0.9)',
         }}
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease, delay: 0.5 }}
       >
-        <motion.button
+          <motion.button
           onClick={handleToggle}
-          whileHover={{ scale: 1.03 }}
+          whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
@@ -487,7 +487,7 @@ export function AIDock() {
             border: 'none', cursor: 'pointer',
             borderRadius: 999,
             background: open
-              ? 'linear-gradient(135deg, rgba(200,166,90,0.12), rgba(200,166,90,0.04))'
+              ? 'linear-gradient(135deg, rgba(200,166,90,0.15), rgba(200,166,90,0.04))'
               : 'linear-gradient(135deg, rgba(200,166,90,0.08), rgba(200,166,90,0.02))',
             fontFamily: font, fontSize: '0.75rem',
             fontWeight: 600, color: '#111111', letterSpacing: '0.02em',
@@ -539,7 +539,7 @@ export function AIDock() {
               WebkitBackdropFilter: 'blur(60px)',
               borderRadius: 28,
               boxShadow:
-                '0 32px 100px rgba(17,17,17,0.12), 0 8px 24px rgba(17,17,17,0.04), 0 0 80px rgba(200,166,90,0.03), inset 0 1px 0 rgba(255,255,255,0.9)',
+                '0 40px 120px rgba(17,17,17,0.12), 0 8px 24px rgba(17,17,17,0.04), 0 0 100px rgba(200,166,90,0.04), inset 0 1px 0 rgba(255,255,255,0.9)',
               display: 'flex', flexDirection: 'column', overflow: 'hidden',
             }}
           >
@@ -550,14 +550,14 @@ export function AIDock() {
                 pointerEvents: 'none', zIndex: 1,
                 background: 'linear-gradient(135deg, rgba(200,166,90,0.08) 0%, transparent 50%, rgba(200,166,90,0.04) 100%)',
               }}
-              animate={{ opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              animate={{ opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             />
 
             {/* Top glow */}
             <div style={{
-              position: 'absolute', top: 0, left: '15%', right: '15%', height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.18), transparent)',
+              position: 'absolute', top: 0, left: '10%', right: '10%', height: 1,
+              background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.2), transparent)',
               pointerEvents: 'none', zIndex: 2,
             }} />
 
@@ -565,11 +565,11 @@ export function AIDock() {
             <motion.div
               style={{
                 position: 'absolute', left: 0, right: 0, height: 0.5,
-                background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.12), transparent)',
+                background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.1), transparent)',
                 pointerEvents: 'none', zIndex: 1,
               }}
               animate={{ top: ['-1%', '101%'] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
             />
 
             {/* Header */}
@@ -602,9 +602,9 @@ export function AIDock() {
               )}
               <motion.button
                 onClick={() => setOpen(false)}
-                whileHover={{ scale: 1.1, color: '#111111', background: 'rgba(200,166,90,0.05)' }}
+                whileHover={{ scale: 1.1, color: '#111111', background: 'rgba(200,166,90,0.08)' }}
                 whileTap={{ scale: 0.9 }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ccc', padding: 6, borderRadius: '50%', transition: 'all 0.25s ease' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#bbb', padding: 6, borderRadius: '50%', transition: 'all 0.3s ease' }}
               >
                 <X size={14} />
               </motion.button>
@@ -643,25 +643,35 @@ export function AIDock() {
                   style={{ marginBottom: 12 }}
                 >
                   <div style={{
-                    display: 'flex', alignItems: 'center', gap: 10,
+                    display: 'flex', flexDirection: 'column', gap: 8,
                     padding: '10px 14px', background: 'rgba(200,166,90,0.03)',
                     borderRadius: 12, border: '1px solid rgba(200,166,90,0.06)',
                   }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <motion.div
+                        style={{
+                          width: 16, height: 16, borderRadius: '50%',
+                          border: '2px solid rgba(200,166,90,0.15)',
+                          borderTopColor: '#c8a65a', flexShrink: 0,
+                        }}
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
+                      />
+                      <span style={{ fontFamily: font, fontSize: '0.75rem', color: '#666' }}>
+                        {isAR && thoughtStage === 'thinking' ? 'تفكير' : ''}
+                        {thoughtStage === 'thinking' ? (isAR ? '' : 'Thinking') : ''}
+                        {thoughtStage === 'synthesizing' ? (isAR ? 'جاري تجميع الموجز التنفيذي' : 'Synthesizing your executive brief') : ''}
+                        <ThinkingDots />
+                      </span>
+                    </div>
                     <motion.div
                       style={{
-                        width: 16, height: 16, borderRadius: '50%',
-                        border: '2px solid rgba(200,166,90,0.15)',
-                        borderTopColor: '#c8a65a', flexShrink: 0,
+                        height: 1, borderRadius: 1,
+                        background: 'linear-gradient(90deg, transparent, #c8a65a, transparent)',
                       }}
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
+                      animate={{ opacity: [0.1, 0.5, 0.1], scaleX: [0.9, 1, 0.9] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                     />
-                    <span style={{ fontFamily: font, fontSize: '0.75rem', color: '#666' }}>
-                      {isAR && thoughtStage === 'thinking' ? 'تفكير' : ''}
-                      {thoughtStage === 'thinking' ? (isAR ? '' : 'Thinking') : ''}
-                      {thoughtStage === 'synthesizing' ? (isAR ? 'جاري تجميع الموجز التنفيذي' : 'Synthesizing your executive brief') : ''}
-                      <ThinkingDots />
-                    </span>
                   </div>
                 </motion.div>
               )}
@@ -678,9 +688,9 @@ export function AIDock() {
                   >
                     <div style={{
                       padding: '12px 14px', background: '#ffffff',
-                      borderRadius: 12,
+                      borderRadius: 14,
                       border: '1px solid rgba(200,166,90,0.12)',
-                      boxShadow: '0 4px 16px rgba(200,166,90,0.04), 0 1px 2px rgba(0,0,0,0.03)',
+                      boxShadow: '0 4px 20px rgba(200,166,90,0.04), 0 1px 2px rgba(0,0,0,0.03), inset 0 1px 0 rgba(200,166,90,0.02)',
                     }}>
                       {response}
                     </div>
@@ -701,7 +711,7 @@ export function AIDock() {
                       <motion.button
                         key={action.id}
                         onClick={() => handleAction(action.id)}
-                        whileHover={{ y: -1, background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A' }}
+                        whileHover={{ y: -2, background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A' }}
                         whileTap={{ scale: 0.97 }}
                         style={{
                           padding: '8px 14px',
@@ -711,7 +721,7 @@ export function AIDock() {
                           cursor: 'pointer',
                           fontFamily: font, fontSize: '0.6875rem',
                           fontWeight: 500, color: '#111111',
-                          transition: 'all 0.2s ease',
+                          transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                           display: 'flex', alignItems: 'center', gap: 6,
                         }}
                       >
@@ -732,10 +742,14 @@ export function AIDock() {
                     exit={{ opacity: 0 }}
                     style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 6 }}
                   >
+                    <motion.span
+                      style={{ display: 'inline-block', width: 3, height: 3, borderRadius: '50%', background: '#C8A65A', flexShrink: 0 }}
+                      animate={{ opacity: [0.2, 0.8, 0.2] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    />
                     <span style={{ fontFamily: font, fontSize: '0.625rem', color: '#999' }}>
                       {statusText}
                     </span>
-                    <TypingCursor />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -759,20 +773,21 @@ export function AIDock() {
                     border: '1px solid rgba(200,166,90,0.1)',
                     borderRadius: 12, outline: 'none',
                     fontFamily: font, fontSize: '0.75rem', color: '#111',
-                    transition: 'border-color 0.2s ease',
+                    transition: 'all 0.25s ease',
                   }}
-                  onFocus={(e) => { e.target.style.borderColor = '#C8A65A'; }}
-                  onBlur={(e) => { e.target.style.borderColor = 'rgba(200,166,90,0.1)'; }}
+                  onFocus={(e) => { e.target.style.borderColor = '#C8A65A'; e.target.style.boxShadow = '0 0 0 3px rgba(200,166,90,0.08)'; }}
+                  onBlur={(e) => { e.target.style.borderColor = 'rgba(200,166,90,0.1)'; e.target.style.boxShadow = 'none'; }}
                 />
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.03, background: '#d4b76e' }}
+                  whileHover={{ scale: 1.04, background: '#d4b76e' }}
                   whileTap={{ scale: 0.97 }}
                   style={{
-                    padding: '10px 14px',
+                    padding: '10px 16px',
                     background: '#c8a65a', border: 'none',
                     borderRadius: 12, cursor: 'pointer',
                     color: '#132238', display: 'flex', alignItems: 'center',
+                    boxShadow: '0 2px 8px rgba(200,166,90,0.15)',
                   }}
                 >
                   <ArrowRight size={16} />

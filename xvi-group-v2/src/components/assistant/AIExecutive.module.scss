@@ -22,9 +22,9 @@
 .crystal {
   width: 64px;
   height: 64px;
-  background: rgba(17, 17, 17, 0.9);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(17, 17, 17, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(200, 166, 90, 0.2);
   cursor: pointer;
   display: flex;
@@ -34,10 +34,12 @@
   z-index: 601;
   color: #FFFFFF;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  transition: border-color 0.3s ease;
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(17, 17, 17, 0.08);
 
   &:hover {
     border-color: rgba(200, 166, 90, 0.5);
+    box-shadow: 0 4px 24px rgba(200, 166, 90, 0.06);
   }
 }
 
@@ -50,9 +52,9 @@
 .crystalGlow {
   position: absolute;
   inset: -24px;
-  background: radial-gradient(circle at center, rgba(200, 166, 90, 0.12), transparent 60%);
+  background: radial-gradient(circle at center, rgba(200, 166, 90, 0.1), transparent 60%);
   pointer-events: none;
-  animation: pulseGlow 3s ease-in-out infinite;
+  animation: pulseGlow 4s ease-in-out infinite;
 }
 
 .crystalRing {
@@ -81,10 +83,13 @@
   max-width: calc(100vw - 48px);
   max-height: 70vh;
   background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(200, 166, 90, 0.12);
-  box-shadow: 0 24px 80px rgba(17, 17, 17, 0.08);
+  box-shadow:
+    0 32px 100px rgba(17, 17, 17, 0.1),
+    0 0 80px rgba(200, 166, 90, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -93,6 +98,18 @@
   [dir='rtl'] & {
     right: auto;
     left: 24px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.2), transparent);
+    pointer-events: none;
+    z-index: 2;
   }
 }
 
@@ -201,7 +218,13 @@
   padding: 8px 4px;
   background: rgba(200, 166, 90, 0.03);
   border: 1px solid rgba(200, 166, 90, 0.06);
+  border-radius: 8px;
   color: #C8A65A;
+  transition: background 0.3s ease;
+
+  .card:hover & {
+    background: rgba(200, 166, 90, 0.06);
+  }
 
   svg { width: 13px; height: 13px; }
 }
@@ -244,7 +267,7 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   background: rgba(200, 166, 90, 0.06);
   border: 1px solid rgba(200, 166, 90, 0.1);
   font-size: 0.5625rem;
@@ -253,6 +276,7 @@
   text-transform: uppercase;
   color: #C8A65A;
   white-space: nowrap;
+  border-radius: 999px;
 }
 
 .avatarRing {
@@ -268,21 +292,30 @@
 
 .avatarGlow {
   position: absolute;
-  inset: -8px;
+  inset: -10px;
   border-radius: 50%;
   border: 1px solid rgba(200, 166, 90, 0.15);
-  animation: pulseRing 3s ease-in-out infinite;
+  animation: pulseRing 4s ease-in-out infinite;
+}
+
+.avatarGlowSecondary {
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 166, 90, 0.05);
+  animation: pulseRing 5s ease-in-out infinite reverse;
 }
 
 .avatarIcon {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #111111;
+  background: linear-gradient(135deg, #1a1a1a, #111111);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #C8A65A;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .avatarText {
@@ -311,7 +344,8 @@
   font-weight: 500;
   color: #111111;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   svg { color: #C8A65A; flex-shrink: 0; }
 }
@@ -346,15 +380,22 @@
 
 .input {
   flex: 1;
-  border: none;
+  border: 1px solid transparent;
   background: rgba(17, 17, 17, 0.03);
   padding: 12px 16px;
   font-family: 'Manrope', sans-serif;
   font-size: 0.8125rem;
   color: #111111;
   outline: none;
+  border-radius: 10px;
+  transition: all 0.25s ease;
 
   &::placeholder { color: #999999; }
+
+  &:focus {
+    border-color: rgba(200, 166, 90, 0.2);
+    box-shadow: 0 0 0 3px rgba(200, 166, 90, 0.06);
+  }
 }
 
 .sendBtn {
@@ -368,6 +409,14 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(200, 166, 90, 0.15);
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #b7934c;
+    box-shadow: 0 4px 16px rgba(200, 166, 90, 0.2);
+  }
 }
 
 @keyframes pulseGlow {
@@ -382,5 +431,5 @@
 
 @keyframes pulseRing {
   0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.04); }
+  50% { opacity: 0.5; transform: scale(1.05); }
 }

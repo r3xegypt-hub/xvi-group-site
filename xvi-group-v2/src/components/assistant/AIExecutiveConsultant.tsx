@@ -276,6 +276,7 @@ export function AIExecutiveConsultant() {
               >
                 <motion.div className={styles.avatarArea} variants={staggerItem}>
                   <div className={styles.avatarRing}>
+                    <div className={styles.avatarGlowSecondary} />
                     <div className={styles.avatarGlow} />
                     <div className={styles.avatarIcon}>
                       <Brain size={28} />
