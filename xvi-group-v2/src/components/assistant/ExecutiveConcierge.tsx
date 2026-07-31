@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { Rocket, Bot, PhoneCall } from 'lucide-react';
+import { Rocket, Bot } from 'lucide-react';
 import styles from './ExecutiveConcierge.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -180,12 +180,10 @@ export function ExecutiveConcierge() {
     ? [
         { icon: Rocket, label: 'ابدأ مشروعًا', to: '/contact' },
         { icon: Bot, label: 'استشارة ذكاء اصطناعي', dock: true },
-        { icon: PhoneCall, label: 'تواصل مع خبير', to: '/contact' },
       ]
     : [
         { icon: Rocket, label: 'Start a Project', to: '/contact' },
         { icon: Bot, label: 'AI Consultation', dock: true },
-        { icon: PhoneCall, label: 'Contact an Expert', to: '/contact' },
       ];
 
   const showCard = phase === 'enter' || phase === 'minimize';

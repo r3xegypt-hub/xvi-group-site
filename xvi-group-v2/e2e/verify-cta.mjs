@@ -34,7 +34,7 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   await skipIntro(desktop);
   await skipIntro(mobile);
 
-  // 1. HOME — Talk to AI / Contact Expert
+  // 1. HOME — Executive AI CTA opens Dock (unified single AI entry point)
   console.log('\n📄 HOME PAGE');
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
@@ -42,20 +42,12 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   const dockToggle = () => desktop.locator('button').filter({ hasText: 'Executive AI' }).first();
   if (await dockToggle().isVisible()) pass('Dock toggle present');
 
-  const talkAI = desktop.locator('button').filter({ hasText: 'Talk to AI' }).first();
-  if (await talkAI.isVisible()) {
-    pass('"Talk to AI" visible');
-    await talkAI.click(CLICK); await desktop.waitForTimeout(800);
-    (await dockVisible(desktop)) ? pass('"Talk to AI" → Dock opened') : fail('"Talk to AI" → Dock NOT opened');
-  } else fail('"Talk to AI" not found');
-  await closeDock(desktop);
-
-  const ctExp = desktop.locator('button').filter({ hasText: 'Contact Expert' }).first();
-  if (await ctExp.isVisible()) {
-    pass('"Contact Expert" visible');
-    await ctExp.click(CLICK); await desktop.waitForTimeout(800);
-    (await dockVisible(desktop)) ? pass('"Contact Expert" → Dock opened (unified)') : fail('"Contact Expert" → Dock NOT opened');
-  } else fail('"Contact Expert" not found');
+  const heroAi = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' }).first();
+  if (await heroAi.isVisible()) {
+    pass('Hero "Talk to the Executive AI" visible');
+    await heroAi.click(CLICK); await desktop.waitForTimeout(800);
+    (await dockVisible(desktop)) ? pass('Hero AI CTA → Dock opened (unified)') : fail('Hero AI CTA → Dock NOT opened');
+  } else fail('Hero "Talk to the Executive AI" not found');
   await closeDock(desktop);
 
   // 2. "Start a conversation" (home industries section)
@@ -180,8 +172,8 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   console.log('\n📱 MOBILE');
   await mobile.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(mobile);
-  const mc = mobile.locator('button').filter({ hasText: /Talk to AI|Contact Expert/ });
-  ((await mc.count()) >= 2) ? pass('≥2 AI chips on mobile') : fail('<2 AI chips on mobile');
+  const mc = mobile.locator('button').filter({ hasText: 'Talk to the Executive AI' });
+  (await mc.isVisible()) ? pass('Hero AI CTA present on mobile') : fail('Hero AI CTA missing on mobile');
 
   const mt = mobile.locator('button[class*="mobileToggle"]');
   if (await mt.isVisible()) {

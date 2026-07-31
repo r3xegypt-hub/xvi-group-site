@@ -38,21 +38,21 @@ const CLICK = { force: true, timeout: 8000 };
   // Wait a tick for state to propagate
   await page.waitForTimeout(500);
 
-  // Click "Talk to AI" — should redirect to /contact since dock is unavailable
-  const talkAI = page.locator('button').filter({ hasText: 'Talk to AI' }).first();
-  if (await talkAI.isVisible()) {
+  // Click "Talk to the Executive AI" (hero AI CTA) — should redirect to /contact since dock is unavailable
+  const aiCta = page.locator('button').filter({ hasText: 'Talk to the Executive AI' }).first();
+  if (await aiCta.isVisible()) {
     const urlBefore = page.url();
-    await talkAI.click(CLICK);
+    await aiCta.click(CLICK);
     await page.waitForTimeout(2000);
     const urlAfter = page.url();
     if (urlAfter.includes('/contact')) {
-      console.log('✅ Fallback works: "Talk to AI" redirected to /contact when dock unavailable');
+      console.log('✅ Fallback works: AI CTA redirected to /contact when dock unavailable');
       console.log(`   ${urlBefore} → ${urlAfter}`);
     } else {
       console.log(`❌ Fallback FAILED: ${urlBefore} → ${urlAfter}`);
     }
   } else {
-    console.log('❌ "Talk to AI" not found');
+    console.log('❌ "Talk to the Executive AI" not found');
   }
 
   await browser.close();

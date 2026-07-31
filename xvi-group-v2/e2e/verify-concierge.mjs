@@ -47,8 +47,8 @@ async function expectCardOnSide(page, lang, vw, label) {
   report(await page.getByText(sub).first().isVisible().catch(() => false), `greeting subtitle correct (${label})`);
 
   const labels = lang === 'ar'
-    ? ['ابدأ مشروعًا', 'استشارة ذكاء اصطناعي', 'تواصل مع خبير']
-    : ['Start a Project', 'AI Consultation', 'Contact an Expert'];
+    ? ['ابدأ مشروعًا', 'استشارة ذكاء اصطناعي']
+    : ['Start a Project', 'AI Consultation'];
   for (const l of labels) {
     report(await page.getByText(l, { exact: true }).first().isVisible().catch(() => false), `action "${l}" present (${label})`);
   }

@@ -869,13 +869,12 @@ export function AIDock() {
               : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.'}
           </div>
           <WhatsAppFallback query={q} isAR={isAR} />
-          <a
-            href="/contact"
+          <button
+            onClick={() => navigate('/contact')}
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
+              display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer',
               padding: '10px 20px', background: 'transparent', color: '#132238',
-              borderRadius: 999, textDecoration: 'none', marginTop: 8,
-              border: '1px solid rgba(200,166,90,0.2)',
+              borderRadius: 999, border: '1px solid rgba(200,166,90,0.2)',
               fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
               transition: 'all 0.25s ease',
             }}
@@ -883,7 +882,7 @@ export function AIDock() {
             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(200,166,90,0.2)'; }}
           >
             {isAR ? 'تواصل معنا ←' : 'Contact Us →'}
-          </a>
+          </button>
           <PersonaSignature isAR={isAR} />
         </div>
       );

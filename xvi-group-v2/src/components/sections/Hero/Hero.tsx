@@ -4,10 +4,7 @@ import type { Easing } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useCTA } from '../../../hooks/useCTA';
-import { AIAvatar } from '../../assistant/AIAvatar';
-import { VoiceWaveform } from '../../assistant/AIDock';
 import { FlowingWave } from '../../../motion/FlowingWave';
-import { MouseReactive } from '../../../motion/MouseReactive';
 import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -20,21 +17,15 @@ export function Hero() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [lettersVisible, setLettersVisible] = useState(false);
-  const [inputFocused, setInputFocused] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [showVoice, setShowVoice] = useState(false);
-  const [thinkingPhase, setThinkingPhase] = useState(0);
   const bgControls = useAnimationControls();
 
-  const handlePromptClick = useCallback((action: string) => {
-    if (action === 'open-ai') {
-      handleCTA();
-    } else if (action.startsWith('/')) {
-      navigate(action);
-    } else {
-      setInputValue(action);
-    }
-  }, [navigate, handleCTA]);
+  const handlePrimary = useCallback(() => {
+    navigate('/services');
+  }, [navigate]);
+
+  const handleSecondary = useCallback(() => {
+    handleCTA();
+  }, [handleCTA]);
 
   useEffect(() => {
     if (isInView) {
@@ -43,17 +34,7 @@ export function Hero() {
         transition: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
       });
       const timer = setTimeout(() => setLettersVisible(true), 300);
-      const voiceTimer = setTimeout(() => setShowVoice(true), 2000);
-      const thinkTimer1 = setTimeout(() => setThinkingPhase(1), 3500);
-      const thinkTimer2 = setTimeout(() => setThinkingPhase(2), 5500);
-      const thinkTimer3 = setTimeout(() => setThinkingPhase(0), 7500);
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(voiceTimer);
-        clearTimeout(thinkTimer1);
-        clearTimeout(thinkTimer2);
-        clearTimeout(thinkTimer3);
-      };
+      return () => clearTimeout(timer);
     }
   }, [isInView, bgControls]);
 
@@ -64,26 +45,6 @@ export function Hero() {
   const subtitle = ar
     ? 'نتشارك مع فرق القيادة لتحويل الذكاء الاصطناعي والأتمتة والبيانات إلى قرارات أوضح ونماذج تشغيل أقوى.'
     : 'We partner with leadership teams to turn artificial intelligence, automation, and data into clearer decisions and stronger operating models.';
-
-  const quickPrompts = ar
-    ? [
-        { label: 'استكشف الحلول', action: '/services' },
-        { label: 'احجز استشارة', action: '/contact' },
-        { label: 'تقييم الذكاء الاصطناعي', action: '/services/ai-transformation' },
-        { label: 'تواصل مع خبير', action: 'open-ai' },
-        { label: 'تحدث مع الذكاء الاصطناعي', action: 'open-ai' },
-      ]
-    : [
-        { label: 'Explore Solutions', action: '/services' },
-        { label: 'Book Consultation', action: '/contact' },
-        { label: 'AI Assessment', action: '/services/ai-transformation' },
-        { label: 'Contact Expert', action: 'open-ai' },
-        { label: 'Talk to AI', action: 'open-ai' },
-      ];
-
-  const thinkingText = ar
-    ? ['تفكير...', 'جاري تجميع الموجز التنفيذي...', 'جاهز لصياغة القرار التالي.']
-    : ['Thinking…', 'Synthesizing your executive brief…', "I'm ready to frame the next strategic decision."];
 
   return (
     <section className={styles.hero}>
@@ -171,98 +132,13 @@ export function Hero() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease, delay: 1.0 }}
         >
-          <a href="#solutions" className={styles.ctaGold}>
-            {ar ? 'استكشف نهجنا' : 'Explore our approach'}
-          </a>
+          <button className={styles.ctaGold} onClick={handlePrimary}>
+            {ar ? 'استكشف حلولنا' : 'Explore our solutions'}
+          </button>
+          <button className={styles.ctaGhost} onClick={handleSecondary}>
+            {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
+          </button>
         </motion.div>
-
-        {/* AI Executive Widget - matches prototype */}
-        <MouseReactive intensity={5} perspective={1200}>
-        <motion.div
-          className={styles.aiWidget}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease, delay: 1.2 }}
-        >
-          <div className={styles.orbContainerLarge}>
-            <div style={{ transform: 'scale(1.6)', transformOrigin: 'center' }}>
-              <AIAvatar state={thinkingPhase > 0 ? 'thinking' : showVoice ? 'listening' : 'idle'} />
-            </div>
-          </div>
-
-          <div className={styles.widgetContent}>
-            <div className={styles.widgetHeader}>
-              <span className={styles.widgetBadge}>
-                {ar ? 'جاهز' : 'Ready'}
-              </span>
-              <span className={styles.widgetTitle}>
-                {ar ? 'المستشار الذكي' : 'XVI EXECUTIVE AI'}
-              </span>
-              {showVoice && (
-                <>
-                  <span className={styles.voiceSignal}>
-                    {ar ? 'إشارة صوتية' : 'VOICE SIGNAL'}
-                  </span>
-                  <VoiceWaveform />
-                </>
-              )}
-            </div>
-            <p className={styles.widgetDesc}>
-              {ar
-                ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً.'
-                : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.'}
-            </p>
-            <p className={styles.widgetPresence}>
-              {ar ? 'حضور ذكاء استراتيجية.' : 'A strategic intelligence presence.'}
-            </p>
-            {isInView && thinkingPhase > 0 && (
-              <motion.p
-                key={thinkingPhase}
-                className={styles.thinkingText}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease }}
-              >
-                {thinkingText[thinkingPhase - 1]}
-              </motion.p>
-            )}
-            <div className={styles.widgetInput} style={{ borderColor: inputFocused ? 'rgba(200,166,90,0.4)' : 'rgba(255,255,255,0.1)' }}>
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onFocus={() => setInputFocused(true)}
-                onBlur={() => setInputFocused(false)}
-                placeholder={ar ? 'اسألني عن أي شيء...' : 'ask me anything...'}
-                className={styles.widgetPrompt}
-                style={{
-                  background: 'none', border: 'none', outline: 'none',
-                  flex: 1, color: 'rgba(255,255,255,0.7)',
-                }}
-              />
-              <motion.span
-                className={styles.cursor}
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
-              />
-            </div>
-            <div className={styles.quickPrompts}>
-              {quickPrompts.map((prompt, i) => (
-                <motion.button
-                  key={i}
-                  className={styles.promptChip}
-                  whileHover={{ background: 'rgba(200,166,90,0.12)', borderColor: 'rgba(200,166,90,0.3)' }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => handlePromptClick(prompt.action)}
-                  style={{ transition: 'all 0.3s cubic-bezier(0.16,1,0.3,1)' }}
-                >
-                  {prompt.label}
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-        </MouseReactive>
       </div>
     </section>
   );
