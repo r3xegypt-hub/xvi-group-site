@@ -3,6 +3,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { ArrowUpRight, Brain, Workflow, Shield, BarChart3, Lightbulb, Target, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { useCTA } from '../../hooks/useCTA';
 import styles from './Services.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -118,6 +119,7 @@ export function ServicesPage() {
   const heroInView = useInView(heroRef, { once: true });
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const handleCTA = useCTA();
 
   return (
     <>
@@ -214,7 +216,7 @@ export function ServicesPage() {
                 </div>
               </div>
 
-              <a href="/contact" className={styles.serviceCta}>
+              <a href="/contact" className={styles.serviceCta} onClick={handleCTA}>
                 {ar ? 'ابدأ المحادثة' : 'Start a conversation'}
                 <ArrowRight size={14} />
               </a>

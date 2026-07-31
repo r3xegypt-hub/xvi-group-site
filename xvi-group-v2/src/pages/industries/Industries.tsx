@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { ArrowUpRight, Building2, Landmark, Factory, Globe, Heart, GraduationCap, Zap, ChevronRight, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { useCTA } from '../../hooks/useCTA';
 import styles from './Industries.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -136,6 +137,7 @@ export function IndustriesPage() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [active, setActive] = useState(0);
+  const handleCTA = useCTA();
 
   return (
     <>
@@ -252,7 +254,7 @@ export function IndustriesPage() {
                   </div>
                 </div>
 
-                <a href="/contact" className={styles.detailCta}>
+                <a href="/contact" className={styles.detailCta} onClick={handleCTA}>
                   {ar ? 'ابدأ المحادثة' : 'Start a conversation'}
                   <ArrowRight size={14} />
                 </a>

@@ -2,7 +2,9 @@ import { useState, useCallback, useEffect, useRef, Fragment } from 'react';
 import type { ReactNode, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { signalAIDockAvailable } from '../../hooks/useCTA';
 import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
@@ -412,9 +414,15 @@ export function AIDock() {
   const [messageLog, setMessageLog] = useState<{ type: 'user' | 'ai'; content: ReactNode }[]>([]);
   const { language } = useLanguage();
   const isAR = language === 'ar';
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [greetingStage, setGreetingStage] = useState<'entering' | 'greeting' | 'done'>('entering');
   const greetDone = useRef(false);
+
+  useEffect(() => {
+    signalAIDockAvailable(true);
+    return () => signalAIDockAvailable(false);
+  }, []);
 
   useEffect(() => {
     if (greetDone.current) return;
@@ -596,31 +604,15 @@ export function AIDock() {
         aiResponse = <div><div style={cmn}>Here is an executive dashboard preview:</div><KpiCard /></div>;
         break;
       case 'recommend':
-        aiResponse = (
-          <div>
-            <div style={cmn}>Based on your context, I recommend connecting with our experts for a personalized consultation tailored to your industry, scale, and strategic objectives.</div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-              {[
-                { label: 'Financial Services', desc: 'Risk Intelligence' },
-                { label: 'Public Sector', desc: 'Service Modernization' },
-                { label: 'Enterprise', desc: 'Connected Intelligence' },
-              ].map((rec, i) => (
-                <div key={i} style={{ flex: 1, padding: '8px 10px', background: '#f7f6f3', borderRadius: 8, textAlign: 'center' }}>
-                  <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#111' }}>{rec.label}</div>
-                  <div style={{ fontFamily: font, fontSize: '0.625rem', color: '#666', marginTop: 2 }}>{rec.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-        break;
+        navigate('/contact');
+        return;
       default:
         aiResponse = <div style={cmn}>I'm ready to frame the next strategic decision. Please select a domain.</div>;
     }
 
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
     simulateThinking(aiResponse);
-  }, [isAR, simulateThinking]);
+  }, [isAR, simulateThinking, navigate]);
 
   const handleInputSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();

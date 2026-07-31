@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import { useCTA } from '../../../hooks/useCTA';
 import styles from './Industries.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -35,6 +36,7 @@ export function Industries() {
   const ar = language === 'ar';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const handleCTA = useCTA();
 
   return (
     <section className={styles.section} ref={ref}>
@@ -77,6 +79,7 @@ export function Industries() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.3 }}
+            onClick={handleCTA}
           >
             {ar ? 'ابدأ محادثة' : 'Start a conversation'}
           </motion.a>

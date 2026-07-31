@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing, Variants } from 'framer-motion';
 import { X, ArrowUpRight, Sparkles, Bot, BarChart3, Globe, Shield, Brain, Activity, Zap } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { useCTA } from '../../hooks/useCTA';
 import styles from './AIExecutive.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -201,6 +202,7 @@ export function AIExecutiveConsultant() {
     ];
   }, [ar]);
 
+  const handleCTA = useCTA();
   const handleOpen = useCallback(() => {
     setOpen((prev) => {
       if (!prev) setHasOpened(true);
@@ -321,6 +323,16 @@ export function AIExecutiveConsultant() {
                     </motion.button>
                   ))}
                 </motion.div>
+
+                <motion.a
+                  href="/contact"
+                  className={styles.expertCta}
+                  variants={staggerItem}
+                  onClick={handleCTA}
+                >
+                  <span>{ar ? 'تواصل مع خبير' : 'Continue with an Expert'}</span>
+                  <ArrowUpRight size={14} />
+                </motion.a>
               </motion.div>
 
               <div className={styles.panelFooter}>

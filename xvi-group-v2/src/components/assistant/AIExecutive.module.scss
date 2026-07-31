@@ -368,6 +368,37 @@
   transition: all 0.3s ease;
 }
 
+.expertCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #132238;
+  color: #FFFFFF;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 999px;
+  margin: 0 auto;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(19, 34, 56, 0.15);
+
+  &:hover {
+    background: #C8A65A;
+    color: #132238;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(200, 166, 90, 0.25);
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
 .panelFooter {
   display: flex;
   align-items: center;

@@ -3,6 +3,7 @@ import { motion, useInView, useAnimationControls } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import { useCTA } from '../../../hooks/useCTA';
 import { AIAvatar } from '../../assistant/AIAvatar';
 import { VoiceWaveform } from '../../assistant/AIDock';
 import { FlowingWave } from '../../../motion/FlowingWave';
@@ -15,6 +16,7 @@ export function Hero() {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const navigate = useNavigate();
+  const handleCTA = useCTA();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [lettersVisible, setLettersVisible] = useState(false);
@@ -26,13 +28,13 @@ export function Hero() {
 
   const handlePromptClick = useCallback((action: string) => {
     if (action === 'open-ai') {
-      window.dispatchEvent(new CustomEvent('xvi:open-ai-dock'));
+      handleCTA();
     } else if (action.startsWith('/')) {
       navigate(action);
     } else {
       setInputValue(action);
     }
-  }, [navigate]);
+  }, [navigate, handleCTA]);
 
   useEffect(() => {
     if (isInView) {
@@ -68,14 +70,14 @@ export function Hero() {
         { label: 'استكشف الحلول', action: '/services' },
         { label: 'احجز استشارة', action: '/contact' },
         { label: 'تقييم الذكاء الاصطناعي', action: '/services/ai-transformation' },
-        { label: 'تواصل مع خبير', action: '/contact' },
+        { label: 'تواصل مع خبير', action: 'open-ai' },
         { label: 'تحدث مع الذكاء الاصطناعي', action: 'open-ai' },
       ]
     : [
         { label: 'Explore Solutions', action: '/services' },
         { label: 'Book Consultation', action: '/contact' },
         { label: 'AI Assessment', action: '/services/ai-transformation' },
-        { label: 'Contact Expert', action: '/contact' },
+        { label: 'Contact Expert', action: 'open-ai' },
         { label: 'Talk to AI', action: 'open-ai' },
       ];
 
