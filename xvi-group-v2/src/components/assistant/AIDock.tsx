@@ -20,6 +20,19 @@ import {
 const ease: Easing = [0.16, 1, 0.3, 1];
 const font = "'Manrope', sans-serif";
 
+const PERSONA_SIGNATURE: { en: string; ar: string } = {
+  en: '— XVI Group · precision over speculation',
+  ar: '— مجموعة XVI · الدقة قبل التكهن',
+};
+
+function PersonaSignature({ isAR }: { isAR: boolean }) {
+  return (
+    <div style={{ fontFamily: font, fontSize: '0.625rem', color: '#a98a45', fontStyle: 'italic', opacity: 0.8, marginTop: 10, letterSpacing: '0.02em' }}>
+      {isAR ? PERSONA_SIGNATURE.ar : PERSONA_SIGNATURE.en}
+    </div>
+  );
+}
+
 type ConsultingView = 'overview' | 'services' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'strategy' | 'reports' | 'recommend';
 
 type ActionId = 'strategy' | 'solutions' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'reports' | 'recommend';
@@ -784,6 +797,7 @@ export function AIDock() {
               {isAR ? entry.cta.label.ar : entry.cta.label.en}
             </a>
           )}
+          <PersonaSignature isAR={isAR} />
         </div>
       );
     };
@@ -811,6 +825,7 @@ export function AIDock() {
             <div style={{ whiteSpace: 'pre-line' }}>{body}</div>
             <div style={{ color: '#999', marginTop: 4, fontSize: '0.6875rem' }}>{counts}</div>
           </div>
+          <PersonaSignature isAR={isAR} />
         </div>
       );
     } else if (learnedFields) {
@@ -838,6 +853,7 @@ export function AIDock() {
                   : "These details will be kept for this session only — they won't persist after you close the tab."}
               </div>
             </div>
+            <PersonaSignature isAR={isAR} />
           </div>
         );
       }
@@ -874,6 +890,7 @@ export function AIDock() {
           >
             {isAR ? 'تواصل معنا ←' : 'Contact Us →'}
           </a>
+          <PersonaSignature isAR={isAR} />
         </div>
       );
     }
