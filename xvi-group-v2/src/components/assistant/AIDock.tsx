@@ -1088,6 +1088,33 @@ export function AIDock() {
               pointerEvents: 'none', zIndex: 2,
             }} />
 
+            {/* Gold corner ornaments */}
+            {(['tl', 'br'] as const).map((pos) => (
+              <motion.div
+                key={pos}
+                data-testid={`xvi-dock-corner-${pos}`}
+                style={{
+                  position: 'absolute',
+                  width: 26,
+                  height: 26,
+                  top: pos === 'tl' ? 0 : undefined,
+                  left: pos === 'tl' ? 0 : undefined,
+                  bottom: pos === 'br' ? 0 : undefined,
+                  right: pos === 'br' ? 0 : undefined,
+                  borderTopLeftRadius: pos === 'tl' ? 28 : 0,
+                  borderBottomRightRadius: pos === 'br' ? 28 : 0,
+                  borderTop: pos === 'tl' ? '1.5px solid rgba(200,166,90,0.4)' : 'none',
+                  borderLeft: pos === 'tl' ? '1.5px solid rgba(200,166,90,0.4)' : 'none',
+                  borderBottom: pos === 'br' ? '1.5px solid rgba(200,166,90,0.4)' : 'none',
+                  borderRight: pos === 'br' ? '1.5px solid rgba(200,166,90,0.4)' : 'none',
+                  pointerEvents: 'none',
+                  zIndex: 3,
+                }}
+                animate={rm ? { opacity: 0.7 } : { opacity: [0.45, 0.95, 0.45] }}
+                transition={{ duration: 5, repeat: rm ? 0 : Infinity, ease: 'easeInOut', delay: 1 }}
+              />
+            ))}
+
             {/* Scan line */}
             <motion.div
               style={{
