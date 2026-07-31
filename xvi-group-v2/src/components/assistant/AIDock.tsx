@@ -5,11 +5,12 @@ import type { Easing } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { signalAIDockAvailable } from '../../hooks/useCTA';
+import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
   ChevronRight, Users, Shield, TrendingUp, Target, Lightbulb, Map,
-  Search, ArrowRight, Activity
+  Search, ArrowRight, Activity, Mic
 } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -394,6 +395,9 @@ export function AIDock() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const voiceLang = isAR ? 'ar-SA' : 'en-US';
+  const { supported: micSupported, listening: isListening, error: voiceError, start: startVoice, stop: stopVoice } = useSpeechRecognition(voiceLang);
+
   useEffect(() => {
     signalAIDockAvailable(true);
     return () => signalAIDockAvailable(false);
@@ -579,13 +583,12 @@ export function AIDock() {
     simulateThinking(aiResponse);
   }, [isAR, simulateThinking, navigate]);
 
-  const handleInputSubmit = useCallback((e: FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-    const query = inputValue.trim();
-    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{query}</span>;
+  const submitQuery = useCallback((query: string) => {
+    const q = query.trim();
+    if (!q) return;
+    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{q}</span>;
 
-    const match = findContentMatch(query, isAR);
+    const match = findContentMatch(q, isAR);
     let aiResponse: ReactNode;
 
     if (match && match.score >= 2) {
@@ -623,7 +626,7 @@ export function AIDock() {
               ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
               : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.'}
           </div>
-          <WhatsAppFallback query={query} isAR={isAR} />
+          <WhatsAppFallback query={q} isAR={isAR} />
           <a
             href="/contact"
             style={{
@@ -646,7 +649,25 @@ export function AIDock() {
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
     setInputValue('');
     simulateThinking(aiResponse);
-  }, [inputValue, simulateThinking, isAR]);
+  }, [simulateThinking, isAR]);
+
+  const handleInputSubmit = useCallback((e: FormEvent) => {
+    e.preventDefault();
+    submitQuery(inputValue);
+  }, [inputValue, submitQuery]);
+
+  const handleVoiceResult = useCallback((text: string) => {
+    setInputValue(text);
+    submitQuery(text);
+  }, [submitQuery]);
+
+  const handleMicClick = useCallback(() => {
+    if (isListening) {
+      stopVoice();
+      return;
+    }
+    startVoice(handleVoiceResult);
+  }, [isListening, stopVoice, startVoice, handleVoiceResult]);
 
   const statusText = thoughtStage === 'thinking'
     ? (isAR ? 'تفكير...' : 'Thinking…')
@@ -990,6 +1011,23 @@ export function AIDock() {
               padding: '12px 16px 16px',
               borderTop: '1px solid rgba(17,17,17,0.04)',
             }}>
+              {isListening && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
+                  <motion.span
+                    style={{ width: 6, height: 6, borderRadius: '50%', background: '#c8a65a', display: 'inline-block', flexShrink: 0 }}
+                    animate={{ scale: [1, 1.6, 1], opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                  <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', fontWeight: 500 }}>
+                    {isAR ? `الاستماع... (${voiceLang})` : `Listening... (${voiceLang})`}
+                  </span>
+                </div>
+              )}
+              {voiceError && !isListening && (voiceError === 'not-allowed' || voiceError === 'service-not-allowed' || voiceError === 'network' || voiceError === 'audio-capture') && (
+                <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#b45309', paddingBottom: 8 }}>
+                  {isAR ? 'تعذر الوصول إلى الميكروفون. حاول مرة أخرى.' : 'Microphone unavailable. Try again.'}
+                </div>
+              )}
               <form onSubmit={handleInputSubmit} style={{ display: 'flex', gap: 8 }}>
                 <input
                   ref={inputRef}
@@ -1008,6 +1046,30 @@ export function AIDock() {
                   onFocus={(e) => { e.target.style.borderColor = '#C8A65A'; e.target.style.boxShadow = '0 0 0 3px rgba(200,166,90,0.08)'; }}
                   onBlur={(e) => { e.target.style.borderColor = 'rgba(200,166,90,0.1)'; e.target.style.boxShadow = 'none'; }}
                 />
+                {micSupported && (
+                  <motion.button
+                    type="button"
+                    onClick={handleMicClick}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    title={isAR ? 'تحدث للكتابة' : 'Speak to write'}
+                    aria-label={isAR ? 'تحدث للكتابة' : 'Speak to write'}
+                    style={{
+                      padding: '10px 12px',
+                      background: isListening ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
+                      border: isListening ? '1px solid #c8a65a' : '1px solid rgba(200,166,90,0.2)',
+                      borderRadius: 12, cursor: 'pointer',
+                      color: isListening ? '#c8a65a' : '#a98a45',
+                      display: 'flex', alignItems: 'center',
+                      boxShadow: isListening ? '0 0 0 3px rgba(200,166,90,0.15)' : 'none',
+                      transition: 'all 0.25s ease',
+                    }}
+                    animate={isListening ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+                    transition={{ duration: 1, repeat: isListening ? Infinity : 0, ease: 'easeInOut' }}
+                  >
+                    <Mic size={16} />
+                  </motion.button>
+                )}
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.04, background: '#d4b76e' }}
