@@ -106,7 +106,7 @@
   align-items: center;
   gap: 36px;
 
-  @include below-tablet-portrait {
+  @include below-tablet-landscape {
     display: none;
   }
 }
@@ -263,7 +263,7 @@
     box-shadow: 0 4px 12px rgba(19, 34, 56, 0.12);
   }
 
-  @include below-tablet-portrait {
+  @include below-tablet-landscape {
     display: none;
   }
 }
@@ -282,7 +282,7 @@
   border: none;
   cursor: pointer;
 
-  @include below-tablet-portrait {
+  @include below-tablet-landscape {
     display: flex;
   }
 }
@@ -370,6 +370,16 @@
   &:hover::after {
     transform: scaleX(1);
     background-position: 0 0;
+  }
+
+  &.activeLink {
+    color: #c8a65a;
+
+    &::after {
+      transform: scaleX(1);
+      background-position: 0 0;
+      box-shadow: 0 0 12px rgba(200, 166, 90, 0.2);
+    }
   }
 
   [dir='rtl'] & {

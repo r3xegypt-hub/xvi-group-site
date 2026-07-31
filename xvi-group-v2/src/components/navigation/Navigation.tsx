@@ -28,11 +28,13 @@ export function Navigation() {
   }, [isMobileOpen]);
 
   const navLinks = ar ? [
+    { to: '/', label: 'الرئيسية' },
     { to: '/services', label: 'الحلول' },
     { to: '/industries', label: 'القطاعات' },
     { to: '/insights', label: 'رؤى' },
     { to: '/about', label: 'الشركة' },
   ] : [
+    { to: '/', label: 'Home' },
     { to: '/services', label: 'Solutions' },
     { to: '/industries', label: 'Industries' },
     { to: '/insights', label: 'Insights' },
@@ -87,7 +89,7 @@ export function Navigation() {
       >
         <div className={styles.mobileMenuInner} onClick={(e) => e.stopPropagation()}>
           {navLinks.map((link) => (
-            <Link key={link.to} to={link.to} className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>
+            <Link key={link.to} to={link.to} className={`${styles.mobileLink}${isActive(link.to) ? ` ${styles.activeLink}` : ''}`} onClick={() => setIsMobileOpen(false)}>
               {link.label}
             </Link>
           ))}
