@@ -1,16 +1,16 @@
 @import '../../../styles/mixins/devices';
 
 .section {
-  padding: 96px 48px;
+  padding: 72px 48px;
   background: #ffffff;
 
-  @include mobile { padding: 48px 16px; }
+  @include mobile { padding: 48px 20px; }
   @include tablet-portrait { padding: 64px 32px; }
-  @include tablet-landscape { padding: 80px 40px; }
+  @include tablet-landscape { padding: 72px 40px; }
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -27,15 +27,15 @@
 
 .heading {
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(1.375rem, 3.2vw, 2.25rem);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.015em;
   color: #101010;
-  margin: 0 0 40px;
+  margin: 0 0 36px;
   max-width: 680px;
 
-  @include tablet-portrait { margin-bottom: 48px; }
+  @include tablet-portrait { margin-bottom: 40px; }
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
 }
@@ -164,4 +164,38 @@
   margin: 0;
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.ctaRow {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 32px;
+  background: #132238;
+  color: #ffffff;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(19, 34, 56, 0.1);
+
+  &:hover {
+    background: #1e3451;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(19, 34, 56, 0.15);
+  }
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', sans-serif;
+  }
 }

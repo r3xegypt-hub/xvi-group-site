@@ -3,7 +3,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0;
-  padding: 3px;
+  padding: 2px;
   background: rgba(19, 34, 56, 0.04);
   border: 1px solid rgba(19, 34, 56, 0.07);
   border-radius: 999px;
@@ -30,14 +30,15 @@
 .option {
   position: relative;
   z-index: 1;
-  padding: 5px 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 4px 10px;
+  font-size: 0.6875rem;
+  font-weight: 700;
   color: #999999;
   letter-spacing: 0.06em;
   transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   line-height: 1;
+  text-transform: uppercase;
 
   [dir='rtl'] & {
     letter-spacing: 0;
@@ -54,10 +55,10 @@
 
 .thumb {
   position: absolute;
-  left: 3px;
-  top: 3px;
-  width: calc(50% - 3px);
-  height: calc(100% - 6px);
+  left: 2px;
+  top: 2px;
+  width: calc(50% - 2px);
+  height: calc(100% - 4px);
   background: #ffffff;
   border-radius: 999px;
   border: 1px solid rgba(200, 166, 90, 0.12);

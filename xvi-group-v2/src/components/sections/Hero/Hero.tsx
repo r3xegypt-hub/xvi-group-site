@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useInView, useAnimationControls } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { AIAvatar } from '../../assistant/AIAvatar';
 import { VoiceWaveform } from '../../assistant/AIDock';
@@ -13,6 +14,7 @@ const ease: Easing = [0.16, 1, 0.3, 1];
 export function Hero() {
   const { language } = useLanguage();
   const ar = language === 'ar';
+  const navigate = useNavigate();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [lettersVisible, setLettersVisible] = useState(false);
@@ -21,6 +23,16 @@ export function Hero() {
   const [showVoice, setShowVoice] = useState(false);
   const [thinkingPhase, setThinkingPhase] = useState(0);
   const bgControls = useAnimationControls();
+
+  const handlePromptClick = useCallback((action: string) => {
+    if (action === 'open-ai') {
+      window.dispatchEvent(new CustomEvent('xvi:open-ai-dock'));
+    } else if (action.startsWith('/')) {
+      navigate(action);
+    } else {
+      setInputValue(action);
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (isInView) {
@@ -52,8 +64,20 @@ export function Hero() {
     : 'We partner with leadership teams to turn artificial intelligence, automation, and data into clearer decisions and stronger operating models.';
 
   const quickPrompts = ar
-    ? ['استكشف الحلول', 'احجز استشارة', 'تقييم الذكاء الاصطناعي', 'تواصل مع خبير']
-    : ['Explore Solutions', 'Book Consultation', 'AI Assessment', 'Contact Expert'];
+    ? [
+        { label: 'استكشف الحلول', action: '/services' },
+        { label: 'احجز استشارة', action: '/contact' },
+        { label: 'تقييم الذكاء الاصطناعي', action: '/services/ai-transformation' },
+        { label: 'تواصل مع خبير', action: '/contact' },
+        { label: 'تحدث مع الذكاء الاصطناعي', action: 'open-ai' },
+      ]
+    : [
+        { label: 'Explore Solutions', action: '/services' },
+        { label: 'Book Consultation', action: '/contact' },
+        { label: 'AI Assessment', action: '/services/ai-transformation' },
+        { label: 'Contact Expert', action: '/contact' },
+        { label: 'Talk to AI', action: 'open-ai' },
+      ];
 
   const thinkingText = ar
     ? ['تفكير...', 'جاري تجميع الموجز التنفيذي...', 'جاهز لصياغة القرار التالي.']
@@ -228,10 +252,10 @@ export function Hero() {
                   className={styles.promptChip}
                   whileHover={{ background: 'rgba(200,166,90,0.12)', borderColor: 'rgba(200,166,90,0.3)' }}
                   whileTap={{ scale: 0.97 }}
-                  onClick={() => setInputValue(prompt)}
+                  onClick={() => handlePromptClick(prompt.action)}
                   style={{ transition: 'all 0.3s cubic-bezier(0.16,1,0.3,1)' }}
                 >
-                  {prompt}
+                  {prompt.label}
                 </motion.button>
               ))}
             </div>

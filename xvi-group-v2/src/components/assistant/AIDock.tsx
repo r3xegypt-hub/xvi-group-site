@@ -436,6 +436,12 @@ export function AIDock() {
     }
   }, [open]);
 
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener('xvi:open-ai-dock', handler);
+    return () => window.removeEventListener('xvi:open-ai-dock', handler);
+  }, []);
+
   const simulateThinking = useCallback((responseContent: ReactNode) => {
     setThoughtStage('thinking');
     setShowResponse(false);

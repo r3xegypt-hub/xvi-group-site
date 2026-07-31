@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
@@ -86,6 +87,17 @@ export function Services() {
             </MouseReactive>
           ))}
         </div>
+
+        <motion.div
+          className={styles.ctaRow}
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, ease, delay: 0.5 }}
+        >
+          <Link to="/services" className={styles.ctaLink}>
+            {ar ? 'اعرف المزيد' : 'Learn More'}
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

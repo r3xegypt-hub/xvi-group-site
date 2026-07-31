@@ -25,7 +25,7 @@ html {
 body {
   font-family: $font-body;
   font-weight: $weight-regular;
-  font-size: clamp(1rem, 1.6vw, 1.1875rem);
+  font-size: clamp(0.9375rem, 1vw, 1rem);
   line-height: $leading-body;
   color: $color-text;
   background: $color-bg;
@@ -35,11 +35,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'kern' 1, 'liga' 1;
+  letter-spacing: 0.01em;
 }
 
 [dir='rtl'] body {
   font-family: $font-ar-body;
   line-height: $leading-body-ar;
+  letter-spacing: 0;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'ss01' 1, 'ss02' 1;
   text-rendering: optimizeLegibility;
 }
@@ -58,23 +60,33 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+h1 { line-height: 1.05; }
+h2 { line-height: 1.1; }
+h3 { line-height: 1.15; }
+h4 { line-height: 1.2; }
+
 [dir='rtl'] h1, [dir='rtl'] h2, [dir='rtl'] h3,
 [dir='rtl'] h4, [dir='rtl'] h5, [dir='rtl'] h6 {
   font-family: $font-ar-display;
   letter-spacing: 0;
-  line-height: 1.15;
+  line-height: 1.2;
   text-shadow: none;
   font-feature-settings: 'kern' 1;
 }
 
 p {
   color: $color-text-secondary;
-  line-height: $leading-body;
+  line-height: 1.7;
   max-width: 75ch;
+  margin: 0 0 1em;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 [dir='rtl'] p {
-  line-height: $leading-body-ar;
+  line-height: 1.8;
 }
 
 img {

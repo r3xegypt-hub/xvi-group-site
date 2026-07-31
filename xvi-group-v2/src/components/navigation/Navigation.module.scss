@@ -2,19 +2,19 @@
 
 .header {
   position: fixed;
-  top: 24px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  width: calc(100% - 48px);
-  max-width: 1120px;
+  width: calc(100% - 32px);
+  max-width: 1280px;
   opacity: 0;
   animation: navFadeIn 0.8s ease forwards;
   animation-delay: 0.5s;
   transition: top 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 
   &.scrolled {
-    top: 16px;
+    top: 12px;
   }
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px 10px 28px;
+  padding: 8px 16px 8px 24px;
   background: rgba(247, 246, 243, 0.82);
   backdrop-filter: blur(40px) saturate(1.2);
   -webkit-backdrop-filter: blur(40px) saturate(1.2);
@@ -49,7 +49,7 @@
       0 0 60px rgba(200, 166, 90, 0.03),
       inset 0 1px 0 rgba(255,255,255,0.7);
     background: rgba(247, 246, 243, 0.95);
-    padding: 8px 20px 8px 28px;
+    padding: 6px 16px 6px 24px;
   }
 }
 
@@ -104,7 +104,7 @@
 .links {
   display: flex;
   align-items: center;
-  gap: 44px;
+  gap: 36px;
 
   @include below-tablet-portrait {
     display: none;
@@ -112,14 +112,14 @@
 }
 
 .link {
-  font-size: 1.125rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: #5a5a5a;
   text-decoration: none;
   letter-spacing: 0.04em;
   transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  padding: 6px 2px;
+  padding: 4px 2px;
   cursor: pointer;
 
   &::before {
@@ -128,7 +128,7 @@
     bottom: -2px;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 1.5px;
     background: linear-gradient(90deg, #c8a65a, #d4b872, #c8a65a);
     background-size: 200% 100%;
     background-position: 100% 0;
@@ -155,7 +155,7 @@
     &::before {
       transform: scaleX(1);
       background-position: 0 0;
-      height: 2.5px;
+      height: 2px;
       box-shadow: 0 0 12px rgba(200, 166, 90, 0.2);
     }
   }
@@ -164,7 +164,7 @@
 .langNavItem {
   display: flex;
   align-items: center;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 16px;
   margin-left: 4px;
   border-left: 1px solid rgba(19, 34, 56, 0.08);
   position: relative;
@@ -183,7 +183,7 @@
   [dir='rtl'] & {
     border-left: none;
     border-right: 1px solid rgba(19, 34, 56, 0.08);
-    padding: 0 20px 0 0;
+    padding: 0 16px 0 0;
     margin-left: 0;
     margin-right: 4px;
 
@@ -197,10 +197,10 @@
 .ctaButton {
   display: inline-flex;
   align-items: center;
-  padding: 12px 32px;
+  padding: 10px 24px;
   background: #132238;
   color: #ffffff;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   text-decoration: none;
