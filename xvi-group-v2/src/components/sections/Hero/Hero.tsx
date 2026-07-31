@@ -233,7 +233,6 @@ export function Hero() {
                 onBlur={() => setInputFocused(false)}
                 placeholder={ar ? 'اسألني عن أي شيء...' : 'ask me anything...'}
                 className={styles.widgetPrompt}
-                className={styles.widgetPrompt}
                 style={{
                   background: 'none', border: 'none', outline: 'none',
                   flex: 1, color: 'rgba(255,255,255,0.7)',
