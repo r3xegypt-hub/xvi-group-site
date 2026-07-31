@@ -8,11 +8,13 @@ import { signalAIDockAvailable } from '../../hooks/useCTA';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
+import { loadMemory, persistMemory, extractMemory, isMemoryAsk, hasLearnedFields } from '../../hooks/executiveMemory';
+import type { ExecutiveMemory, LearnedFields } from '../../hooks/executiveMemory';
 import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
   ChevronRight, Users, Shield, TrendingUp, Target, Lightbulb, Map,
-  Search, ArrowRight, Activity, Mic, Settings2, Volume2
+  Search, ArrowRight, Activity, Mic, Settings2, Volume2, User, Briefcase
 } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -442,10 +444,29 @@ export function AIDock() {
   const [showVoiceSettings, setShowVoiceSettings] = useState(false);
   const [lastSpeechText, setLastSpeechText] = useState('');
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
+  const [memory, setMemory] = useState<ExecutiveMemory>(() => loadMemory());
+  const memoryRef = useRef(memory);
+  const prevOpenRef = useRef(false);
   const { language } = useLanguage();
   const isAR = language === 'ar';
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const updateMemory = useCallback((next: ExecutiveMemory) => {
+    memoryRef.current = next;
+    setMemory(next);
+    persistMemory(next);
+  }, []);
+
+  useEffect(() => {
+    if (open && !prevOpenRef.current && memoryRef.current.name) {
+      const greeting = isAR
+        ? `مرحباً بعودتك، ${memoryRef.current.name}. كيف يمكنني مساعدتك اليوم؟`
+        : `Welcome back, ${memoryRef.current.name}. How can I help you today?`;
+      setMessageLog(prev => [...prev, { type: 'ai', content: <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{greeting}</span> }]);
+    }
+    prevOpenRef.current = open;
+  }, [open, isAR]);
 
   const siteLang = isAR ? 'ar-SA' : 'en-US';
   const {
@@ -664,28 +685,86 @@ export function AIDock() {
         aiResponse = <div style={cmn}>I'm ready to frame the next strategic decision. Please select a domain.</div>;
     }
 
+    const prevMem = memoryRef.current;
+    const lastRec = prevMem.recommendations[prevMem.recommendations.length - 1];
+    const recLabel = isAR ? action.label.ar : action.label.en;
+    if (lastRec !== recLabel) {
+      updateMemory({ ...prevMem, recommendations: [...prevMem.recommendations, recLabel].slice(-10) });
+    }
+
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
     setLastSpeechText(ACTION_SPEECH[actionId]?.[isAR ? 'ar' : 'en'] || '');
     simulateThinking(aiResponse);
-  }, [isAR, simulateThinking, navigate]);
+  }, [isAR, simulateThinking, navigate, updateMemory]);
 
   const submitQuery = useCallback((query: string) => {
     const q = query.trim();
     if (!q) return;
     const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{q}</span>;
 
+    const learned = extractMemory(q);
+    const learnedFields = hasLearnedFields(learned);
+    const memoryAsk = !learnedFields && isMemoryAsk(q);
+
+    const prev = memoryRef.current;
+    const merged: ExecutiveMemory = {
+      name: learned.name || prev.name,
+      company: learned.company || prev.company,
+      industry: learned.industry || prev.industry,
+      goal: learned.goal || prev.goal,
+      questions: [...prev.questions, q].slice(-20),
+      recommendations: prev.recommendations,
+    };
+
     const match = findContentMatch(q, isAR);
+
+    const ackLines: string[] = [];
+    const ackNodeParts: ReactNode[] = [];
+    if (learned.name) {
+      ackLines.push(isAR ? `سعدت بلقائك، ${learned.name}.` : `Nice to meet you, ${learned.name}.`);
+      ackNodeParts.push(
+        <div key="name" style={{ color: '#111', fontWeight: 600 }}>
+          {isAR ? `سعدت بلقائك، ${learned.name} 👋` : `Nice to meet you, ${learned.name} 👋`}
+        </div>
+      );
+    }
+    if (learned.company) {
+      ackLines.push(isAR ? `فهمت أنك تعمل في ${learned.company}.` : `Got it — ${learned.company}.`);
+      ackNodeParts.push(
+        <div key="company" style={{ color: '#666' }}>
+          {isAR ? `سجّلت شركتك: ${learned.company}` : `I've noted your company: ${learned.company}`}
+        </div>
+      );
+    }
+    if (learned.industry) {
+      ackLines.push(isAR ? `سجّلت القطاع: ${learned.industry}.` : `Noted: ${learned.industry} sector.`);
+      ackNodeParts.push(
+        <div key="industry" style={{ color: '#666' }}>
+          {isAR ? `قطاعك: ${learned.industry}` : `Your sector: ${learned.industry}`}
+        </div>
+      );
+    }
+    if (learned.goal) {
+      ackLines.push(isAR ? `تذكرت هدفك: ${learned.goal}.` : `Understood — goal: ${learned.goal}.`);
+      ackNodeParts.push(
+        <div key="goal" style={{ color: '#666' }}>
+          {isAR ? `هدفك: ${learned.goal}` : `Your goal: ${learned.goal}`}
+        </div>
+      );
+    }
+
     let aiResponse: ReactNode;
     let speechText: string;
+    let recommendation: string | undefined;
 
-    if (match && match.score >= 2) {
-      const { entry } = match;
+    const matchBody = (entry: ContentEntry) => {
       const resp = entry.response(isAR);
-      speechText = typeof resp === 'string' ? resp : '';
-      aiResponse = (
+      const respStr = typeof resp === 'string' ? resp : '';
+      recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
+      return (
         <div>
           <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7, whiteSpace: 'pre-line' }}>
-            {entry.response(isAR)}
+            {resp}
           </div>
           {entry.cta && (
             <a
@@ -707,6 +786,67 @@ export function AIDock() {
           )}
         </div>
       );
+    };
+
+    if (memoryAsk) {
+      const summary = [
+        merged.name ? `${isAR ? 'الاسم' : 'Name'}: ${merged.name}` : '',
+        merged.company ? `${isAR ? 'الشركة' : 'Company'}: ${merged.company}` : '',
+        merged.industry ? `${isAR ? 'القطاع' : 'Industry'}: ${merged.industry}` : '',
+        merged.goal ? `${isAR ? 'الهدف' : 'Goal'}: ${merged.goal}` : '',
+      ].filter(Boolean);
+      const counts = isAR
+        ? `سجّلت ${merged.questions.length} سؤالاً و${merged.recommendations.length} توصية خلال هذه الجلسة.`
+        : `I've recorded ${merged.questions.length} question${merged.questions.length === 1 ? '' : 's'} and ${merged.recommendations.length} recommendation${merged.recommendations.length === 1 ? '' : 's'} this session.`;
+      const body = summary.length
+        ? (isAR ? `أتذكر: ${summary.join(' · ')}` : `I remember: ${summary.join(' · ')}`)
+        : (isAR ? 'لم أقم بحفظ أي تفاصيل بعد. أخبرني باسمك أو شركتك أو أهدافك وسأحتفظ بها لهذه الجلسة.' : "I don't have any session details saved yet. Tell me your name, company, or goals and I'll remember them for this session.");
+      speechText = `${body}. ${counts}`;
+      aiResponse = (
+        <div>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7 }}>
+            <div style={{ color: '#111', fontWeight: 600, marginBottom: 4 }}>
+              {isAR ? 'ذاكرة الجلسة' : 'Session Memory'}
+            </div>
+            <div style={{ whiteSpace: 'pre-line' }}>{body}</div>
+            <div style={{ color: '#999', marginTop: 4, fontSize: '0.6875rem' }}>{counts}</div>
+          </div>
+        </div>
+      );
+    } else if (learnedFields) {
+      if (match && match.score >= 2) {
+        speechText = ackLines.join(' ') + ' ' + (typeof match.entry.response(isAR) === 'string' ? (match.entry.response(isAR) as string) : '');
+        aiResponse = (
+          <div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+              {ackNodeParts}
+            </div>
+            {matchBody(match.entry)}
+          </div>
+        );
+      } else {
+        speechText = ackLines.join(' ') + ' ' + (isAR
+          ? 'سأحتفظ بهذه التفاصيل لهذه الجلسة، وأنا هنا لمساعدتك في أي قرار تنفيذي.'
+          : "I've noted these details for our session, and I'm here for any executive decision you need help with.");
+        aiResponse = (
+          <div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7 }}>
+              {ackNodeParts}
+              <div style={{ color: '#999', marginTop: 6, fontSize: '0.6875rem' }}>
+                {isAR
+                  ? 'سأحتفظ بهذه التفاصيل لهذه الجلسة فقط.'
+                  : "These details will be kept for this session only — they won't persist after you close the tab."}
+              </div>
+            </div>
+          </div>
+        );
+      }
+    } else if (match && match.score >= 2) {
+      const entry = match.entry;
+      const resp = entry.response(isAR);
+      speechText = typeof resp === 'string' ? resp : '';
+      recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
+      aiResponse = matchBody(entry);
     } else {
       speechText = isAR
         ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
@@ -738,11 +878,19 @@ export function AIDock() {
       );
     }
 
+    if (recommendation) {
+      const recs = prev.recommendations;
+      if (recs[recs.length - 1] !== recommendation) {
+        merged.recommendations = [...recs, recommendation].slice(-10);
+      }
+    }
+
+    updateMemory(merged);
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
     setInputValue('');
     setLastSpeechText(speechText);
     simulateThinking(aiResponse);
-  }, [simulateThinking, isAR]);
+  }, [simulateThinking, isAR, updateMemory]);
 
   const handleInputSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();
@@ -962,6 +1110,46 @@ export function AIDock() {
 
             {/* Body */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
+              {/* Session memory chips */}
+              {(memory.name || memory.company || memory.industry || memory.goal) && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', marginBottom: 12 }}
+                >
+                  {memory.name && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', background: 'rgba(200,166,90,0.08)', border: '1px solid rgba(200,166,90,0.14)', borderRadius: 999, fontFamily: font, fontSize: '0.625rem', fontWeight: 500, color: '#8a7040' }}>
+                      <User size={11} /> {memory.name}
+                    </span>
+                  )}
+                  {memory.company && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', background: 'rgba(200,166,90,0.08)', border: '1px solid rgba(200,166,90,0.14)', borderRadius: 999, fontFamily: font, fontSize: '0.625rem', fontWeight: 500, color: '#8a7040' }}>
+                      <Briefcase size={11} /> {memory.company}
+                    </span>
+                  )}
+                  {memory.industry && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', background: 'rgba(200,166,90,0.08)', border: '1px solid rgba(200,166,90,0.14)', borderRadius: 999, fontFamily: font, fontSize: '0.625rem', fontWeight: 500, color: '#8a7040' }}>
+                      <Activity size={11} /> {memory.industry}
+                    </span>
+                  )}
+                  {memory.goal && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', background: 'rgba(200,166,90,0.08)', border: '1px solid rgba(200,166,90,0.14)', borderRadius: 999, fontFamily: font, fontSize: '0.625rem', fontWeight: 500, color: '#8a7040' }}>
+                      <Target size={11} /> {memory.goal}
+                    </span>
+                  )}
+                  <motion.button
+                    type="button"
+                    onClick={() => updateMemory({ questions: [], recommendations: [] })}
+                    whileHover={{ color: '#b45309' }}
+                    aria-label={isAR ? 'مسح الذاكرة' : 'Clear session memory'}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 8px', background: 'none', border: '1px solid rgba(17,17,17,0.08)', borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.625rem', color: '#999', transition: 'all 0.2s ease' }}
+                  >
+                    <X size={10} />
+                    {isAR ? 'مسح الذاكرة' : 'Clear memory'}
+                  </motion.button>
+                </motion.div>
+              )}
+
               {/* Message log */}
               {messageLog.map((msg, i) => (
                 <motion.div
