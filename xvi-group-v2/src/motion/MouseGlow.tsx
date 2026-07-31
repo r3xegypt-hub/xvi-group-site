@@ -5,11 +5,10 @@ import { useMotion } from './providers/MotionProvider';
 interface MouseGlowProps {
   color?: string;
   radius?: number;
-  opacity?: number;
   className?: string;
 }
 
-export function MouseGlow({ color = '#C8A65A', radius = 300, opacity = 0.04, className }: MouseGlowProps) {
+export function MouseGlow({ color = '#C8A65A', radius = 300, className }: MouseGlowProps) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(-1000);
   const y = useMotionValue(-1000);

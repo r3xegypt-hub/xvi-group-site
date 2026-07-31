@@ -63,7 +63,7 @@ function App() {
                 : <CinematicExecutiveLaunch onFinish={handleFinish} />
               )}
               <CustomCursor />
-              <MouseGlow color="#c8a65a" radius={250} opacity={0.03} />
+              <MouseGlow color="#c8a65a" radius={250} />
               <ScrollProgress />
               <PageTransition>
                 <Routes>

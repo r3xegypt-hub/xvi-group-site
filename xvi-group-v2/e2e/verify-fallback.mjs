@@ -22,7 +22,7 @@ const CLICK = { force: true, timeout: 8000 };
           mod.signalAIDockAvailable(false);
           return { ok: true, path };
         }
-      } catch (e) { /* try next */ }
+      } catch { /* try next */ }
     }
     return { ok: false };
   });

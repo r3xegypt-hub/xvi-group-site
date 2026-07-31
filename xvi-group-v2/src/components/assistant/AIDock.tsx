@@ -10,12 +10,12 @@ import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
 import { loadMemory, persistMemory, extractMemory, isMemoryAsk, hasLearnedFields } from '../../hooks/executiveMemory';
-import type { ExecutiveMemory, LearnedFields } from '../../hooks/executiveMemory';
+import type { ExecutiveMemory } from '../../hooks/executiveMemory';
 import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
-  ChevronRight, Users, Shield, TrendingUp, Target, Lightbulb, Map,
-  Search, ArrowRight, Activity, Mic, Settings2, Volume2, User, Briefcase
+  Users, Shield, TrendingUp, Target, Lightbulb, Map,
+  ArrowRight, Activity, Mic, Settings2, Volume2, User, Briefcase
 } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -33,8 +33,6 @@ function PersonaSignature({ isAR }: { isAR: boolean }) {
     </div>
   );
 }
-
-type ConsultingView = 'overview' | 'services' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'strategy' | 'reports' | 'recommend';
 
 type ActionId = 'strategy' | 'solutions' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'reports' | 'recommend';
 
@@ -72,10 +70,6 @@ function ThinkingDots() {
   return <>{dots}</>;
 }
 
-function AnimatedOrb({ state = 'idle' }: { state?: 'idle' | 'listening' | 'thinking' | 'speaking' }) {
-  return <AIAvatar state={state} />;
-}
-
 export function VoiceWaveform() {
   const { prefersReducedMotion } = useMotion();
   const bars = 16;
@@ -107,16 +101,6 @@ export function VoiceWaveform() {
         />
       ))}
     </div>
-  );
-}
-
-function TypingCursor() {
-  return (
-    <motion.span
-      style={{ display: 'inline-block', width: 2, height: 16, background: '#c8a65a', marginLeft: 2, verticalAlign: 'middle' }}
-      animate={{ opacity: [1, 0] }}
-      transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
-    />
   );
 }
 
@@ -434,7 +418,7 @@ const contentMap: ContentEntry[] = [
   },
 ];
 
-function findContentMatch(input: string, isAR: boolean): { entry: ContentEntry; score: number } | null {
+function findContentMatch(input: string): { entry: ContentEntry; score: number } | null {
   const normalized = input.toLowerCase().trim();
   let best: { entry: ContentEntry; score: number } | null = null;
 
@@ -459,7 +443,6 @@ function findContentMatch(input: string, isAR: boolean): { entry: ContentEntry; 
 
 export function AIDock() {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState<ConsultingView>('overview');
   const [thoughtStage, setThoughtStage] = useState<'ready' | 'thinking' | 'synthesizing' | 'ready-again'>('ready');
   const [response, setResponse] = useState<ReactNode | null>(null);
   const [showResponse, setShowResponse] = useState(false);
@@ -741,7 +724,7 @@ export function AIDock() {
       recommendations: prev.recommendations,
     };
 
-    const match = findContentMatch(q, isAR);
+    const match = findContentMatch(q);
 
     const ackLines: string[] = [];
     const ackNodeParts: ReactNode[] = [];
@@ -784,7 +767,6 @@ export function AIDock() {
 
     const matchBody = (entry: ContentEntry) => {
       const resp = entry.response(isAR);
-      const respStr = typeof resp === 'string' ? resp : '';
       recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
       return (
         <div>
