@@ -384,9 +384,7 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
                   </motion.g>
 
                   {/* =============== FLOATING PARTICLES =============== */}
-                  {phase !== 'dawn' && (
-                    <FloatingParticles count={20} />
-                  )}
+                  <FloatingParticles count={20} />
 
                   {/* =============== PULSE RING =============== */}
                   <motion.circle
