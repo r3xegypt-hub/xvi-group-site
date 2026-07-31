@@ -196,29 +196,6 @@ function RoadmapCard() {
   );
 }
 
-function GreetingWaveform() {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 24 }}>
-      {Array.from({ length: 24 }).map((_, i) => (
-        <motion.div
-          key={i}
-          style={{ width: 2, borderRadius: 3, background: 'linear-gradient(180deg, #c8a65a, #d4b76e)', originY: 0.5 }}
-          animate={{
-            height: [3 + Math.random() * 6, 14 + Math.random() * 18, 3 + Math.random() * 6],
-            opacity: [0.2, 1, 0.2],
-          }}
-          transition={{
-            duration: 1.2 + Math.random() * 0.8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: i * 0.04,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 function WhatsAppFallback({ query, isAR }: { query: string; isAR: boolean }) {
   const number = '971569220064';
   const message = isAR
@@ -416,8 +393,6 @@ export function AIDock() {
   const isAR = language === 'ar';
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [greetingStage, setGreetingStage] = useState<'entering' | 'greeting' | 'done'>('entering');
-  const greetDone = useRef(false);
 
   useEffect(() => {
     signalAIDockAvailable(true);
@@ -425,18 +400,8 @@ export function AIDock() {
   }, []);
 
   useEffect(() => {
-    if (greetDone.current) return;
-    greetDone.current = true;
-    const enterTimer = setTimeout(() => {
-      setOpen(true);
-      setTimeout(() => setGreetingStage('greeting'), 1000);
-      setTimeout(() => {
-        setGreetingStage('done');
-        setOpen(false);
-      }, 6000);
-    }, 1200);
-    return () => clearTimeout(enterTimer);
-  }, []);
+    window.dispatchEvent(new CustomEvent('xvi:ai-dock-state', { detail: { open } }));
+  }, [open]);
 
   useEffect(() => {
     if (open && inputRef.current) {
@@ -877,57 +842,6 @@ export function AIDock() {
 
             {/* Body */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
-              {/* Greeting */}
-              {greetingStage === 'greeting' && messageLog.length === 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease }}
-                  style={{ marginBottom: 20, textAlign: 'center', padding: '16px 0' }}
-                >
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.8, ease, delay: 0.2 }}
-                  >
-                    <GreetingWaveform />
-                  </motion.div>
-                  <motion.div
-                    style={{ fontFamily: font, fontSize: '1rem', fontWeight: 700, color: '#111', marginTop: 16, letterSpacing: '0.02em' }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    {isAR ? 'مرحباً بك في XVI' : 'Welcome to XVI'}
-                  </motion.div>
-                  <motion.div
-                    style={{ fontFamily: font, fontSize: '0.75rem', color: '#666', marginTop: 8, lineHeight: 1.6, maxWidth: 340, margin: '8px auto 0' }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                  >
-                    {isAR
-                      ? 'المستشار التنفيذي للذكاء الاصطناعي. يمكنني الإجابة عن أسئلتك حول خدماتنا، قطاعاتنا، ورؤيتنا.'
-                      : 'Your Executive AI Advisor. I can answer questions about our services, industries, and insights.'}
-                  </motion.div>
-                  <motion.div
-                    style={{ marginTop: 16, display: 'flex', justifyContent: 'center', gap: 6 }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 1 }}
-                  >
-                    {[0, 1, 2].map((i) => (
-                      <motion.div
-                        key={i}
-                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#c8a65a' }}
-                        animate={{ scale: [1, 1.6, 1], opacity: [0.3, 0.8, 0.3] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
-                      />
-                    ))}
-                  </motion.div>
-                </motion.div>
-              )}
-
               {/* Message log */}
               {messageLog.map((msg, i) => (
                 <motion.div

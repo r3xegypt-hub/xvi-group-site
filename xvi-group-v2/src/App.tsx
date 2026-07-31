@@ -12,6 +12,7 @@ import { MouseGlow } from './motion/MouseGlow';
 import { LuxuryLoader } from './components/ui/LuxuryLoader';
 import { CinematicExecutiveLaunch } from './components/ui/CinematicExecutiveLaunch';
 import { AIDock } from './components/assistant/AIDock';
+import { ExecutiveConcierge } from './components/assistant/ExecutiveConcierge';
 import { Home } from './pages/home';
 import { ServicesPage } from './pages/services';
 import { AboutPage } from './pages/about';
@@ -82,6 +83,7 @@ function App() {
                 </Routes>
               </PageTransition>
               <AIDock />
+              {!pending && <ExecutiveConcierge />}
             </div>
           </MotionProvider>
         </LanguageProvider>
