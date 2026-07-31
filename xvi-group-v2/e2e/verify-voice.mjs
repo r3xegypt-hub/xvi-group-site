@@ -130,7 +130,7 @@ async function emitTranscript(page, text) {
     await ctx.close();
   }
 
-  // 4) Unsupported browser: no mic button, no crash, typing still works.
+  // 4) Unsupported browser: mic shown but disabled, friendly notice on click, typing still works.
   {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
@@ -138,7 +138,12 @@ async function emitTranscript(page, text) {
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     await openDock(page, 'en');
 
-    report((await page.locator('[aria-label="Speak to write"]').count()) === 0, 'Unsupported: mic button hidden (graceful)');
+    const mic = page.locator('[aria-label="Speak to write"]');
+    report((await mic.count()) === 1, 'Unsupported: mic button still rendered');
+    await mic.click();
+    await page.getByText(/Voice input isn't supported in this browser/).waitFor({ state: 'visible', timeout: 4000 });
+    report(true, 'Unsupported: friendly fallback notice shown on mic click');
+    report((await page.getByText('Listening... (en-US)').count()) === 0, 'Unsupported: no listening state entered');
 
     const input = page.locator('div[style*="bottom: 100px"] input[placeholder="ask me anything..."]');
     await input.fill('services');

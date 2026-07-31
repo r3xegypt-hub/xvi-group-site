@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { signalAIDockAvailable } from '../../hooks/useCTA';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
+import { useTTS } from '../../hooks/useTTS';
+import type { VoiceSettings } from '../../hooks/useTTS';
 import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
   ChevronRight, Users, Shield, TrendingUp, Target, Lightbulb, Map,
-  Search, ArrowRight, Activity, Mic
+  Search, ArrowRight, Activity, Mic, Settings2, Volume2
 } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -61,7 +63,7 @@ function AnimatedOrb({ state = 'idle' }: { state?: 'idle' | 'listening' | 'think
 export function VoiceWaveform() {
   const bars = 16;
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 1.5, height: 16 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 1.5, height: 16 }} data-testid="voice-waveform">
       {Array.from({ length: bars }).map((_, i) => (
         <motion.div
           key={i}
@@ -111,6 +113,57 @@ const allActions: { id: ActionId; icon: typeof Brain; label: { en: string; ar: s
   { id: 'reports', icon: TrendingUp, label: { en: 'Executive Reports', ar: 'التقارير التنفيذية' } },
   { id: 'recommend', icon: Lightbulb, label: { en: 'Recommend Solution', ar: 'توصية حل' } },
 ];
+
+const ACTION_SPEECH: Record<string, { en: string; ar: string }> = {
+  strategy: { en: 'Based on your context, I recommend a phased transformation strategy.', ar: 'بناءً على سياقك، أوصي باستراتيجية تحول مرحلية.' },
+  solutions: { en: 'Our advisory services cover the full transformation lifecycle.', ar: 'خدماتنا الاستشارية تغطي دورة التحول الكاملة.' },
+  roadmap: { en: 'Here is a sample AI transformation roadmap tailored for enterprise.', ar: 'إليك خارطة طريق نموذجية للتحول بالذكاء الاصطناعي.' },
+  readiness: { en: 'I recommend evaluating these readiness dimensions.', ar: 'أوصي بتقييم أبعاد الاستعداد التالية.' },
+  pricing: { en: 'Here is our pricing structure. We offer an advisory retainer, project-based, and transformation programs.', ar: 'إليك هيكل التسعير لدينا. نوفر استشارات دورية ومشاريع محددة وبرامج تحول شاملة.' },
+  deliverables: { en: 'Executive deliverables include an AI strategy document, technology assessment, ROI analysis, and governance framework.', ar: 'تشمل المخرجات التنفيذية وثيقة استراتيجية الذكاء الاصطناعي وتقييم التكنولوجيا وتحليل العائد وإطار الحوكمة.' },
+  automation: { en: 'Here is an automation opportunity scan across your key processes.', ar: 'إليك فحص فرص الأتمتة عبر عملياتك الرئيسية.' },
+  timeline: { en: 'A typical engagement timeline spans twenty weeks, from discovery to deployment.', ar: 'الجدول الزمني النموذجي للاستشارة يمتد عشرين أسبوعاً من الاكتشاف إلى النشر.' },
+  reports: { en: 'Here is an executive dashboard preview.', ar: 'إليك معاينة للوحة التنفيذية.' },
+  recommend: { en: 'Let me recommend the best solution for your organization.', ar: 'دعني أوصيك بأفضل حل لمؤسستك.' },
+};
+
+const VOICE_SETTING_ROWS: { key: keyof VoiceSettings; label: { en: string; ar: string } }[] = [
+  { key: 'enabled', label: { en: 'Enable Voice', ar: 'تفعيل الصوت' } },
+  { key: 'replies', label: { en: 'Voice Replies', ar: 'الردود الصوتية' } },
+  { key: 'autoSpeak', label: { en: 'Auto Speak', ar: 'التحدث التلقائي' } },
+  { key: 'mute', label: { en: 'Mute', ar: 'كتم الصوت' } },
+  { key: 'langAuto', label: { en: 'Language Auto Detect', ar: 'كشف اللغة تلقائيًا' } },
+];
+
+function VoiceToggleRow({ row, settings, onToggle, isAR }: { row: { key: keyof VoiceSettings; label: { en: string; ar: string } }; settings: VoiceSettings; onToggle: () => void; isAR: boolean }) {
+  const on = settings[row.key];
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={on}
+      style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+        width: '100%', background: 'none', border: 'none', cursor: 'pointer', padding: '7px 0',
+      }}
+    >
+      <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#555', fontWeight: 500 }}>
+        {isAR ? row.label.ar : row.label.en}
+      </span>
+      <motion.span
+        animate={{ background: on ? '#c8a65a' : 'rgba(17,17,17,0.1)' }}
+        transition={{ duration: 0.25 }}
+        style={{
+          width: 30, height: 18, borderRadius: 999, padding: 2,
+          display: 'flex', alignItems: 'center', justifyContent: on ? 'flex-end' : 'flex-start',
+          flexShrink: 0,
+        }}
+      >
+        <motion.span layout style={{ width: 14, height: 14, borderRadius: '50%', background: '#fff', boxShadow: '0 1px 2px rgba(0,0,0,0.15)' }} />
+      </motion.span>
+    </button>
+  );
+}
 
 function StrategyCard() {
   const phases = [
@@ -382,21 +435,33 @@ export function AIDock() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<ConsultingView>('overview');
   const [thoughtStage, setThoughtStage] = useState<'ready' | 'thinking' | 'synthesizing' | 'ready-again'>('ready');
-  const avatarState: 'idle' | 'listening' | 'thinking' | 'speaking' =
-    thoughtStage === 'thinking' || thoughtStage === 'synthesizing' ? 'thinking'
-    : thoughtStage === 'ready-again' ? 'speaking'
-    : 'idle';
   const [response, setResponse] = useState<ReactNode | null>(null);
   const [showResponse, setShowResponse] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [messageLog, setMessageLog] = useState<{ type: 'user' | 'ai'; content: ReactNode }[]>([]);
+  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
+  const [lastSpeechText, setLastSpeechText] = useState('');
+  const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
   const { language } = useLanguage();
   const isAR = language === 'ar';
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const voiceLang = isAR ? 'ar-SA' : 'en-US';
+  const siteLang = isAR ? 'ar-SA' : 'en-US';
+  const {
+    supported: ttsSupported, speaking: ttsSpeaking, settings: voiceSettings,
+    speak: speakText, stop: stopSpeech, update: updateVoiceSettings,
+  } = useTTS(siteLang);
+  const voiceLang = voiceSettings.langAuto
+    ? siteLang
+    : (typeof navigator !== 'undefined' && navigator.language && navigator.language.toLowerCase().startsWith('ar') ? 'ar-SA' : 'en-US');
   const { supported: micSupported, listening: isListening, error: voiceError, start: startVoice, stop: stopVoice } = useSpeechRecognition(voiceLang);
+
+  const avatarState: 'idle' | 'listening' | 'thinking' | 'speaking' =
+    isListening ? 'listening'
+    : thoughtStage === 'thinking' || thoughtStage === 'synthesizing' ? 'thinking'
+    : thoughtStage === 'ready-again' ? 'speaking'
+    : 'idle';
 
   useEffect(() => {
     signalAIDockAvailable(true);
@@ -414,10 +479,30 @@ export function AIDock() {
   }, [open]);
 
   useEffect(() => {
+    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: isListening } }));
+  }, [isListening]);
+
+  useEffect(() => {
+    if (!open) stopSpeech();
+  }, [open, stopSpeech]);
+
+  useEffect(() => {
+    if (!voiceNotice) return;
+    const t = setTimeout(() => setVoiceNotice(null), 5200);
+    return () => clearTimeout(t);
+  }, [voiceNotice]);
+
+  useEffect(() => {
     const handler = () => setOpen(true);
     window.addEventListener('xvi:open-ai-dock', handler);
     return () => window.removeEventListener('xvi:open-ai-dock', handler);
   }, []);
+
+  useEffect(() => {
+    if (showResponse && lastSpeechText && voiceSettings.autoSpeak && voiceSettings.replies && voiceSettings.enabled && !voiceSettings.mute) {
+      speakText(lastSpeechText, { lang: voiceLang });
+    }
+  }, [showResponse, lastSpeechText, voiceSettings, speakText, voiceLang]);
 
   const simulateThinking = useCallback((responseContent: ReactNode) => {
     setThoughtStage('thinking');
@@ -580,6 +665,7 @@ export function AIDock() {
     }
 
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
+    setLastSpeechText(ACTION_SPEECH[actionId]?.[isAR ? 'ar' : 'en'] || '');
     simulateThinking(aiResponse);
   }, [isAR, simulateThinking, navigate]);
 
@@ -590,9 +676,12 @@ export function AIDock() {
 
     const match = findContentMatch(q, isAR);
     let aiResponse: ReactNode;
+    let speechText: string;
 
     if (match && match.score >= 2) {
       const { entry } = match;
+      const resp = entry.response(isAR);
+      speechText = typeof resp === 'string' ? resp : '';
       aiResponse = (
         <div>
           <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7, whiteSpace: 'pre-line' }}>
@@ -619,6 +708,9 @@ export function AIDock() {
         </div>
       );
     } else {
+      speechText = isAR
+        ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
+        : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.';
       aiResponse = (
         <div>
           <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7 }}>
@@ -648,6 +740,7 @@ export function AIDock() {
 
     setMessageLog(prev => [...prev, { type: 'user', content: userMsg }]);
     setInputValue('');
+    setLastSpeechText(speechText);
     simulateThinking(aiResponse);
   }, [simulateThinking, isAR]);
 
@@ -662,12 +755,18 @@ export function AIDock() {
   }, [submitQuery]);
 
   const handleMicClick = useCallback(() => {
+    if (!micSupported) {
+      setVoiceNotice(isAR
+        ? 'الصوت غير مدعوم في هذا المتصفح. يمكنك الكتابة مباشرة وسنتولى الباقي.'
+        : 'Voice input isn\'t supported in this browser. You can type your question and we\'ll take it from there.');
+      return;
+    }
     if (isListening) {
       stopVoice();
       return;
     }
     startVoice(handleVoiceResult);
-  }, [isListening, stopVoice, startVoice, handleVoiceResult]);
+  }, [micSupported, isListening, stopVoice, startVoice, handleVoiceResult, isAR]);
 
   const statusText = thoughtStage === 'thinking'
     ? (isAR ? 'تفكير...' : 'Thinking…')
@@ -945,6 +1044,30 @@ export function AIDock() {
                     }}>
                       {response}
                     </div>
+                    {lastSpeechText && !voiceSettings.autoSpeak && voiceSettings.replies && voiceSettings.enabled && !voiceSettings.mute && ttsSupported && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10 }}>
+                        <motion.button
+                          type="button"
+                          onClick={() => speakText(lastSpeechText, { lang: voiceLang })}
+                          whileHover={{ scale: 1.04 }}
+                          whileTap={{ scale: 0.97 }}
+                          aria-label={isAR ? 'استمع إلى الرد' : 'Listen to reply'}
+                          style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 6,
+                            padding: '6px 12px',
+                            background: ttsSpeaking ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
+                            border: '1px solid rgba(200,166,90,0.2)',
+                            borderRadius: 999, cursor: 'pointer',
+                            color: '#a98a45',
+                            fontFamily: font, fontSize: '0.6875rem', fontWeight: 600,
+                            transition: 'all 0.25s ease',
+                          }}
+                        >
+                          <Volume2 size={13} />
+                          {ttsSpeaking ? (isAR ? 'يتم التشغيل...' : 'Speaking…') : (isAR ? 'استمع' : 'Listen')}
+                        </motion.button>
+                      </div>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -1011,13 +1134,37 @@ export function AIDock() {
               padding: '12px 16px 16px',
               borderTop: '1px solid rgba(17,17,17,0.04)',
             }}>
+              {showVoiceSettings && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease }}
+                  style={{ overflow: 'hidden', marginBottom: 8 }}
+                >
+                  <div style={{
+                    border: '1px solid rgba(200,166,90,0.12)',
+                    background: 'rgba(200,166,90,0.03)',
+                    borderRadius: 12, padding: '8px 12px',
+                  }}>
+                    <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 700, color: '#132238', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+                      {isAR ? 'إعدادات الصوت' : 'Voice Settings'}
+                    </div>
+                    {VOICE_SETTING_ROWS.map((row) => (
+                      <VoiceToggleRow
+                        key={row.key}
+                        row={row}
+                        settings={voiceSettings}
+                        isAR={isAR}
+                        onToggle={() => updateVoiceSettings({ [row.key]: !voiceSettings[row.key] } as Partial<VoiceSettings>)}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
               {isListening && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
-                  <motion.span
-                    style={{ width: 6, height: 6, borderRadius: '50%', background: '#c8a65a', display: 'inline-block', flexShrink: 0 }}
-                    animate={{ scale: [1, 1.6, 1], opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
-                  />
+                  <VoiceWaveform />
                   <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', fontWeight: 500 }}>
                     {isAR ? `الاستماع... (${voiceLang})` : `Listening... (${voiceLang})`}
                   </span>
@@ -1026,6 +1173,11 @@ export function AIDock() {
               {voiceError && !isListening && (voiceError === 'not-allowed' || voiceError === 'service-not-allowed' || voiceError === 'network' || voiceError === 'audio-capture') && (
                 <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#b45309', paddingBottom: 8 }}>
                   {isAR ? 'تعذر الوصول إلى الميكروفون. حاول مرة أخرى.' : 'Microphone unavailable. Try again.'}
+                </div>
+              )}
+              {voiceNotice && (
+                <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', paddingBottom: 8 }}>
+                  {voiceNotice}
                 </div>
               )}
               <form onSubmit={handleInputSubmit} style={{ display: 'flex', gap: 8 }}>
@@ -1046,30 +1198,49 @@ export function AIDock() {
                   onFocus={(e) => { e.target.style.borderColor = '#C8A65A'; e.target.style.boxShadow = '0 0 0 3px rgba(200,166,90,0.08)'; }}
                   onBlur={(e) => { e.target.style.borderColor = 'rgba(200,166,90,0.1)'; e.target.style.boxShadow = 'none'; }}
                 />
-                {micSupported && (
-                  <motion.button
-                    type="button"
-                    onClick={handleMicClick}
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    title={isAR ? 'تحدث للكتابة' : 'Speak to write'}
-                    aria-label={isAR ? 'تحدث للكتابة' : 'Speak to write'}
-                    style={{
-                      padding: '10px 12px',
-                      background: isListening ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
-                      border: isListening ? '1px solid #c8a65a' : '1px solid rgba(200,166,90,0.2)',
-                      borderRadius: 12, cursor: 'pointer',
-                      color: isListening ? '#c8a65a' : '#a98a45',
-                      display: 'flex', alignItems: 'center',
-                      boxShadow: isListening ? '0 0 0 3px rgba(200,166,90,0.15)' : 'none',
-                      transition: 'all 0.25s ease',
-                    }}
-                    animate={isListening ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-                    transition={{ duration: 1, repeat: isListening ? Infinity : 0, ease: 'easeInOut' }}
-                  >
-                    <Mic size={16} />
-                  </motion.button>
-                )}
+                <motion.button
+                  type="button"
+                  onClick={handleMicClick}
+                  whileHover={micSupported ? { scale: 1.04 } : {}}
+                  whileTap={micSupported ? { scale: 0.97 } : {}}
+                  title={micSupported
+                    ? (isAR ? 'تحدث للكتابة' : 'Speak to write')
+                    : (isAR ? 'الصوت غير مدعوم في هذا المتصفح' : 'Voice not supported in this browser')}
+                  aria-label={isAR ? 'تحدث للكتابة' : 'Speak to write'}
+                  style={{
+                    padding: '10px 12px',
+                    background: !micSupported ? 'rgba(17,17,17,0.04)' : isListening ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
+                    border: !micSupported ? '1px solid rgba(17,17,17,0.08)' : isListening ? '1px solid #c8a65a' : '1px solid rgba(200,166,90,0.2)',
+                    borderRadius: 12, cursor: micSupported ? 'pointer' : 'not-allowed',
+                    color: !micSupported ? '#aaa' : isListening ? '#c8a65a' : '#a98a45',
+                    display: 'flex', alignItems: 'center',
+                    boxShadow: isListening ? '0 0 0 3px rgba(200,166,90,0.15)' : 'none',
+                    transition: 'all 0.25s ease',
+                  }}
+                  animate={isListening ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+                  transition={{ duration: 1, repeat: isListening ? Infinity : 0, ease: 'easeInOut' }}
+                >
+                  <Mic size={16} />
+                </motion.button>
+                <motion.button
+                  type="button"
+                  onClick={() => setShowVoiceSettings((v) => !v)}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  title={isAR ? 'إعدادات الصوت' : 'Voice settings'}
+                  aria-label={isAR ? 'إعدادات الصوت' : 'Voice settings'}
+                  style={{
+                    padding: '10px 11px',
+                    background: showVoiceSettings ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
+                    border: showVoiceSettings ? '1px solid #c8a65a' : '1px solid rgba(200,166,90,0.2)',
+                    borderRadius: 12, cursor: 'pointer',
+                    color: showVoiceSettings ? '#c8a65a' : '#a98a45',
+                    display: 'flex', alignItems: 'center',
+                    transition: 'all 0.25s ease',
+                  }}
+                >
+                  <Settings2 size={16} />
+                </motion.button>
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.04, background: '#d4b76e' }}

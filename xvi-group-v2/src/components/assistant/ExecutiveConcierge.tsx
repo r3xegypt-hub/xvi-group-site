@@ -46,10 +46,17 @@ export function ExecutiveConcierge() {
   const [mag, setMag] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const [minimize, setMinimize] = useState({ x: 0, y: 0, active: false });
+  const [listening, setListening] = useState(false);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const robotRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ sx: number; sy: number; ox: number; oy: number; moved: boolean } | null>(null);
+
+  useEffect(() => {
+    const onVoice = (e: Event) => setListening(Boolean((e as CustomEvent).detail?.listening));
+    window.addEventListener('xvi:voice-state', onVoice);
+    return () => window.removeEventListener('xvi:voice-state', onVoice);
+  }, []);
 
   const openDock = useCallback(() => {
     window.dispatchEvent(new CustomEvent('xvi:open-ai-dock'));
@@ -260,7 +267,7 @@ export function ExecutiveConcierge() {
       {showRobot && (
         <motion.div
           ref={robotRef}
-          className={`${styles.robot}${dragging ? ` ${styles.dragging}` : ''}`}
+          className={`${styles.robot}${dragging ? ` ${styles.dragging}` : ''}${listening ? ` ${styles.listening}` : ''}`}
           style={{ left: robotPos.x, top: robotPos.y, pointerEvents: dockOpen ? 'none' : 'auto' }}
           initial={{ scale: phase === 'minimize' ? 0 : 1, opacity: phase === 'minimize' ? 0 : 1 }}
           animate={{ scale: dockOpen ? 0.4 : 1, opacity: dockOpen ? 0 : 1 }}

@@ -168,6 +168,15 @@
   animation: blink 4.2s ease-in-out infinite;
 }
 
+&.listening {
+  .glow {
+    animation: listenPulse 1.5s ease-in-out infinite;
+  }
+  .eyes {
+    animation: eyeFocus 1.1s ease-in-out infinite;
+  }
+}
+
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -186,6 +195,16 @@
 @keyframes blink {
   0%, 88%, 100% { transform: scaleY(1); }
   92%, 95% { transform: scaleY(0.06); }
+}
+
+@keyframes listenPulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@keyframes eyeFocus {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
 }
 
 @include reduced-motion {
