@@ -54,6 +54,8 @@ export function MouseGlow({ color = '#C8A65A', radius = 300, opacity = 0.04, cla
       <motion.div
         style={{
           position: 'absolute',
+          top: 0,
+          left: 0,
           width: radius * 2,
           height: radius * 2,
           borderRadius: '50%',

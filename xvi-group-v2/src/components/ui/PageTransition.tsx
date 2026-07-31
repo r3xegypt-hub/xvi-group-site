@@ -7,13 +7,13 @@ const ease: Easing = [0.16, 1, 0.3, 1];
 const transition = { duration: 0.6, ease };
 
 const pageVariants: Variants = {
-  initial: { opacity: 0, y: 20, filter: 'blur(8px)', scale: 0.97 },
+  initial: { opacity: 0, y: 20, scale: 0.97 },
   animate: {
-    opacity: 1, y: 0, filter: 'blur(0px)', scale: 1,
+    opacity: 1, y: 0, scale: 1,
     transition: { duration: 0.7, ease },
   },
   exit: {
-    opacity: 0, y: -16, filter: 'blur(6px)', scale: 0.97,
+    opacity: 0, y: -16, scale: 0.97,
     transition: { duration: 0.35, ease },
   },
 };
@@ -28,9 +28,9 @@ export function PageTransition({ children, variant = 'standard' }: PageTransitio
 
   const variants = variant === 'maskReveal'
     ? {
-        initial: { opacity: 0, clipPath: 'inset(0 50% 0 50%)', filter: 'blur(6px)' },
-        animate: { opacity: 1, clipPath: 'inset(0 0% 0 0%)', filter: 'blur(0px)', transition: { duration: 0.7, ease } },
-        exit: { opacity: 0, clipPath: 'inset(0 0% 0 100%)', filter: 'blur(4px)', transition: { duration: 0.3, ease } },
+        initial: { opacity: 0, clipPath: 'inset(0 50% 0 50%)' },
+        animate: { opacity: 1, clipPath: 'inset(0 0% 0 0%)', transition: { duration: 0.7, ease } },
+        exit: { opacity: 0, clipPath: 'inset(0 0% 0 100%)', transition: { duration: 0.3, ease } },
       }
     : pageVariants;
 
@@ -42,7 +42,7 @@ export function PageTransition({ children, variant = 'standard' }: PageTransitio
         initial="initial"
         animate="animate"
         exit="exit"
-        style={{ willChange: 'transform, opacity, filter, clip-path' }}
+        style={{ willChange: 'opacity' }}
       >
         {children}
       </motion.div>

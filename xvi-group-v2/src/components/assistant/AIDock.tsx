@@ -726,7 +726,9 @@ export function AIDock() {
         layout
         style={{
           position: 'fixed', bottom: 24, left: '50%', zIndex: 601,
-          transform: 'translateX(-50%)',
+          x: '-50%',
+          maxWidth: 'calc(100vw - 16px)',
+          overflow: 'hidden',
           display: 'flex', alignItems: 'center', gap: 8,
           padding: '6px 8px',
           background: 'rgba(255,255,255,0.92)',
@@ -776,7 +778,7 @@ export function AIDock() {
               transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
             />
           </div>
-          <span style={{ whiteSpace: 'nowrap' }}>
+          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
             {isAR ? 'المستشار التنفيذي' : 'Executive AI'}
           </span>
           {open ? <X size={12} style={{ color: '#999' }} /> : <Sparkles size={12} style={{ color: '#C8A65A' }} />}
@@ -794,9 +796,9 @@ export function AIDock() {
             onClick={(e) => e.stopPropagation()}
             style={{
               position: 'fixed', bottom: 100, left: '50%', zIndex: 601,
-              transform: 'translateX(-50%)',
-              width: 480, maxWidth: 'calc(100vw - 48px)',
-              maxHeight: '70vh',
+              x: '-50%',
+              width: 480, maxWidth: 'calc(100vw - 32px)',
+              maxHeight: 'min(70vh, calc(100vh - 190px))',
               background: 'rgba(255,255,255,0.985)',
               backdropFilter: 'blur(60px)',
               WebkitBackdropFilter: 'blur(60px)',
