@@ -508,8 +508,8 @@ export function AIDock() {
   }, [open]);
 
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: isListening } }));
-  }, [isListening]);
+    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: isListening, speaking: ttsSpeaking } }));
+  }, [isListening, ttsSpeaking]);
 
   useEffect(() => {
     if (!open) stopSpeech();
@@ -912,6 +912,24 @@ export function AIDock() {
     submitQuery(text);
   }, [submitQuery]);
 
+  const manualStopRef = useRef(false);
+
+  const handleVoiceInterim = useCallback((text: string) => {
+    setInputValue(text);
+  }, []);
+
+  const handleVoiceEnd = useCallback((hadResult: boolean) => {
+    if (manualStopRef.current) {
+      manualStopRef.current = false;
+      return;
+    }
+    if (!hadResult) {
+      setVoiceNotice(isAR
+        ? 'لم أسمع أي صوت. اضغط على الميكروفون وحاول مرة أخرى.'
+        : 'No speech detected. Tap the mic and try again.');
+    }
+  }, [isAR]);
+
   const handleMicClick = useCallback(() => {
     if (!micSupported) {
       setVoiceNotice(isAR
@@ -920,11 +938,12 @@ export function AIDock() {
       return;
     }
     if (isListening) {
+      manualStopRef.current = true;
       stopVoice();
       return;
     }
-    startVoice(handleVoiceResult);
-  }, [micSupported, isListening, stopVoice, startVoice, handleVoiceResult, isAR]);
+    startVoice({ onInterim: handleVoiceInterim, onResult: handleVoiceResult, onEnd: handleVoiceEnd });
+  }, [micSupported, isListening, stopVoice, startVoice, handleVoiceResult, handleVoiceInterim, handleVoiceEnd, isAR]);
 
   const statusText = thoughtStage === 'thinking'
     ? (isAR ? 'تفكير...' : 'Thinking…')
@@ -989,6 +1008,7 @@ export function AIDock() {
           onClick={handleToggle}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
+          aria-label={isAR ? 'فتح المستشار التنفيذي' : 'Open Executive AI'}
           style={{
             display: 'flex', alignItems: 'center', gap: 8,
             padding: '6px 16px 6px 6px',
@@ -1402,6 +1422,17 @@ export function AIDock() {
                   <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', fontWeight: 500 }}>
                     {isAR ? `الاستماع... (${voiceLang})` : `Listening... (${voiceLang})`}
                   </span>
+                  <span style={{ fontFamily: font, fontSize: '0.625rem', color: '#c8a65a', fontWeight: 500 }}>
+                    {isAR ? '· اضغط للإيقاف' : '· tap to stop'}
+                  </span>
+                </div>
+              )}
+              {ttsSpeaking && !isListening && !voiceError && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
+                  <Volume2 size={13} style={{ color: '#c8a65a', flexShrink: 0 }} />
+                  <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', fontWeight: 500 }}>
+                    {isAR ? 'جاري التحدث...' : 'Speaking…'}
+                  </span>
                 </div>
               )}
               {voiceError && !isListening && (voiceError === 'not-allowed' || voiceError === 'service-not-allowed' || voiceError === 'network' || voiceError === 'audio-capture') && (
@@ -1438,7 +1469,9 @@ export function AIDock() {
                   whileHover={micSupported ? { scale: 1.04 } : {}}
                   whileTap={micSupported ? { scale: 0.97 } : {}}
                   title={micSupported
-                    ? (isAR ? 'تحدث للكتابة' : 'Speak to write')
+                    ? (isListening
+                      ? (isAR ? 'اضغط لإيقاف التسجيل' : 'Tap to stop listening')
+                      : (isAR ? 'تحدث للكتابة' : 'Speak to write'))
                     : (isAR ? 'الصوت غير مدعوم في هذا المتصفح' : 'Voice not supported in this browser')}
                   aria-label={isAR ? 'تحدث للكتابة' : 'Speak to write'}
                   style={{

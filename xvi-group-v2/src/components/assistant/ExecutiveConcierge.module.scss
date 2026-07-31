@@ -207,6 +207,27 @@
   50% { transform: scale(1.18); }
 }
 
+&.speaking {
+  .glow {
+    animation: speakPulse 1.1s ease-in-out infinite;
+  }
+  .eyes {
+    animation: speakEyes 0.9s ease-in-out infinite;
+  }
+}
+
+@keyframes speakPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  40% { opacity: 1; transform: scale(1.16); }
+  60% { opacity: 0.85; transform: scale(1.08); }
+}
+
+@keyframes speakEyes {
+  0%, 100% { transform: scaleY(1); }
+  35% { transform: scaleY(0.7); }
+  55% { transform: scaleY(1.05); }
+}
+
 @include reduced-motion {
   .glow,
   .head,

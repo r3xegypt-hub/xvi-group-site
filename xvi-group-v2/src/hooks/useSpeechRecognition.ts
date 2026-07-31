@@ -15,6 +15,7 @@ interface SpeechRecognitionResultList {
 }
 
 interface SpeechRecognitionEvent extends Event {
+  resultIndex?: number;
   results: SpeechRecognitionResultList;
 }
 
@@ -46,44 +47,91 @@ declare global {
   }
 }
 
+interface StartOptions {
+  onInterim?: (text: string) => void;
+  onResult?: (text: string) => void;
+  onEnd?: (hadResult: boolean) => void;
+}
+
 export function useSpeechRecognition(lang: string) {
   const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const recRef = useRef<SpeechRecognition | null>(null);
+  const hadResultRef = useRef(false);
+  const onInterimRef = useRef<((text: string) => void) | null>(null);
+  const onResultRef = useRef<((text: string) => void) | null>(null);
+  const onEndRef = useRef<((hadResult: boolean) => void) | null>(null);
 
   useEffect(() => {
     const Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!Ctor) return;
-    setSupported(true);
-    const rec = new Ctor();
-    rec.continuous = false;
-    rec.interimResults = false;
-    rec.onstart = () => { setListening(true); setError(null); };
-    rec.onend = () => setListening(false);
-    rec.onerror = (e) => { setListening(false); setError(e.error || 'error'); };
-    recRef.current = rec;
-    return () => {
-      try { rec.abort(); } catch { /* noop */ }
-      recRef.current = null;
-    };
+    setSupported(Boolean(Ctor));
   }, []);
 
-  const start = useCallback((onResult: (text: string) => void) => {
-    const rec = recRef.current;
-    if (!rec) return;
+  const ensureRecognition = useCallback(() => {
+    if (recRef.current) return recRef.current;
+    const Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Ctor) return null;
+    const rec = new Ctor();
+    rec.continuous = false;
+    rec.interimResults = true;
+    rec.onstart = () => { setListening(true); setError(null); };
+    rec.onend = () => {
+      setListening(false);
+      const had = hadResultRef.current;
+      hadResultRef.current = false;
+      onEndRef.current?.(had);
+    };
+    rec.onerror = (e) => {
+      if (e.error === 'aborted' || e.error === 'no-speech') {
+        setListening(false);
+        return;
+      }
+      setListening(false);
+      setError(e.error || 'error');
+    };
+    recRef.current = rec;
+    return rec;
+  }, []);
+
+  const start = useCallback((opts: StartOptions = {}) => {
+    const rec = ensureRecognition();
+    if (!rec) return false;
+    onInterimRef.current = opts.onInterim ?? null;
+    onResultRef.current = opts.onResult ?? null;
+    onEndRef.current = opts.onEnd ?? null;
+    hadResultRef.current = false;
     rec.lang = lang;
     rec.onresult = (e) => {
-      const text = e.results?.[0]?.[0]?.transcript ?? '';
-      if (text.trim()) onResult(text.trim());
-      try { rec.stop(); } catch { /* noop */ }
+      let interim = '';
+      let final = '';
+      const startIdx = e.resultIndex ?? 0;
+      for (let i = startIdx; i < e.results.length; i++) {
+        const r = e.results[i];
+        const t = r?.[0]?.transcript ?? '';
+        if (r.isFinal) final += t;
+        else interim += t;
+      }
+      if (interim && onInterimRef.current) onInterimRef.current(interim.trim());
+      if (final && onResultRef.current) {
+        hadResultRef.current = true;
+        onResultRef.current(final.trim());
+        try { rec.stop(); } catch { /* noop */ }
+      }
     };
-    try { rec.start(); } catch { /* noop */ }
-  }, [lang]);
+    try {
+      rec.start();
+      return true;
+    } catch {
+      setError('start-error');
+      return false;
+    }
+  }, [lang, ensureRecognition]);
 
   const stop = useCallback(() => {
-    try { recRef.current?.stop(); } catch { /* noop */ }
     setListening(false);
+    setError(null);
+    try { recRef.current?.stop(); } catch { /* noop */ }
   }, []);
 
   return { supported, listening, error, start, stop };

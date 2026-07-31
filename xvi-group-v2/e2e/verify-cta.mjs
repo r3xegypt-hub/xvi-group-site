@@ -13,7 +13,7 @@ async function waitStable(page) {
   await page.waitForTimeout(4000);
 }
 async function dockVisible(page) {
-  try { await page.locator('button').filter({ hasText: 'Executive AI' }).first().waitFor({ state: 'visible', timeout: 3000 }); return true; } catch { return false; }
+  try { await page.locator('button[aria-label="Open Executive AI"]').first().waitFor({ state: 'visible', timeout: 3000 }); return true; } catch { return false; }
 }
 async function closeDock(page) { await page.keyboard.press('Escape'); await page.waitForTimeout(600); }
 
@@ -39,7 +39,7 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
 
-  const dockToggle = () => desktop.locator('button').filter({ hasText: 'Executive AI' }).first();
+  const dockToggle = () => desktop.locator('button[aria-label="Open Executive AI"]').first();
   if (await dockToggle().isVisible()) pass('Dock toggle present');
 
   const heroAi = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' }).first();
@@ -130,7 +130,7 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
 
-  const dt = desktop.locator('button').filter({ hasText: 'Executive AI' }).first();
+  const dt = desktop.locator('button[aria-label="Open Executive AI"]').first();
   if (await dt.isVisible()) {
     await dt.click(CLICK); await desktop.waitForTimeout(1200);
     pass('AI Dock opened');
@@ -192,23 +192,21 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   console.log('\n🔍 ERRORS');
   (errs.length === 0) ? pass('No errors') : fail(`Errors: ${errs.join(' | ')}`);
 
-  // 12. Navigation after AI dock
-  console.log('\n🔍 NAV AFTER DOCK');
+  // 12. Navigation with AI dock open (C1 regression: nav must stay clickable above the dock backdrop)
+  console.log('\n🔍 NAV WITH DOCK OPEN');
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
-  const d2 = desktop.locator('button').filter({ hasText: 'Executive AI' }).first();
-  if (await d2.isVisible()) { await d2.click(CLICK); await desktop.waitForTimeout(500); }
-  // Close dock by clicking the toggle again (closes the panel)
-  if (await d2.isVisible()) { await d2.click(CLICK); await desktop.waitForTimeout(600); }
+  const d2 = desktop.locator('button[aria-label="Open Executive AI"]').first();
+  if (await d2.isVisible()) { await d2.click(CLICK); await desktop.waitForTimeout(900); }
   const svcLink = desktop.locator('header a').filter({ hasText: /^Solutions$/ }).first();
   if (await svcLink.isVisible()) {
     await svcLink.click(CLICK); await desktop.waitForTimeout(1500);
-    desktop.url().includes('/services') ? pass('Nav after dock → /services ✅') : fail(`→ ${desktop.url()}`);
+    desktop.url().includes('/services') ? pass('Nav while dock open → /services ✅') : fail(`→ ${desktop.url()}`);
   } else {
     const svcLink2 = desktop.locator('header a').filter({ hasText: /^Services$/ }).first();
     if (await svcLink2.isVisible()) {
       await svcLink2.click(CLICK); await desktop.waitForTimeout(1500);
-      desktop.url().includes('/services') ? pass('Nav after dock → /services ✅') : fail(`→ ${desktop.url()}`);
+      desktop.url().includes('/services') ? pass('Nav while dock open → /services ✅') : fail(`→ ${desktop.url()}`);
     } else fail('No nav link found');
   }
 

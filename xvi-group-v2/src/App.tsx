@@ -32,7 +32,6 @@ import { ExecutiveTrainingPage } from './pages/services/executive-training/Execu
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Navigation />
       <main id="main-content">
         {children}
       </main>
@@ -65,6 +64,7 @@ function App() {
               <CustomCursor />
               <MouseGlow color="#c8a65a" radius={250} />
               <ScrollProgress />
+              <Navigation />
               <PageTransition>
                 <Routes>
                   <Route path="/" element={<PageShell><Home /></PageShell>} />
