@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
@@ -26,15 +27,15 @@ export function Contact() {
           {ar ? 'الذكاء، بتأثير حقيقي.' : 'Intelligence, made consequential.'}
         </motion.h2>
 
-        <motion.a
-          href="mailto:contact@xvigroup.com"
-          className={styles.cta}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease, delay: 0.1 }}
         >
-          {ar ? 'تواصل معنا' : 'Get in touch'}
-        </motion.a>
+          <Link to="/contact" className={styles.cta}>
+            {ar ? 'تواصل معنا' : 'Get in touch'}
+          </Link>
+        </motion.div>
 
         <motion.div
           className={styles.contactInfo}

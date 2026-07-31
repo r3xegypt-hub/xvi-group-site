@@ -81,8 +81,11 @@ export function Navigation() {
         </nav>
       </header>
 
-      <div className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}>
-        <div className={styles.mobileMenuInner}>
+      <div
+        className={`${styles.mobileMenu} ${isMobileOpen ? styles.mobileMenuOpen : ''}`}
+        onClick={() => setIsMobileOpen(false)}
+      >
+        <div className={styles.mobileMenuInner} onClick={(e) => e.stopPropagation()}>
           {navLinks.map((link) => (
             <Link key={link.to} to={link.to} className={styles.mobileLink} onClick={() => setIsMobileOpen(false)}>
               {link.label}
@@ -92,7 +95,7 @@ export function Navigation() {
             {ar ? 'تواصل' : 'Contact'}
           </Link>
           <div className={styles.mobileLangWrap}>
-            <LanguageToggle />
+            <LanguageToggle fullWidth />
           </div>
         </div>
       </div>
