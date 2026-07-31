@@ -43,6 +43,10 @@ export function MotionProvider({ children }: MotionProviderProps) {
   }, []);
 
   useEffect(() => {
+    document.documentElement.dataset.motion = prefersReducedMotion ? 'reduced' : 'full';
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
     if (!prefersReducedMotion) {
       scrollRevealEngine.init();
       parallaxEngine.init();

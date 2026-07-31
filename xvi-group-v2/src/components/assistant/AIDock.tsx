@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { useMotion } from '../../motion/providers/MotionProvider';
 import { signalAIDockAvailable } from '../../hooks/useCTA';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { useTTS } from '../../hooks/useTTS';
@@ -76,7 +77,17 @@ function AnimatedOrb({ state = 'idle' }: { state?: 'idle' | 'listening' | 'think
 }
 
 export function VoiceWaveform() {
+  const { prefersReducedMotion } = useMotion();
   const bars = 16;
+  if (prefersReducedMotion) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 1.5, height: 16 }} data-testid="voice-waveform">
+        {Array.from({ length: bars }).map((_, i) => (
+          <div key={i} style={{ width: 2, height: 8, borderRadius: 2, background: '#c8a65a', opacity: 0.5 }} />
+        ))}
+      </div>
+    );
+  }
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 1.5, height: 16 }} data-testid="voice-waveform">
       {Array.from({ length: bars }).map((_, i) => (
@@ -462,6 +473,7 @@ export function AIDock() {
   const prevOpenRef = useRef(false);
   const { language } = useLanguage();
   const isAR = language === 'ar';
+  const { prefersReducedMotion: rm } = useMotion();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -1019,13 +1031,13 @@ export function AIDock() {
             }}>X</div>
             <motion.div
               style={{ position: 'absolute', inset: -3, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.12)' }}
-              animate={{ scale: [1, 1.06, 1], opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+              animate={rm ? { opacity: 0.3 } : { scale: [1, 1.06, 1], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 2.5, repeat: rm ? 0 : Infinity, ease: 'easeInOut' }}
             />
             <motion.div
               style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.05)' }}
-              animate={{ scale: [1, 1.04, 1], opacity: [0.15, 0.3, 0.15] }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              animate={rm ? { opacity: 0.15 } : { scale: [1, 1.04, 1], opacity: [0.15, 0.3, 0.15] }}
+              transition={{ duration: 3.5, repeat: rm ? 0 : Infinity, ease: 'easeInOut', delay: 0.5 }}
             />
           </div>
           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
@@ -1065,8 +1077,8 @@ export function AIDock() {
                 pointerEvents: 'none', zIndex: 1,
                 background: 'linear-gradient(135deg, rgba(200,166,90,0.08) 0%, transparent 50%, rgba(200,166,90,0.04) 100%)',
               }}
-              animate={{ opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              animate={rm ? { opacity: 0.3 } : { opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 6, repeat: rm ? 0 : Infinity, ease: 'easeInOut' }}
             />
 
             {/* Top glow */}
@@ -1083,8 +1095,8 @@ export function AIDock() {
                 background: 'linear-gradient(90deg, transparent, rgba(200,166,90,0.1), transparent)',
                 pointerEvents: 'none', zIndex: 1,
               }}
-              animate={{ top: ['-1%', '101%'] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              animate={rm ? { opacity: 0 } : { top: ['-1%', '101%'] }}
+              transition={{ duration: 8, repeat: rm ? 0 : Infinity, ease: 'easeInOut' }}
             />
 
             {/* Header */}
@@ -1104,8 +1116,8 @@ export function AIDock() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
                   <motion.span
                     style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: statusColor }}
-                    animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    animate={rm ? { scale: 1 } : { scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 1.5, repeat: rm ? 0 : Infinity }}
                   />
                   <span style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                     {isAR ? 'الذكاء التنفيذي · إشارة صوتية' : 'Executive Intelligence · VOICE SIGNAL'}
@@ -1224,8 +1236,8 @@ export function AIDock() {
                         height: 1, borderRadius: 1,
                         background: 'linear-gradient(90deg, transparent, #c8a65a, transparent)',
                       }}
-                      animate={{ opacity: [0.1, 0.5, 0.1], scaleX: [0.9, 1, 0.9] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                      animate={rm ? { opacity: 0.4 } : { opacity: [0.1, 0.5, 0.1], scaleX: [0.9, 1, 0.9] }}
+                      transition={{ duration: 2, repeat: rm ? 0 : Infinity, ease: 'easeInOut' }}
                     />
                   </div>
                 </motion.div>
@@ -1285,10 +1297,19 @@ export function AIDock() {
                       {isAR ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً وقادراً على المساعدة.' : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.'}
                     </div>
                   )}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  <motion.div
+                    initial={rm ? false : 'hidden'}
+                    animate={rm ? undefined : 'show'}
+                    variants={{
+                      hidden: {},
+                      show: { transition: { staggerChildren: 0.05, delayChildren: 0.08 } },
+                    }}
+                    style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}
+                  >
                     {quickActions.map((action) => (
                       <motion.button
                         key={action.id}
+                        variants={rm ? undefined : { hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
                         onClick={() => handleAction(action.id)}
                         whileHover={{ y: -2, background: 'rgba(200,166,90,0.1)', borderColor: '#C8A65A' }}
                         whileTap={{ scale: 0.97 }}
@@ -1308,7 +1329,7 @@ export function AIDock() {
                         {isAR ? action.label.ar : action.label.en}
                       </motion.button>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               ) : null}
 
@@ -1422,8 +1443,8 @@ export function AIDock() {
                     boxShadow: isListening ? '0 0 0 3px rgba(200,166,90,0.15)' : 'none',
                     transition: 'all 0.25s ease',
                   }}
-                  animate={isListening ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-                  transition={{ duration: 1, repeat: isListening ? Infinity : 0, ease: 'easeInOut' }}
+                  animate={isListening ? (rm ? { scale: 1 } : { scale: [1, 1.08, 1] }) : { scale: 1 }}
+                  transition={{ duration: 1, repeat: (isListening && !rm) ? Infinity : 0, ease: 'easeInOut' }}
                 >
                   <Mic size={16} />
                 </motion.button>

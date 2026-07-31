@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useMotion } from './providers/MotionProvider';
 
 interface MouseGlowProps {
   color?: string;
@@ -15,8 +16,10 @@ export function MouseGlow({ color = '#C8A65A', radius = 300, opacity = 0.04, cla
   const springX = useSpring(x, { stiffness: 100, damping: 30 });
   const springY = useSpring(y, { stiffness: 100, damping: 30 });
   const [isVisible, setIsVisible] = useState(false);
+  const { prefersReducedMotion } = useMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const handleMouse = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
@@ -33,12 +36,13 @@ export function MouseGlow({ color = '#C8A65A', radius = 300, opacity = 0.04, cla
       window.removeEventListener('mousemove', handleMouse);
       document.removeEventListener('mouseleave', handleLeave);
     };
-  }, [x, y, isVisible]);
+  }, [x, y, isVisible, prefersReducedMotion]);
 
   return (
     <motion.div
       ref={ref}
       className={className}
+      aria-hidden="true"
       style={{
         position: 'fixed',
         pointerEvents: 'none',

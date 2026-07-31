@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './branding/ThemeProvider';
 import { LanguageProvider } from './hooks/LanguageProvider';
 import { MotionProvider } from './motion/providers/MotionProvider';
@@ -55,6 +56,7 @@ function App() {
       <ThemeProvider>
         <LanguageProvider>
           <MotionProvider>
+            <MotionConfig reducedMotion="user">
             <div className="xvi-app">
               {pending && (introSeenRef.current
                 ? <LuxuryLoader onFinish={handleFinish} />
@@ -85,6 +87,7 @@ function App() {
               <AIDock />
               {!pending && <ExecutiveConcierge />}
             </div>
+            </MotionConfig>
           </MotionProvider>
         </LanguageProvider>
       </ThemeProvider>
