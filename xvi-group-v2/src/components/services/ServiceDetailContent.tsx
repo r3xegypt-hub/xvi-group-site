@@ -193,7 +193,12 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
       <div style={{ position: 'relative', padding: '100px 0', background: '#FFFFFF' }}>
         <Container>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 48 }}>
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
               <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.problem.title)}
@@ -201,8 +206,13 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
               <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
                 {L(content.problem.desc)}
               </p>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease, delay: 0.15 }}
+            >
               <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.solution.title)}
@@ -210,19 +220,25 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
               <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
                 {L(content.solution.desc)}
               </p>
-            </div>
+            </motion.div>
           </div>
         </Container>
       </div>
 
       <div style={{ position: 'relative', padding: '100px 0', background: '#ECE8E2' }}>
         <Container>
-          <h2 style={{
-            fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-            fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 48px',
-          }}>
+          <motion.h2
+            style={{
+              fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+              fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 48px',
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+          >
             {ar ? 'عملية العمل' : 'Our Process'}
-          </h2>
+          </motion.h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
             {content.process.map((step, i) => (
               <PremiumCard key={i} glassIntensity={i % 2 === 0 ? 'light' : 'medium'} delay={i * 0.08}>
@@ -246,12 +262,18 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
       <div style={{ position: 'relative', padding: '100px 0', background: '#FFFFFF' }}>
         <Container>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
-            <h2 style={{
-              fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-              fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
-            }}>
+            <motion.h2
+              style={{
+                fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+                fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
               {ar ? 'الفوائد الرئيسية' : 'Key Benefits'}
-            </h2>
+            </motion.h2>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               {content.benefits.map((b, i) => (
                 <motion.div
@@ -281,12 +303,18 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
       <div style={{ position: 'relative', padding: '100px 0', background: '#ECE8E2' }}>
         <Container>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
-            <h2 style={{
-              fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-              fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
-            }}>
+            <motion.h2
+              style={{
+                fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+                fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease }}
+            >
               {ar ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}
-            </h2>
+            </motion.h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {content.faq.map((item, i) => (
                 <motion.details
