@@ -88,6 +88,7 @@ export function Navigation() {
         onClick={() => setIsMobileOpen(false)}
       >
         <div className={styles.mobileMenuInner} onClick={(e) => e.stopPropagation()}>
+          <span className={styles.mobileEyebrow}>{ar ? 'التنقل' : 'Navigate'}</span>
           {navLinks.map((link) => (
             <Link key={link.to} to={link.to} className={`${styles.mobileLink}${isActive(link.to) ? ` ${styles.activeLink}` : ''}`} onClick={() => setIsMobileOpen(false)}>
               {link.label}

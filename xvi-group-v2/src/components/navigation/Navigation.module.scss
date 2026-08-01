@@ -28,15 +28,17 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 16px 8px 24px;
-  background: rgba(247, 246, 243, 0.82);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(247, 246, 243, 0.86), rgba(247, 246, 243, 0.86)) padding-box,
+    linear-gradient(135deg, rgba(200, 166, 90, 0.55) 0%, rgba(200, 166, 90, 0.08) 40%, rgba(200, 166, 90, 0.12) 60%, rgba(200, 166, 90, 0.5) 100%) border-box;
   backdrop-filter: blur(40px) saturate(1.2);
   -webkit-backdrop-filter: blur(40px) saturate(1.2);
-  border: 1px solid rgba(19, 34, 56, 0.06);
   border-radius: 999px;
   box-shadow:
     0 8px 32px rgba(16, 16, 16, 0.05),
     0 1px 2px rgba(16, 16, 16, 0.02),
-    0 0 60px rgba(200, 166, 90, 0.02),
+    0 0 60px rgba(200, 166, 90, 0.05),
     inset 0 1px 0 rgba(255,255,255,0.7);
   transition: box-shadow 0.5s cubic-bezier(0.16,1,0.3,1),
               background 0.4s ease,
@@ -46,9 +48,11 @@
     box-shadow:
       0 12px 48px rgba(16, 16, 16, 0.07),
       0 1px 2px rgba(16, 16, 16, 0.03),
-      0 0 60px rgba(200, 166, 90, 0.03),
+      0 0 60px rgba(200, 166, 90, 0.07),
       inset 0 1px 0 rgba(255,255,255,0.7);
-    background: rgba(247, 246, 243, 0.95);
+    background:
+      linear-gradient(rgba(247, 246, 243, 0.97), rgba(247, 246, 243, 0.97)) padding-box,
+      linear-gradient(135deg, rgba(200, 166, 90, 0.6) 0%, rgba(200, 166, 90, 0.1) 40%, rgba(200, 166, 90, 0.15) 60%, rgba(200, 166, 90, 0.55) 100%) border-box;
     padding: 6px 16px 6px 24px;
   }
 }
@@ -99,15 +103,24 @@
   .logo:hover & {
     color: #c8a65a;
   }
+
+  @include tablet {
+    font-size: 0.9rem;
+    letter-spacing: 0.16em;
+  }
 }
 
 .links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 34px;
 
   @include below-tablet-landscape {
     display: none;
+  }
+
+  @include tablet {
+    gap: 24px;
   }
 }
 
@@ -121,6 +134,10 @@
   position: relative;
   padding: 4px 2px;
   cursor: pointer;
+
+  @include tablet {
+    font-size: 0.875rem;
+  }
 
   &::before {
     content: '';
@@ -317,6 +334,26 @@
   pointer-events: none;
   transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.6), transparent);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200, 166, 90, 0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(19, 34, 56, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
 }
 
 .mobileMenuOpen {
@@ -325,6 +362,8 @@
 }
 
 .mobileMenuInner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -332,26 +371,58 @@
   height: 100%;
   max-height: 100vh;
   overflow-y: auto;
-  gap: 28px;
-  padding: 80px 24px 40px;
+  gap: 10px;
+  padding: 96px 24px 48px;
+}
+
+.mobileEyebrow {
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  color: rgba(200, 166, 90, 0.65);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  &::before,
+  &::after {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.4));
+  }
+
+  &::after {
+    background: linear-gradient(270deg, transparent, rgba(200, 166, 90, 0.4));
+  }
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+    letter-spacing: 0.05em;
+  }
 }
 
 .mobileLink {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #101010;
   text-decoration: none;
-  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              letter-spacing 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   letter-spacing: 0.02em;
   position: relative;
-  padding: 8px 0;
+  padding: 12px 8px;
+  line-height: 1.15;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 4px;
+    left: 8px;
+    right: 8px;
     height: 2px;
     background: linear-gradient(90deg, #c8a65a, #d4b872, #c8a65a);
     background-size: 200% 100%;
@@ -365,6 +436,7 @@
 
   &:hover {
     color: #c8a65a;
+    letter-spacing: 0.06em;
   }
 
   &:hover::after {
@@ -388,7 +460,7 @@
 }
 
 .mobileLangWrap {
-  margin-top: 8px;
+  margin-top: 26px;
   display: flex;
   justify-content: center;
 }
