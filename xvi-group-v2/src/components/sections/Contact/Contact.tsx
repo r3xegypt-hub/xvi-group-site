@@ -8,14 +8,20 @@ import styles from './Contact.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-export function Contact() {
+interface Props {
+  cta?: { en: string; ar: string } | null;
+}
+
+export function Contact({ cta }: Props) {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
+  const ctaText = cta ? (ar ? cta.ar : cta.en) : ar ? 'تواصل معنا' : 'Get in touch';
+
   return (
-    <section className={styles.section} ref={ref}>
+    <section id="contact-cta" className={styles.section} ref={ref}>
       <FloatingParticles count={15} color="#C8A65A" speed={0.8} />
       <div className={styles.container}>
         <motion.h2
@@ -33,7 +39,7 @@ export function Contact() {
           transition={{ duration: 0.6, ease, delay: 0.1 }}
         >
           <Link to="/contact" className={styles.cta}>
-            {ar ? 'تواصل معنا' : 'Get in touch'}
+            {ctaText}
           </Link>
         </motion.div>
 

@@ -142,8 +142,42 @@
 .item {
   padding: 32px 0;
   border-top: 1px solid rgba(16, 16, 16, 0.12);
+  transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:last-child { border-bottom: 1px solid rgba(16, 16, 16, 0.12); }
+}
+
+.focused {
+  padding: 32px 28px;
+  border-radius: 16px;
+  background: rgba(200, 166, 90, 0.05);
+  border: 1px solid rgba(200, 166, 90, 0.3);
+  box-shadow: 0 10px 34px rgba(200, 166, 90, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  & + .item { border-top-color: rgba(16, 16, 16, 0.12); }
+  &:last-child { border-bottom: none; }
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.focusTag {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a6d2f;
+  background: rgba(200, 166, 90, 0.14);
+  border: 1px solid rgba(200, 166, 90, 0.35);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .itemTitle {

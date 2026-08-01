@@ -4,6 +4,7 @@ import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useCTA } from '../../../hooks/useCTA';
+import type { JourneyId } from '../../../hooks/journeyContext';
 import styles from './Industries.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -33,15 +34,31 @@ const industries = [
   },
 ];
 
-export function Industries() {
+const FOCUS_INDEX: Record<JourneyId, number> = {
+  executive: 2,
+  healthcare: 2,
+  government: 1,
+  explore: -1,
+};
+
+interface Props {
+  focus?: JourneyId | null;
+}
+
+export function Industries({ focus }: Props) {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const handleCTA = useCTA();
 
+  const focusIndex = focus ? FOCUS_INDEX[focus] : -1;
+  const ordered = focusIndex >= 0
+    ? [industries[focusIndex], ...industries.filter((_, i) => i !== focusIndex)]
+    : industries;
+
   return (
-    <section className={styles.section} ref={ref}>
+    <section id="industries" className={styles.section} ref={ref}>
       <div className={styles.container}>
         <div className={styles.header}>
           <motion.span
@@ -88,22 +105,32 @@ export function Industries() {
         </div>
 
         <div className={styles.list}>
-          {industries.map((item, i) => (
-            <motion.div
-              key={i}
-              className={styles.item}
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, ease, delay: 0.3 + i * 0.1 }}
-            >
-              <h3 className={styles.itemTitle}>
-                {ar ? item.title.ar : item.title.en}
-              </h3>
-              <p className={styles.itemDesc}>
-                {ar ? item.desc.ar : item.desc.en}
-              </p>
-            </motion.div>
-          ))}
+          {ordered.map((item, i) => {
+            const isFocus = focusIndex >= 0 && item === industries[focusIndex];
+            return (
+              <motion.div
+                key={item.title.en}
+                className={`${styles.item} ${isFocus ? styles.focused : ''}`}
+                initial={{ opacity: 0, y: 16 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, ease, delay: 0.3 + i * 0.1 }}
+              >
+                <div className={styles.itemRow}>
+                  {isFocus && (
+                    <span className={styles.focusTag}>
+                      {ar ? 'مسارك المختار' : 'Your journey'}
+                    </span>
+                  )}
+                  <h3 className={styles.itemTitle}>
+                    {ar ? item.title.ar : item.title.en}
+                  </h3>
+                </div>
+                <p className={styles.itemDesc}>
+                  {ar ? item.desc.ar : item.desc.en}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

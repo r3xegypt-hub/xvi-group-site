@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
+import type { JourneyId } from '../../../hooks/journeyContext';
 import { MouseReactive } from '../../../motion/MouseReactive';
 import styles from './Services.module.scss';
 
@@ -38,11 +39,27 @@ const services = [
   },
 ];
 
-export function Services() {
+const FOCUS_INDEX: Record<JourneyId, number> = {
+  executive: 0,
+  healthcare: 1,
+  government: 2,
+  explore: -1,
+};
+
+interface Props {
+  focus?: JourneyId | null;
+}
+
+export function Services({ focus }: Props) {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  const focusIndex = focus ? FOCUS_INDEX[focus] : -1;
+  const ordered = focusIndex >= 0
+    ? [services[focusIndex], ...services.filter((_, i) => i !== focusIndex)]
+    : services;
 
   return (
     <section id="solutions" className={styles.section} ref={ref}>
@@ -68,24 +85,32 @@ export function Services() {
         </motion.h2>
 
         <div className={styles.grid}>
-          {services.map((service, i) => (
-            <MouseReactive key={service.num} intensity={6} perspective={1000}>
-            <motion.div
-              className={`${styles.card} ${styles[service.bg]}`}
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, ease, delay: 0.2 + i * 0.1 }}
-            >
-              <span className={styles.cardNum}>{service.num}</span>
-              <h3 className={styles.cardTitle}>
-                {ar ? service.title.ar : service.title.en}
-              </h3>
-              <p className={styles.cardDesc}>
-                {ar ? service.desc.ar : service.desc.en}
-              </p>
-            </motion.div>
-            </MouseReactive>
-          ))}
+          {ordered.map((service, i) => {
+            const isFocus = focusIndex >= 0 && service === services[focusIndex];
+            return (
+              <MouseReactive key={service.num} intensity={6} perspective={1000}>
+              <motion.div
+                className={`${styles.card} ${styles[service.bg]} ${isFocus ? styles.focused : ''}`}
+                initial={{ opacity: 0, y: 24 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, ease, delay: 0.2 + i * 0.1 }}
+              >
+                {isFocus && (
+                  <span className={styles.focusTag}>
+                    {ar ? 'مسارك المختار' : 'Your journey'}
+                  </span>
+                )}
+                <span className={styles.cardNum}>{service.num}</span>
+                <h3 className={styles.cardTitle}>
+                  {ar ? service.title.ar : service.title.en}
+                </h3>
+                <p className={styles.cardDesc}>
+                  {ar ? service.desc.ar : service.desc.en}
+                </p>
+              </motion.div>
+              </MouseReactive>
+            );
+          })}
         </div>
 
         <motion.div

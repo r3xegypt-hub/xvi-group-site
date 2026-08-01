@@ -4,10 +4,16 @@ import { Technology } from '../../components/sections/Technology/Technology';
 import { Industries } from '../../components/sections/Industries/Industries';
 import { Contact } from '../../components/sections/Contact/Contact';
 import { AmbientMotion } from '../../components/ui/AmbientMotion';
+import { JourneyFocusBanner } from '../../components/ui/JourneyFocusBanner';
 import { FloatingParticles } from '../../motion/FloatingParticles';
 import { SectionSeparator } from '../../motion/SectionSeparator';
+import { useJourney } from '../../hooks/journeyContext';
+import { journeyMeta } from '../../hooks/journeyContext';
 
 export function Home() {
+  const { journey, clear } = useJourney();
+  const meta = journeyMeta(journey);
+
   return (
     <div style={{ position: 'relative' }}>
       <AmbientMotion />
@@ -16,13 +22,16 @@ export function Home() {
       </div>
       <Hero />
       <SectionSeparator variant="gold-bar" />
-      <Services />
+      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+        {meta && <JourneyFocusBanner meta={meta} onClear={clear} />}
+      </div>
+      <Services focus={journey} />
       <SectionSeparator variant="gold-bar" />
       <Technology />
       <SectionSeparator variant="gold-bar" />
-      <Industries />
+      <Industries focus={journey} />
       <SectionSeparator variant="gold-bar" />
-      <Contact />
+      <Contact cta={meta?.cta} />
     </div>
   );
 }

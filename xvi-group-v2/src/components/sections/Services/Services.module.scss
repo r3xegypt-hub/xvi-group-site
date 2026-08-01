@@ -113,6 +113,53 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
+.focused {
+  border-color: rgba(200, 166, 90, 0.55) !important;
+  box-shadow:
+    0 8px 24px rgba(10, 22, 40, 0.05),
+    0 24px 64px rgba(10, 22, 40, 0.06),
+    0 0 0 1px rgba(200, 166, 90, 0.28),
+    0 0 40px rgba(200, 166, 90, 0.1);
+
+  &::before {
+    opacity: 1;
+  }
+}
+
+.focusTag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a6d2f;
+  background: rgba(200, 166, 90, 0.14);
+  border: 1px solid rgba(200, 166, 90, 0.35);
+  border-radius: 999px;
+  padding: 4px 10px;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', sans-serif;
+  }
+
+  [dir='rtl'] & {
+    right: auto;
+    left: 14px;
+  }
+}
+
+.dark {
+  .focusTag {
+    color: #d9b968;
+    background: rgba(200, 166, 90, 0.16);
+    border-color: rgba(200, 166, 90, 0.4);
+  }
+}
+
 .dark {
   background: #132238;
   border-color: rgba(200, 166, 90, 0.08);
