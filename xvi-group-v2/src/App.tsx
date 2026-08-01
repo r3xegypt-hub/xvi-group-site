@@ -4,6 +4,7 @@ import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './branding/ThemeProvider';
 import { LanguageProvider } from './hooks/LanguageProvider';
 import { MotionProvider } from './motion/providers/MotionProvider';
+import { SoundProvider } from './motion/providers/SoundProvider';
 import { Navigation } from './components/navigation/Navigation';
 import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
@@ -59,6 +60,7 @@ function App() {
             <MotionConfig reducedMotion="user">
             <div className="xvi-app">
               <ExecutiveBackground />
+              <SoundProvider />
               {pending && (introSeenRef.current
                 ? <LuxuryLoader onFinish={handleFinish} />
                 : <CinematicExecutiveLaunch onFinish={handleFinish} />

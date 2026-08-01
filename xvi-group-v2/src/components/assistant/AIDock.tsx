@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useMotion } from '../../motion/providers/MotionProvider';
 import { signalAIDockAvailable } from '../../hooks/useCTA';
+import { playSound } from '../../motion/audio/soundEngine';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
@@ -501,6 +502,14 @@ export function AIDock() {
     window.dispatchEvent(new CustomEvent('xvi:ai-dock-state', { detail: { open } }));
   }, [open]);
 
+  const soundPrevOpenRef = useRef(false);
+  useEffect(() => {
+    if (soundPrevOpenRef.current !== open) {
+      soundPrevOpenRef.current = open;
+      playSound(open ? 'dockOpen' : 'dockClose');
+    }
+  }, [open]);
+
   useEffect(() => {
     if (open && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 400);
@@ -537,10 +546,12 @@ export function AIDock() {
     setThoughtStage('thinking');
     setShowResponse(false);
     setResponse(responseContent);
+    playSound('aiThink');
     setTimeout(() => setThoughtStage('synthesizing'), 1200);
     setTimeout(() => {
       setThoughtStage('ready-again');
       setShowResponse(true);
+      playSound('aiRespond');
     }, 2400);
   }, []);
 

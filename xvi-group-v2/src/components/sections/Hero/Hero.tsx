@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useCTA } from '../../../hooks/useCTA';
 import { useMotion } from '../../../motion/providers/MotionProvider';
+import { playSound } from '../../../motion/audio/soundEngine';
 import { ExecutiveScene } from '../../scene/ExecutiveScene';
 import { HeroRobot } from './HeroRobot';
 import styles from './Hero.module.scss';
@@ -65,12 +66,17 @@ export function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.25]);
 
   const handlePrimary = useCallback(() => {
+    playSound('ctaClick');
     navigate('/services');
   }, [navigate]);
 
   const handleSecondary = useCallback(() => {
     handleCTA();
   }, [handleCTA]);
+
+  const onCtaHover = useCallback(() => {
+    playSound('ctaHover');
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -188,10 +194,10 @@ export function Hero() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 1.0 }}
           >
-            <button className={styles.ctaGold} onClick={handlePrimary}>
+            <button className={styles.ctaGold} onClick={handlePrimary} onMouseEnter={onCtaHover}>
               {ar ? 'استكشف حلولنا' : 'Explore our solutions'}
             </button>
-            <button className={styles.ctaGhost} onClick={handleSecondary}>
+            <button className={styles.ctaGhost} onClick={handleSecondary} onMouseEnter={onCtaHover}>
               {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
             </button>
           </motion.div>

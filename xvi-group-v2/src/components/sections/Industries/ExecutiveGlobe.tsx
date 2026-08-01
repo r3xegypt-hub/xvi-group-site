@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useMotion } from '../../../motion/providers/MotionProvider';
+import { playSound } from '../../../motion/audio/soundEngine';
 import styles from './ExecutiveGlobe.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -237,8 +238,14 @@ export function ExecutiveGlobe() {
     setHovered(id);
   }, []);
 
+  const onNodeEnter = useCallback((id: string) => {
+    playSound('ctaHover');
+    selectNode(id);
+  }, [selectNode]);
+
   const goTo = useCallback(
     (to: string) => {
+      playSound('hologram');
       navigate(to);
     },
     [navigate],
@@ -361,7 +368,7 @@ export function ExecutiveGlobe() {
                   role="button"
                   tabIndex={0}
                   aria-label={`${n.name.en} — ${n.solution.en}`}
-                  onMouseEnter={() => selectNode(n.id)}
+                  onMouseEnter={() => onNodeEnter(n.id)}
                   onMouseLeave={() => selectNode(NODES[0].id)}
                   onFocus={() => selectNode(n.id)}
                   onBlur={() => selectNode(NODES[0].id)}
@@ -387,7 +394,7 @@ export function ExecutiveGlobe() {
                   key={n.id}
                   type="button"
                   className={`${styles.chip} ${hovered === n.id ? styles.chipActive : ''}`}
-                  onMouseEnter={() => selectNode(n.id)}
+                  onMouseEnter={() => onNodeEnter(n.id)}
                   onFocus={() => selectNode(n.id)}
                   onClick={() => selectNode(n.id)}
                 >
