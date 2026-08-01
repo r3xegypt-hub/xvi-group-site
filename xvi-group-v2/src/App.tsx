@@ -22,6 +22,7 @@ import { AboutPage } from './pages/about';
 import { TechnologyPage } from './pages/technology';
 import { IndustriesPage } from './pages/industries';
 import { InsightsPage } from './pages/insights';
+import { PortfolioPage } from './pages/portfolio/Portfolio';
 import { ContactPage } from './pages/contact';
 import { CareersPage } from './pages/careers/Careers';
 import { PrivacyPage } from './pages/privacy/Privacy';
@@ -81,6 +82,7 @@ function App() {
                   <Route path="/technology" element={<PageShell><TechnologyPage /></PageShell>} />
                   <Route path="/industries" element={<PageShell><IndustriesPage /></PageShell>} />
                   <Route path="/insights" element={<PageShell><InsightsPage /></PageShell>} />
+                  <Route path="/portfolio" element={<PageShell><PortfolioPage /></PageShell>} />
                   <Route path="/contact" element={<PageShell><ContactPage /></PageShell>} />
                   <Route path="/careers" element={<PageShell><CareersPage /></PageShell>} />
                   <Route path="/privacy" element={<PageShell><PrivacyPage /></PageShell>} />

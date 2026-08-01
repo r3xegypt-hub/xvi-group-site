@@ -25,6 +25,7 @@ export function Footer() {
           <Link to="/services" className={styles.link}>{ar ? 'الحلول' : 'Solutions'}</Link>
           <Link to="/industries" className={styles.link}>{ar ? 'القطاعات' : 'Industries'}</Link>
           <Link to="/about" className={styles.link}>{ar ? 'الشركة' : 'Company'}</Link>
+          <Link to="/portfolio" className={styles.link}>{ar ? 'الأعمال' : 'Work'}</Link>
           <Link to="/contact" className={styles.link}>{ar ? 'تواصل' : 'Contact'}</Link>
           <Link to="/careers" className={styles.link}>{ar ? 'الوظائف' : 'Careers'}</Link>
           <Link to="/privacy" className={styles.link}>{ar ? 'الخصوصية' : 'Privacy'}</Link>
