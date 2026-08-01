@@ -32,7 +32,9 @@
   to { transform: translateX(-91px); }
 }
 
-.glowBlob {
+.glowBlob,
+.glowBlob2,
+.glowBlob3 {
   position: absolute;
   width: 62vmax;
   height: 62vmax;
@@ -69,7 +71,9 @@
   .holoLines {
     display: none;
   }
-  .glowBlob {
+  .glowBlob,
+  .glowBlob2,
+  .glowBlob3 {
     width: 80vmax;
     height: 80vmax;
     opacity: 0.55;

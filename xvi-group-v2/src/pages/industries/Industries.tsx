@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Building2, Landmark, Factory, Globe, Heart, GraduationCap, Zap, ChevronRight, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
+import { ExecutiveGlobe } from '../../components/sections/Industries/ExecutiveGlobe';
 import styles from './Industries.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -178,6 +179,9 @@ export function IndustriesPage() {
           </motion.p>
         </div>
       </section>
+
+      {/* PREMIUM EXECUTIVE GLOBE — INTERACTIVE INDUSTRY NETWORK */}
+      <ExecutiveGlobe />
 
       {/* INDUSTRY CARDS — INTERACTIVE */}
       <section className={styles.industriesSection}>
