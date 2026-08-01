@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './branding/ThemeProvider';
 import { LanguageProvider } from './hooks/LanguageProvider';
@@ -47,6 +47,7 @@ function PageShell({ children }: { children: React.ReactNode }) {
 function App() {
   const [pending, setPending] = useState(true);
   const introSeenRef = useRef(localStorage.getItem('xviIntroDone') === 'true');
+  const location = useLocation();
 
   const handleFinish = useCallback(() => {
     localStorage.setItem('xviIntroDone', 'true');
@@ -92,7 +93,7 @@ function App() {
                   <Route path="*" element={<PageShell><Home /></PageShell>} />
                 </Routes>
               </PageTransition>
-              <AIDock />
+              {location.pathname !== '/' && <AIDock />}
               {!pending && <ExecutiveConcierge />}
             </div>
             </MotionConfig>
