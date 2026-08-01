@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef, Fragment } from 'react';
+import { useState, useCallback, useEffect, useRef, Fragment, useMemo } from 'react';
 import type { ReactNode, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
@@ -38,7 +38,7 @@ function PersonaSignature({ isAR }: { isAR: boolean }) {
   );
 }
 
-type ActionId = 'strategy' | 'solutions' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'reports' | 'recommend';
+type ActionId = 'strategy' | 'solutions' | 'roadmap' | 'readiness' | 'pricing' | 'deliverables' | 'automation' | 'timeline' | 'reports' | 'recommend' | 'journeyFocus';
 
 const services = [
   { id: 'strategy', icon: Brain, title: { en: 'AI Strategy', ar: 'استراتيجية الذكاء الاصطناعي' }, desc: { en: 'Define your AI vision and roadmap', ar: 'تحديد رؤيتك وخريطة طريق الذكاء الاصطناعي' } },
@@ -108,7 +108,7 @@ export function VoiceWaveform() {
   );
 }
 
-const quickActions = [
+const BASE_QUICK_ACTIONS = [
   { id: 'strategy', icon: Target, label: { en: 'Show me the strategic paths', ar: 'أرني المسارات الاستراتيجية' } },
   { id: 'solutions', icon: Brain, label: { en: 'Explore Solutions', ar: 'استكشف الحلول' } },
   { id: 'readiness', icon: CheckCircle2, label: { en: 'AI Assessment', ar: 'تقييم الذكاء الاصطناعي' } },
@@ -126,6 +126,7 @@ const allActions: { id: ActionId; icon: typeof Brain; label: { en: string; ar: s
   { id: 'timeline', icon: Clock, label: { en: 'Project Timeline', ar: 'الجدول الزمني' } },
   { id: 'reports', icon: TrendingUp, label: { en: 'Executive Reports', ar: 'التقارير التنفيذية' } },
   { id: 'recommend', icon: Lightbulb, label: { en: 'Recommend Solution', ar: 'توصية حل' } },
+  { id: 'journeyFocus', icon: Compass, label: { en: 'Journey Focus', ar: 'محور الرحلة' } },
 ];
 
 const ACTION_SPEECH: Record<string, { en: string; ar: string }> = {
@@ -465,6 +466,16 @@ export function AIDock() {
   const inputRef = useRef<HTMLInputElement>(null);
   const { journey } = useJourney();
 
+  // Journey-aware quick actions: lead with the selected journey's focus service.
+  const quickActions = useMemo<{ id: string; icon: typeof Brain; label: { en: string; ar: string }; color?: string }[]>(() => {
+    const meta = journey ? journeyMeta(journey) : null;
+    if (!meta) return BASE_QUICK_ACTIONS;
+    return [
+      { id: 'journeyFocus', icon: Compass, label: meta.service.label, color: meta.color },
+      ...BASE_QUICK_ACTIONS,
+    ];
+  }, [journey]);
+
   // Keep the selected journey in the executive memory profile.
   useEffect(() => {
     if (journey === memoryRef.current.journey) return;
@@ -710,6 +721,46 @@ export function AIDock() {
       case 'reports':
         aiResponse = <div><div style={cmn}>Here is an executive dashboard preview:</div><KpiCard /></div>;
         break;
+      case 'journeyFocus': {
+        const meta = journeyMeta(memoryRef.current.journey as JourneyId | null);
+        if (meta) {
+          aiResponse = (
+            <div>
+              <div style={cmn}>{isAR ? meta.prompt.ar : meta.prompt.en}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f7f6f3', borderRadius: 8, border: `1px solid ${meta.color}22` }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: `${meta.color}14`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: meta.color }}>
+                    <Compass size={14} />
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111' }}>{isAR ? meta.label.ar : meta.label.en}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>
+                      {isAR ? meta.service.label.ar : meta.service.label.en} · {isAR ? meta.caseTitle.ar : meta.caseTitle.en}
+                    </div>
+                  </div>
+                </div>
+                <motion.button
+                  type="button"
+                  onClick={() => navigate(meta.service.to)}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    padding: '10px 14px', background: meta.color, color: '#fff', border: 'none',
+                    borderRadius: 8, cursor: 'pointer', fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+                    transition: 'all 0.25s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  }}
+                >
+                  <ArrowRight size={14} />
+                  {isAR ? meta.service.label.ar : meta.service.label.en}
+                </motion.button>
+              </div>
+            </div>
+          );
+        } else {
+          aiResponse = <div style={cmn}>Tell me which journey you would like to focus on first.</div>;
+        }
+        break;
+      }
       case 'recommend':
         navigate('/contact');
         return;
@@ -1355,7 +1406,13 @@ export function AIDock() {
                 <div>
                   {thoughtStage === 'ready' && (
                     <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginBottom: 12, lineHeight: 1.6 }}>
-                      {isAR ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً وقادراً على المساعدة.' : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.'}
+                      {(() => {
+                        const meta = journeyMeta(journey);
+                        if (meta) return isAR ? meta.prompt.ar : meta.prompt.en;
+                        return isAR
+                          ? 'رفيق بصري للقرارات المعقدة، مصمم ليكون هادئاً ودقيقاً وقادراً على المساعدة.'
+                          : 'A visual companion for complex decisions, designed to feel composed, informed, and quietly capable.';
+                      })()}
                     </div>
                   )}
                   <motion.div
@@ -1376,17 +1433,18 @@ export function AIDock() {
                         whileTap={{ scale: 0.97 }}
                         style={{
                           padding: '8px 14px',
-                          background: 'rgba(200,166,90,0.04)',
-                          border: '1px solid rgba(200,166,90,0.08)',
+                          background: action.id === 'journeyFocus' ? 'rgba(200,166,90,0.12)' : 'rgba(200,166,90,0.04)',
+                          border: action.id === 'journeyFocus' ? '1px solid rgba(200,166,90,0.45)' : '1px solid rgba(200,166,90,0.08)',
                           borderRadius: 999,
                           cursor: 'pointer',
                           fontFamily: font, fontSize: '0.6875rem',
-                          fontWeight: 500, color: '#111111',
+                          fontWeight: action.id === 'journeyFocus' ? 700 : 500,
+                          color: '#111111',
                           transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                           display: 'flex', alignItems: 'center', gap: 6,
                         }}
                       >
-                        <action.icon size={12} style={{ color: '#C8A65A' }} />
+                        <action.icon size={12} style={{ color: action.color || '#C8A65A' }} />
                         {isAR ? action.label.ar : action.label.en}
                       </motion.button>
                     ))}
