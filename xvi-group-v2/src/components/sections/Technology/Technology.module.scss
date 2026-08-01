@@ -95,12 +95,44 @@
   }
 }
 
-.image {
+.visualField {
+  position: relative;
   width: 100%;
-  height: auto;
+  aspect-ratio: 4 / 3;
   display: block;
-  aspect-ratio: 4/3;
-  object-fit: cover;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(200, 166, 90, 0.08) 0%, transparent 70%),
+    linear-gradient(150deg, #0a1628 0%, #101010 45%, #1e1a14 75%, #0f0b06 100%);
+}
+
+.visualCore {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visualDiamond {
+  width: 220px;
+  height: 220px;
+  filter: drop-shadow(0 0 24px rgba(200, 166, 90, 0.18));
+  animation: diamondPulse 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes diamondPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+.visualAxis {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.35), transparent);
 }
 
 .glassPanel {

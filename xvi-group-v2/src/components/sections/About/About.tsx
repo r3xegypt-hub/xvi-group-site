@@ -68,6 +68,36 @@ export function About() {
           >
             <div className={styles.imageBg} />
             <div className={styles.imageOverlay} />
+            <svg
+              className={styles.imageArt}
+              viewBox="0 0 1600 700"
+              aria-hidden="true"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <defs>
+                <linearGradient id="about-art-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#C8A65A" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#C8A65A" stopOpacity="0.08" />
+                </linearGradient>
+              </defs>
+              <line x1="120" y1="180" x2="1480" y2="180" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.18" />
+              <line x1="120" y1="520" x2="1480" y2="520" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.18" />
+              <line x1="220" y1="80" x2="220" y2="620" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.12" />
+              <line x1="1380" y1="80" x2="1380" y2="620" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.12" />
+              <polygon points="800,120 920,350 800,580 680,350" fill="none" stroke="url(#about-art-gold)" strokeWidth="2" />
+              <polygon points="800,230 860,350 800,470 740,350" fill="none" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.4" />
+              <line x1="800" y1="120" x2="800" y2="580" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.25" />
+              <line x1="680" y1="350" x2="920" y2="350" stroke="#C8A65A" strokeWidth="1" strokeOpacity="0.25" />
+              <circle cx="800" cy="350" r="4" fill="#C8A65A" fillOpacity="0.8" />
+              <circle cx="280" cy="260" r="3" fill="#C8A65A" fillOpacity="0.5" />
+              <circle cx="1320" cy="260" r="3" fill="#C8A65A" fillOpacity="0.5" />
+              <circle cx="280" cy="440" r="3" fill="#C8A65A" fillOpacity="0.5" />
+              <circle cx="1320" cy="440" r="3" fill="#C8A65A" fillOpacity="0.5" />
+              <line x1="280" y1="260" x2="680" y2="350" stroke="#C8A65A" strokeWidth="0.75" strokeOpacity="0.3" />
+              <line x1="920" y1="350" x2="1320" y2="260" stroke="#C8A65A" strokeWidth="0.75" strokeOpacity="0.3" />
+              <line x1="280" y1="440" x2="680" y2="350" stroke="#C8A65A" strokeWidth="0.75" strokeOpacity="0.3" />
+              <line x1="920" y1="350" x2="1320" y2="440" stroke="#C8A65A" strokeWidth="0.75" strokeOpacity="0.3" />
+            </svg>
           </motion.div>
 
           <motion.div

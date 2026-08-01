@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { ConstellationParticles } from '../../../motion/ConstellationParticles';
+import { AINetwork } from '../../ui/AINetwork';
 import styles from './Technology.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -57,11 +58,30 @@ export function Technology() {
           transition={{ duration: 0.8, ease, delay: 0.3 }}
         >
           <div className={styles.imageCard}>
-            <img
-              src="https://framerusercontent.com/images/WI07vo4Oc8DKUKFAC8wO2HcWjcY.jpg"
-              alt="Abstract Intelligence Field"
-              className={styles.image}
-            />
+            <div className={styles.visualField} aria-hidden="true">
+              <AINetwork nodeCount={34} color="#C8A65A" pulseSpeed={3} />
+              <div className={styles.visualCore}>
+                <svg viewBox="0 0 100 100" className={styles.visualDiamond}>
+                  <polygon
+                    points="50,6 94,50 50,94 6,50"
+                    fill="none"
+                    stroke="#C8A65A"
+                    strokeWidth="1"
+                  />
+                  <polygon
+                    points="50,26 74,50 50,74 26,50"
+                    fill="none"
+                    stroke="#C8A65A"
+                    strokeWidth="0.5"
+                    strokeOpacity="0.5"
+                  />
+                  <line x1="50" y1="6" x2="50" y2="94" stroke="#C8A65A" strokeWidth="0.5" strokeOpacity="0.4" />
+                  <line x1="6" y1="50" x2="94" y2="50" stroke="#C8A65A" strokeWidth="0.5" strokeOpacity="0.4" />
+                  <circle cx="50" cy="50" r="2.5" fill="#C8A65A" />
+                </svg>
+              </div>
+              <span className={styles.visualAxis} />
+            </div>
             <div className={styles.glassPanel}>
               <span className={styles.glassLabel}>{ar ? 'إشارة تنفيذية' : 'EXECUTIVE SIGNAL'}</span>
               <p className={styles.glassText}>
