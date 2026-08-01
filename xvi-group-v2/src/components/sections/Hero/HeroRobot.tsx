@@ -60,7 +60,7 @@ export function HeroRobot() {
     if (!el || !pupils) return;
 
     let raf = 0;
-    let nextSaccade = performance.now() + 1400 + Math.random() * 2200;
+    let nextSaccade = performance.now() + 2200 + Math.random() * 2800;
     let target = { x: 0, y: 0 };
     let current = { x: 0, y: 0 };
     let look = { x: 0, y: 0 };
@@ -91,7 +91,7 @@ export function HeroRobot() {
     const tick = (now: number) => {
       if (now > nextSaccade) {
         pick();
-        nextSaccade = now + 2400 + Math.random() * 3600;
+        nextSaccade = now + 3800 + Math.random() * 5200;
       }
       const tx = clamp(target.x + look.x, -1.3, 1.3);
       const ty = clamp(target.y + look.y, -1.6, 1.6);
