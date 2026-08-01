@@ -6,33 +6,34 @@ const CLICK = { force: true, timeout: 8000 };
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  await page.addInitScript(() => { localStorage.setItem('xviIntroDone', 'true'); });
+  await page.addInitScript(() => {
+    localStorage.setItem('xviIntroDone', 'true');
+    localStorage.setItem('xvi-language', 'en');
+    localStorage.setItem('xviConciergeSeen', 'true');
+  });
 
   await page.goto(BASE + '/', { waitUntil: 'networkidle' });
   await page.waitForTimeout(3000);
 
   console.log('=== FALLBACK TEST: AI Dock unavailable ===');
 
-  // Access the useCTA module in dev mode and signal the dock is unavailable
+  // Signal the dock is unavailable through the DEV-only window hook
+  // (Vite appends an HMR query to module URLs, so a dynamic import from the
+  // test would be a separate module instance and could not affect the app).
   const signalResult = await page.evaluate(async () => {
-    for (const path of ['/xvi-group-site/src/hooks/useCTA.ts', '/src/hooks/useCTA.ts']) {
-      try {
-        const mod = await import(path);
-        if (typeof mod.signalAIDockAvailable === 'function') {
-          mod.signalAIDockAvailable(false);
-          return { ok: true, path };
-        }
-      } catch { /* try next */ }
+    await new Promise((r) => setTimeout(r, 800));
+    const setter = window.__xviSetAIDockAvailable;
+    if (typeof setter === 'function') {
+      setter(false);
+      return { ok: true };
     }
     return { ok: false };
   });
 
   if (!signalResult.ok) {
-    console.log(`⚠️ Could not access module directly (${signalResult.err}) — will simulate by hiding dock instead`);
-    // Fallback: simulate by hiding the dock AND clicking (event will have no listener to open it,
-    // but aiDockAvailable is still true so it will just re-dispatch. Not a real test.)
+    console.log('⚠️ Could not access __xviSetAIDockAvailable — fallback cannot be simulated');
   } else {
-    console.log('✅ Set aiDockAvailable = false via module import');
+    console.log('✅ Set aiDockAvailable = false via window hook');
   }
 
   // Wait a tick for state to propagate

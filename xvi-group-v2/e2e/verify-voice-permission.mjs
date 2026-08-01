@@ -19,7 +19,7 @@ function report(ok, msg) {
       localStorage.setItem('xvi-language', 'en');
       localStorage.setItem('xviIntroDone', 'true');
       localStorage.setItem('xviCinematicDate', String(Date.now()));
-      localStorage.setItem('xvi-conciergeSeen', 'true');
+      localStorage.setItem('xviConciergeSeen', 'true');
       window.__mockSR = null;
       class MockSR {
         constructor() {
@@ -69,7 +69,7 @@ function report(ok, msg) {
       localStorage.setItem('xvi-language', 'ar');
       localStorage.setItem('xviIntroDone', 'true');
       localStorage.setItem('xviCinematicDate', String(Date.now()));
-      localStorage.setItem('xvi-conciergeSeen', 'true');
+      localStorage.setItem('xviConciergeSeen', 'true');
       window.__mockSR = null;
       class MockSR {
         constructor() {

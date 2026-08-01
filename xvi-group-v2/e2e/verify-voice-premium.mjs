@@ -14,7 +14,7 @@ function initFactory(lang, mockSpeech) {
     localStorage.setItem('xvi-language', l);
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
-    localStorage.setItem('xvi-conciergeSeen', 'true');
+    localStorage.setItem('xviConciergeSeen', 'true');
     localStorage.removeItem('xvi-voice-settings');
     if (s) {
       window.__mockSR = null;

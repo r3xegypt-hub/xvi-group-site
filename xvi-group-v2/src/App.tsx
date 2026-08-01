@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './branding/ThemeProvider';
 import { LanguageProvider } from './hooks/LanguageProvider';
+import { JourneyProvider } from './hooks/journeyContext';
 import { MotionProvider } from './motion/providers/MotionProvider';
 import { SoundProvider } from './motion/providers/SoundProvider';
 import { Navigation } from './components/navigation/Navigation';
@@ -57,6 +58,7 @@ function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <ThemeProvider>
         <LanguageProvider>
+          <JourneyProvider>
           <MotionProvider>
             <MotionConfig reducedMotion="user">
             <div className="xvi-app">
@@ -95,6 +97,7 @@ function App() {
             </div>
             </MotionConfig>
           </MotionProvider>
+          </JourneyProvider>
         </LanguageProvider>
       </ThemeProvider>
     </BrowserRouter>

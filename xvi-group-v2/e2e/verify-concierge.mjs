@@ -9,6 +9,15 @@ function report(ok, msg) {
 }
 
 const robotSel = (lang) => `[aria-label="${lang === 'ar' ? 'المستشار التنفيذي الذكي' : 'Executive AI Concierge'}"]`;
+const TITLE = (lang) => (lang === 'ar' ? 'مرحباً.' : 'Welcome.');
+const SUB = (lang) => (lang === 'ar' ? 'أنا المستشار التنفيذي الذكي.' : "I'm your Executive AI Consultant.");
+const ASK = (lang) => (lang === 'ar' ? 'كيف تود استكشاف XVI اليوم؟' : 'How would you like to explore XVI today?');
+const CONFIRM = (lang) =>
+  lang === 'ar' ? 'رحلة الاستراتيجية التنفيذية.' : 'Continuing your Executive Strategy journey.';
+const JOURNEY_LABELS = (lang) =>
+  lang === 'ar'
+    ? ['الاستراتيجية التنفيذية', 'الرعاية الصحية', 'الحكومة', 'استكشف كل شيء']
+    : ['Executive Strategy', 'Healthcare', 'Government', 'Explore Everything'];
 
 async function initContext(browser, lang, w, h, opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h } });
@@ -22,35 +31,41 @@ async function initContext(browser, lang, w, h, opts = {}) {
   return { ctx, page };
 }
 
-async function waitCard(page, title) {
-  const loc = page.getByText(title).first();
+async function waitText(page, text) {
+  const loc = page.getByText(text).first();
   await loc.waitFor({ state: 'visible', timeout: 20000 });
-  await page.waitForTimeout(700);
-  const box = await loc.boundingBox();
-  return box;
+  await page.waitForTimeout(600);
+  return loc.boundingBox();
 }
 
-async function expectCardOnSide(page, lang, vw, label) {
-  const title = lang === 'ar' ? 'مرحبًا بك في XVI GROUP' : 'Welcome to XVI GROUP';
-  const box = await waitCard(page, title);
+async function expectGreeting(page, lang, vw, label) {
+  const title = TITLE(lang);
+  const box = await waitText(page, title);
   const within = box.x >= 0 && box.x + box.width <= vw && box.y >= 0;
   report(within, `greeting card inside viewport (${label})`);
-  const side = lang === 'ar' ? box.x + box.width > vw - 100 : box.x < 100;
+  const side = lang === 'ar' ? vw - (box.x + box.width) < 240 : box.x < 240;
   report(side, `greeting card near ${lang === 'ar' ? 'RIGHT' : 'LEFT'} side (${label})`);
   const vh = await page.evaluate(() => window.innerHeight);
   report(box.y < vh * 0.5, `greeting card near hero region (top=${Math.round(box.y)}) (${label})`);
 
-  const titleOk = await page.getByText(title).isVisible();
-  report(titleOk, `greeting title correct (${label})`);
+  report(await page.getByText(title).first().isVisible().catch(() => false), `greeting title correct (${label})`);
+  report(await page.getByText(SUB(lang)).first().isVisible().catch(() => false), `greeting subtitle correct (${label})`);
+  report(await page.getByText(ASK(lang)).first().isVisible().catch(() => false), `greeting prompt correct (${label})`);
+  report(
+    await page.locator('[data-testid="arrival-waveform"]').isVisible().catch(() => false),
+    `arrival waveform present (${label})`,
+  );
 
-  const sub = lang === 'ar' ? 'أنا المستشار التنفيذي الذكي.' : "I'm your Executive AI Consultant.";
-  report(await page.getByText(sub).first().isVisible().catch(() => false), `greeting subtitle correct (${label})`);
-
-  const labels = lang === 'ar'
-    ? ['ابدأ مشروعًا', 'استشارة ذكاء اصطناعي']
-    : ['Start a Project', 'AI Consultation'];
-  for (const l of labels) {
-    report(await page.getByText(l, { exact: true }).first().isVisible().catch(() => false), `action "${l}" present (${label})`);
+  const selector = page.locator('[data-testid="journey-selector"]');
+  report(await selector.isVisible().catch(() => false), `journey selector present (${label})`);
+  const cards = page.locator('[data-journey]');
+  report((await cards.count()) === 4, `four journey cards rendered (${label})`);
+  const labels = JOURNEY_LABELS(lang);
+  for (let i = 0; i < 4; i++) {
+    report(
+      await page.getByText(labels[i], { exact: true }).first().isVisible().catch(() => false),
+      `journey card "${labels[i]}" visible (${label})`,
+    );
   }
 }
 
@@ -78,39 +93,50 @@ async function runFirstVisit(browser, lang, w, h, label) {
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
   const vw = w;
 
-  await expectCardOnSide(page, lang, vw, `${lang} ${label} card`);
+  await expectGreeting(page, lang, vw, `${lang} ${label}`);
 
   // no horizontal scroll while greeting shows
   const hScroll = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
   report(!hScroll, `no horizontal scroll during greeting (${lang} ${label})`);
 
-  // trigger minimize via first action (routes to /contact)
-  const firstAction = lang === 'ar' ? 'ابدأ مشروعًا' : 'Start a Project';
-  await page.getByText(firstAction, { exact: true }).first().click();
-  await page.waitForTimeout(1800);
+  // choose the Executive journey -> confirmation -> auto-minimize to corner robot
+  await page.locator('[data-journey="executive"]').click();
+  await page.waitForTimeout(900);
+  report(await page.getByText(CONFIRM(lang)).first().isVisible().catch(() => false), `confirmation shown (${lang} ${label})`);
+  await page.waitForTimeout(2800);
 
-  const cardGone = await page.getByText(lang === 'ar' ? 'مرحبًا بك في XVI GROUP' : 'Welcome to XVI GROUP').first().isVisible().catch(() => false);
-  report(!cardGone, `greeting card minimized after action (${lang} ${label})`);
+  const cardGone = await page.getByText(TITLE(lang)).first().isVisible().catch(() => false);
+  report(!cardGone, `greeting card minimized after journey selection (${lang} ${label})`);
 
   const corner = lang === 'ar' ? 'br' : 'bl';
   await expectRobot(page, lang, w, h, `${lang} ${label}`, corner);
 
-  // click robot -> opens dock; robot hides
+  // click robot -> opens dock; robot fades away (poll, animation is ~0.6s)
   const sel = robotSel(lang);
   const rb = await page.locator(sel).boundingBox();
   await page.mouse.click(rb.x + rb.width / 2, rb.y + rb.height / 2);
   await page.locator('div[style*="bottom: 100px"]').waitFor({ state: 'visible', timeout: 8000 });
-  await page.waitForTimeout(700);
   const dockVisible = await page.locator('div[style*="bottom: 100px"]').isVisible().catch(() => false);
   report(dockVisible, `clicking robot opens the AI Dock (${lang} ${label})`);
-  const robotOpacity = await page.evaluate((s) => parseFloat(getComputedStyle(document.querySelector(s)).opacity), sel);
-  report(robotOpacity < 0.2, `robot hides while dock open (opacity=${robotOpacity}) (${lang} ${label})`);
+  const robotOpacity = async () =>
+    parseFloat(await page.evaluate((s) => getComputedStyle(document.querySelector(s)).opacity, sel));
+  let op = 1;
+  for (let i = 0; i < 20; i++) {
+    op = await robotOpacity();
+    if (op < 0.2) break;
+    await page.waitForTimeout(100);
+  }
+  report(op < 0.2, `robot hides while dock open (opacity=${op.toFixed(3)}) (${lang} ${label})`);
 
-  // close dock via the panel's close button -> robot returns
+  // close dock via its toggle button -> robot fades back
   await page.locator('div[style*="bottom: 100px"] button').first().click();
-  await page.waitForTimeout(800);
-  const robotOpacity2 = await page.evaluate((s) => parseFloat(getComputedStyle(document.querySelector(s)).opacity), sel);
-  report(robotOpacity2 > 0.9, `robot returns after dock closes (opacity=${robotOpacity2}) (${lang} ${label})`);
+  let op2 = 0;
+  for (let i = 0; i < 20; i++) {
+    op2 = await robotOpacity();
+    if (op2 > 0.9) break;
+    await page.waitForTimeout(100);
+  }
+  report(op2 > 0.9, `robot returns after dock closes (opacity=${op2.toFixed(3)}) (${lang} ${label})`);
 
   // drag robot toward the screen center
   const r0 = await page.locator(sel).boundingBox();
@@ -134,8 +160,8 @@ async function runFirstVisit(browser, lang, w, h, label) {
 async function runSeenVisit(browser, lang, label) {
   const { ctx, page } = await initContext(browser, lang, 1440, 900, { seen: true });
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-  const cardShown = await page.getByText('Welcome to XVI GROUP').first().isVisible().catch(() => false)
-    || await page.getByText('مرحبًا بك في XVI GROUP').first().isVisible().catch(() => false);
+  const cardShown = await page.getByText(TITLE('en')).first().isVisible().catch(() => false)
+    || await page.getByText(TITLE('ar')).first().isVisible().catch(() => false);
   report(!cardShown, `no greeting on repeat visit (${label})`);
   const sel = robotSel(lang);
   await page.locator(sel).waitFor({ state: 'visible', timeout: 15000 });

@@ -8,14 +8,13 @@
 }
 
 // ============================================
-// GREETING CARD
+// CINEMATIC GREETING PANEL
 // ============================================
 
-.card {
+.panel {
   position: fixed;
-  width: 300px;
-  max-width: calc(100vw - 32px);
-  padding: 20px;
+  pointer-events: auto;
+  padding: 20px 22px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(24px) saturate(1.2);
@@ -27,7 +26,6 @@
     0 0 90px rgba(200, 166, 90, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
     inset 0 -1px 0 rgba(200, 166, 90, 0.08);
-  pointer-events: auto;
   overflow: hidden;
 
   &::before {
@@ -52,14 +50,14 @@
   }
 }
 
-.cardHead {
+.panelHead {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
-.cardHeadIcon {
+.panelHeadIcon {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -75,65 +73,181 @@
     inset 0 -2px 4px rgba(138, 112, 64, 0.22);
 }
 
-.cardHeadLabel {
+.panelHeadLabel {
   font-family: 'Manrope', sans-serif;
   font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #c8a65a;
+  flex: 1;
 }
 
-.cardTitle {
+// Voice waveform — pulses ONCE during the cinematic arrival.
+.waveOnce {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 18px;
+  opacity: 0;
+  animation: waveIn 0.2s ease 0.4s forwards;
+}
+
+.waveBar {
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #d4b76e, #c8a65a);
+  height: 4px;
+  animation: waveOnce 1.1s cubic-bezier(0.34, 1.4, 0.64, 1) 0.5s both;
+}
+
+@keyframes waveOnce {
+  0% { height: 3px; opacity: 0.3; }
+  35% { height: 16px; opacity: 1; }
+  60% { height: 8px; opacity: 0.85; }
+  100% { height: 4px; opacity: 0.55; }
+}
+
+@keyframes waveIn {
+  to { opacity: 1; }
+}
+
+.greetingTitle {
   font-family: 'Manrope', sans-serif;
-  font-size: 0.975rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  line-height: 1.45;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   color: #101010;
 }
 
-.cardSub {
+.greetingSub {
   font-family: 'Manrope', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   line-height: 1.6;
   color: #666666;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
-.actions {
+.greetingAsk {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: #c8a65a;
+  margin-top: 8px;
+}
+
+// ============================================
+// JOURNEY SELECTOR CARDS
+// ============================================
+
+.journeyList {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 16px;
 }
 
-.action {
-  display: flex;
+.journeyCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
   align-items: center;
-  gap: 10px;
   width: 100%;
-  padding: 10px 12px;
+  padding: 11px 14px;
   background: rgba(200, 166, 90, 0.04);
   border: 1px solid rgba(200, 166, 90, 0.1);
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: 'Manrope', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #111111;
+  text-align: left;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease,
+    box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-  svg {
-    color: #c8a65a;
-    flex-shrink: 0;
+  [dir='rtl'] & {
+    text-align: right;
   }
 
-  &:hover {
-    background: rgba(200, 166, 90, 0.1);
-    border-color: #c8a65a;
-    transform: translateY(-1px);
+  @include hover-capable {
+    &:hover {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: var(--journey, #c8a65a);
+      box-shadow:
+        0 10px 28px rgba(17, 17, 17, 0.08),
+        0 0 0 1px var(--journey, rgba(200, 166, 90, 0.35)),
+        0 0 30px var(--journey, rgba(200, 166, 90, 0.18));
+    }
   }
+}
+
+.journeyNum {
+  grid-row: 1 / span 2;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--journey, #c8a65a);
+  opacity: 0.75;
+}
+
+.journeyLabel {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: 0.01em;
+}
+
+.journeyPrompt {
+  grid-column: 2;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: #8a8a86;
+  margin-top: 2px;
+}
+
+.journeyArrow {
+  grid-row: 1 / span 2;
+  grid-column: 3;
+  color: var(--journey, #c8a65a);
+  opacity: 0.7;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .journeyCard:hover & {
+    transform: translateX(3px);
+    opacity: 1;
+  }
+}
+
+// ============================================
+// CONFIRMATION
+// ============================================
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 18px 6px 10px;
+}
+
+.confirmIcon {
+  color: #c8a65a;
+  margin-bottom: 10px;
+}
+
+.confirmTitle {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #101010;
+}
+
+.confirmSub {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  color: #8a8a86;
+  margin-top: 6px;
 }
 
 // ============================================
@@ -167,6 +281,85 @@
   &.dragging {
     cursor: grabbing;
   }
+
+  &.listening {
+    .glow {
+      animation: listenPulse 1.5s ease-in-out infinite;
+    }
+    .eyes {
+      animation: eyeFocus 1.1s ease-in-out infinite;
+    }
+    .pupils {
+      animation: pupilScan 1.2s ease-in-out infinite;
+    }
+    .mag::after {
+      animation: ringPulse 1.4s linear infinite;
+      border-top-color: rgba(212, 160, 23, 0.95);
+      border-right-color: rgba(212, 160, 23, 0.5);
+      opacity: 1;
+    }
+    &::after {
+      opacity: 1;
+      background: #d4a017;
+      box-shadow: 0 0 10px rgba(212, 160, 23, 0.8);
+      animation: statusPulse 1.1s ease-in-out infinite;
+    }
+  }
+
+  &.thinking {
+    .glow {
+      animation: thinkPulse 2.2s ease-in-out infinite;
+    }
+    .pupils {
+      animation: thinkLook 2.4s ease-in-out infinite;
+    }
+    .mag::after {
+      animation: ringOrbit 3.2s linear infinite;
+      border-top-color: rgba(200, 166, 90, 0.6);
+      opacity: 0.8;
+    }
+  }
+
+  &.speaking {
+    .glow {
+      animation: speakPulse 1.1s ease-in-out infinite;
+    }
+    .eyes {
+      animation: speakEyes 0.9s ease-in-out infinite;
+    }
+    .pupils {
+      animation: none;
+    }
+    .mouth {
+      animation: mouthTalk 0.9s ease-in-out infinite;
+      stroke: #a8812f;
+    }
+    .mag::after {
+      animation: ringSpeak 1s linear infinite;
+      border-top-color: rgba(200, 166, 90, 1);
+      border-right-color: rgba(200, 166, 90, 0.55);
+      opacity: 1;
+    }
+    &::after {
+      opacity: 1;
+      background: #c8a65a;
+      box-shadow: 0 0 10px rgba(200, 166, 90, 0.85);
+      animation: statusPulse 0.9s ease-in-out infinite;
+    }
+  }
+}
+
+.floorShadow {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 40px;
+  height: 9px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(17, 17, 17, 0.22) 0%, rgba(200, 166, 90, 0.12) 55%, transparent 75%);
+  filter: blur(1.5px);
+  animation: shadowPulse 3.6s ease-in-out infinite;
 }
 
 .mag {
@@ -216,7 +409,7 @@
   inset: -16px;
   z-index: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 166, 90, 0.18) 0%, rgba(200, 166, 90, 0.06) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(200, 166, 90, 0.2) 0%, rgba(200, 166, 90, 0.07) 45%, transparent 70%);
   animation: glowPulse 3.2s ease-in-out infinite;
 }
 
@@ -226,6 +419,7 @@
   position: relative;
   z-index: 2;
   animation: breathe 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 3px 5px rgba(17, 17, 17, 0.18));
 }
 
 .eyes {
@@ -234,26 +428,22 @@
   animation: blink 4.2s ease-in-out infinite;
 }
 
-  &.listening {
-    .glow {
-      animation: listenPulse 1.5s ease-in-out infinite;
-    }
-    .eyes {
-      animation: eyeFocus 1.1s ease-in-out infinite;
-    }
-    .mag::after {
-      animation: ringPulse 1.4s linear infinite;
-      border-top-color: rgba(212, 160, 23, 0.95);
-      border-right-color: rgba(212, 160, 23, 0.5);
-      opacity: 1;
-    }
-    &::after {
-      opacity: 1;
-      background: #d4a017;
-      box-shadow: 0 0 10px rgba(212, 160, 23, 0.8);
-      animation: statusPulse 1.1s ease-in-out infinite;
-    }
-  }
+.pupils {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lookAround 6.5s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.mouth {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+// Premium gold light + shadow on the orbiting ring
+.mag::after {
+  box-shadow: 0 0 12px rgba(200, 166, 90, 0.25);
+}
 
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
@@ -275,6 +465,21 @@
   92%, 95% { transform: scaleY(0.06); }
 }
 
+@keyframes lookAround {
+  0%, 22% { transform: translateX(0); }
+  8% { transform: translateX(1.6px); }
+  14% { transform: translateX(-1.2px); }
+  30%, 52% { transform: translateX(0); }
+  36% { transform: translateX(-1.8px); }
+  44% { transform: translateX(1px); }
+  58%, 100% { transform: translateX(0); }
+}
+
+@keyframes pupilScan {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+}
+
 @keyframes listenPulse {
   0%, 100% { opacity: 0.6; transform: scale(0.98); }
   50% { opacity: 1; transform: scale(1.12); }
@@ -285,26 +490,20 @@
   50% { transform: scale(1.18); }
 }
 
-  &.speaking {
-    .glow {
-      animation: speakPulse 1.1s ease-in-out infinite;
-    }
-    .eyes {
-      animation: speakEyes 0.9s ease-in-out infinite;
-    }
-    .mag::after {
-      animation: ringSpeak 1s linear infinite;
-      border-top-color: rgba(200, 166, 90, 1);
-      border-right-color: rgba(200, 166, 90, 0.55);
-      opacity: 1;
-    }
-    &::after {
-      opacity: 1;
-      background: #c8a65a;
-      box-shadow: 0 0 10px rgba(200, 166, 90, 0.85);
-      animation: statusPulse 0.9s ease-in-out infinite;
-    }
-  }
+@keyframes shadowPulse {
+  0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.75; }
+  50% { transform: translateX(-50%) scaleX(1.15); opacity: 1; }
+}
+
+@keyframes thinkPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.96); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+@keyframes thinkLook {
+  0%, 100% { transform: translate(-1.4px, -1.4px); }
+  50% { transform: translate(1.2px, -0.8px); }
+}
 
 @keyframes speakPulse {
   0%, 100% { opacity: 0.7; transform: scale(1); }
@@ -316,6 +515,12 @@
   0%, 100% { transform: scaleY(1); }
   35% { transform: scaleY(0.7); }
   55% { transform: scaleY(1.05); }
+}
+
+@keyframes mouthTalk {
+  0%, 100% { transform: scaleX(0.55); opacity: 0.5; }
+  30% { transform: scaleX(1.35); opacity: 1; }
+  60% { transform: scaleX(0.8); opacity: 0.85; }
 }
 
 @keyframes ringOrbit {
@@ -339,11 +544,30 @@
   50% { transform: translateX(-50%) scale(1.55); opacity: 0.55; }
 }
 
+@include mobile {
+  .panel {
+    left: 16px !important;
+    right: 16px !important;
+    width: calc(100vw - 32px) !important;
+    max-width: 372px;
+    margin-inline: auto;
+  }
+
+  .journeyCard {
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
 @include reduced-motion {
   .glow,
   .head,
   .mag,
-  .eyes {
+  .eyes,
+  .pupils,
+  .floorShadow,
+  .waveBar,
+  .waveOnce,
+  .mouth {
     animation: none;
   }
   .mag::after {
@@ -352,5 +576,8 @@
   }
   .robot::after {
     animation: none;
+  }
+  .waveOnce {
+    opacity: 1;
   }
 }

@@ -14,7 +14,7 @@ async function init(page, sound = '') {
     localStorage.setItem('xvi-language', 'en');
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
-    localStorage.setItem('xvi-conciergeSeen', 'true');
+    localStorage.setItem('xviConciergeSeen', 'true');
     if (sound) localStorage.setItem('xvi-sound', sound);
     window.__ambient = [];
     window.addEventListener('xvi:sound-ambient', (e) => {

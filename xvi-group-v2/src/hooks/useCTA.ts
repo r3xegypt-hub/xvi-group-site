@@ -8,6 +8,14 @@ export function signalAIDockAvailable(v: boolean) {
   aiDockAvailable = v;
 }
 
+// DEV-only hook so e2e tests can simulate "dock unavailable" (Vite appends an
+// HMR query to module URLs, so dynamic imports from tests are separate instances).
+if (import.meta.env.DEV) {
+  (window as unknown as Record<string, unknown>).__xviSetAIDockAvailable = (v: boolean) => {
+    aiDockAvailable = v;
+  };
+}
+
 export function useCTA() {
   const navigate = useNavigate();
 

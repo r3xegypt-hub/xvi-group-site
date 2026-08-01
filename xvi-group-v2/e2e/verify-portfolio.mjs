@@ -20,7 +20,7 @@ async function setupPage(browser, lang, plays, errors) {
     localStorage.setItem('xvi-language', language);
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
-    localStorage.setItem('xvi-conciergeSeen', 'true');
+    localStorage.setItem('xviConciergeSeen', 'true');
     window.addEventListener('xvi:sound-play', (e) => {
       window.recordPlay(e.detail && e.detail.name);
     });

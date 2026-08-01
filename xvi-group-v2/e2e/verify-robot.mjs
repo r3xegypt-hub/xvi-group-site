@@ -12,7 +12,7 @@ async function init(page) {
     localStorage.setItem('xvi-language', 'en');
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
-    localStorage.setItem('xvi-conciergeSeen', 'true');
+    localStorage.setItem('xviConciergeSeen', 'true');
   });
 }
 
