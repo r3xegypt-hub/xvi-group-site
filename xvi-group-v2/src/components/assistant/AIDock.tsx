@@ -265,6 +265,75 @@ function RoadmapCard() {
   );
 }
 
+function RecommendationCard({ memory, isAR }: { memory: ExecutiveMemory; isAR: boolean }) {
+  const navigate = useNavigate();
+  const meta = journeyMeta(memory.journey as JourneyId | null);
+  const goal = memory.goal;
+  const serviceLabel = meta
+    ? (isAR ? meta.service.label.ar : meta.service.label.en)
+    : (isAR ? 'استشارة تنفيذية' : 'Executive Consultation');
+  const serviceTo = meta ? meta.service.to : '/contact';
+  const caseTitle = meta ? (isAR ? meta.caseTitle.ar : meta.caseTitle.en) : null;
+  const intro = goal
+    ? (isAR ? `في ضوء هدفك «${goal}» أوصي بالخطوة التالية:` : `Given your goal — "${goal}" — here is my recommended next step:`)
+    : meta
+      ? (isAR ? 'بناءً على محور رحلتك، إليك الخطوة التالية الموصى بها:' : 'Based on your journey focus, here is my recommended next step:')
+      : (isAR ? 'إليك الخطوة التالية الموصى بها:' : 'Here is my recommended next step:');
+
+  return (
+    <div style={{
+      background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.14)',
+      padding: 16, marginTop: 8, boxShadow: '0 8px 24px rgba(19,34,56,0.06)',
+    }}>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 700, color: '#C8A65A', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        {isAR ? 'الخطوة الموصى بها' : 'Recommended Next Step'}
+      </div>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+        {intro}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f7f6f3', borderRadius: 8 }}>
+        <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(200,166,90,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C8A65A' }}>
+          <Compass size={14} />
+        </div>
+        <div>
+          <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111' }}>{serviceLabel}</div>
+          {caseTitle && (
+            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{caseTitle}</div>
+          )}
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+        <motion.button
+          type="button"
+          onClick={() => navigate(serviceTo)}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          style={{
+            padding: '10px 16px', background: '#132238', color: '#fff', border: 'none',
+            borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+            display: 'inline-flex', alignItems: 'center', gap: 6, transition: 'all 0.25s ease',
+          }}
+        >
+          {isAR ? `استكشف ${serviceLabel} ←` : `Explore ${serviceLabel} →`}
+        </motion.button>
+        <motion.button
+          type="button"
+          onClick={() => navigate('/contact')}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          style={{
+            padding: '10px 16px', background: 'transparent', color: '#132238', border: '1px solid rgba(200,166,90,0.25)',
+            borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+            display: 'inline-flex', alignItems: 'center', gap: 6, transition: 'all 0.25s ease',
+          }}
+        >
+          {isAR ? 'تحدث مع مستشار' : 'Talk to a consultant'}
+        </motion.button>
+      </div>
+    </div>
+  );
+}
+
 function WhatsAppFallback({ query, isAR }: { query: string; isAR: boolean }) {
   const number = '971569220064';
   const message = isAR
@@ -768,15 +837,24 @@ export function AIDock() {
         break;
       }
       case 'recommend':
-        navigate('/contact');
-        return;
+        aiResponse = (
+          <div>
+            <div style={cmn}>{isAR ? 'دعني أوصيك بأفضل حل لمؤسستك.' : 'Let me recommend the best solution for your organization.'}</div>
+            <RecommendationCard memory={memoryRef.current} isAR={isAR} />
+          </div>
+        );
+        break;
       default:
         aiResponse = <div style={cmn}>I'm ready to frame the next strategic decision. Please select a domain.</div>;
     }
 
     const prevMem = memoryRef.current;
     const lastRec = prevMem.recommendations[prevMem.recommendations.length - 1];
-    const recLabel = isAR ? action.label.ar : action.label.en;
+    let recLabel = isAR ? action.label.ar : action.label.en;
+    if (actionId === 'recommend') {
+      const recMeta = journeyMeta(prevMem.journey as JourneyId | null);
+      if (recMeta) recLabel = isAR ? recMeta.service.label.ar : recMeta.service.label.en;
+    }
     if (lastRec !== recLabel) {
       updateMemory({ ...prevMem, recommendations: [...prevMem.recommendations, recLabel].slice(-10) });
     }
@@ -801,11 +879,15 @@ export function AIDock() {
       company: learned.company || prev.company,
       industry: learned.industry || prev.industry,
       goal: learned.goal || prev.goal,
+      journey: prev.journey,
       questions: [...prev.questions, q].slice(-20),
       recommendations: prev.recommendations,
     };
 
     const match = findContentMatch(q);
+    const recommendIntent =
+      /\b(recommend(ation|s|ed)?|advise|suggest(ion)?|what should (i|we)|best solution|best path)\b/i.test(q) ||
+      /(أوصي|نصيحة|تنصح|توصي(ة|ة)|ماذا تنصح|أفضل حل|أنسب مسار)/.test(q);
 
     const ackLines: string[] = [];
     const ackNodeParts: ReactNode[] = [];
@@ -932,6 +1014,23 @@ export function AIDock() {
           </div>
         );
       }
+    } else if (recommendIntent && !(match && match.score >= 2)) {
+      const recMeta = journeyMeta(merged.journey as JourneyId | null);
+      recommendation = recMeta
+        ? (isAR ? recMeta.service.label.ar : recMeta.service.label.en)
+        : (isAR ? 'استشارة تنفيذية' : 'Executive Consultation');
+      speechText = isAR
+        ? 'دعني أوصيك بأفضل حل لمؤسستك، بناءً على ما نعرفه عن أهدافك ومحور رحلتك.'
+        : 'Let me recommend the best solution for your organization, based on what we know about your goals and journey focus.';
+      aiResponse = (
+        <div>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 4, lineHeight: 1.7 }}>
+            {speechText}
+          </div>
+          <RecommendationCard memory={merged} isAR={isAR} />
+          <PersonaSignature isAR={isAR} />
+        </div>
+      );
     } else if (match && match.score >= 2) {
       const entry = match.entry;
       const resp = entry.response(isAR);
