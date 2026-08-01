@@ -10,6 +10,7 @@ import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
 import { CustomCursor } from './motion/CustomCursor';
 import { MouseGlow } from './motion/MouseGlow';
+import { ExecutiveBackground } from './components/scene/ExecutiveBackground';
 import { LuxuryLoader } from './components/ui/LuxuryLoader';
 import { CinematicExecutiveLaunch } from './components/ui/CinematicExecutiveLaunch';
 import { AIDock } from './components/assistant/AIDock';
@@ -57,6 +58,7 @@ function App() {
           <MotionProvider>
             <MotionConfig reducedMotion="user">
             <div className="xvi-app">
+              <ExecutiveBackground />
               {pending && (introSeenRef.current
                 ? <LuxuryLoader onFinish={handleFinish} />
                 : <CinematicExecutiveLaunch onFinish={handleFinish} />

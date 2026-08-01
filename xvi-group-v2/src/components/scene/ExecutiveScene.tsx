@@ -183,11 +183,22 @@ export function ExecutiveScene({
       mouse.ty = e.clientY - rect.top;
     };
 
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!reduced && !raf && width > 0) {
+        loop();
+      }
+    };
+
     sprite = makeSprite();
     seed();
 
     const ro = new ResizeObserver(() => seed());
     ro.observe(canvas);
+
+    document.addEventListener('visibilitychange', onVisibility);
 
     if (interactive && !reduced) {
       window.addEventListener('pointermove', onPointerMove, { passive: true });
@@ -196,6 +207,7 @@ export function ExecutiveScene({
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pointermove', onPointerMove);
     };
   }, [prefersReducedMotion, density, connectDistance, maxParticles, interactive, mouseLight]);
