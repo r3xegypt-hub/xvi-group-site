@@ -338,8 +338,8 @@ export function AboutPage() {
               <motion.div
                 key={i}
                 className={styles.journeyStep}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, ease, delay: i * 0.08 }}
               >

@@ -11,7 +11,14 @@ async function run(browser, lang) {
     localStorage.setItem('xviCinematicDate', String(Date.now()));
   }, lang);
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(500);
+  await page.waitForFunction(() => {
+    const header = document.querySelector('header');
+    if (!header) return false;
+    const cs = getComputedStyle(header);
+    return cs.opacity === '1' && Math.round(header.getBoundingClientRect().top) === 20;
+  }, { timeout: 8000 });
+  await page.waitForTimeout(200);
 
   const before = await page.evaluate(() => {
     const header = document.querySelector('header');

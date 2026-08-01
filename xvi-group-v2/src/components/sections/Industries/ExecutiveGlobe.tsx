@@ -406,8 +406,8 @@ export function ExecutiveGlobe() {
 
           <motion.aside
             className={styles.panel}
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease, delay: 0.15 }}
           >
