@@ -3,6 +3,7 @@ export interface ExecutiveMemory {
   company?: string;
   industry?: string;
   goal?: string;
+  journey?: string;
   questions: string[];
   recommendations: string[];
 }
@@ -23,6 +24,7 @@ export function loadMemory(): ExecutiveMemory {
         company: typeof parsed.company === 'string' && parsed.company ? parsed.company : undefined,
         industry: typeof parsed.industry === 'string' && parsed.industry ? parsed.industry : undefined,
         goal: typeof parsed.goal === 'string' && parsed.goal ? parsed.goal : undefined,
+        journey: typeof parsed.journey === 'string' && parsed.journey ? parsed.journey : undefined,
         questions: Array.isArray(parsed.questions)
           ? parsed.questions.filter((q): q is string => typeof q === 'string').slice(-MAX_QUESTIONS)
           : [],
@@ -43,6 +45,12 @@ export function persistMemory(memory: ExecutiveMemory) {
   } catch {
     // quota / privacy errors are non-fatal
   }
+}
+
+export function persistMemoryJourney(journey: string | null | undefined) {
+  const memory = loadMemory();
+  memory.journey = journey ?? undefined;
+  persistMemory(memory);
 }
 
 const cleanValue = (v: string) =>

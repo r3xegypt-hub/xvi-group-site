@@ -142,6 +142,51 @@ async function storedMemory(page) {
     await ctx.close();
   }
 
+  // 6) EN: choosing a journey via the concierge records it in memory + shows the journey chip.
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    await page.addInitScript(() => {
+      localStorage.setItem('xvi-language', 'en');
+      localStorage.setItem('xviIntroDone', 'true');
+      localStorage.setItem('xviCinematicDate', String(Date.now()));
+      sessionStorage.removeItem('xvi-executive-memory');
+    });
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    await page.locator('[data-testid="journey-selector"]').waitFor({ state: 'visible', timeout: 20000 });
+    await page.waitForTimeout(1100);
+    await page.locator('[data-journey="healthcare"]').click();
+    await page.waitForTimeout(900);
+    await page.waitForTimeout(2800);
+    const mem = await storedMemory(page);
+    report(Boolean(mem && mem.journey === 'healthcare'), `EN: journey recorded in memory (got ${mem?.journey})`);
+    await openDock(page, 'en');
+    await page.locator('div[style*="bottom: 100px"]').getByText('Healthcare', { exact: false }).first().waitFor({ state: 'visible', timeout: 5000 });
+    report(true, 'EN: journey chip shown in the dock');
+    await ctx.close();
+  }
+
+  // 7) AR: seeded journey persists to memory with Arabic chip label.
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    await page.addInitScript(() => {
+      localStorage.setItem('xvi-language', 'ar');
+      localStorage.setItem('xviIntroDone', 'true');
+      localStorage.setItem('xviCinematicDate', String(Date.now()));
+      localStorage.setItem('xviConciergeSeen', 'true');
+      sessionStorage.setItem('xvi-journey', 'government');
+      sessionStorage.removeItem('xvi-executive-memory');
+    });
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    await openDock(page, 'ar');
+    await page.locator('div[style*="bottom: 100px"]').getByText('الحكومة', { exact: false }).first().waitFor({ state: 'visible', timeout: 5000 });
+    report(true, 'AR: journey chip shown with Arabic label');
+    const mem = await storedMemory(page);
+    report(Boolean(mem && mem.journey === 'government'), `AR: journey recorded in memory (got ${mem?.journey})`);
+    await ctx.close();
+  }
+
   await browser.close();
   const passed = results.filter(Boolean).length;
   console.log(`\n=== ${passed}/${results.length} CHECKS PASSED ===`);

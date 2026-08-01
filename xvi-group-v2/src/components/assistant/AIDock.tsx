@@ -12,11 +12,14 @@ import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
 import { loadMemory, persistMemory, extractMemory, isMemoryAsk, hasLearnedFields } from '../../hooks/executiveMemory';
 import type { ExecutiveMemory } from '../../hooks/executiveMemory';
+import { useJourney } from '../../hooks/journeyContext';
+import { journeyMeta } from '../../hooks/journeyContext';
+import type { JourneyId } from '../../hooks/journeyContext';
 import { AIAvatar } from './AIAvatar';
 import {
   Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
   Users, Shield, TrendingUp, Target, Lightbulb, Map,
-  ArrowRight, Activity, Mic, Settings2, Volume2, User, Briefcase
+  ArrowRight, Activity, Mic, Settings2, Volume2, User, Briefcase, Compass
 } from 'lucide-react';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -460,6 +463,16 @@ export function AIDock() {
   const { prefersReducedMotion: rm } = useMotion();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { journey } = useJourney();
+
+  // Keep the selected journey in the executive memory profile.
+  useEffect(() => {
+    if (journey === memoryRef.current.journey) return;
+    const next = { ...memoryRef.current };
+    next.journey = journey ?? undefined;
+    updateMemory(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [journey]);
 
   const updateMemory = useCallback((next: ExecutiveMemory) => {
     memoryRef.current = next;
@@ -1179,12 +1192,21 @@ export function AIDock() {
             {/* Body */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
               {/* Session memory chips */}
-              {(memory.name || memory.company || memory.industry || memory.goal) && (
+              {(memory.name || memory.company || memory.industry || memory.goal || memory.journey) && (
                 <motion.div
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', marginBottom: 12 }}
                 >
+                  {memory.journey && (() => {
+                    const meta = journeyMeta(memory.journey as JourneyId);
+                    if (!meta) return null;
+                    return (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', background: 'rgba(200,166,90,0.08)', border: '1px solid rgba(200,166,90,0.14)', borderRadius: 999, fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: meta.color }}>
+                        <Compass size={11} /> {isAR ? meta.label.ar : meta.label.en}
+                      </span>
+                    );
+                  })()}
                   {memory.name && (
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', background: 'rgba(200,166,90,0.08)', border: '1px solid rgba(200,166,90,0.14)', borderRadius: 999, fontFamily: font, fontSize: '0.625rem', fontWeight: 500, color: '#8a7040' }}>
                       <User size={11} /> {memory.name}
