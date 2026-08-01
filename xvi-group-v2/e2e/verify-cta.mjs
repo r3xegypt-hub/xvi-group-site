@@ -125,7 +125,7 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   } else fail('"Begin a conversation" not found on Careers');
   await closeDock(desktop);
 
-  // 8. AI Dock internal "Contact Expert" -> navigates to /contact
+  // 8. AI Dock internal "Contact Expert" -> journey-aware recommendation card
   console.log('\n🔍 AI DOCK → "Contact Expert"');
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
@@ -136,24 +136,31 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
     pass('AI Dock opened');
 
     // The dock has quick action buttons inside. Target the one in the dock panel.
-    // After opening, the dock panel (.panel) is visible with buttons inside.
-    // Use a more specific selector: any button inside the dock panel
     const dockPane = desktop.locator('div[style*="border-radius: 28px"]');
     const dockExpert = dockPane.locator('button').filter({ hasText: 'Contact Expert' }).first();
     if (await dockExpert.isVisible()) {
       pass('"Contact Expert" found inside dock');
-      await dockExpert.click(CLICK); await desktop.waitForTimeout(2000);
-      desktop.url().includes('/contact') ? pass('→ navigated to /contact') : fail(`→ ${desktop.url()}`);
+      await dockExpert.click(CLICK); await desktop.waitForTimeout(1800);
+      const recCard = dockPane.getByText('Recommended Next Step', { exact: true });
+      (await recCard.isVisible().catch(() => false)) ? pass('→ recommendation card rendered') : fail('→ recommendation card NOT rendered');
+      // The consultant CTA inside the card navigates to /contact
+      const consultant = dockPane.locator('button').filter({ hasText: 'Talk to a consultant' }).first();
+      if (await consultant.isVisible().catch(() => false)) {
+        await consultant.click(CLICK); await desktop.waitForTimeout(2000);
+        desktop.url().includes('/contact') ? pass('→ "Talk to a consultant" navigates to /contact') : fail(`→ ${desktop.url()}`);
+      } else {
+        fail('"Talk to a consultant" not found in card');
+      }
     } else {
       // Fallback: try finding any button with that text that's newly visible after opening
       const allButtonsAfterOpen = desktop.locator('button').filter({ hasText: 'Contact Expert' });
       const count = await allButtonsAfterOpen.count();
       pass(`Found ${count} 'Contact Expert' buttons after opening dock`);
-      // Click the LAST one (should be the dock's internal one, not the Hero one)
       if (count > 0) {
         await allButtonsAfterOpen.nth(count - 1).click(CLICK);
-        await desktop.waitForTimeout(2000);
-        desktop.url().includes('/contact') ? pass('→ navigated to /contact') : fail(`→ ${desktop.url()}`);
+        await desktop.waitForTimeout(1800);
+        const recCard = dockPane.getByText('Recommended Next Step', { exact: true });
+        (await recCard.isVisible().catch(() => false)) ? pass('→ recommendation card rendered') : fail('→ recommendation card NOT rendered');
       } else fail('No "Contact Expert" button found after dock open');
     }
   } else fail('Dock toggle not found');
