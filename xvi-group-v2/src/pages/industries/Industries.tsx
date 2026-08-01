@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Building2, Landmark, Factory, Globe, Heart, GraduationCap, Zap, ChevronRight, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
@@ -254,10 +255,10 @@ export function IndustriesPage() {
                   </div>
                 </div>
 
-                <a href="/contact" className={styles.detailCta} onClick={handleCTA}>
+                <Link to="/contact" className={styles.detailCta} onClick={handleCTA}>
                   {ar ? 'ابدأ المحادثة' : 'Start a conversation'}
                   <ArrowRight size={14} />
-                </a>
+                </Link>
               </motion.div>
             </AnimatePresence>
           </div>

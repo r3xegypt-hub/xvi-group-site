@@ -204,10 +204,10 @@ export function CareersPage() {
                     ? 'نحن في مرحلة بناء الفريق والتوسع. ستظهر فرص جديدة هنا بشكل منتظم.'
                     : 'We are in the team-building and expansion phase. New opportunities will appear here regularly.'}
                 </p>
-                <a href="/contact" className={styles.contactLink}>
+                <Link to="/contact" className={styles.contactLink}>
                   {ar ? 'تواصل معنا' : 'Get in touch'}
                   <ArrowUpRight size={14} />
-                </a>
+                </Link>
               </motion.div>
             </div>
           </Container>

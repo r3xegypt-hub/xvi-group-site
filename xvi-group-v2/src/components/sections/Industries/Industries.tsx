@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useCTA } from '../../../hooks/useCTA';
 import styles from './Industries.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
+const MotionLink = motion(Link);
 
 const industries = [
   {
@@ -73,8 +75,8 @@ export function Industries() {
               : 'Start with the question that matters. We\'ll help shape the path from aspiration to operating reality.'}
           </motion.p>
 
-          <motion.a
-            href="/contact"
+          <MotionLink
+            to="/contact"
             className={styles.cta}
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -82,7 +84,7 @@ export function Industries() {
             onClick={handleCTA}
           >
             {ar ? 'ابدأ محادثة' : 'Start a conversation'}
-          </motion.a>
+          </MotionLink>
         </div>
 
         <div className={styles.list}>

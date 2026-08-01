@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useCTA } from '../../../hooks/useCTA';
 import styles from './CTA.module.scss';
 
@@ -37,13 +38,13 @@ export function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease, delay: 0.25 }}
         >
-          <a href="/contact" className={styles.cta} onClick={handleCTA}>
+          <Link to="/contact" className={styles.cta} onClick={handleCTA}>
             Begin a conversation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Eye, Compass, Users, Zap, Quote, ChevronDown, Target, Lightbulb, Shield, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './About.module.scss';
@@ -486,10 +487,10 @@ export function AboutPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <a href="/contact" className={styles.ctaPrimary}>
+            <Link to="/contact" className={styles.ctaPrimary}>
               {ar ? 'احجز استشارتك' : 'Book your consultation'}
               <ArrowRight size={16} />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>

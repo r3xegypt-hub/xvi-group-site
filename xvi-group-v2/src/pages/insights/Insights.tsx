@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Clock, BookOpen, FileText, Lightbulb, TrendingUp, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './Insights.module.scss';
@@ -169,10 +170,10 @@ export function InsightsPage() {
                 </div>
                 <h3 className={styles.perspectiveTitle}>{ar ? item.title.ar : item.title.en}</h3>
                 <p className={styles.perspectiveDesc}>{ar ? item.desc.ar : item.desc.en}</p>
-                <a href="/contact" className={styles.perspectiveLink}>
+                <Link to="/contact" className={styles.perspectiveLink}>
                   <span>{ar ? 'اقرأ المزيد' : 'Read more'}</span>
                   <ArrowUpRight size={14} />
-                </a>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -243,10 +244,10 @@ export function InsightsPage() {
                 ? 'نعمل حالياً على محتوى تفصيلي يشمل تحليلات وأطر عمل ودراسات حالة حول الذكاء الاصطناعي والتحول الرقمي.'
                 : 'We are currently developing detailed content including analysis, frameworks, and case studies on AI and enterprise transformation.'}
             </p>
-            <a href="/contact" className={styles.contactCta}>
+            <Link to="/contact" className={styles.contactCta}>
               {ar ? 'تواصل معنا' : 'Get in touch'}
               <ArrowRight size={14} />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>

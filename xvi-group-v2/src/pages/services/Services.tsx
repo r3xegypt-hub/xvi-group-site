@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import type { Easing } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Brain, Workflow, Shield, BarChart3, Lightbulb, Target, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
@@ -216,10 +217,10 @@ export function ServicesPage() {
                 </div>
               </div>
 
-              <a href="/contact" className={styles.serviceCta} onClick={handleCTA}>
+              <Link to="/contact" className={styles.serviceCta} onClick={handleCTA}>
                 {ar ? 'ابدأ المحادثة' : 'Start a conversation'}
                 <ArrowRight size={14} />
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -309,10 +310,10 @@ export function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <a href="/contact" className={styles.ctaBtn}>
+            <Link to="/contact" className={styles.ctaBtn}>
               {ar ? 'احجز استشارتك' : 'Book a Consultation'}
               <ArrowRight size={16} />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>
