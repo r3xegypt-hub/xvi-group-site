@@ -1,20 +1,67 @@
 @import '../../../styles/mixins/devices';
 
-.scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
+  .scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
 
-.glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 44%, rgba(200, 166, 90, 0.18) 0%, rgba(200, 166, 90, 0.05) 42%, transparent 68%);
-  animation: robotGlow 5s ease-in-out infinite;
-}
+  /* Soft radial light — gentle ambient glow behind the robot */
+  .radialLight {
+    position: absolute;
+    inset: -8%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 44%,
+      rgba(200, 166, 90, 0.16) 0%,
+      rgba(200, 166, 90, 0.06) 35%,
+      rgba(200, 166, 90, 0.02) 55%,
+      transparent 72%
+    );
+    filter: blur(4px);
+    animation: radialBreath 6s ease-in-out infinite;
+    z-index: 0;
+  }
 
-.holoBase {
+  /* Premium glow layer */
+  .premiumGlow {
+    position: absolute;
+    inset: -14%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 42%,
+      rgba(200, 166, 90, 0.12) 0%,
+      rgba(200, 166, 90, 0.03) 40%,
+      transparent 68%
+    );
+    opacity: 0.8;
+    animation: glowPulse 5s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  /* Subtle floating shadow — makes the robot feel like it is floating */
+  .floatShadow {
+    position: absolute;
+    bottom: -10%;
+    left: 50%;
+    width: 80%;
+    height: 14%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(17, 17, 17, 0.28) 0%,
+      rgba(200, 166, 90, 0.08) 50%,
+      transparent 75%
+    );
+    filter: blur(3px);
+    opacity: 0.55;
+    animation: shadowFloat 7s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  .holoBase {
   position: absolute;
   left: 50%;
   bottom: 2%;
@@ -149,34 +196,41 @@
   filter: drop-shadow(0 0 8px rgba(200, 166, 90, 0.35));
 }
 
-.drone {
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  width: 64%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: droneFloat 7s ease-in-out infinite;
-}
+  .drone {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 64%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: droneFloat 7s ease-in-out infinite;
+  }
 
-.body {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f1ea 60%, #e9e6de 100%);
-  border: 1px solid rgba(17, 17, 17, 0.22);
-  box-shadow:
-    0 14px 34px rgba(17, 17, 17, 0.22),
-    0 4px 12px rgba(17, 17, 17, 0.1),
-    0 0 44px rgba(200, 166, 90, 0.16),
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -6px 16px rgba(17, 17, 17, 0.05);
-  animation: breathe 5s ease-in-out infinite;
-}
+  /* White robot body — premium look: white body, gold accents, thin dark outline */
+  .body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      #f8f6f1 0%,
+      #f0ece3 25%,
+      #e9e6de 55%,
+      #e3dfd0 85%,
+      #d9d3c3 100%
+    );
+    border: 1.5px solid rgba(17, 17, 17, 0.35);
+    box-shadow:
+      0 0 0 4px rgba(200, 166, 90, 0.1),
+      0 0 32px rgba(200, 166, 90, 0.12),
+      inset 0 2px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -4px 12px rgba(17, 17, 17, 0.04);
+    animation: breathe 5s ease-in-out infinite;
+  }
 
 .head {
   position: relative;
@@ -386,9 +440,19 @@
   50% { transform: scale(1.02); }
 }
 
-@keyframes robotGlow {
-  0%, 100% { opacity: 0.6; transform: scale(0.98); }
-  50% { opacity: 1; transform: scale(1.04); }
+@keyframes radialBreath {
+  0%, 100% { opacity: 0.8; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.7; transform: scale(0.98); }
+  50% { opacity: 0.9; transform: scale(1.03); }
+}
+
+@keyframes shadowFloat {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scaleX(1); }
+  50% { opacity: 0.65; transform: translateX(-50%) scaleX(1.08); }
 }
 
 @keyframes orbitSpin {
@@ -440,21 +504,23 @@
   50% { opacity: 1; filter: drop-shadow(0 0 5px rgba(200, 166, 90, 0.9)); }
 }
 
-@include reduced-motion {
-  .glow,
-  .holoRing,
-  .holoRing2,
-  .holoCore,
-  .holoScan,
-  .holoParticles span,
-  .holoEQ span,
-  .orbit,
-  .drone,
-  .body,
-  .head,
-  .eyes,
-  .antennaTip,
-  .mouthBars rect {
-    animation: none;
+  @include reduced-motion {
+    .radialLight,
+    .premiumGlow,
+    .floatShadow,
+    .holoRing,
+    .holoRing2,
+    .holoCore,
+    .holoScan,
+    .holoParticles span,
+    .holoEQ span,
+    .orbit,
+    .drone,
+    .body,
+    .head,
+    .eyes,
+    .antennaTip,
+    .mouthBars rect {
+      animation: none;
+    }
   }
-}

@@ -122,35 +122,35 @@
   50% { transform: translateX(-38%) rotate(4deg); opacity: 0.9; }
 }
 
-.robot {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-end: 1.5%;
-  width: min(42vw, 480px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  pointer-events: none;
+  .robot {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 1.5%;
+    width: min(30vw, 340px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
 
-  @include mobile {
-    width: 36vw;
-    inset-inline-end: 3%;
-    top: 5%;
-    bottom: auto;
-    opacity: 0.4;
-    z-index: 1;
-  }
+    @include mobile {
+      width: 26vw;
+      inset-inline-end: 3%;
+      top: 5%;
+      bottom: auto;
+      opacity: 0.4;
+      z-index: 1;
+    }
 
-  @include tablet-portrait {
-    width: min(34vw, 320px);
-    inset-inline-end: 1%;
-  }
+    @include tablet-portrait {
+      width: min(26vw, 230px);
+      inset-inline-end: 1%;
+    }
 
-  @include tablet-landscape {
-    width: min(36vw, 360px);
+    @include tablet-landscape {
+      width: min(28vw, 260px);
+    }
   }
-}
 
 .robotInner {
   width: 100%;

@@ -129,7 +129,9 @@ export function HeroRobot() {
 
   return (
     <div ref={sceneRef} className={styles.scene} data-state={state} aria-hidden="true">
-      <div className={styles.glow} />
+      <div className={styles.radialLight} />
+      <div className={styles.premiumGlow} />
+      <div className={styles.floatShadow} />
       <div className={styles.orbit}>
         <span className={styles.orbitArc} />
       </div>
