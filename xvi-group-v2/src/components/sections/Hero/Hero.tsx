@@ -136,6 +136,9 @@ export function Hero() {
       </motion.div>
       <div className={styles.lightRays} />
       <div className={styles.spotlight} />
+      <div className={styles.ambientLight} />
+      <div className={styles.headlineSweep} />
+      <div className={styles.goldenReflection} />
       <motion.div className={styles.robot} style={{ x: robotX, y: robotY }}>
         <div className={styles.robotInner}>
           <HeroRobot />

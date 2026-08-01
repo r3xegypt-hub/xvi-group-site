@@ -99,28 +99,128 @@
   opacity: 0.55;
 }
 
-.spotlight {
-  position: absolute;
-  top: -30%;
-  left: 50%;
-  width: 120vw;
-  height: 150%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(200, 166, 90, 0.05) 40%,
-    rgba(200, 166, 90, 0.02) 60%,
-    transparent 100%
-  );
-  animation: spotlightSweep 16s ease-in-out infinite;
-}
+  .spotlight {
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    width: 120vw;
+    height: 150%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(200, 166, 90, 0.05) 40%,
+      rgba(200, 166, 90, 0.02) 60%,
+      transparent 100%
+    );
+    animation: spotlightSweep 16s ease-in-out infinite;
+  }
 
-@keyframes spotlightSweep {
-  0%, 100% { transform: translateX(-62%) rotate(-6deg); opacity: 0.45; }
-  50% { transform: translateX(-38%) rotate(4deg); opacity: 0.9; }
-}
+  @keyframes spotlightSweep {
+    0%, 100% { transform: translateX(-62%) rotate(-6deg); opacity: 0.45; }
+    50% { transform: translateX(-38%) rotate(4deg); opacity: 0.9; }
+  }
+
+  /* Moving ambient lighting layer — slow cinematic drift */
+  .ambientLight {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at 30% 50%,
+      rgba(200, 166, 90, 0.03) 0%,
+      transparent 45%
+    );
+    opacity: 0.7;
+    animation: ambientDrift 28s ease-in-out infinite;
+  }
+
+  @keyframes ambientDrift {
+    0%, 100% {
+      background: radial-gradient(
+        circle at 30% 50%,
+        rgba(200, 166, 90, 0.03) 0%,
+        transparent 45%
+      );
+      opacity: 0.65;
+    }
+    25% {
+      background: radial-gradient(
+        circle at 70% 45%,
+        rgba(200, 166, 90, 0.04) 0%,
+        transparent 45%
+      );
+      opacity: 0.75;
+    }
+    50% {
+      background: radial-gradient(
+        circle at 45% 55%,
+        rgba(200, 166, 90, 0.035) 0%,
+        transparent 45%
+      );
+      opacity: 0.7;
+    }
+    75% {
+      background: radial-gradient(
+        circle at 25% 40%,
+        rgba(200, 166, 90, 0.045) 0%,
+        transparent 45%
+      );
+      opacity: 0.65;
+    }
+  }
+
+  /* Light sweep behind headline — elegant golden glint */
+  .headlineSweep {
+    position: absolute;
+    z-index: 1;
+    top: 34%;
+    left: -10%;
+    width: 120%;
+    height: 140%;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(200, 166, 90, 0.08) 45%,
+      rgba(200, 166, 90, 0.12) 50%,
+      rgba(200, 166, 90, 0.08) 55%,
+      transparent 100%
+    );
+    animation: headlineSweep 22s ease-in-out infinite;
+    pointer-events: none;
+    transform: rotate(12deg);
+  }
+
+  @keyframes headlineSweep {
+    0%, 100% { opacity: 0; transform: translateX(-10%) rotate(10deg); }
+    20% { opacity: 0.4; }
+    50% { opacity: 0.65; transform: translateX(0%) rotate(12deg); }
+    80% { opacity: 0.4; }
+  }
+
+  /* Golden reflection overlay for premium depth */
+  .goldenReflection {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(200, 166, 90, 0.02) 0%,
+      transparent 30%,
+      rgba(200, 166, 90, 0.01) 60%,
+      transparent 100%
+    );
+    opacity: 0.5;
+    animation: reflectionPulse 14s ease-in-out infinite;
+  }
+
+  @keyframes reflectionPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+  }
 
   .robot {
     position: absolute;
@@ -218,7 +318,8 @@
     0 1px 2px rgba(0,0,0,0.1),
     0 8px 24px rgba(0,0,0,0.06),
     0 24px 48px rgba(0,0,0,0.03),
-    0 0 80px rgba(200, 166, 90, 0.02);
+    0 0 80px rgba(200, 166, 90, 0.02),
+    0 0 120px rgba(200, 166, 90, 0.05);
 
   [dir='rtl'] & {
     font-family: 'Noto Kufi Arabic', 'Alexandria', sans-serif;
@@ -228,7 +329,8 @@
     text-shadow:
       0 1px 2px rgba(0,0,0,0.1),
       0 8px 24px rgba(0,0,0,0.06),
-      0 0 80px rgba(200, 166, 90, 0.02);
+      0 0 80px rgba(200, 166, 90, 0.02),
+      0 0 120px rgba(200, 166, 90, 0.05);
   }
 }
 
@@ -392,10 +494,13 @@
   }
 }
 
-@include reduced-motion {
-  .lightRays,
-  .spotlight {
-    animation: none;
+  @include reduced-motion {
+    .lightRays,
+    .spotlight,
+    .ambientLight,
+    .headlineSweep,
+    .goldenReflection {
+      animation: none;
+    }
   }
-}
 
