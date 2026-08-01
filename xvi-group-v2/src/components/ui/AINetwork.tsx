@@ -114,8 +114,9 @@ export function AINetwork({
             r={node.r}
             fill={color}
             opacity={node.opacity}
+            style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
             animate={{
-              r: [node.r, node.r * 1.8, node.r],
+              scale: [1, 1.8, 1],
               opacity: [node.opacity, node.opacity * 2.5, node.opacity],
             }}
             transition={{

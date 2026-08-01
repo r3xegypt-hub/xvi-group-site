@@ -69,33 +69,105 @@
   75% { opacity: 0.4; }
 }
 
-.particles {
+.sceneLayer {
   position: absolute;
   inset: 0;
   z-index: 1;
-  overflow: hidden;
 }
 
-.particle {
+.gridLayer {
   position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(200, 166, 90, 0.4);
-  border-radius: 50%;
-  animation: particleFloat linear infinite;
-  box-shadow: 0 0 6px rgba(200, 166, 90, 0.25);
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
 
-  @keyframes particleFloat {
-    0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
-    25% { opacity: 0.7; }
-    50% { opacity: 0.4; transform: translateY(-60px) scale(1); }
-    75% { opacity: 0.7; }
+.gridBackdrop {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: -10%;
+  height: 54%;
+  background-image:
+    linear-gradient(rgba(200, 166, 90, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 166, 90, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  transform: perspective(600px) rotateX(62deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 85%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 85%);
+  opacity: 0.55;
+}
+
+.spotlight {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  width: 120vw;
+  height: 150%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(200, 166, 90, 0.05) 40%,
+    rgba(200, 166, 90, 0.02) 60%,
+    transparent 100%
+  );
+  animation: spotlightSweep 16s ease-in-out infinite;
+}
+
+@keyframes spotlightSweep {
+  0%, 100% { transform: translateX(-62%) rotate(-6deg); opacity: 0.45; }
+  50% { transform: translateX(-38%) rotate(4deg); opacity: 0.9; }
+}
+
+.robot {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 1.5%;
+  width: min(42vw, 480px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+
+  @include mobile {
+    width: 36vw;
+    inset-inline-end: 3%;
+    top: 5%;
+    bottom: auto;
+    opacity: 0.4;
+    z-index: 1;
   }
+
+  @include tablet-portrait {
+    width: min(34vw, 320px);
+    inset-inline-end: 1%;
+  }
+
+  @include tablet-landscape {
+    width: min(36vw, 360px);
+  }
+}
+
+.robotInner {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 92% at 50% 40%, transparent 52%, rgba(5, 10, 20, 0.38) 100%);
 }
 
 .container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -317,6 +389,13 @@
   @include mobile {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@include reduced-motion {
+  .lightRays,
+  .spotlight {
+    animation: none;
   }
 }
 
