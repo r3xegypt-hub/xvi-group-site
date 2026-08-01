@@ -59,8 +59,60 @@ async function settleOpacity(page, locator, targetAboveHalf) {
   const barsOpacityIdle = await scene.locator('[class*="mouthBars"]').evaluate((el) => getComputedStyle(el).opacity);
   report(parseFloat(smileOpacity) > 0.5 && parseFloat(barsOpacityIdle) < 0.5, 'idle: smile shown, bars hidden');
 
+  // Natural blink: a blink fires within ~10s (first at ~1.1-1.8s).
+  {
+    const deadline = Date.now() + 10000;
+    let sawBlink = false;
+    while (Date.now() < deadline) {
+      const s = await scene.getAttribute('data-blink');
+      if (s === 'true') { sawBlink = true; break; }
+      await page.waitForTimeout(120);
+    }
+    report(sawBlink, 'idle: natural blink cadence fires (data-blink)');
+    const blinkEnd = Date.now() + 1000;
+    while (Date.now() < blinkEnd) {
+      const s = await scene.getAttribute('data-blink');
+      if (s !== 'true') break;
+      await page.waitForTimeout(60);
+    }
+    const blinkAnim = await scene.locator('[class*="eyes"]').evaluate((el) => getComputedStyle(el).animationPlayState);
+    report(blinkAnim === 'paused', `idle: blink rests between events (play-state ${blinkAnim})`);
+  }
+
+  // Curiosity burst: hovering the robot lifts the brows (data-curious).
+  {
+    const box = await scene.boundingBox();
+    await page.mouse.move(box.x + box.width * 0.35, box.y + box.height * 0.3);
+    const deadline = Date.now() + 1500;
+    let sawCurious = false;
+    while (Date.now() < deadline) {
+      const s = await scene.getAttribute('data-curious');
+      if (s === 'true') { sawCurious = true; break; }
+      await page.waitForTimeout(80);
+    }
+    report(sawCurious, 'idle: curiosity burst on hover (data-curious)');
+    const browTransform = await scene.locator('[class*="brows"]').evaluate((el) => getComputedStyle(el).transform);
+    report(browTransform !== 'none', `idle: brows lift during curiosity (${browTransform})`);
+    await page.mouse.move(0, 0);
+  }
+
+  // Thinking posture from the voice signal.
+  await page.evaluate(() => {
+    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: false, speaking: false, thinking: true } }));
+  });
+  await page.waitForTimeout(300);
+  report((await scene.getAttribute('data-state')) === 'thinking', 'thinking: data-state updated');
+  const thinkingTransform = await scene.locator('[class*="eyePose"]').evaluate((el) => getComputedStyle(el).transform);
+  report(thinkingTransform !== 'none', `thinking: eye posture narrows (${thinkingTransform})`);
+  await page.evaluate(() => {
+    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: false, speaking: false, thinking: false } }));
+  });
+
   await voice(page, true, false);
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(120);
+  const anticipateState = await scene.getAttribute('data-state');
+  report(anticipateState === 'anticipate', `speaking: anticipation moment before speech (${anticipateState})`);
+  await page.waitForTimeout(300);
   report((await scene.getAttribute('data-state')) === 'speaking', 'speaking: data-state updated');
   const barsOpacity = await settleOpacity(page, scene.locator('[class*="mouthBars"]'), true);
   const smileSpeaking = await settleOpacity(page, scene.locator('[class*="mouthIdle"]'), false);
@@ -77,6 +129,8 @@ async function settleOpacity(page, locator, targetAboveHalf) {
     await page.waitForTimeout(150);
   }
   report(earFill === 'rgb(227, 194, 122)', `listening: ears glow gold (${earFill})`);
+  const listenPose = await scene.locator('[class*="eyePose"]').evaluate((el) => getComputedStyle(el).transform);
+  report(listenPose !== 'none', `listening: eye posture widens (${listenPose})`);
 
   await voice(page, false, false);
   await page.waitForTimeout(500);

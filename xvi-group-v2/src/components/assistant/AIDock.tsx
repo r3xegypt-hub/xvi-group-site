@@ -541,8 +541,14 @@ export function AIDock() {
   }, [open]);
 
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: isListening, speaking: ttsSpeaking } }));
-  }, [isListening, ttsSpeaking]);
+    window.dispatchEvent(new CustomEvent('xvi:voice-state', {
+      detail: {
+        listening: isListening,
+        speaking: ttsSpeaking,
+        thinking: thoughtStage === 'thinking' || thoughtStage === 'synthesizing',
+      },
+    }));
+  }, [isListening, ttsSpeaking, thoughtStage]);
 
   useEffect(() => {
     if (!open) stopSpeech();

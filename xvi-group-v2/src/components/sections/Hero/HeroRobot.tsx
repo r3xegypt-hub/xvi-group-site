@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useMotion } from '../../../motion/providers/MotionProvider';
 import styles from './HeroRobot.module.scss';
 
-type RobotState = 'idle' | 'listening' | 'speaking';
+type RobotState = 'idle' | 'listening' | 'thinking' | 'anticipate' | 'speaking';
 
 const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
 
@@ -21,19 +21,38 @@ export function HeroRobot() {
   const sceneRef = useRef<HTMLDivElement>(null);
   const pupilsRef = useRef<SVGGElement>(null);
   const [state, setState] = useState<RobotState>('idle');
+  const anticipateTimer = useRef<number | undefined>(undefined);
 
   // Mirror the Executive AI voice state so the hero robot reacts live.
+  // Speech is preceded by a brief anticipation moment so the robot "leans in".
   useEffect(() => {
     const onVoice = (e: Event) => {
       const d = (e as CustomEvent).detail || {};
-      setState(d.speaking ? 'speaking' : d.listening ? 'listening' : 'idle');
+      const speaking = Boolean(d.speaking);
+      const listening = Boolean(d.listening);
+      const thinking = Boolean(d.thinking);
+      window.clearTimeout(anticipateTimer.current);
+      if (speaking) {
+        setState('anticipate');
+        anticipateTimer.current = window.setTimeout(() => setState('speaking'), 190);
+      } else if (listening) {
+        setState('listening');
+      } else if (thinking) {
+        setState('thinking');
+      } else {
+        setState('idle');
+      }
     };
     window.addEventListener('xvi:voice-state', onVoice);
-    return () => window.removeEventListener('xvi:voice-state', onVoice);
+    return () => {
+      window.removeEventListener('xvi:voice-state', onVoice);
+      window.clearTimeout(anticipateTimer.current);
+    };
   }, []);
 
-  // Autonomous eyes: idle saccades + pointer gaze-follow, driven by rAF and
-  // applied to the SVG pupils so they stay inside their sockets.
+  // Autonomous presence: idle saccades (with curiosity bursts), pointer
+  // gaze-follow, and a natural blink cadence (random intervals, occasional
+  // double-blinks). All driven by rAF and applied to the SVG pupils / blink.
   useEffect(() => {
     if (prefersReducedMotion) return;
     const el = sceneRef.current;
@@ -41,13 +60,19 @@ export function HeroRobot() {
     if (!el || !pupils) return;
 
     let raf = 0;
-    let nextSaccade = performance.now() + 1600 + Math.random() * 2400;
+    let nextSaccade = performance.now() + 1400 + Math.random() * 2200;
     let target = { x: 0, y: 0 };
     let current = { x: 0, y: 0 };
     let look = { x: 0, y: 0 };
 
+    let curiousUntil = 0;
+    let blinkOn = false;
+    let nextBlink = performance.now() + 1100 + Math.random() * 700;
+    let blinkUntil = 0;
+
     const pick = () => {
       target = SACCADE_TARGETS[(Math.random() * SACCADE_TARGETS.length) | 0];
+      if (target.x !== 0 || target.y !== 0) curiousUntil = performance.now() + 900;
     };
 
     const onMove = (e: PointerEvent) => {
@@ -59,6 +84,7 @@ export function HeroRobot() {
       const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
       const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
       look = { x: dx * 1.8, y: dy * 2 };
+      if (dx * dx + dy * dy > 0.2) curiousUntil = performance.now() + 700;
     };
 
     pick();
@@ -72,6 +98,24 @@ export function HeroRobot() {
       current.x += (tx - current.x) * 0.12;
       current.y += (ty - current.y) * 0.12;
       pupils.setAttribute('transform', `translate(${current.x.toFixed(2)} ${current.y.toFixed(2)})`);
+
+      if (now < curiousUntil) {
+        if (el.getAttribute('data-curious') !== 'true') el.setAttribute('data-curious', 'true');
+      } else if (el.getAttribute('data-curious') !== 'false') {
+        el.setAttribute('data-curious', 'false');
+      }
+
+      if (blinkOn && now >= blinkUntil) {
+        blinkOn = false;
+        el.setAttribute('data-blink', 'false');
+      } else if (!blinkOn && now >= nextBlink) {
+        blinkOn = true;
+        blinkUntil = now + 260;
+        el.setAttribute('data-blink', 'true');
+        nextBlink = now + 2600 + Math.random() * 4800;
+        if (Math.random() < 0.18) nextBlink = blinkUntil + 150 + Math.random() * 140;
+      }
+
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -113,14 +157,16 @@ export function HeroRobot() {
             <path d="M19 20 H27" stroke="rgba(17,17,17,0.3)" strokeWidth="1.2" strokeLinecap="round" />
             <path d="M37 20 H45" stroke="rgba(17,17,17,0.3)" strokeWidth="1.2" strokeLinecap="round" />
           </g>
-          <g className={styles.eyes}>
-            <rect className={styles.eye} x="19" y="24" width="9" height="10" rx="4.5" fill="rgba(17,17,17,0.55)" />
-            <rect className={styles.eye} x="36" y="24" width="9" height="10" rx="4.5" fill="rgba(17,17,17,0.55)" />
-            <g ref={pupilsRef}>
-              <circle cx="23.5" cy="29" r="2.6" fill="#e3c27a" />
-              <circle cx="40.5" cy="29" r="2.6" fill="#e3c27a" />
-              <circle cx="23.5" cy="29" r="1.1" fill="#8a5f13" />
-              <circle cx="40.5" cy="29" r="1.1" fill="#8a5f13" />
+          <g className={styles.eyePose}>
+            <g className={styles.eyes}>
+              <rect className={styles.eye} x="19" y="24" width="9" height="10" rx="4.5" fill="rgba(17,17,17,0.55)" />
+              <rect className={styles.eye} x="36" y="24" width="9" height="10" rx="4.5" fill="rgba(17,17,17,0.55)" />
+              <g ref={pupilsRef}>
+                <circle cx="23.5" cy="29" r="2.6" fill="#e3c27a" />
+                <circle cx="40.5" cy="29" r="2.6" fill="#e3c27a" />
+                <circle cx="23.5" cy="29" r="1.1" fill="#8a5f13" />
+                <circle cx="40.5" cy="29" r="1.1" fill="#8a5f13" />
+              </g>
             </g>
           </g>
           <path className={styles.mouthIdle} d="M26 43 C29 45 35 45 38 43" stroke="rgba(17,17,17,0.4)" strokeWidth="1.2" strokeLinecap="round" />
