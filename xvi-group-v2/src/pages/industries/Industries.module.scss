@@ -324,6 +324,23 @@
   border: 1px solid rgba(17, 17, 17, 0.04);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 2px rgba(10, 22, 40, 0.02);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.45), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
 
   &:hover {
     background: linear-gradient(145deg, rgba(200, 166, 90, 0.10) 0%, rgba(200, 166, 90, 0.04) 100%);
@@ -332,6 +349,15 @@
     box-shadow:
       0 4px 16px rgba(200, 166, 90, 0.06),
       0 1px 2px rgba(10, 22, 40, 0.02);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &:focus-within {
+    outline: 2px solid rgba(200, 166, 90, 0.5);
+    outline-offset: 2px;
   }
 }
 
