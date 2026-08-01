@@ -93,7 +93,7 @@ function App() {
                   <Route path="*" element={<PageShell><Home /></PageShell>} />
                 </Routes>
               </PageTransition>
-              {location.pathname !== '/' && <AIDock />}
+              <AIDock hideDock={location.pathname === '/'} />
               {!pending && <ExecutiveConcierge />}
             </div>
             </MotionConfig>

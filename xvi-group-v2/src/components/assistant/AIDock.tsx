@@ -515,7 +515,7 @@ function findContentMatch(input: string): { entry: ContentEntry; score: number }
   return best;
 }
 
-export function AIDock() {
+export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
   const [open, setOpen] = useState(false);
   const [thoughtStage, setThoughtStage] = useState<'ready' | 'thinking' | 'synthesizing' | 'ready-again'>('ready');
   const [response, setResponse] = useState<ReactNode | null>(null);
@@ -1163,7 +1163,8 @@ export function AIDock() {
         )}
       </AnimatePresence>
 
-      {/* Dock bar */}
+      {/* Dock bar — hidden on Hero page (functionality accessible via floating robot only) */}
+      {!hideDock && (
       <motion.div
         layout
         style={{
@@ -1227,6 +1228,7 @@ export function AIDock() {
           {open ? <X size={12} style={{ color: '#999' }} /> : <Sparkles size={12} style={{ color: '#C8A65A' }} />}
         </motion.button>
       </motion.div>
+      )}
 
       {/* Panel */}
       <AnimatePresence>

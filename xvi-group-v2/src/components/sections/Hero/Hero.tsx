@@ -156,10 +156,10 @@ export function Hero() {
           enter: { opacity: 1, scale: 1 },
           exit: {
             opacity: 0,
-            scale: 0.3,
-            x: ar ? -window.innerWidth * 0.3 : window.innerWidth * 0.3,
-            y: window.innerHeight * 0.4,
-            transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+            scale: 0.25,
+            x: ar ? '-120vw' : '120vw',
+            y: '30vh',
+            transition: { duration: 1.2, ease: [0.16, 0.8, 0.3, 1] },
           },
         }}
       >
