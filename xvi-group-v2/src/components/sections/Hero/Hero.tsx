@@ -25,6 +25,7 @@ export function Hero() {
   const isInView = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const [lettersVisible, setLettersVisible] = useState(false);
+  const [robotTransition, setRobotTransition] = useState(false);
   const bgControls = useAnimationControls();
 
   // Interactive mouse parallax (spring-smoothed, normalized -1..1)
@@ -91,6 +92,14 @@ export function Hero() {
     }
   }, [isInView, bgControls, prefersReducedMotion]);
 
+  // Listen for the ExecutiveConcierge robot flying back to corner.
+  // Triggers the Hero robot exit animation (shrink, fade, fly toward bottom-right).
+  useEffect(() => {
+    const onMinimize = () => setRobotTransition(true);
+    window.addEventListener('xvi:hero-robot-transition', onMinimize);
+    return () => window.removeEventListener('xvi:hero-robot-transition', onMinimize);
+  }, []);
+
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
@@ -139,7 +148,21 @@ export function Hero() {
       <div className={styles.ambientLight} />
       <div className={styles.headlineSweep} />
       <div className={styles.goldenReflection} />
-      <motion.div className={styles.robot} style={{ x: robotX, y: robotY }}>
+      <motion.div
+        className={styles.robot}
+        style={{ x: robotX, y: robotY }}
+        animate={robotTransition ? 'exit' : 'enter'}
+        variants={{
+          enter: { opacity: 1, scale: 1 },
+          exit: {
+            opacity: 0,
+            scale: 0.3,
+            x: ar ? -window.innerWidth * 0.3 : window.innerWidth * 0.3,
+            y: window.innerHeight * 0.4,
+            transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+          },
+        }}
+      >
         <div className={styles.robotInner}>
           <HeroRobot />
         </div>

@@ -84,7 +84,11 @@ export function ExecutiveConcierge() {
     if (phaseRef.current === 'minimize' || phaseRef.current === 'robot') return;
     setPhase('minimize');
     setRobotOffset({ x: 0, y: 0, scale: 1, opacity: 1 });
-  }, []);
+    // Signal the Hero robot to animate its exit (shrink, fade, fly toward bottom-right)
+    if (location.pathname === '/') {
+      window.dispatchEvent(new CustomEvent('xvi:hero-robot-transition'));
+    }
+  }, [location.pathname]);
 
   // Cinematic sequence: arrive -> selector -> confirm.
   useEffect(() => {
@@ -350,7 +354,7 @@ export function ExecutiveConcierge() {
               scale: dockOpen ? 0.4 : robotOffset.scale,
               opacity: dockOpen ? 0 : robotOffset.opacity,
             }}
-            transition={isGreeting ? { duration: 1.2, ease } : { duration: 0.6, ease }}
+             transition={isGreeting ? { duration: 1.2, ease } : phase === 'minimize' ? { duration: 1.2, ease: [0.16, 0.8, 0.3, 1] } : { duration: 0.6, ease }}
             onPointerDown={onRobotPointerDown}
             onMouseMove={onRobotHover}
             onMouseLeave={() => setMag({ x: 0, y: 0 })}
