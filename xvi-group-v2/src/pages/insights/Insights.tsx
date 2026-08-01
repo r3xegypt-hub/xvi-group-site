@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Clock, BookOpen, FileText, Lightbulb, TrendingUp, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, BookOpen, FileText, Lightbulb, TrendingUp } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { ExecutiveCaseStudies } from '../../components/sections/CaseStudies/ExecutiveCaseStudies';
 import styles from './Insights.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -223,34 +224,8 @@ export function InsightsPage() {
         </div>
       </section>
 
-      {/* COMING SOON NOTICE */}
-      <section className={styles.comingSoonSection}>
-        <div className={styles.comingSoonInner}>
-          <motion.div
-            className={styles.comingSoonCard}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease }}
-          >
-            <div className={styles.comingSoonIcon}>
-              <Clock size={32} strokeWidth={1.5} />
-            </div>
-            <h2 className={styles.comingSoonTitle}>
-              {ar ? 'المحتوى التفصيلي قادم قريباً' : 'Detailed content coming soon'}
-            </h2>
-            <p className={styles.comingSoonDesc}>
-              {ar
-                ? 'نعمل حالياً على محتوى تفصيلي يشمل تحليلات وأطر عمل ودراسات حالة حول الذكاء الاصطناعي والتحول الرقمي.'
-                : 'We are currently developing detailed content including analysis, frameworks, and case studies on AI and enterprise transformation.'}
-            </p>
-            <Link to="/contact" className={styles.contactCta}>
-              {ar ? 'تواصل معنا' : 'Get in touch'}
-              <ArrowRight size={14} />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      {/* EXECUTIVE CASE STUDIES */}
+      <ExecutiveCaseStudies />
     </>
   );
 }

@@ -20,9 +20,11 @@ export function useCountUp({
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
+  const hasStartedRef = useRef(false);
 
   const animate = useCallback(() => {
-    if (hasStarted) return;
+    if (hasStartedRef.current) return;
+    hasStartedRef.current = true;
     setHasStarted(true);
 
     const startTime = performance.now();
@@ -41,7 +43,7 @@ export function useCountUp({
     };
 
     rafRef.current = requestAnimationFrame(step);
-  }, [end, duration, hasStarted]);
+  }, [end, duration]);
 
   useEffect(() => {
     if (!startOnView || !ref.current) return;
