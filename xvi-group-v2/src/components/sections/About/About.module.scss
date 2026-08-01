@@ -243,13 +243,14 @@
 }
 
 .statValue {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
-  font-weight: 400;
+  font-weight: 600;
   color: #111111;
   line-height: 1;
+  letter-spacing: -0.02em;
 
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
 
 .statAccent {

@@ -73,26 +73,26 @@
 }
 
 .heroTitle {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
 
 .heroSub {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-size: 1.0625rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #c8c3bb;
   margin: 0;
   max-width: 520px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif; line-height: 1.9; }
 }
 
 /* VISION & MISSION */
@@ -130,16 +130,16 @@
 }
 
 .sectionHeading {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: #101010;
   margin: 0;
   max-width: 700px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; letter-spacing: 0; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
 
 .quoteBlock {
@@ -241,23 +241,24 @@
 }
 
 .valueTitle {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: 1.25rem;
-  font-weight: 400;
+  font-weight: 600;
   color: #101010;
   margin: 0 0 12px;
+  letter-spacing: -0.015em;
 
-  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
 
 .valueDesc {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-size: 0.9375rem;
-  line-height: 1.65;
+  line-height: 1.75;
   color: #6b6b68;
   margin: 0;
 
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif; line-height: 1.9; }
 }
 
 /* WHY XVI */
@@ -702,23 +703,25 @@
 }
 
 .ctaHeading {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: #f7f6f3;
   margin: 0 0 16px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
 
 .ctaSub {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-size: 1.0625rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: rgba(255, 255, 255, 0.5);
   margin: 0 0 40px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif; line-height: 1.9; }
 }
 
 .ctaActions {

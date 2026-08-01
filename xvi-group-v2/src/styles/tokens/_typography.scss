@@ -2,8 +2,11 @@ $font-display: 'Space Grotesk', 'Manrope', sans-serif;
 $font-heading: 'Space Grotesk', 'Manrope', sans-serif;
 $font-body: 'Manrope', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
-$font-ar-display: 'Noto Kufi Arabic', 'Alexandria', sans-serif;
+$font-ar-display: 'Alexandria', 'Noto Kufi Arabic', 'IBM Plex Sans Arabic', sans-serif;
 $font-ar-body: 'Alexandria', 'IBM Plex Sans Arabic', 'Noto Naskh Arabic', sans-serif;
+
+$heading-weight: 600;
+$display-weight: 500;
 
 $text-display: clamp(2.5rem, 5.5vw, 4.5rem);
 $text-hero: clamp(2.25rem, 5vw, 4rem);
@@ -51,6 +54,8 @@ $weight-black: 900;
   --font-mono: #{$font-mono};
   --font-ar-display: #{$font-ar-display};
   --font-ar-body: #{$font-ar-body};
+  --heading-weight: #{$heading-weight};
+  --display-weight: #{$display-weight};
   --text-display: #{$text-display};
   --text-hero: #{$text-hero};
   --text-h1: #{$text-h1};

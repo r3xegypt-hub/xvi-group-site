@@ -185,10 +185,19 @@
 }
 
 .title {
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-weight: 600;
   line-height: 1.25;
   color: #0a1628;
   margin-bottom: 6px;
+  letter-spacing: -0.015em;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
 
   // Small Mobile
   font-size: 1.25rem;
@@ -206,10 +215,16 @@
 }
 
 .description {
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
-  line-height: 1.618;
+  line-height: 1.7;
   color: #5a6472;
   margin-bottom: 12px;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+    line-height: 1.9;
+  }
 
   // Small Mobile
   font-size: 0.875rem;
@@ -231,11 +246,16 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: #c9a96e;
   text-decoration: none;
   transition: gap 200ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+  }
 
   // Large Mobile+
   @media (min-width: 429px) {
@@ -351,9 +371,16 @@
 }
 
 .statNumber {
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-weight: 700;
   line-height: 1.2;
   color: #c9a96e;
+  letter-spacing: -0.02em;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif;
+    letter-spacing: 0;
+  }
 
   // Small Mobile
   font-size: 2rem;
@@ -386,9 +413,15 @@
 }
 
 .statLabel {
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
   line-height: 1.43;
   color: #c8cdd5;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+    line-height: 1.7;
+  }
 
   // Small Mobile
   font-size: 0.8125rem;
@@ -487,13 +520,19 @@
 }
 
 .quote {
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
   font-style: italic;
-  line-height: 1.618;
+  line-height: 1.7;
   color: #0a1628;
   margin-bottom: 16px;
   position: relative;
   z-index: 1;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+    line-height: 1.9;
+  }
 
   // Small Mobile
   font-size: 0.9375rem;
@@ -550,9 +589,14 @@
 }
 
 .authorName {
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-weight: 600;
   color: #0a1628;
   margin-bottom: 2px;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif;
+  }
 
   // Small Mobile
   font-size: 0.875rem;
@@ -569,8 +613,13 @@
 }
 
 .authorTitle {
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
   color: #5a6472;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+  }
 
   // Small Mobile
   font-size: 0.75rem;
@@ -749,9 +798,14 @@
 }
 
 .name {
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-weight: 600;
   color: #0a1628;
   margin-bottom: 4px;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif;
+  }
 
   // Small Mobile
   font-size: 1rem;
@@ -768,8 +822,13 @@
 }
 
 .role {
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-weight: 400;
   color: #c9a96e;
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+  }
 
   // Small Mobile
   font-size: 0.8125rem;
