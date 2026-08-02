@@ -28,14 +28,39 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ConsultingBusiness",
-        "name": "XVI GROUP",
-        "url": "https://xvi-group.net/",
-        "description": "Intelligent transformation. Artificial intelligence, business automation, and enterprise transformation.",
-        "email": "contact@xvigroup.com",
-        "telephone": "+971569220064",
-        "address": { "@type": "PostalAddress", "addressLocality": "Al Ain", "addressRegion": "Abu Dhabi", "addressCountry": "AE" },
-        "areaServed": ["AE", "EG", "SA", "MENA"]
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://r3xegypt-hub.github.io/xvi-group-site/#organization",
+            "name": "XVI GROUP",
+            "url": "https://r3xegypt-hub.github.io/xvi-group-site/",
+            "logo": "https://r3xegypt-hub.github.io/xvi-group-site/social-preview.png",
+            "email": "contact@xvigroup.com",
+            "telephone": "+971569220064",
+            "address": { "@type": "PostalAddress", "addressLocality": "Al Ain", "addressRegion": "Abu Dhabi", "addressCountry": "AE" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://r3xegypt-hub.github.io/xvi-group-site/#website",
+            "url": "https://r3xegypt-hub.github.io/xvi-group-site/",
+            "name": "XVI GROUP",
+            "description": "Intelligent transformation. Artificial intelligence, business automation, and enterprise transformation.",
+            "inLanguage": ["en", "ar"],
+            "publisher": { "@id": "https://r3xegypt-hub.github.io/xvi-group-site/#organization" }
+          },
+          {
+            "@type": "ConsultingBusiness",
+            "@id": "https://r3xegypt-hub.github.io/xvi-group-site/#consulting",
+            "name": "XVI GROUP",
+            "url": "https://r3xegypt-hub.github.io/xvi-group-site/",
+            "description": "Intelligent transformation. Artificial intelligence, business automation, and enterprise transformation.",
+            "email": "contact@xvigroup.com",
+            "telephone": "+971569220064",
+            "address": { "@type": "PostalAddress", "addressLocality": "Al Ain", "addressRegion": "Abu Dhabi", "addressCountry": "AE" },
+            "areaServed": ["AE", "EG", "SA", "MENA"],
+            "parentOrganization": { "@id": "https://r3xegypt-hub.github.io/xvi-group-site/#organization" }
+          }
+        ]
       }
     </script>
     <style>

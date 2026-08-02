@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { SITE_CONFIG } from '../config';
 import { useLanguage } from '../hooks/LanguageProvider';
 import { getPageMeta } from './seoConfig';
+import { buildBreadcrumbJsonLd } from './structuredData';
 
 const BASE_URL = SITE_CONFIG.url;
 
@@ -69,6 +70,16 @@ export function SeoHead() {
       }
       el.href = url;
     }
+
+    const breadcrumbJsonLd = JSON.stringify(buildBreadcrumbJsonLd(pathname, language));
+    let bcScript = document.head.querySelector<HTMLScriptElement>('script#seo-breadcrumb');
+    if (!bcScript) {
+      bcScript = document.createElement('script');
+      bcScript.type = 'application/ld+json';
+      bcScript.id = 'seo-breadcrumb';
+      document.head.appendChild(bcScript);
+    }
+    bcScript.textContent = breadcrumbJsonLd;
   }, [pathname, language]);
 
   return null;
