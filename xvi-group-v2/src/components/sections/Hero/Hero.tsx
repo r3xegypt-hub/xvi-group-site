@@ -9,7 +9,7 @@ import { useCTA } from '../../../hooks/useCTA';
 import { useMotion } from '../../../motion/providers/MotionProvider';
 import { playSound } from '../../../motion/audio/soundEngine';
 import { ExecutiveScene } from '../../scene/ExecutiveScene';
-import { HeroRobot } from './HeroRobot';
+import { AICore } from './AICore';
 import styles from './Hero.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -25,7 +25,6 @@ export function Hero() {
   const isInView = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const [lettersVisible, setLettersVisible] = useState(false);
-  const [robotTransition, setRobotTransition] = useState(false);
   const bgControls = useAnimationControls();
 
   // Interactive mouse parallax (spring-smoothed, normalized -1..1)
@@ -92,14 +91,8 @@ export function Hero() {
     }
   }, [isInView, bgControls, prefersReducedMotion]);
 
-  // Listen for the ExecutiveConcierge robot flying back to corner.
-  // Triggers the Hero robot exit animation (shrink, fade, fly toward bottom-right).
-  useEffect(() => {
-    const onMinimize = () => setRobotTransition(true);
-    window.addEventListener('xvi:hero-robot-transition', onMinimize);
-    return () => window.removeEventListener('xvi:hero-robot-transition', onMinimize);
-  }, []);
-
+  // The Executive AI Core is the hero centrepiece — a slow, cinematic,
+  // always-present ambient visual behind the headline.
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
@@ -151,20 +144,12 @@ export function Hero() {
       <motion.div
         className={styles.robot}
         style={{ x: robotX, y: robotY }}
-        animate={robotTransition ? 'exit' : 'enter'}
-        variants={{
-          enter: { opacity: 1, scale: 1 },
-          exit: {
-            opacity: 0,
-            scale: 0.25,
-            x: ar ? '-120vw' : '120vw',
-            y: '30vh',
-            transition: { duration: 1.2, ease: [0.16, 0.8, 0.3, 1] },
-          },
-        }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 1.4, ease }}
       >
         <div className={styles.robotInner}>
-          <HeroRobot />
+          <AICore />
         </div>
       </motion.div>
 

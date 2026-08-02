@@ -7,6 +7,8 @@ function report(ok, msg) {
   console.log(`  [${ok ? 'ok' : 'FAIL'}] ${msg}`);
 }
 
+const coreSel = '[data-testid="executive-ai-core"]';
+
 async function init(page) {
   await page.addInitScript(() => {
     localStorage.setItem('xvi-language', 'en');
@@ -16,26 +18,10 @@ async function init(page) {
   });
 }
 
-async function voice(page, speaking, listening) {
-  await page.evaluate(({ speaking, listening }) => {
-    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening, speaking } }));
-  }, { speaking, listening });
-}
-
-async function settleOpacity(page, locator, targetAboveHalf) {
-  const deadline = Date.now() + 2500;
-  let last = '';
-  while (Date.now() < deadline) {
-    last = await locator.evaluate((el) => getComputedStyle(el).opacity);
-    const ok = parseFloat(last) > 0.5;
-    if (ok === targetAboveHalf) return last;
-    await page.waitForTimeout(150);
-  }
-  return last;
-}
-
 (async () => {
   const browser = await chromium.launch({ headless: true });
+
+  // ============ NORMAL MODE ============
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   const errors = [];
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
@@ -44,135 +30,66 @@ async function settleOpacity(page, locator, targetAboveHalf) {
 
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
 
-  const scene = page.locator('div[class*="scene"]:has([class*="holoBase"])');
-  await scene.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
-  report(await scene.count() === 1, 'hero robot scene present');
-  report(await scene.locator('[class*="holoBase"]').count() === 1, 'hologram base present');
-  report(await scene.locator('svg[class*="head"]').count() === 1, 'robot face present');
-  report(await scene.locator('[class*="holoScan"]').count() === 1, 'hologram scanline present');
-  report(await scene.locator('[class*="holoParticles"] span').count() >= 4, 'hologram particles present');
-  report(await scene.locator('[class*="mouthBars"] rect').count() === 4, 'speaking mouth bars present');
-  report(await scene.locator('[class*="antennaTip"]').count() === 1, 'antenna present');
-  report(await scene.locator('[class*="brows"]').count() === 1, 'brows present');
+  const core = page.locator(coreSel);
+  await core.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
+  report(await core.count() === 1, 'hero AI core present');
+  report(await core.locator('[data-part="sphere"]').count() === 1, 'glass sphere present');
+  report(await core.locator('[data-part="neural"]').count() === 1, 'neural network present');
+  report(await core.locator('[data-part="neural"] line').count() >= 8, `golden connections present (${await core.locator('[data-part="neural"] line').count()})`);
+  report(await core.locator('[data-part="neural"] circle').count() >= 10, `neural particles present (${await core.locator('[data-part="neural"] circle').count()})`);
+  report(await core.locator('[data-part="nucleus"]').count() === 1, 'golden nucleus present');
+  report(await core.locator('[data-part="glow"]').count() === 1, 'ambient glow present');
 
-  report((await scene.getAttribute('data-state')) === 'idle', 'default state = idle');
-  const smileOpacity = await scene.locator('[class*="mouthIdle"]').evaluate((el) => getComputedStyle(el).opacity);
-  const barsOpacityIdle = await scene.locator('[class*="mouthBars"]').evaluate((el) => getComputedStyle(el).opacity);
-  report(parseFloat(smileOpacity) > 0.5 && parseFloat(barsOpacityIdle) < 0.5, 'idle: smile shown, bars hidden');
-
-  // Natural blink: a blink fires within ~10s (first at ~1.1-1.8s).
-  {
-    const deadline = Date.now() + 10000;
-    let sawBlink = false;
-    while (Date.now() < deadline) {
-      const s = await scene.getAttribute('data-blink');
-      if (s === 'true') { sawBlink = true; break; }
-      await page.waitForTimeout(120);
-    }
-    report(sawBlink, 'idle: natural blink cadence fires (data-blink)');
-    const blinkEnd = Date.now() + 1000;
-    while (Date.now() < blinkEnd) {
-      const s = await scene.getAttribute('data-blink');
-      if (s !== 'true') break;
-      await page.waitForTimeout(60);
-    }
-    const blinkAnim = await scene.locator('[class*="eyes"]').evaluate((el) => getComputedStyle(el).animationPlayState);
-    report(blinkAnim === 'paused', `idle: blink rests between events (play-state ${blinkAnim})`);
-  }
-
-  // Curiosity burst: hovering the robot lifts the brows (data-curious).
-  {
-    const box = await scene.boundingBox();
-    await page.mouse.move(box.x + box.width * 0.35, box.y + box.height * 0.3);
-    const deadline = Date.now() + 1500;
-    let sawCurious = false;
-    while (Date.now() < deadline) {
-      const s = await scene.getAttribute('data-curious');
-      if (s === 'true') { sawCurious = true; break; }
-      await page.waitForTimeout(80);
-    }
-    report(sawCurious, 'idle: curiosity burst on hover (data-curious)');
-    const browTransform = await scene.locator('[class*="brows"]').evaluate((el) => getComputedStyle(el).transform);
-    report(browTransform !== 'none', `idle: brows lift during curiosity (${browTransform})`);
-    await page.mouse.move(0, 0);
-  }
-
-  // Thinking posture from the voice signal.
-  await page.evaluate(() => {
-    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: false, speaking: false, thinking: true } }));
-  });
-  await page.waitForTimeout(300);
-  report((await scene.getAttribute('data-state')) === 'thinking', 'thinking: data-state updated');
-  const thinkingTransform = await scene.locator('[class*="eyePose"]').evaluate((el) => getComputedStyle(el).transform);
-  report(thinkingTransform !== 'none', `thinking: eye posture narrows (${thinkingTransform})`);
-  await page.evaluate(() => {
-    window.dispatchEvent(new CustomEvent('xvi:voice-state', { detail: { listening: false, speaking: false, thinking: false } }));
-  });
-
-  await voice(page, true, false);
-  await page.waitForTimeout(120);
-  const anticipateState = await scene.getAttribute('data-state');
-  report(anticipateState === 'anticipate', `speaking: anticipation moment before speech (${anticipateState})`);
-  await page.waitForTimeout(300);
-  report((await scene.getAttribute('data-state')) === 'speaking', 'speaking: data-state updated');
-  const barsOpacity = await settleOpacity(page, scene.locator('[class*="mouthBars"]'), true);
-  const smileSpeaking = await settleOpacity(page, scene.locator('[class*="mouthIdle"]'), false);
-  report(parseFloat(barsOpacity) > 0.5 && parseFloat(smileSpeaking) < 0.5, `speaking: mouth bars shown, smile hidden (${barsOpacity}/${smileSpeaking})`);
-
-  await voice(page, false, true);
-  await page.waitForTimeout(400);
-  report((await scene.getAttribute('data-state')) === 'listening', 'listening: data-state updated');
-  const deadline = Date.now() + 2500;
-  let earFill = '';
-  while (Date.now() < deadline) {
-    earFill = await scene.locator('[class*="ear"]').first().evaluate((el) => getComputedStyle(el).fill);
-    if (earFill === 'rgb(227, 194, 122)') break;
-    await page.waitForTimeout(150);
-  }
-  report(earFill === 'rgb(227, 194, 122)', `listening: ears glow gold (${earFill})`);
-  const listenPose = await scene.locator('[class*="eyePose"]').evaluate((el) => getComputedStyle(el).transform);
-  report(listenPose !== 'none', `listening: eye posture widens (${listenPose})`);
-
-  await voice(page, false, false);
-  await page.waitForTimeout(500);
-  report((await scene.getAttribute('data-state')) === 'idle', 'returns to idle');
-
-  const eyeAnim = await scene.locator('[class*="eyes"]').evaluate((el) => getComputedStyle(el).animationName);
-  report(eyeAnim !== 'none' && eyeAnim.length > 0, `eyes animated in normal mode (${eyeAnim})`);
+  const animOf = (sel) => core.locator(sel).first().evaluate((el) => getComputedStyle(el).animationName).catch(() => 'none');
+  const sphereAnim = await animOf('[data-part="sphere"]');
+  report(sphereAnim !== 'none' && sphereAnim.length > 0, `glass sphere animated in normal mode (${sphereAnim})`);
+  const glowAnim = await animOf('[data-part="glow"]');
+  report(glowAnim !== 'none' && glowAnim.length > 0, `ambient glow animated in normal mode (${glowAnim})`);
+  const orbitAnim = await animOf('[class*="orbitRing"]');
+  report(orbitAnim !== 'none' && orbitAnim.length > 0, `orbit ring animated in normal mode (${orbitAnim})`);
+  const particleAnim = await core.locator('[class*="particles"] span').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => 'none');
+  report(particleAnim !== 'none' && particleAnim.length > 0, `neural dust animated in normal mode (${particleAnim})`);
+  const nodeAnim = await core.locator('[data-part="neural"] circle').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => 'none');
+  report(nodeAnim !== 'none' && nodeAnim.length > 0, `neural nodes animated in normal mode (${nodeAnim})`);
 
   report(errors.length === 0, `zero console errors (got ${errors.length})`);
+  await page.close();
 
-  // Reduced motion
+  // ============ REDUCED MOTION ============
   const rPage = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' });
   const rErrors = [];
   rPage.on('console', (m) => { if (m.type() === 'error') rErrors.push(m.text()); });
   rPage.on('pageerror', (e) => rErrors.push(String(e)));
   await init(rPage);
   await rPage.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-  const rScene = rPage.locator('div[class*="scene"]:has([class*="holoBase"])');
-  await rScene.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
-  report(await rScene.count() === 1, 'reduced motion: robot present');
-  const rEyeAnim = await rScene.locator('[class*="eyes"]').evaluate((el) => getComputedStyle(el).animationName);
-  report(rEyeAnim === 'none', `reduced motion: eye animation disabled (${rEyeAnim})`);
-  const rBarAnim = await rScene.locator('[class*="mouthBars"] rect').first().evaluate((el) => getComputedStyle(el).animationName);
-  report(rBarAnim === 'none', `reduced motion: mouth bar animation disabled (${rBarAnim})`);
-  await voice(rPage, true, false);
-  await rPage.waitForTimeout(400);
-  report((await rScene.getAttribute('data-state')) === 'speaking', 'reduced motion: state still switches');
+  const rCore = rPage.locator(coreSel);
+  await rCore.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
+  report(await rCore.count() === 1, 'reduced motion: AI core present');
+  const rSphere = await rCore.locator('[data-part="sphere"]').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => '');
+  report(rSphere === 'none', `reduced motion: glass sphere animation disabled (${rSphere})`);
+  const rGlow = await rCore.locator('[data-part="glow"]').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => '');
+  report(rGlow === 'none', `reduced motion: ambient glow animation disabled (${rGlow})`);
+  const rOrbit = await rCore.locator('[class*="orbitRing"]').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => '');
+  report(rOrbit === 'none', `reduced motion: orbit ring animation disabled (${rOrbit})`);
+  const rNode = await rCore.locator('[data-part="neural"] circle').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => '');
+  report(rNode === 'none', `reduced motion: neural node animation disabled (${rNode})`);
+  const rParticle = await rCore.locator('[class*="particles"] span').first().evaluate((el) => getComputedStyle(el).animationName).catch(() => '');
+  report(rParticle === 'none', `reduced motion: neural dust animation disabled (${rParticle})`);
   report(rErrors.length === 0, `reduced motion: zero errors (got ${rErrors.length})`);
   await rPage.close();
 
-  // Mobile
+  // ============ MOBILE ============
   const mPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   const mErrors = [];
   mPage.on('console', (m) => { if (m.type() === 'error') mErrors.push(m.text()); });
   mPage.on('pageerror', (e) => mErrors.push(String(e)));
   await init(mPage);
   await mPage.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-  const mScene = mPage.locator('div[class*="scene"]:has([class*="holoBase"])');
-  await mScene.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
-  report(await mScene.count() === 1, 'mobile: robot present');
-  report(await mScene.locator('svg[class*="head"]').count() === 1, 'mobile: face present');
+  const mCore = mPage.locator(coreSel);
+  await mCore.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
+  report(await mCore.count() === 1, 'mobile: AI core present');
+  report(await mCore.locator('[data-part="sphere"]').count() === 1, 'mobile: glass sphere present');
+  report(await mCore.locator('[data-part="neural"]').count() === 1, 'mobile: neural network present');
   const mOverflow = await mPage.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   report(mOverflow <= 0, `mobile: no horizontal scroll (${mOverflow})`);
   report(mErrors.length === 0, `mobile: zero errors (got ${mErrors.length})`);

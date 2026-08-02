@@ -50,7 +50,6 @@ export function ExecutiveConcierge() {
   phaseRef.current = phase;
 
   const onceRef = useRef(false);
-  const heroYieldRef = useRef(false);
   const seenState = useRef({
     ever: localStorage.getItem(SEEN_KEY) === 'true',
     session: sessionStorage.getItem(SESSION_KEY) === 'true',
@@ -78,15 +77,6 @@ export function ExecutiveConcierge() {
     setPhase('minimize');
     setRobotOffset({ x: 0, y: 0, scale: 1, opacity: 1 });
   }, []);
-
-  // Single robot entry: as the floating concierge arrives at the hero position,
-  // the Hero robot yields so only one robot represents the AI during the greeting.
-  useEffect(() => {
-    if (phase !== 'arrive' || heroYieldRef.current) return;
-    if (location.pathname !== '/') return;
-    heroYieldRef.current = true;
-    window.dispatchEvent(new CustomEvent('xvi:hero-robot-transition'));
-  }, [phase, location.pathname]);
 
   // First visit: after arrival, auto-show the greeting, then settle to the corner.
   useEffect(() => {

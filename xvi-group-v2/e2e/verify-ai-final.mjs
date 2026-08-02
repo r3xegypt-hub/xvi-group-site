@@ -8,7 +8,7 @@ function report(ok, msg) {
 }
 
 const robotSel = '[aria-label="Executive AI Concierge"]';
-const heroSceneSel = 'div[class*="scene"]:has([class*="holoBase"])';
+const aiCoreSel = '[data-testid="executive-ai-core"]';
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -59,27 +59,17 @@ const heroSceneSel = 'div[class*="scene"]:has([class*="holoBase"])';
     }
     report(tipShown, 'first visit: greeting tooltip auto-shown on the robot');
 
-    // Hero robot yields: its wrapper fades out so exactly one robot represents the AI
-    const heroScene = page.locator(heroSceneSel);
-    const yieldDeadline = Date.now() + 5000;
-    let heroGone = false;
-    while (Date.now() < yieldDeadline) {
-      const op = await heroScene
-        .first()
-        .evaluate((el) => {
-          let cur = el.parentElement;
-          while (cur) {
-            const o = parseFloat(getComputedStyle(cur).opacity);
-            if (o < 0.9) return o;
-            cur = cur.parentElement;
-          }
-          return 1;
-        })
-        .catch(() => 1);
-      if (op < 0.35) { heroGone = true; break; }
+    // The Executive AI Core remains as the hero centrepiece while the
+    // floating concierge greets — the core is ambient, not an entry point.
+    const aiCore = page.locator(aiCoreSel);
+    const coreDeadline = Date.now() + 5000;
+    let corePresent = false;
+    while (Date.now() < coreDeadline) {
+      const vis = await aiCore.first().isVisible().catch(() => false);
+      if (vis) { corePresent = true; break; }
       await page.waitForTimeout(150);
     }
-    report(heroGone, 'single entry: Hero robot yields while concierge is on the hero');
+    report(corePresent, 'single entry: Executive AI Core present while concierge greets');
 
     report(errors.length === 0, `first visit: zero console errors (${errors.length})`);
     await page.close();
