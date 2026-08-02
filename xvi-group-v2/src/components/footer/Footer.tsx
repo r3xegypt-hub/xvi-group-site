@@ -1,20 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { LogoHorizontal } from '../ui/Logo';
+import { MagneticButton } from '../../motion/MagneticButton';
 import styles from './Footer.module.scss';
 
 export function Footer() {
   const { language } = useLanguage();
   const ar = language === 'ar';
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className={styles.footer} role="contentinfo">
       <div className={styles.inner}>
         <div className={styles.brand}>
           <div className={styles.logoRow}>
-            <span className={styles.logoIcon}>
-              <span className={styles.logoX}>X</span>
-            </span>
-            <span className={styles.brandName}>XVI GROUP</span>
+            <LogoHorizontal variant="gold" size="md" />
           </div>
           <span className={styles.brandTagline}>
             {ar ? 'ذكاء — أتمتة — تحول' : 'AI — Automation — Transformation'}
@@ -39,11 +42,28 @@ export function Footer() {
           <span className={styles.metaTagline}>
             {ar ? 'ذكاء — أتمتة — تحول' : 'Intelligence, made consequential.'}
           </span>
-          <span className={styles.metaSub}>
-            {ar ? 'ذكاء — أتمتة — تحول' : 'AI — Automation — Transformation'}
-          </span>
+          <MagneticButton strength={0.35} onClick={scrollToTop}>
+            <button
+              type="button"
+              style={{
+                background: 'rgba(200, 166, 90, 0.08)',
+                border: '1px solid rgba(200, 166, 90, 0.25)',
+                color: '#C8A65A',
+                borderRadius: '999px',
+                padding: '6px 16px',
+                fontSize: '0.75rem',
+                fontFamily: 'Manrope, sans-serif',
+                cursor: 'pointer',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {ar ? 'أعلى الصفحة ↑' : 'Top ↑'}
+            </button>
+          </MagneticButton>
         </div>
       </div>
     </footer>
   );
 }
+

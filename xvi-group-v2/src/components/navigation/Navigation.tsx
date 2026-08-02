@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { LanguageToggle } from './LanguageToggle';
+import { LogoHorizontal } from '../ui/Logo';
+import { MagneticButton } from '../../motion/MagneticButton';
 import styles from './Navigation.module.scss';
 
 export function Navigation() {
@@ -12,7 +14,7 @@ export function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const isActive = (path: string) =>
-    location.pathname === path || location.pathname.startsWith(path + '/');
+    location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -45,31 +47,31 @@ export function Navigation() {
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <nav className={styles.nav}>
-          <Link to="/" className={styles.logo}>
-            <span className={styles.logoIcon}>
-              <span className={styles.logoX}>X</span>
-            </span>
-            <span className={styles.logoText}>XVI GROUP</span>
+          <Link to="/" className={styles.logo} aria-label="XVI GROUP Home">
+            <LogoHorizontal variant="gold" size="sm" />
           </Link>
 
           <div className={styles.links}>
             {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`${styles.link}${isActive(link.to) ? ` ${styles.activeLink}` : ''}`}
-              >
-                {link.label}
-              </Link>
+              <MagneticButton key={link.to} strength={0.2}>
+                <Link
+                  to={link.to}
+                  className={`${styles.link}${isActive(link.to) ? ` ${styles.activeLink}` : ''}`}
+                >
+                  {link.label}
+                </Link>
+              </MagneticButton>
             ))}
             <span className={styles.langNavItem}>
               <LanguageToggle />
             </span>
           </div>
 
-          <Link to="/contact" className={styles.ctaButton}>
-            {ar ? 'تواصل' : 'Contact'}
-          </Link>
+          <MagneticButton strength={0.35}>
+            <Link to="/contact" className={styles.ctaButton}>
+              {ar ? 'تواصل' : 'Contact'}
+            </Link>
+          </MagneticButton>
 
           <button
             className={`${styles.mobileToggle} ${isMobileOpen ? styles.mobileToggleOpen : ''}`}
@@ -105,3 +107,4 @@ export function Navigation() {
     </>
   );
 }
+
