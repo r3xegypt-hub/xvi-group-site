@@ -17,7 +17,11 @@ function useAudioLogo() {
     if (playingRef.current) return;
     playingRef.current = true;
     try {
-      const ctx = new AudioContext();
+      const AC =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AC) return;
+      const ctx = new AC();
       ctxRef.current = ctx;
       const now = ctx.currentTime;
       const dur = 11;
@@ -134,6 +138,9 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
   const finishedRef = useRef(false);
   const { play, stop } = useAudioLogo();
   const audioStartedRef = useRef(false);
+  const mutedRef = useRef(false);
+
+  useEffect(() => { mutedRef.current = muted; }, [muted]);
 
   const handleSkip = useCallback(() => {
     if (finishedRef.current) return;
@@ -143,15 +150,34 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
     onFinish();
   }, [onFinish, stop]);
 
-  const toggleMute = useCallback(() => setMuted(m => !m), []);
+  const toggleMute = useCallback(() => {
+    setMuted((m) => {
+      const next = !m;
+      if (!next) {
+        audioStartedRef.current = true;
+        play();
+      }
+      return next;
+    });
+  }, [play]);
 
   useEffect(() => {
-    if (muted) { stop(); return; }
-    if (!audioStartedRef.current && !skipped) {
+    if (muted) stop();
+  }, [muted, stop]);
+
+  useEffect(() => {
+    if (skipped) return;
+    const start = () => {
+      if (audioStartedRef.current) return;
       audioStartedRef.current = true;
-      setTimeout(() => play(), 100);
-    }
-  }, [muted, skipped, play, stop]);
+      if (!mutedRef.current) play();
+    };
+    const gestures: Array<keyof WindowEventMap> = ['pointerdown', 'keydown', 'touchstart'];
+    gestures.forEach((ev) => window.addEventListener(ev, start, { once: true, passive: true }));
+    return () => {
+      gestures.forEach((ev) => window.removeEventListener(ev, start));
+    };
+  }, [skipped, play]);
 
   useEffect(() => {
     if (skipped) return;
