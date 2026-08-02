@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './branding/ThemeProvider';
@@ -18,21 +18,22 @@ import { LuxuryLoader } from './components/ui/LuxuryLoader';
 import { CinematicExecutiveLaunch } from './components/ui/CinematicExecutiveLaunch';
 import { AIDock } from './components/assistant/AIDock';
 import { ExecutiveConcierge } from './components/assistant/ExecutiveConcierge';
-import { Home } from './pages/home';
-import { ServicesPage } from './pages/services';
-import { AboutPage } from './pages/about';
-import { TechnologyPage } from './pages/technology';
-import { IndustriesPage } from './pages/industries';
-import { InsightsPage } from './pages/insights';
-import { PortfolioPage } from './pages/portfolio/Portfolio';
-import { ContactPage } from './pages/contact';
-import { CareersPage } from './pages/careers/Careers';
-import { PrivacyPage } from './pages/privacy/Privacy';
-import { TermsPage } from './pages/terms/Terms';
-import { BusinessConsultingPage } from './pages/services/business-consulting/BusinessConsultingPage';
-import { TechnologyConsultingPage } from './pages/services/technology-consulting/TechnologyConsultingPage';
-import { AITransformationPage } from './pages/services/ai-transformation/AITransformationPage';
-import { ExecutiveTrainingPage } from './pages/services/executive-training/ExecutiveTrainingPage';
+
+const Home = lazy(() => import('./pages/home').then((m) => ({ default: m.Home })));
+const ServicesPage = lazy(() => import('./pages/services').then((m) => ({ default: m.ServicesPage })));
+const AboutPage = lazy(() => import('./pages/about').then((m) => ({ default: m.AboutPage })));
+const TechnologyPage = lazy(() => import('./pages/technology').then((m) => ({ default: m.TechnologyPage })));
+const IndustriesPage = lazy(() => import('./pages/industries').then((m) => ({ default: m.IndustriesPage })));
+const InsightsPage = lazy(() => import('./pages/insights').then((m) => ({ default: m.InsightsPage })));
+const PortfolioPage = lazy(() => import('./pages/portfolio/Portfolio').then((m) => ({ default: m.PortfolioPage })));
+const ContactPage = lazy(() => import('./pages/contact').then((m) => ({ default: m.ContactPage })));
+const CareersPage = lazy(() => import('./pages/careers/Careers').then((m) => ({ default: m.CareersPage })));
+const PrivacyPage = lazy(() => import('./pages/privacy/Privacy').then((m) => ({ default: m.PrivacyPage })));
+const TermsPage = lazy(() => import('./pages/terms/Terms').then((m) => ({ default: m.TermsPage })));
+const BusinessConsultingPage = lazy(() => import('./pages/services/business-consulting/BusinessConsultingPage').then((m) => ({ default: m.BusinessConsultingPage })));
+const TechnologyConsultingPage = lazy(() => import('./pages/services/technology-consulting/TechnologyConsultingPage').then((m) => ({ default: m.TechnologyConsultingPage })));
+const AITransformationPage = lazy(() => import('./pages/services/ai-transformation/AITransformationPage').then((m) => ({ default: m.AITransformationPage })));
+const ExecutiveTrainingPage = lazy(() => import('./pages/services/executive-training/ExecutiveTrainingPage').then((m) => ({ default: m.ExecutiveTrainingPage })));
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
@@ -42,6 +43,26 @@ function PageShell({ children }: { children: React.ReactNode }) {
       </main>
       <Footer />
     </>
+  );
+}
+
+function PageFallback() {
+  return (
+    <div
+      style={{
+        minHeight: '70vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#8a8a85',
+        fontFamily: 'Manrope, sans-serif',
+        letterSpacing: '0.2em',
+        textTransform: 'uppercase',
+        fontSize: '12px',
+      }}
+    >
+      Loading
+    </div>
   );
 }
 
@@ -85,24 +106,26 @@ function App() {
               <ScrollProgress />
               <Navigation />
               <PageTransition>
-                <Routes>
-                  <Route path="/" element={<PageShell><Home /></PageShell>} />
-                  <Route path="/services" element={<PageShell><ServicesPage /></PageShell>} />
-                  <Route path="/services/business-consulting" element={<PageShell><BusinessConsultingPage /></PageShell>} />
-                  <Route path="/services/technology-consulting" element={<PageShell><TechnologyConsultingPage /></PageShell>} />
-                  <Route path="/services/ai-transformation" element={<PageShell><AITransformationPage /></PageShell>} />
-                  <Route path="/services/executive-training" element={<PageShell><ExecutiveTrainingPage /></PageShell>} />
-                  <Route path="/about" element={<PageShell><AboutPage /></PageShell>} />
-                  <Route path="/technology" element={<PageShell><TechnologyPage /></PageShell>} />
-                  <Route path="/industries" element={<PageShell><IndustriesPage /></PageShell>} />
-                  <Route path="/insights" element={<PageShell><InsightsPage /></PageShell>} />
-                  <Route path="/portfolio" element={<PageShell><PortfolioPage /></PageShell>} />
-                  <Route path="/contact" element={<PageShell><ContactPage /></PageShell>} />
-                  <Route path="/careers" element={<PageShell><CareersPage /></PageShell>} />
-                  <Route path="/privacy" element={<PageShell><PrivacyPage /></PageShell>} />
-                  <Route path="/terms" element={<PageShell><TermsPage /></PageShell>} />
-                  <Route path="*" element={<PageShell><Home /></PageShell>} />
-                </Routes>
+                <Suspense fallback={<PageFallback />}>
+                  <Routes>
+                    <Route path="/" element={<PageShell><Home /></PageShell>} />
+                    <Route path="/services" element={<PageShell><ServicesPage /></PageShell>} />
+                    <Route path="/services/business-consulting" element={<PageShell><BusinessConsultingPage /></PageShell>} />
+                    <Route path="/services/technology-consulting" element={<PageShell><TechnologyConsultingPage /></PageShell>} />
+                    <Route path="/services/ai-transformation" element={<PageShell><AITransformationPage /></PageShell>} />
+                    <Route path="/services/executive-training" element={<PageShell><ExecutiveTrainingPage /></PageShell>} />
+                    <Route path="/about" element={<PageShell><AboutPage /></PageShell>} />
+                    <Route path="/technology" element={<PageShell><TechnologyPage /></PageShell>} />
+                    <Route path="/industries" element={<PageShell><IndustriesPage /></PageShell>} />
+                    <Route path="/insights" element={<PageShell><InsightsPage /></PageShell>} />
+                    <Route path="/portfolio" element={<PageShell><PortfolioPage /></PageShell>} />
+                    <Route path="/contact" element={<PageShell><ContactPage /></PageShell>} />
+                    <Route path="/careers" element={<PageShell><CareersPage /></PageShell>} />
+                    <Route path="/privacy" element={<PageShell><PrivacyPage /></PageShell>} />
+                    <Route path="/terms" element={<PageShell><TermsPage /></PageShell>} />
+                    <Route path="*" element={<PageShell><Home /></PageShell>} />
+                  </Routes>
+                </Suspense>
               </PageTransition>
               <AppContent pending={pending} />
             </div>
