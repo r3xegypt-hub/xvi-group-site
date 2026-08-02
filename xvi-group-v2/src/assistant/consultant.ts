@@ -86,9 +86,10 @@ const GREETING_EN: RegExp[] = [
   /^(hi|hii+|hiii+|hello|hey|hiya|yo|good\s*morning|good\s*evening|good\s*afternoon)\b/i,
   /^(morning|evening)\b/i,
 ];
+const AR_END = '(?=$|[\\s،؟!.,؛:])';
 const GREETING_AR: RegExp[] = [
-  /^(هاي|هاي|اهلا|أهلا|أهلاً|اهلاً|السلام عليكم|السلام|الو|ألو|هلا|هيلو|مرحبا|مرحباً|صباح الخير|مساء الخير|مساء النور|ازيك|إزيك|كيفك|كيف حالك|شلونك)\b/,
-  /^\s*(وعليكم السلام|مع السلامة)\b/,
+  new RegExp(`^(هاي|اهلا|أهلا|أهلاً|اهلاً|السلام عليكم|السلام|الو|ألو|هلا|هيلو|مرحبا|مرحباً|صباح الخير|مساء الخير|مساء النور|ازيك|إزيك|كيفك|كيف حالك|شلونك)${AR_END}`),
+  new RegExp(`^\\s*(وعليكم السلام|مع السلامة)${AR_END}`),
 ];
 
 const PROJECT_EN: RegExp[] = [
@@ -100,7 +101,7 @@ const PROJECT_EN: RegExp[] = [
 ];
 const PROJECT_AR: RegExp[] = [
   /(نحتاج|أحتاج|احتاج|أريد|اريد|نريد|أرغب|ارغب|عندي|عندنا|لدينا|نبي|نبغى|بغيت)\s/,
-  /(عندي|عندنا|لدينا)\s+(مشروع|فكرة|منتج|نظام)\b/,
+  new RegExp(`(عندي|عندنا|لدينا)\\s+(مشروع|فكرة|منتج|نظام)${AR_END}`),
   /(ساعدني|ساعدوني|ساعدنا)\s+(في|على)?\s*(بناء|تطوير|إنشاء|انشاء|تصميم|إطلاق)/,
 ];
 
@@ -109,13 +110,13 @@ const ESTIMATION_EN: RegExp[] = [
   /\b(estimation|estimates|proposal|quote)\b/i,
 ];
 const ESTIMATION_AR: RegExp[] = [
-  /(كم التكلفة|كم تكلفة|كم يكلف|كم سعر|السعر|التسعير|عرض سعر|تقدير التكلفة|التقدير المبدئي|الميزانية|ما تكلفة)\b/,
+  new RegExp(`(كم التكلفة|كم تكلفة|كم يكلف|كم سعر|السعر|التسعير|عرض سعر|تقدير التكلفة|التقدير المبدئي|الميزانية|ما تكلفة)${AR_END}`),
 ];
 
 const THANKS_EN: RegExp[] = [/^(thanks|thank you|thx|ty|appreciated|merci)\b/i, /\bthanks a lot\b/i, /\b(ok|okay|great|perfect|nice) thanks\b/i];
-const THANKS_AR: RegExp[] = [/^(شكراً|شكرا|مشكور|يعطيك العافية|تسلم|الله يعطيك العافية)\b/, /^(تمام|حسناً|اوكي|ممتاز) (شكراً|شكرا)/];
+const THANKS_AR: RegExp[] = [new RegExp(`^(شكراً|شكرا|مشكور|يعطيك العافية|تسلم|الله يعطيك العافية)${AR_END}`), /^(تمام|حسناً|اوكي|ممتاز) (شكراً|شكرا)/];
 const BYE_EN: RegExp[] = [/^(bye|goodbye|see you|cya|talk later)\b/i];
-const BYE_AR: RegExp[] = [/^(مع السلامة|وداعاً|بااي|باي|إلى اللقاء)\b/];
+const BYE_AR: RegExp[] = [new RegExp(`^(مع السلامة|وداعاً|بااي|باي|إلى اللقاء)${AR_END}`)];
 
 const TYPE_PATTERNS: { type: ProjectType; en: RegExp[]; ar: RegExp[] }[] = [
   {
@@ -174,13 +175,6 @@ export function classifyInput(raw: string): ClassifiedInput {
   const t = normalize(raw);
   if (!t) return { intent: 'unknown', projectType: null, projectLabel: null };
 
-  if (has(t, GREETING_EN) || has(t, GREETING_AR)) {
-    return { intent: 'greeting', projectType: null, projectLabel: null };
-  }
-  if (has(t, THANKS_EN) || has(t, THANKS_AR) || has(t, BYE_EN) || has(t, BYE_AR)) {
-    return { intent: 'smalltalk', projectType: null, projectLabel: null };
-  }
-
   const type = detectProjectType(t);
 
   const isProject = has(t, PROJECT_EN) || has(t, PROJECT_AR);
@@ -197,6 +191,12 @@ export function classifyInput(raw: string): ClassifiedInput {
   }
   if (type !== null) {
     return { intent: 'project', projectType: type, projectLabel: projectLabel(type) };
+  }
+  if (has(t, GREETING_EN) || has(t, GREETING_AR)) {
+    return { intent: 'greeting', projectType: null, projectLabel: null };
+  }
+  if (has(t, THANKS_EN) || has(t, THANKS_AR) || has(t, BYE_EN) || has(t, BYE_AR)) {
+    return { intent: 'smalltalk', projectType: null, projectLabel: null };
   }
 
   return { intent: 'factual', projectType: null, projectLabel: null };
@@ -234,13 +234,13 @@ export function projectLabel(type: ProjectType | null): { en: string; ar: string
 
 export function greetingResponse(lang: Lang, raw: string): { en: string; ar: string } {
   const t = normalize(raw);
-  if (t.includes('صباح الخير')) {
+  if (/good\s*morning/.test(t) || t.includes('صباح الخير')) {
     return {
       en: 'Good morning. I hope your day is off to a strong start — how can I help you make a clearer decision today?',
       ar: 'صباح الخير. أسعد الله صباحك — كيف أساعدك اليوم في اتخاذ قرار أوضح؟',
     };
   }
-  if (t.includes('مساء الخير')) {
+  if (/good\s*evening/.test(t) || t.includes('مساء الخير')) {
     return {
       en: 'Good evening. How can I support your thinking tonight?',
       ar: 'مساء الخير. كيف أساعدك هذا المساء؟',

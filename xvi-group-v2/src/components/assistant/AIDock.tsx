@@ -12,8 +12,8 @@ import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
 import { loadMemory, persistMemory, extractMemory, isMemoryAsk, hasLearnedFields } from '../../hooks/executiveMemory';
 import type { ExecutiveMemory } from '../../hooks/executiveMemory';
-import { classifyInput, createState, beginIntake, advanceIntake, intakeQuestion } from '../../assistant/consultant';
-import type { ConversationState } from '../../assistant/consultant';
+import { classifyInput, createState, beginIntake, advanceIntake, intakeQuestion, greetingResponse, recommendationsFor } from '../../assistant/consultant';
+import type { ConversationState, Recommendation } from '../../assistant/consultant';
 import { useJourney } from '../../hooks/journeyContext';
 import { journeyMeta } from '../../hooks/journeyContext';
 import type { JourneyId } from '../../hooks/journeyContext';
@@ -375,6 +375,24 @@ function WhatsAppFallback({ query, isAR }: { query: string; isAR: boolean }) {
           {isAR ? 'أرسل عبر واتساب' : 'Send via WhatsApp'}
         </a>
       </div>
+    </div>
+  );
+}
+
+function ServiceRecList({ recs }: { recs: Recommendation[] }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {recs.map((r, i) => (
+        <div key={i} style={{ display: 'flex', gap: 10, padding: '10px 12px', background: '#f7f6f3', borderRadius: 8 }}>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(200,166,90,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#C8A65A' }}>
+            <Lightbulb size={14} />
+          </div>
+          <div>
+            <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{r.service}</div>
+            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginTop: 2 }}>{r.why}</div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -1004,6 +1022,16 @@ export function AIDock() {
           <PersonaSignature isAR={isAR} />
         </div>
       );
+    } else if (classify.intent === 'greeting') {
+      const greet = greetingResponse(isAR ? 'ar' : 'en', q);
+      const gText = isAR ? greet.ar : greet.en;
+      if (inIntake) {
+        const step = intakeQuestion(conv, isAR ? 'ar' : 'en');
+        speechText = `${gText} ${step.question}`;
+      } else {
+        speechText = gText;
+      }
+      aiResponse = textBlock(speechText);
     } else if (inIntake) {
       const recorded: ConversationState = { ...conv, exchanges: conv.exchanges + 1 };
       switch (conv.stage) {
@@ -1016,21 +1044,83 @@ export function AIDock() {
       stateRef.current = nextState;
 
       if (nextState.stage === 'consult') {
+        const type = nextState.projectType;
+        const recs = recommendationsFor(type, isAR ? 'ar' : 'en');
         const parts = [
           recorded.industry ? (isAR ? `القطاع: ${recorded.industry}` : `industry: ${recorded.industry}`) : null,
           recorded.goal ? (isAR ? `الهدف: ${recorded.goal}` : `goal: ${recorded.goal}`) : null,
           recorded.timeline ? (isAR ? `الإطار الزمني: ${recorded.timeline}` : `timeline: ${recorded.timeline}`) : null,
           recorded.size ? (isAR ? `الحجم: ${recorded.size}` : `size: ${recorded.size}`) : null,
         ].filter(Boolean).join(' · ');
-        speechText = isAR
-          ? `شكراً — أصبحت الصورة واضحة الآن: ${parts}. سأبني توصية مخصصة بناءً على ذلك. قبل أن أفعل، هل توجد نتيجة محددة تريد مني أن أعطيها الأولوية؟`
-          : `Thank you — I now have a clear picture: ${parts}. I'll shape a tailored recommendation around this. Before I do, is there any specific outcome you want me to prioritize?`;
-        aiResponse = textBlock(speechText);
+        const lead = isAR
+          ? 'شكراً — أصبحت الصورة واضحة الآن. هذه هي التوصية المخصصة لمشروعك:'
+          : 'Thank you — I now have a clear picture. Here is my tailored recommendation for your project:';
+        const follow = isAR
+          ? 'هل تريد أن أحوّل هذه التوصية إلى خطة تنفيذية مفصلة؟'
+          : 'Would you like me to turn this recommendation into a detailed execution plan?';
+        speechText = `${lead} ${recs.map(r => r.service).join(' · ')}. ${follow}`;
+        aiResponse = (
+          <div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginBottom: 12 }}>
+              {lead}
+              {parts && (
+                <div style={{ color: '#3F4348', fontWeight: 600, marginTop: 4 }}>{parts}</div>
+              )}
+            </div>
+            <ServiceRecList recs={recs} />
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginTop: 12 }}>
+              {follow}
+            </div>
+            <PersonaSignature isAR={isAR} />
+          </div>
+        );
+        recommendation = recs[0].service;
       } else {
         const step = intakeQuestion(nextState, isAR ? 'ar' : 'en');
         speechText = isAR
           ? `ممتاز — سجّلت ذلك. ${step.question}`
           : `Great — noted. ${step.question}`;
+        aiResponse = textBlock(speechText);
+      }
+    } else if (classify.intent === 'project' || classify.intent === 'estimation') {
+      const nextState = beginIntake(conv, classify.projectType);
+      stateRef.current = nextState;
+      const step = intakeQuestion(nextState, isAR ? 'ar' : 'en');
+      const label = classify.projectLabel ? (isAR ? classify.projectLabel.ar : classify.projectLabel.en) : null;
+      const intro = label
+        ? isAR
+          ? `فهمت — تخطط لإنشاء ${label}.`
+          : `Got it — you're planning ${/^[aeiou]/i.test(label) ? 'an' : 'a'} ${label}.`
+        : isAR
+          ? 'فهمت — لديك مشروع جديد في ذهنك.'
+          : 'Got it — you have a new project in mind.';
+      const recs = classify.projectType ? recommendationsFor(classify.projectType, isAR ? 'ar' : 'en') : null;
+
+      if (recs) {
+        const recIntro = isAR
+          ? 'هذه الخدمات التي أوصي بها لهذا النوع من المشاريع:'
+          : 'Here are the services I recommend for this type of project:';
+        speechText = `${intro} ${recIntro} ${step.question}`;
+        aiResponse = (
+          <div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginBottom: 12 }}>
+              {ackNodeParts}
+              <div>{intro}</div>
+            </div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#3F4348', marginBottom: 8 }}>
+              {recIntro}
+            </div>
+            <ServiceRecList recs={recs} />
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginTop: 12 }}>
+              {step.question}
+            </div>
+            <PersonaSignature isAR={isAR} />
+          </div>
+        );
+        recommendation = recs[0].service;
+      } else {
+        const ackPrefix = ackLines.length ? `${ackLines.join(' ')} ` : '';
+        speechText = `${ackPrefix}${intro} ${step.question}`;
         aiResponse = textBlock(speechText);
       }
     } else if (learnedFields) {
@@ -1085,17 +1175,6 @@ export function AIDock() {
       speechText = typeof resp === 'string' ? resp : '';
       recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
       aiResponse = matchBody(entry);
-    } else if (classify.intent === 'project' && classify.projectType) {
-      const nextState = beginIntake(conv, classify.projectType);
-      stateRef.current = nextState;
-      const label = classify.projectLabel ? (isAR ? classify.projectLabel.ar : classify.projectLabel.en) : null;
-      const step = intakeQuestion(nextState, isAR ? 'ar' : 'en');
-      speechText = label
-        ? isAR
-          ? `فهمت — تخطط لإنشاء ${label}. ${step.question}`
-          : `Got it — you're planning ${/^[aeiou]/i.test(label) ? 'an' : 'a'} ${label}. ${step.question}`
-        : step.question;
-      aiResponse = textBlock(speechText);
     } else {
       speechText = isAR
         ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
@@ -1384,6 +1463,7 @@ export function AIDock() {
               {messageLog.map((msg, i) => (
                 <motion.div
                   key={i}
+                  data-testid={msg.type === 'user' ? 'xvi-dock-user' : 'xvi-dock-ai'}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, ease }}
@@ -1448,6 +1528,7 @@ export function AIDock() {
               <AnimatePresence>
                 {showResponse && response && (
                   <motion.div
+                    data-testid="xvi-dock-ai-response"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
