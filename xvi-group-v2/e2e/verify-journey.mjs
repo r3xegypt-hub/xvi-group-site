@@ -8,12 +8,9 @@ function report(ok, msg) {
   console.log(`  [${ok ? 'ok' : 'FAIL'}] ${msg}`);
 }
 
-async function pickJourney(page, id) {
-  await page.locator('[data-testid="journey-selector"]').waitFor({ state: 'visible', timeout: 20000 });
-  await page.waitForTimeout(1100);
-  await page.locator(`[data-journey="${id}"]`).click();
+async function pickJourney(page, _id) {
+  // Journey is seeded via sessionStorage in the page's addInitScript (single AI entry — no selector).
   await page.waitForTimeout(900);
-  await page.waitForTimeout(2800);
 }
 
 async function h3Order(page, sectionSel) {
@@ -27,14 +24,17 @@ async function runGovernment(browser) {
     localStorage.setItem('xvi-language', 'en');
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
+    sessionStorage.setItem('xvi-journey', 'government');
   });
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
 
   await pickJourney(page, 'government');
+  await page.locator('[aria-label="Executive AI Concierge"]').waitFor({ state: 'visible', timeout: 15000 });
   const cardGone = !(await page.getByText('Welcome.').first().isVisible().catch(() => false));
-  report(cardGone, `greeting minimized after choosing Government journey`);
+  report(cardGone, `single AI entry: no greeting panel after journey seed`);
 
   const banner = page.getByTestId('journey-focus-banner');
+  await banner.waitFor({ state: 'visible', timeout: 20000 }).catch(() => {});
   report(await banner.isVisible().catch(() => false), `focus banner visible`);
   report(await banner.getByText('Curated for your Government journey').isVisible().catch(() => false), `banner copy correct (EN)`);
 
@@ -78,12 +78,14 @@ async function runHealthcareAR(browser) {
     localStorage.setItem('xvi-language', 'ar');
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
+    sessionStorage.setItem('xvi-journey', 'healthcare');
   });
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
 
   await pickJourney(page, 'healthcare');
 
   const banner = page.getByTestId('journey-focus-banner');
+  await banner.waitFor({ state: 'visible', timeout: 20000 }).catch(() => {});
   report(await banner.isVisible().catch(() => false), `focus banner visible (AR)`);
   report(await banner.getByText('تجربة مخصصة لمسار الرعاية الصحية').isVisible().catch(() => false), `banner copy correct (AR)`);
 

@@ -142,7 +142,7 @@ async function storedMemory(page) {
     await ctx.close();
   }
 
-  // 6) EN: choosing a journey via the concierge records it in memory + shows the journey chip.
+  // 6) EN: a seeded journey records it in memory + shows the journey chip.
   {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
@@ -150,14 +150,12 @@ async function storedMemory(page) {
       localStorage.setItem('xvi-language', 'en');
       localStorage.setItem('xviIntroDone', 'true');
       localStorage.setItem('xviCinematicDate', String(Date.now()));
+      localStorage.setItem('xviConciergeSeen', 'true');
+      sessionStorage.setItem('xvi-journey', 'healthcare');
       sessionStorage.removeItem('xvi-executive-memory');
     });
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-    await page.locator('[data-testid="journey-selector"]').waitFor({ state: 'visible', timeout: 20000 });
-    await page.waitForTimeout(1100);
-    await page.locator('[data-journey="healthcare"]').click();
-    await page.waitForTimeout(900);
-    await page.waitForTimeout(2800);
+    await page.waitForTimeout(1200);
     const mem = await storedMemory(page);
     report(Boolean(mem && mem.journey === 'healthcare'), `EN: journey recorded in memory (got ${mem?.journey})`);
     await openDock(page, 'en');

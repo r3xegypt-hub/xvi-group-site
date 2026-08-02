@@ -3,21 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { useJourney } from '../../hooks/journeyContext';
-import type { JourneyId } from '../../hooks/journeyContext';
-import { JOURNEYS } from '../../hooks/journeyContext';
 import { loadMemory } from '../../hooks/executiveMemory';
-import { ArrowRight, Bot, Sparkles } from 'lucide-react';
 import styles from './ExecutiveConcierge.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 const ROBOT_SIZE = 64;
 const SEEN_KEY = 'xviConciergeSeen';
 const SESSION_KEY = 'xvi-concierge-session';
-const SELECTOR_DELAY = 2600;
-const CONFIRM_MS = 2100;
+const GREET_DELAY = 2600;
+const GREET_HOLD_MS = 3800;
 
-type Phase = 'hidden' | 'arrive' | 'selector' | 'confirm' | 'minimize' | 'robot';
+type Phase = 'hidden' | 'arrive' | 'greet' | 'minimize' | 'robot';
 
 const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
 
@@ -33,17 +29,10 @@ function heroRobotPos(rtl: boolean) {
   return { x: rtl ? vw - ROBOT_SIZE - 190 : 190, y };
 }
 
-function heroPanelPos(rtl: boolean) {
-  const vw = window.innerWidth;
-  const y = Math.max(84, Math.min(300, Math.round(window.innerHeight * 0.24) - 34));
-  return { x: rtl ? 140 : 150, y, width: Math.min(372, vw - 300 - 32) };
-}
-
 export function ExecutiveConcierge() {
   const { language } = useLanguage();
   const isRTL = language === 'ar';
   const location = useLocation();
-  const { select: selectJourney } = useJourney();
   const [phase, setPhase] = useState<Phase>('hidden');
   const [robotPos, setRobotPos] = useState(() => cornerPos(isRTL));
   const [robotOffset, setRobotOffset] = useState({ x: 0, y: 0, scale: 1, opacity: 1 });
@@ -53,7 +42,6 @@ export function ExecutiveConcierge() {
   const [listening, setListening] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const [thinking, setThinking] = useState(false);
-  const [selectedJourney, setSelectedJourney] = useState<JourneyId | null>(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const robotRef = useRef<HTMLDivElement>(null);
@@ -86,6 +74,7 @@ export function ExecutiveConcierge() {
 
   const startMinimize = useCallback(() => {
     if (phaseRef.current === 'minimize' || phaseRef.current === 'robot') return;
+    setTooltipVisible(false);
     setPhase('minimize');
     setRobotOffset({ x: 0, y: 0, scale: 1, opacity: 1 });
   }, []);
@@ -99,7 +88,7 @@ export function ExecutiveConcierge() {
     window.dispatchEvent(new CustomEvent('xvi:hero-robot-transition'));
   }, [phase, location.pathname]);
 
-  // Cinematic sequence: arrive -> selector -> confirm.
+  // First visit: after arrival, auto-show the greeting, then settle to the corner.
   useEffect(() => {
     if (phase !== 'arrive') return;
     if (onceRef.current) return;
@@ -112,21 +101,17 @@ export function ExecutiveConcierge() {
         // ignore
       }
     }
-    const t = setTimeout(() => setPhase('selector'), SELECTOR_DELAY);
+    const t = setTimeout(() => {
+      setTooltipVisible(true);
+      setPhase('greet');
+    }, GREET_DELAY);
     return () => clearTimeout(t);
   }, [phase, location.pathname, seenState]);
 
-  // Auto-minimize if the visitor never picks a journey.
+  // Auto-minimize after the greeting moment.
   useEffect(() => {
-    if (phase !== 'selector') return;
-    const t = setTimeout(() => startMinimize(), 22000);
-    return () => clearTimeout(t);
-  }, [phase, startMinimize]);
-
-  // Auto-minimize after the confirmation moment.
-  useEffect(() => {
-    if (phase !== 'confirm') return;
-    const t = setTimeout(() => startMinimize(), CONFIRM_MS);
+    if (phase !== 'greet') return;
+    const t = setTimeout(() => startMinimize(), GREET_HOLD_MS);
     return () => clearTimeout(t);
   }, [phase, startMinimize]);
 
@@ -173,7 +158,7 @@ export function ExecutiveConcierge() {
 
   const onRobotPointerDown = useCallback((e: React.PointerEvent) => {
     if (dockOpen) return;
-    if (phaseRef.current === 'arrive' || phaseRef.current === 'selector') return;
+    if (phaseRef.current === 'arrive' || phaseRef.current === 'greet') return;
     e.preventDefault();
     dragRef.current = { sx: e.clientX, sy: e.clientY, ox: robotPos.x, oy: robotPos.y, moved: false };
     setDragging(true);
@@ -222,18 +207,9 @@ export function ExecutiveConcierge() {
     setMag({ x: clamp(dx * 0.15, -strength, strength), y: clamp(dy * 0.15, -strength, strength) });
   }, []);
 
-  const handleJourneySelect = useCallback((id: JourneyId) => {
-    if (phaseRef.current === 'confirm' || phaseRef.current === 'minimize') return;
-    setSelectedJourney(id);
-    selectJourney(id);
-    setPhase('confirm');
-  }, [selectJourney]);
-
-  const isGreeting = phase === 'arrive' || phase === 'selector' || phase === 'confirm';
+  const isGreeting = phase === 'arrive' || phase === 'greet';
   const showRobot = phase !== 'hidden';
   const corner = cornerPos(isRTL);
-  const panelPos = heroPanelPos(isRTL);
-  const selectedMeta = JOURNEYS.find((j) => j.id === selectedJourney) ?? null;
   const greetingFlow = useRef(!(seenState.ever || seenState.session) && location.pathname === '/').current;
   const heroOffset = {
     x: heroPos.current.x - corner.x,
@@ -249,102 +225,7 @@ export function ExecutiveConcierge() {
 
   return (
     <div className={styles.concierge}>
-      {/* Cinematic greeting + journey selector */}
-      <AnimatePresence>
-        {isGreeting && (
-          <motion.div
-            className={styles.panel}
-            style={{ left: isRTL ? 'auto' : panelPos.x, right: isRTL ? panelPos.x : 'auto', top: panelPos.y, width: panelPos.width }}
-            initial={{ opacity: 0, y: 18, scale: 0.96, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -12, scale: 0.94, filter: 'blur(8px)' }}
-            transition={{ duration: 0.7, ease }}
-          >
-            <div className={styles.panelHead}>
-              <div className={styles.panelHeadIcon}>
-                <Bot size={16} />
-              </div>
-              <span className={styles.panelHeadLabel}>
-                {isRTL ? 'المستشار التنفيذي الذكي' : 'Executive AI Concierge'}
-              </span>
-              <div className={styles.waveOnce} data-testid="arrival-waveform" aria-hidden="true">
-                {Array.from({ length: 7 }).map((_, i) => (
-                  <span key={i} className={styles.waveBar} style={{ animationDelay: `${i * 90}ms` }} />
-                ))}
-              </div>
-            </div>
-
-            <AnimatePresence mode="wait">
-              {phase !== 'confirm' ? (
-                <motion.div
-                  key="greeting"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6, transition: { duration: 0.25, ease } }}
-                  transition={{ duration: 0.55, ease, delay: 0.1 }}
-                >
-                  <div className={styles.greetingTitle}>
-                    {isRTL ? 'مرحباً.' : 'Welcome.'}
-                  </div>
-                  <div className={styles.greetingSub}>
-                    {isRTL ? 'أنا المستشار التنفيذي الذكي.' : "I'm your Executive AI Consultant."}
-                  </div>
-                  <div className={styles.greetingAsk}>
-                    {isRTL ? 'كيف تود استكشاف XVI اليوم؟' : 'How would you like to explore XVI today?'}
-                  </div>
-
-                  <div className={styles.journeyList} data-testid="journey-selector">
-                    {JOURNEYS.map((j, i) => (
-                      <motion.button
-                        key={j.id}
-                        type="button"
-                        className={styles.journeyCard}
-                        data-journey={j.id}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 6, transition: { duration: 0.25, ease } }}
-                        transition={{ duration: 0.5, ease, delay: 0.35 + i * 0.16 }}
-                        whileHover={{ y: -3 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => handleJourneySelect(j.id)}
-                        style={{ '--journey': j.color } as React.CSSProperties}
-                      >
-                        <span className={styles.journeyNum}>0{i + 1}</span>
-                        <span className={styles.journeyLabel}>{isRTL ? j.label.ar : j.label.en}</span>
-                        <span className={styles.journeyPrompt}>{isRTL ? j.prompt.ar : j.prompt.en}</span>
-                        <ArrowRight size={14} className={styles.journeyArrow} />
-                      </motion.button>
-                    ))}
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="confirm"
-                  className={styles.confirm}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease }}
-                >
-                  <Sparkles size={16} className={styles.confirmIcon} />
-                  <div className={styles.confirmTitle}>
-                    {isRTL
-                      ? `رحلة ${selectedMeta?.label.ar ?? ''}.`
-                      : `Continuing your ${selectedMeta?.label.en ?? ''} journey.`}
-                  </div>
-                  <div className={styles.confirmSub}>
-                    {isRTL
-                      ? 'جاري تخصيص تجربتك وفق أولوياتك.'
-                      : 'Tailoring your experience to your priorities.'}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Floating robot */}
+      {/* Floating robot — the single Executive AI entry point */}
       <AnimatePresence>
         {showRobot && (
           <motion.div

@@ -9,15 +9,7 @@ function report(ok, msg) {
 }
 
 const robotSel = (lang) => `[aria-label="${lang === 'ar' ? 'المستشار التنفيذي الذكي' : 'Executive AI Concierge'}"]`;
-const TITLE = (lang) => (lang === 'ar' ? 'مرحباً.' : 'Welcome.');
-const SUB = (lang) => (lang === 'ar' ? 'أنا المستشار التنفيذي الذكي.' : "I'm your Executive AI Consultant.");
-const ASK = (lang) => (lang === 'ar' ? 'كيف تود استكشاف XVI اليوم؟' : 'How would you like to explore XVI today?');
-const CONFIRM = (lang) =>
-  lang === 'ar' ? 'رحلة الاستراتيجية التنفيذية.' : 'Continuing your Executive Strategy journey.';
-const JOURNEY_LABELS = (lang) =>
-  lang === 'ar'
-    ? ['الاستراتيجية التنفيذية', 'الرعاية الصحية', 'الحكومة', 'استكشف كل شيء']
-    : ['Executive Strategy', 'Healthcare', 'Government', 'Explore Everything'];
+const TIP = (lang) => (lang === 'ar' ? 'كيف يمكنني مساعدتك؟' : 'Need help?');
 
 async function initContext(browser, lang, w, h, opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h } });
@@ -31,128 +23,125 @@ async function initContext(browser, lang, w, h, opts = {}) {
   return { ctx, page };
 }
 
-async function waitText(page, text) {
-  const loc = page.getByText(text).first();
-  await loc.waitFor({ state: 'visible', timeout: 20000 });
-  await page.waitForTimeout(600);
-  return loc.boundingBox();
-}
-
-async function expectGreeting(page, lang, vw, label) {
-  const title = TITLE(lang);
-  const box = await waitText(page, title);
-  const within = box.x >= 0 && box.x + box.width <= vw && box.y >= 0;
-  report(within, `greeting card inside viewport (${label})`);
-  const side = lang === 'ar' ? vw - (box.x + box.width) < 240 : box.x < 240;
-  report(side, `greeting card near ${lang === 'ar' ? 'RIGHT' : 'LEFT'} side (${label})`);
-  const vh = await page.evaluate(() => window.innerHeight);
-  report(box.y < vh * 0.5, `greeting card near hero region (top=${Math.round(box.y)}) (${label})`);
-
-  report(await page.getByText(title).first().isVisible().catch(() => false), `greeting title correct (${label})`);
-  report(await page.getByText(SUB(lang)).first().isVisible().catch(() => false), `greeting subtitle correct (${label})`);
-  report(await page.getByText(ASK(lang)).first().isVisible().catch(() => false), `greeting prompt correct (${label})`);
-  report(
-    await page.locator('[data-testid="arrival-waveform"]').isVisible().catch(() => false),
-    `arrival waveform present (${label})`,
-  );
-
-  const selector = page.locator('[data-testid="journey-selector"]');
-  report(await selector.isVisible().catch(() => false), `journey selector present (${label})`);
-  const cards = page.locator('[data-journey]');
-  report((await cards.count()) === 4, `four journey cards rendered (${label})`);
-  const labels = JOURNEY_LABELS(lang);
-  for (let i = 0; i < 4; i++) {
-    report(
-      await page.getByText(labels[i], { exact: true }).first().isVisible().catch(() => false),
-      `journey card "${labels[i]}" visible (${label})`,
+// Opacity of the smallest text-only element matching exactly.
+async function tipOpacity(page, text) {
+  return page.evaluate((t) => {
+    const el = [...document.querySelectorAll('div')].find(
+      (e) => e.children.length === 0 && e.textContent && e.textContent.trim() === t,
     );
-  }
+    if (!el) return 0;
+    const p = parseFloat(getComputedStyle(el).opacity);
+    return Number.isFinite(p) ? p : 0;
+  }, text);
 }
 
-async function expectRobot(page, lang, w, h, label, corner) {
-  const sel = robotSel(lang);
-  await page.locator(sel).waitFor({ state: 'visible', timeout: 15000 });
-  await page.waitForTimeout(700);
-  const box = await page.locator(sel).boundingBox();
-  const vw = await page.evaluate(() => window.innerWidth);
-  const vh = await page.evaluate(() => window.innerHeight);
-  const inViewport = box.x >= -1 && box.x + box.width <= vw + 1 && box.y >= -1 && box.y + box.height <= vh + 1;
-  report(inViewport, `robot inside viewport (${label})`);
-  if (corner === 'bl') {
-    report(box.x < 90 && vh - box.y - box.height < 96, `robot at bottom-LEFT corner (${label})`);
-  } else if (corner === 'br') {
-    report(box.x + box.width > vw - 90 && vh - box.y - box.height < 96, `robot at bottom-RIGHT corner (${label})`);
-  }
-  const opacity = await page.evaluate((s) => parseFloat(getComputedStyle(document.querySelector(s)).opacity), sel);
-  report(opacity > 0.9, `robot visible (opacity=${opacity}) (${label})`);
-  return box;
-}
+const exactTextCount = (page, text) =>
+  page.evaluate((t) => {
+    let n = 0;
+    for (const e of document.querySelectorAll('div, span, h1, h2, h3, h4, p')) {
+      if (e.children.length === 0 && e.textContent && e.textContent.trim() === t) n++;
+    }
+    return n;
+  }, text);
 
 async function runFirstVisit(browser, lang, w, h, label) {
   const { ctx, page } = await initContext(browser, lang, w, h);
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
   const vw = w;
+  const vh = await page.evaluate(() => window.innerHeight);
 
-  await expectGreeting(page, lang, vw, `${lang} ${label}`);
-
-  // no horizontal scroll while greeting shows
-  const hScroll = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
-  report(!hScroll, `no horizontal scroll during greeting (${lang} ${label})`);
-
-  // choose the Executive journey -> confirmation -> auto-minimize to corner robot
-  await page.locator('[data-journey="executive"]').click();
-  await page.waitForTimeout(900);
-  report(await page.getByText(CONFIRM(lang)).first().isVisible().catch(() => false), `confirmation shown (${lang} ${label})`);
-  await page.waitForTimeout(2800);
-
-  const cardGone = await page.getByText(TITLE(lang)).first().isVisible().catch(() => false);
-  report(!cardGone, `greeting card minimized after journey selection (${lang} ${label})`);
-
-  const corner = lang === 'ar' ? 'br' : 'bl';
-  await expectRobot(page, lang, w, h, `${lang} ${label}`, corner);
-
-  // click robot -> opens dock; robot fades away (poll, animation is ~0.6s)
   const sel = robotSel(lang);
-  const rb = await page.locator(sel).boundingBox();
-  await page.mouse.click(rb.x + rb.width / 2, rb.y + rb.height / 2);
-  await page.locator('div[style*="bottom: 100px"]').waitFor({ state: 'visible', timeout: 8000 });
-  const dockVisible = await page.locator('div[style*="bottom: 100px"]').isVisible().catch(() => false);
-  report(dockVisible, `clicking robot opens the AI Dock (${lang} ${label})`);
-  const robotOpacity = async () =>
-    parseFloat(await page.evaluate((s) => getComputedStyle(document.querySelector(s)).opacity, sel));
-  let op = 1;
-  for (let i = 0; i < 20; i++) {
-    op = await robotOpacity();
-    if (op < 0.2) break;
-    await page.waitForTimeout(100);
-  }
-  report(op < 0.2, `robot hides while dock open (opacity=${op.toFixed(3)}) (${lang} ${label})`);
+  await page.locator(sel).waitFor({ state: 'visible', timeout: 20000 });
 
-  // close dock via its toggle button -> robot fades back
-  await page.locator('div[style*="bottom: 100px"] button').first().click();
-  let op2 = 0;
-  for (let i = 0; i < 20; i++) {
-    op2 = await robotOpacity();
-    if (op2 > 0.9) break;
-    await page.waitForTimeout(100);
-  }
-  report(op2 > 0.9, `robot returns after dock closes (opacity=${op2.toFixed(3)}) (${lang} ${label})`);
+  // Single AI entry: no large greeting/journey panel anywhere.
+  report((await page.locator('[data-testid="journey-selector"]').count()) === 0, `no journey selector panel (${label})`);
+  report((await page.locator('[data-testid="arrival-waveform"]').count()) === 0, `no arrival waveform panel (${label})`);
+  report(
+    (await exactTextCount(page, lang === 'ar' ? 'مرحباً.' : 'Welcome.')) === 0,
+    `no large greeting panel (${label})`,
+  );
+  report(
+    (await exactTextCount(page, lang === 'ar' ? 'كيف تود استكشاف XVI اليوم؟' : 'How would you like to explore XVI today?')) === 0,
+    `no journey prompt panel (${label})`,
+  );
 
-  // drag robot toward the screen center
-  const r0 = await page.locator(sel).boundingBox();
+  // no horizontal scroll while the robot greets
+  const hScroll = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+  report(!hScroll, `no horizontal scroll during greeting (${label})`);
+
+  // Robot greets from the hero region on first visit.
+  await page.waitForTimeout(1200);
+  let rb = await page.locator(sel).boundingBox();
+  report(rb.y < vh * 0.5, `robot greets from hero region (y=${Math.round(rb.y)}) (${label})`);
+
+  // Greeting tooltip auto-shows on first visit.
+  const tipText = TIP(lang);
+  const t0 = Date.now();
+  let tipOp = 0;
+  while (Date.now() - t0 < 15000) {
+    tipOp = await tipOpacity(page, tipText);
+    if (tipOp > 0.5) break;
+    await page.waitForTimeout(150);
+  }
+  report(tipOp > 0.5, `greeting tooltip auto-shown (opacity=${tipOp.toFixed(2)}) (${label})`);
+
+  // Greeting auto-dismisses: robot settles to the corner, tooltip fades.
+  const corner = lang === 'ar' ? 'br' : 'bl';
+  const t1 = Date.now();
+  let cornerOk = false;
+  while (Date.now() - t1 < 15000) {
+    rb = await page.locator(sel).boundingBox();
+    if (!rb) { await page.waitForTimeout(150); continue; }
+    cornerOk = corner === 'bl'
+      ? rb.x < 90 && vh - rb.y - rb.height < 96
+      : rb.x + rb.width > vw - 90 && vh - rb.y - rb.height < 96;
+    if (cornerOk) break;
+    await page.waitForTimeout(150);
+  }
+  report(cornerOk, `robot auto-settles to bottom-${corner === 'bl' ? 'LEFT' : 'RIGHT'} corner (${label})`);
+  await page.waitForTimeout(500);
+  report((await tipOpacity(page, tipText)) < 0.5, `greeting dismissed after settle (${label})`);
+
+  const opacity = await page.evaluate((s) => parseFloat(getComputedStyle(document.querySelector(s)).opacity), sel);
+  report(opacity > 0.9, `robot fully visible (opacity=${opacity}) (${label})`);
+
+  // robot is draggable
+  const r0 = rb;
   const dx = corner === 'bl' ? 130 : -130;
-  const dy = -80;
   await page.mouse.move(r0.x + r0.width / 2, r0.y + r0.height / 2);
   await page.mouse.down();
-  await page.mouse.move(r0.x + r0.width / 2 + dx, r0.y + r0.height / 2 + dy, { steps: 6 });
+  await page.mouse.move(r0.x + r0.width / 2 + dx, r0.y + r0.height / 2 - 80, { steps: 6 });
   await page.mouse.up();
   await page.waitForTimeout(400);
   const r1 = await page.locator(sel).boundingBox();
   const dist = Math.hypot(r1.x - r0.x, r1.y - r0.y);
-  report(dist > 60, `robot is draggable (moved ${Math.round(dist)}px) (${lang} ${label})`);
+  report(dist > 60, `robot is draggable (moved ${Math.round(dist)}px) (${label})`);
   const vw2 = await page.evaluate(() => window.innerWidth);
   const vh2 = await page.evaluate(() => window.innerHeight);
-  report(r1.x >= -1 && r1.x + r1.width <= vw2 + 1 && r1.y >= -1 && r1.y + r1.height <= vh2 + 1, `robot stays in viewport after drag (${lang} ${label})`);
+  report(r1.x >= -1 && r1.x + r1.width <= vw2 + 1 && r1.y >= -1 && r1.y + r1.height <= vh2 + 1, `robot stays in viewport after drag (${label})`);
+
+  // click robot -> opens dock; robot hides while dock open
+  await page.mouse.click(r1.x + r1.width / 2, r1.y + r1.height / 2);
+  await page.locator('div[style*="bottom: 100px"]').waitFor({ state: 'visible', timeout: 8000 });
+  const dockVisible = await page.locator('div[style*="bottom: 100px"]').isVisible().catch(() => false);
+  report(dockVisible, `clicking robot opens the AI Dock (${label})`);
+  let op = 1;
+  for (let i = 0; i < 20; i++) {
+    op = await page.evaluate((s) => parseFloat(getComputedStyle(document.querySelector(s)).opacity), sel);
+    if (op < 0.2) break;
+    await page.waitForTimeout(100);
+  }
+  report(op < 0.2, `robot hides while dock open (opacity=${op.toFixed(3)}) (${label})`);
+
+  // close dock -> robot fades back
+  await page.locator('div[style*="bottom: 100px"] button').first().click();
+  let op2 = 0;
+  for (let i = 0; i < 20; i++) {
+    op2 = await page.evaluate((s) => parseFloat(getComputedStyle(document.querySelector(s)).opacity), sel);
+    if (op2 > 0.9) break;
+    await page.waitForTimeout(100);
+  }
+  report(op2 > 0.9, `robot returns after dock closes (opacity=${op2.toFixed(3)}) (${label})`);
 
   await ctx.close();
 }
@@ -160,12 +149,22 @@ async function runFirstVisit(browser, lang, w, h, label) {
 async function runSeenVisit(browser, lang, label) {
   const { ctx, page } = await initContext(browser, lang, 1440, 900, { seen: true });
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-  const cardShown = await page.getByText(TITLE('en')).first().isVisible().catch(() => false)
-    || await page.getByText(TITLE('ar')).first().isVisible().catch(() => false);
-  report(!cardShown, `no greeting on repeat visit (${label})`);
   const sel = robotSel(lang);
   await page.locator(sel).waitFor({ state: 'visible', timeout: 15000 });
-  report(true, `robot present on repeat visit (${label})`);
+  await page.waitForTimeout(1200);
+  report((await tipOpacity(page, TIP(lang))) < 0.5, `no greeting tooltip on repeat visit (${label})`);
+  report(
+    (await exactTextCount(page, lang === 'ar' ? 'مرحباً.' : 'Welcome.')) === 0,
+    `no greeting panel on repeat visit (${label})`,
+  );
+  const box = await page.locator(sel).boundingBox();
+  const vw = await page.evaluate(() => window.innerWidth);
+  const vh = await page.evaluate(() => window.innerHeight);
+  const corner = lang === 'ar' ? 'br' : 'bl';
+  const atCorner = corner === 'bl'
+    ? box.x < 90 && vh - box.y - box.height < 96
+    : box.x + box.width > vw - 90 && vh - box.y - box.height < 96;
+  report(atCorner, `robot at bottom corner on repeat visit (${label})`);
   await ctx.close();
 }
 
@@ -188,4 +187,4 @@ async function runSeenVisit(browser, lang, label) {
   const passed = results.filter(Boolean).length;
   console.log(`\n=== ${passed}/${results.length} CHECKS PASSED ===`);
   process.exit(passed === results.length ? 0 : 1);
-})();
+})().catch((e) => { console.error('Fatal:', e); process.exit(1); });

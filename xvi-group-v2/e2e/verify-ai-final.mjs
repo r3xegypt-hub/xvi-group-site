@@ -31,13 +31,12 @@ const heroSceneSel = 'div[class*="scene"]:has([class*="holoBase"])';
     });
 
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-    await page.getByText('Welcome.').first().waitFor({ state: 'visible', timeout: 25000 }).catch(() => {});
     const robot = page.locator(robotSel);
     await robot.first().waitFor({ state: 'visible', timeout: 25000 });
 
-    // Greeting panel + journey selector shown on first visit
-    report(await page.getByText('Welcome.').first().isVisible().catch(() => false), 'first visit: greeting panel visible');
-    report(await page.locator('[data-testid="journey-selector"]').count() === 1, 'first visit: journey selector shown');
+    // Single AI entry: no large greeting/journey panel on first visit
+    report((await page.getByText('Welcome.').first().isVisible().catch(() => false)) === false, 'first visit: no large greeting panel');
+    report(await page.locator('[data-testid="journey-selector"]').count() === 0, 'first visit: no journey selector panel');
 
     // Floating concierge arrives at the hero position (left side), not the corner
     const deadline = Date.now() + 4000;
@@ -48,6 +47,17 @@ const heroSceneSel = 'div[class*="scene"]:has([class*="holoBase"])';
       await page.waitForTimeout(150);
     }
     report(arrived, 'single entry: floating concierge arrives at hero position (not corner)');
+
+    // First visit: the greeting tooltip auto-shows on the floating robot
+    const tip = robot.locator('[class*="tooltip"]');
+    const tipDeadline = Date.now() + 10000;
+    let tipShown = false;
+    while (Date.now() < tipDeadline) {
+      const o = await tip.evaluate((el) => parseFloat(getComputedStyle(el).opacity)).catch(() => 0);
+      if (o > 0.5) { tipShown = true; break; }
+      await page.waitForTimeout(150);
+    }
+    report(tipShown, 'first visit: greeting tooltip auto-shown on the robot');
 
     // Hero robot yields: its wrapper fades out so exactly one robot represents the AI
     const heroScene = page.locator(heroSceneSel);

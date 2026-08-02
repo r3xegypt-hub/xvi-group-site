@@ -32,7 +32,7 @@ async function checkPage(page, lang, vp, label) {
       hScroll: doc.scrollWidth > vw + 1,
       footer: null,
       nav: null,
-      dockBar: null,
+      robot: null,
     };
     const rectOf = (el) => {
       if (!el) return null;
@@ -49,8 +49,8 @@ async function checkPage(page, lang, vp, label) {
       const r = nav.getBoundingClientRect();
       out.nav = { left: Math.round(r.left), right: Math.round(r.right), w: Math.round(r.width) };
     }
-    const bar = document.querySelector('div[style*="bottom: 24px"]');
-    if (bar) out.dockBar = rectOf(bar);
+    const robot = document.querySelector('[aria-label="Executive AI Concierge"], [aria-label="المستشار التنفيذي الذكي"]');
+    if (robot) out.robot = rectOf(robot);
     return out;
   });
 
@@ -62,8 +62,8 @@ async function checkPage(page, lang, vp, label) {
   if (result.nav) {
     if (result.nav.left < -1 || result.nav.right > result.vw + 1) issues.push(`nav overflow (${result.nav.left}..${result.nav.right} w=${result.nav.w})`);
   }
-  if (result.dockBar) {
-    if (result.dockBar.left < -1 || result.dockBar.right > result.vw + 1) issues.push(`dockBar overflow (${result.dockBar.left}..${result.dockBar.right})`);
+  if (result.robot) {
+    if (result.robot.left < -1 || result.robot.right > result.vw + 1 || result.robot.top < -1) issues.push(`robot overflow (${result.robot.left}..${result.robot.right})`);
   }
   const status = issues.length ? 'FAIL' : 'ok';
   console.log(`  [${status}] ${label} ${lang} ${vp.w}x${vp.h}${issues.length ? ' -> ' + issues.join('; ') : ''}`);

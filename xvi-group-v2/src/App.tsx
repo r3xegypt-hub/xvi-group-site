@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from './branding/ThemeProvider';
 import { LanguageProvider } from './hooks/LanguageProvider';
@@ -67,11 +67,10 @@ function PageFallback() {
 }
 
 function AppContent({ pending }: { pending: boolean }) {
-  const location = useLocation();
   return (
     <>
       <SeoHead />
-      <AIDock hideDock={location.pathname === '/'} />
+      <AIDock />
       {!pending && <ExecutiveConcierge />}
     </>
   );

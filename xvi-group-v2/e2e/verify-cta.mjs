@@ -50,7 +50,11 @@ async function openDockHome(page) {
   await waitStable(desktop);
 
   const dockToggle = () => desktop.locator('button[aria-label="Open Executive AI"]').first();
-  if (await dockToggle().isVisible()) pass('Dock toggle present');
+  if (!(await dockToggle().isVisible())) pass('No dock bar — single AI entry (floating robot)');
+  else fail('Dock bar still present');
+  const robotEntry = desktop.locator('[aria-label="Executive AI Concierge"]').first();
+  if (await robotEntry.isVisible()) pass('Floating robot present (single AI entry)');
+  else fail('Floating robot missing');
 
   const heroAi = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' }).first();
   if (await heroAi.isVisible()) {

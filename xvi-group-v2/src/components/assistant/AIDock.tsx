@@ -19,8 +19,7 @@ import { journeyMeta } from '../../hooks/journeyContext';
 import type { JourneyId } from '../../hooks/journeyContext';
 import { AIAvatar } from './AIAvatar';
 import {
-  Sparkles, Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,
-  Users, Shield, TrendingUp, Target, Lightbulb, Map,
+  Brain, X, BarChart3, Zap, FileText, Clock, CheckCircle2,  Users, Shield, TrendingUp, Target, Lightbulb, Map,
   ArrowRight, Activity, Mic, Settings2, Volume2, User, Briefcase, Compass
 } from 'lucide-react';
 
@@ -517,7 +516,7 @@ function findContentMatch(input: string): { entry: ContentEntry; score: number }
   return best;
 }
 
-export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
+export function AIDock() {
   const [open, setOpen] = useState(false);
   const [thoughtStage, setThoughtStage] = useState<'ready' | 'thinking' | 'synthesizing' | 'ready-again'>('ready');
   const [response, setResponse] = useState<ReactNode | null>(null);
@@ -1193,17 +1192,6 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
 
   const statusColor = thoughtStage === 'thinking' ? '#c8a65a' : thoughtStage === 'synthesizing' ? '#d4b76e' : '#2D6A4F';
 
-  const handleToggle = useCallback(() => {
-    setOpen((p) => !p);
-    if (!open) {
-      setThoughtStage('ready');
-      setShowResponse(false);
-      setResponse(null);
-      setMessageLog([]);
-      stateRef.current = createState();
-    }
-  }, [open]);
-
   return (
     <>
       <AnimatePresence>
@@ -1223,73 +1211,6 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
           />
         )}
       </AnimatePresence>
-
-      {/* Dock bar — hidden on Hero page (functionality accessible via floating robot only) */}
-      {!hideDock && (
-      <motion.div
-        layout
-        style={{
-          position: 'fixed', bottom: 24, left: '50%', zIndex: 601,
-          x: '-50%',
-          maxWidth: 'calc(100vw - 16px)',
-          overflow: 'hidden',
-          display: 'flex', alignItems: 'center', gap: 8,
-          padding: '6px 8px',
-          background: 'rgba(255,255,255,0.92)',
-          backdropFilter: 'blur(60px)',
-          WebkitBackdropFilter: 'blur(60px)',
-          border: '1px solid rgba(200,166,90,0.12)',
-          borderRadius: 999,
-          boxShadow: '0 8px 32px rgba(17,17,17,0.06), 0 1px 2px rgba(17,17,17,0.04), 0 0 40px rgba(200,166,90,0.02), inset 0 1px 0 rgba(255,255,255,0.9)',
-        }}
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease, delay: 0.5 }}
-      >
-          <motion.button
-          onClick={handleToggle}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          aria-label={isAR ? 'فتح المستشار التنفيذي' : 'Open Executive AI'}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            padding: '6px 16px 6px 6px',
-            border: 'none', cursor: 'pointer',
-            borderRadius: 999,
-            background: open
-              ? 'linear-gradient(135deg, rgba(200,166,90,0.15), rgba(200,166,90,0.04))'
-              : 'linear-gradient(135deg, rgba(200,166,90,0.08), rgba(200,166,90,0.02))',
-            fontFamily: font, fontSize: '0.75rem',
-            fontWeight: 600, color: '#111111', letterSpacing: '0.02em',
-            transition: 'background 0.4s cubic-bezier(0.16,1,0.3,1)',
-          }}
-        >
-          <div style={{ position: 'relative', width: 40, height: 40, flexShrink: 0 }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: '50%',
-              background: 'radial-gradient(circle at 35% 35%, #ffffff, #c8a65a 45%, #8a7040 100%)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#132238', fontSize: 18, fontWeight: 700,
-              boxShadow: '0 2px 8px rgba(200,166,90,0.15)',
-            }}>X</div>
-            <motion.div
-              style={{ position: 'absolute', inset: -3, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.12)' }}
-              animate={rm ? { opacity: 0.3 } : { scale: [1, 1.06, 1], opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 2.5, repeat: rm ? 0 : Infinity, ease: 'easeInOut' }}
-            />
-            <motion.div
-              style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: '1px solid rgba(200,166,90,0.05)' }}
-              animate={rm ? { opacity: 0.15 } : { scale: [1, 1.04, 1], opacity: [0.15, 0.3, 0.15] }}
-              transition={{ duration: 3.5, repeat: rm ? 0 : Infinity, ease: 'easeInOut', delay: 0.5 }}
-            />
-          </div>
-          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
-            {isAR ? 'المستشار التنفيذي' : 'Executive AI'}
-          </span>
-          {open ? <X size={12} style={{ color: '#999' }} /> : <Sparkles size={12} style={{ color: '#C8A65A' }} />}
-        </motion.button>
-      </motion.div>
-      )}
 
       {/* Panel */}
       <AnimatePresence>
