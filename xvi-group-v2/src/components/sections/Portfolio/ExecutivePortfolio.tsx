@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import type { Easing } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import type { Easing, PanInfo } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
@@ -386,8 +386,21 @@ function PortfolioArt({ variant, color, reduced }: PortfolioArtProps) {
   );
 }
 
-export function ExecutivePortfolio() {
-  const { language } = useLanguage();
+function LazyArt({ variant, color, reduced }: PortfolioArtProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '320px 0px' });
+  return (
+    <div className={styles.artSlot} ref={ref}>
+      {inView ? (
+        <PortfolioArt variant={variant} color={color} reduced={reduced} />
+      ) : (
+        <div className={styles.artSkeleton} aria-hidden="true" />
+      )}
+    </div>
+  );
+}
+
+export function ExecutivePortfolio() {  const { language } = useLanguage();
   const ar = language === 'ar';
   const { prefersReducedMotion } = useMotion();
   const reduced = prefersReducedMotion;
@@ -507,6 +520,17 @@ export function ExecutivePortfolio() {
           })}
         </motion.div>
 
+        <div className={styles.filterMeta}>
+          <span className={styles.resultCount} aria-live="polite">
+            {ar ? `${filtered.length} مهمة مختارة` : `${String(filtered.length).padStart(2, '0')} engagements`}
+          </span>
+          {filtered.length === 0 && (
+            <span className={styles.emptyHint}>
+              {ar ? 'لا توجد أعمال منشورة لهذا القطاع حالياً.' : 'No published work for this sector yet.'}
+            </span>
+          )}
+        </div>
+
         <motion.div
           className={styles.grid}
           layout
@@ -533,7 +557,7 @@ export function ExecutivePortfolio() {
                 style={{ '--tile': color } as React.CSSProperties}
               >
                 <div className={styles.artWrap}>
-                  <PortfolioArt variant={item.art} color={color} reduced={reduced} />
+                  <LazyArt variant={item.art} color={color} reduced={reduced} />
                   <span className={styles.sectorBadge} style={{ color }}>
                     {ar ? SECTOR_META[item.sector].label.ar : SECTOR_META[item.sector].label.en}
                   </span>
@@ -578,31 +602,46 @@ export function ExecutivePortfolio() {
               transition={{ duration: reduced ? 0 : 0.32, ease }}
             >
               <div className={styles.lightboxTop}>
-                <div className={styles.lightboxArtWrap} style={{ '--tile': selColor } as React.CSSProperties}>
-                  <PortfolioArt variant={selected.art} color={selColor} reduced={reduced} />
-                  <span className={styles.sectorBadge} style={{ color: selColor }}>
-                    {ar ? SECTOR_META[selected.sector].label.ar : SECTOR_META[selected.sector].label.en}
-                  </span>
-                </div>
-                <div className={styles.lightboxInfo}>
-                  <span className={styles.lightboxClient}>
-                    {ar ? selected.client.ar : selected.client.en}
-                  </span>
-                  <h2 className={styles.lightboxTitle}>{ar ? selected.title.ar : selected.title.en}</h2>
-                  <p className={styles.lightboxDesc}>{ar ? selected.desc.ar : selected.desc.en}</p>
-                  <div className={styles.lightboxStats}>
-                    {selected.stats.map((s) => (
-                      <div key={s.label.en} className={styles.lightboxStat}>
-                        <span className={styles.lightboxStatValue}>{s.value}</span>
-                        <span className={styles.lightboxStatLabel}>{ar ? s.label.ar : s.label.en}</span>
-                      </div>
-                    ))}
+                <motion.div
+                  className={styles.lightboxSwipe}
+                  drag={reduced ? false : 'x'}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.16}
+                  dragMomentum={false}
+                  onDragEnd={(_e: unknown, info: PanInfo) => {
+                    if (Math.abs(info.offset.x) > 64 || Math.abs(info.velocity.x) > 500) {
+                      playSound('ctaClick');
+                      step(info.offset.x < 0 ? 1 : -1);
+                    }
+                  }}
+                  style={{ touchAction: 'pan-y' }}
+                >
+                  <div className={styles.lightboxArtWrap} style={{ '--tile': selColor } as React.CSSProperties}>
+                    <PortfolioArt variant={selected.art} color={selColor} reduced={reduced} />
+                    <span className={styles.sectorBadge} style={{ color: selColor }}>
+                      {ar ? SECTOR_META[selected.sector].label.ar : SECTOR_META[selected.sector].label.en}
+                    </span>
                   </div>
-                  <Link to={selected.to} className={styles.lightboxLink} onClick={() => playSound('ctaClick')}>
-                    <span>{ar ? selected.related.ar : selected.related.en}</span>
-                    <ArrowUpRight size={16} />
-                  </Link>
-                </div>
+                  <div className={styles.lightboxInfo}>
+                    <span className={styles.lightboxClient}>
+                      {ar ? selected.client.ar : selected.client.en}
+                    </span>
+                    <h2 className={styles.lightboxTitle}>{ar ? selected.title.ar : selected.title.en}</h2>
+                    <p className={styles.lightboxDesc}>{ar ? selected.desc.ar : selected.desc.en}</p>
+                    <div className={styles.lightboxStats}>
+                      {selected.stats.map((s) => (
+                        <div key={s.label.en} className={styles.lightboxStat}>
+                          <span className={styles.lightboxStatValue}>{s.value}</span>
+                          <span className={styles.lightboxStatLabel}>{ar ? s.label.ar : s.label.en}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <Link to={selected.to} className={styles.lightboxLink} onClick={() => playSound('ctaClick')}>
+                      <span>{ar ? selected.related.ar : selected.related.en}</span>
+                      <ArrowUpRight size={16} />
+                    </Link>
+                  </div>
+                </motion.div>
               </div>
 
               <div className={styles.lightboxNav}>

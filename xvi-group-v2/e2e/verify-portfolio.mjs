@@ -28,7 +28,7 @@ async function setupPage(browser, lang, plays, errors) {
   return page;
 }
 
-const tileSel = 'button:has(svg[data-variant])';
+const tileSel = 'button[class*="tile"]';
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -38,7 +38,8 @@ const tileSel = 'button:has(svg[data-variant])';
   const errors = [];
   const page = await setupPage(browser, 'en', plays, errors);
   await page.goto(BASE + '/portfolio', { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(1400);
+  await page.locator('section').first().waitFor({ state: 'attached', timeout: 20000 });
+  await page.waitForTimeout(400);
 
   report((await page.locator('text=SELECTED WORK').count()) > 0, 'eyebrow present');
   report((await page.locator('text=Engagements that moved the needle').count()) > 0, 'hero title present');
@@ -55,6 +56,14 @@ const tileSel = 'button:has(svg[data-variant])';
   const firstLabel = await tiles.first().getAttribute('aria-label');
   report(firstLabel === 'Sovereign Banking Core', `first tile labelled (${firstLabel})`);
   report((await tiles.first().locator('svg[data-variant]').count()) === 1, 'tile renders generated SVG art');
+
+  report((await page.locator('[class*="resultCount"]').first().textContent())?.trim() === '09 engagements', 'result count shows 09 engagements');
+  report((await tiles.nth(8).locator('svg[data-variant]').count()) === 0, 'tile 9 defers art (lazy, skeleton only)');
+
+  // Lazy loading: scrolling tile 9 into view mounts its SVG art
+  await tiles.nth(8).scrollIntoViewIfNeeded();
+  await page.waitForTimeout(700);
+  report((await tiles.nth(8).locator('svg[data-variant]').count()) === 1, 'tile 9 mounts SVG art after scroll');
 
   // Sound wiring: tile hover -> ctaHover, filter click -> ctaClick
   plays.length = 0;
@@ -107,6 +116,31 @@ const tileSel = 'button:has(svg[data-variant])';
   await page.waitForTimeout(400);
   report((await counter.textContent())?.trim() === '01 / 09', 'ArrowLeft returns to 01/09');
 
+  // Swipe gestures: drag left -> next, drag right -> previous
+  plays.length = 0;
+  const swipe = page.locator('[class*="lightboxSwipe"]');
+  const sb = await swipe.boundingBox();
+  const cx = sb.x + sb.width / 2;
+  const cy = sb.y + sb.height / 2;
+  await page.mouse.move(cx, cy);
+  await page.mouse.down();
+  for (let i = 1; i <= 8; i++) {
+    await page.mouse.move(cx - i * 14, cy, { steps: 2 });
+  }
+  await page.mouse.up();
+  await page.waitForTimeout(500);
+  report((await counter.textContent())?.trim() === '02 / 09', `swipe left advances to 02/09 (got ${(await counter.textContent())?.trim()})`);
+  report(plays.includes('ctaClick'), `swipe plays ctaClick (${JSON.stringify(plays)})`);
+
+  await page.mouse.move(cx, cy);
+  await page.mouse.down();
+  for (let i = 1; i <= 8; i++) {
+    await page.mouse.move(cx + i * 14, cy, { steps: 2 });
+  }
+  await page.mouse.up();
+  await page.waitForTimeout(500);
+  report((await counter.textContent())?.trim() === '01 / 09', 'swipe right returns to 01/09');
+
   await page.keyboard.press('Escape');
   await dialog.waitFor({ state: 'detached', timeout: 4000 });
   report(true, 'Escape closes lightbox');
@@ -123,7 +157,8 @@ const tileSel = 'button:has(svg[data-variant])';
   const aErrors = [];
   const aPage = await setupPage(browser, 'ar', aPlays, aErrors);
   await aPage.goto(BASE + '/portfolio', { waitUntil: 'domcontentloaded' });
-  await aPage.waitForTimeout(1400);
+  await aPage.locator('section').first().waitFor({ state: 'attached', timeout: 20000 });
+  await aPage.waitForTimeout(400);
 
   const aTiles = aPage.locator(tileSel);
   report((await aTiles.count()) === 9, `ar: 9 tiles shown (got ${await aTiles.count()})`);

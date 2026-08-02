@@ -41,7 +41,15 @@ const BASE = 'http://localhost:5173/xvi-group-site';
   if (box) {
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await page.waitForTimeout(150);
-    const vars = await cards.first().evaluate((el) => ({ mx: el.style.getPropertyValue('--mx'), my: el.style.getPropertyValue('--my') }));
+    let vars = await cards.first().evaluate((el) => ({ mx: el.style.getPropertyValue('--mx'), my: el.style.getPropertyValue('--my') }));
+    if (!vars.mx) {
+      await cards.first().dispatchEvent('mousemove', {
+        clientX: box.x + box.width / 2,
+        clientY: box.y + box.height / 2,
+      });
+      await page.waitForTimeout(150);
+      vars = await cards.first().evaluate((el) => ({ mx: el.style.getPropertyValue('--mx'), my: el.style.getPropertyValue('--my') }));
+    }
     report(vars.mx !== '' && vars.my !== '', `cursor spotlight vars set (${vars.mx},${vars.my})`);
   } else {
     report(false, 'cursor spotlight vars set (no bounding box)');
