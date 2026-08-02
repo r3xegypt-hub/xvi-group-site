@@ -57,8 +57,8 @@ export function PremiumCard({
         overflow: 'hidden',
         transformStyle: 'preserve-3d',
         boxShadow: hovered
-          ? '0 20px 60px rgba(200,166,90,0.08), 0 8px 24px rgba(17,17,17,0.04), inset 0 1px 0 rgba(200,166,90,0.06)'
-          : '0 0 0 rgba(200,166,90,0), inset 0 1px 0 rgba(200,166,90,0.03)',
+          ? '0 24px 64px rgba(63,67,72,0.12), 0 8px 24px rgba(63,67,72,0.06), 0 0 0 1px rgba(200,166,90,0.12), inset 0 1px 0 rgba(200,166,90,0.06)'
+          : '0 8px 28px rgba(63,67,72,0.05), inset 0 1px 0 rgba(200,166,90,0.03)',
         borderColor: hovered ? 'rgba(200,166,90,0.2)' : 'rgba(200,166,90,0.06)',
       }}
     >
@@ -92,6 +92,17 @@ export function PremiumCard({
           background: 'radial-gradient(ellipse at top right, rgba(200,166,90,0.03), transparent)',
           opacity: hovered ? 1 : 0.2,
           transition: 'opacity 0.5s ease',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Static light-catch sheen — makes the glass read even at rest */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(115deg, transparent 25%, rgba(255,255,255,0.55) 42%, rgba(255,255,255,0.08) 55%, transparent 72%)',
+          opacity: 0.5,
           pointerEvents: 'none',
         }}
       />

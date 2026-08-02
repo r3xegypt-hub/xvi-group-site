@@ -61,6 +61,33 @@
   animation: blobFloat 44s ease-in-out infinite;
 }
 
+/* Graphite depth blob — grounds the light scene with soft contrast */
+.depthBlob {
+  position: absolute;
+  top: 38%;
+  left: -18vmax;
+  width: 54vmax;
+  height: 54vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(63, 67, 72, 0.05) 0%, transparent 66%);
+  filter: blur(6px);
+  animation: depthDrift 36s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes depthDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4vmax, -3vmax, 0) scale(1.06); }
+}
+
+/* Soft light vignette — keeps edges calm, focuses center */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 96% at 50% 38%, transparent 62%, rgba(63, 67, 72, 0.05) 100%);
+  pointer-events: none;
+}
+
 @keyframes blobFloat {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   33% { transform: translate3d(7vmax, 5vmax, 0) scale(1.08); }
@@ -73,7 +100,8 @@
   }
   .glowBlob,
   .glowBlob2,
-  .glowBlob3 {
+  .glowBlob3,
+  .depthBlob {
     width: 80vmax;
     height: 80vmax;
     opacity: 0.55;
@@ -84,7 +112,8 @@
   .holoLines,
   .glowBlob,
   .glowBlob2,
-  .glowBlob3 {
+  .glowBlob3,
+  .depthBlob {
     animation: none;
   }
 }

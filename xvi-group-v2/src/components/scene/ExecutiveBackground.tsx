@@ -18,6 +18,8 @@ export function ExecutiveBackground() {
       <div className={styles.glowBlob} />
       <div className={styles.glowBlob2} />
       <div className={styles.glowBlob3} />
+      <div className={styles.depthBlob} />
+      <div className={styles.vignette} />
     </div>
   );
 }
