@@ -146,6 +146,12 @@ input, textarea, select {
   flex: 1;
 }
 
+.xvi-site {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 // Premium scrollbar
 @media (hover: hover) and (pointer: fine) {
   ::-webkit-scrollbar {

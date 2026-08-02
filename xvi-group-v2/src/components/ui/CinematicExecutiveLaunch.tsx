@@ -136,6 +136,11 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
   const [muted, setMuted] = useState(false);
   const [skipped, setSkipped] = useState(false);
   const finishedRef = useRef(false);
+  const skipButtonRef = useRef<HTMLButtonElement>(null);
+  const prefersReduced = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  );
   const { play, stop } = useAudioLogo();
   const audioStartedRef = useRef(false);
   const mutedRef = useRef(false);
@@ -149,6 +154,18 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
     setSkipped(true);
     onFinish();
   }, [onFinish, stop]);
+
+  useEffect(() => {
+    if (skipped) return;
+    skipButtonRef.current?.focus();
+  }, [skipped]);
+
+  useEffect(() => {
+    if (skipped) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') handleSkip(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [skipped, handleSkip]);
 
   const toggleMute = useCallback(() => {
     setMuted((m) => {
@@ -166,7 +183,7 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
   }, [muted, stop]);
 
   useEffect(() => {
-    if (skipped) return;
+    if (skipped || prefersReduced) return;
     const start = () => {
       if (audioStartedRef.current) return;
       audioStartedRef.current = true;
@@ -177,10 +194,20 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
     return () => {
       gestures.forEach((ev) => window.removeEventListener(ev, start));
     };
-  }, [skipped, play]);
+  }, [skipped, prefersReduced, play]);
 
   useEffect(() => {
     if (skipped) return;
+    if (prefersReduced) {
+      const t = setTimeout(() => {
+        if (!finishedRef.current) {
+          finishedRef.current = true;
+          setSkipped(true);
+          onFinish();
+        }
+      }, 1400);
+      return () => clearTimeout(t);
+    }
     const t1 = setTimeout(() => setPhase('form'), 2500);
     const t2 = setTimeout(() => setPhase('hero'), 4800);
     const t3 = setTimeout(() => setPhase('zoom'), 7800);
@@ -193,7 +220,7 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
       }
     }, 10600);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
-  }, [skipped, onFinish, stop]);
+  }, [skipped, prefersReduced, onFinish, stop]);
 
   const showControls = phase !== 'exit';
 
@@ -203,6 +230,9 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
         <motion.div
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="XVI GROUP cinematic launch"
           style={{
             position: 'fixed', inset: 0, zIndex: 9999,
             background: '#0a0a0a',
@@ -212,6 +242,18 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
           onClick={handleSkip}
         >
           {/* =============== ATMOSPHERIC BLOOM =============== */}
+          {prefersReduced ? (
+            <div
+              style={{
+                position: 'absolute', width: '70vmin', height: '70vmin',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(200,166,90,0.06) 0%, rgba(200,166,90,0.02) 40%, transparent 70%)',
+                filter: 'blur(40px)',
+                pointerEvents: 'none', zIndex: 1,
+              }}
+            />
+          ) : (
+            <>
           {/* Soft golden bloom behind logo */}
           <motion.div
             style={{
@@ -243,8 +285,27 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
             }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
+            </>
+          )}
 
           {/* =============== LOGO CONTAINER WITH ZOOM =============== */}
+          {prefersReduced ? (
+            <div
+              style={{
+                position: 'relative', zIndex: 2,
+                width: 'clamp(200px, 38vw, 440px)',
+                height: 'clamp(200px, 38vw, 440px)',
+              }}
+            >
+              <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }} aria-hidden="true">
+                <line x1={38} y1={24} x2={62} y2={52} stroke="#c8a65a" strokeWidth={1.4} strokeLinecap="round" opacity={0.95} />
+                <line x1={62} y1={24} x2={38} y2={52} stroke="#c8a65a" strokeWidth={1.4} strokeLinecap="round" opacity={0.95} />
+                <circle cx={50} cy={38} r={2.5} fill="#c8a65a" opacity={0.5} />
+                <text x={50} y={72} textAnchor="middle" fill="#c8a65a" fontFamily="'Space Grotesk', 'Playfair Display', Georgia, serif" fontSize={9} fontWeight={500} letterSpacing="0.02em" opacity={0.85}>XVI</text>
+                <text x={50} y={83} textAnchor="middle" fill="#c8a65a" fontFamily="'Inter', sans-serif" fontSize={4} fontWeight={500} letterSpacing="0.5em" opacity={0.45}>GROUP</text>
+              </svg>
+            </div>
+          ) : (
           <motion.div
             animate={{
               scale: phase === 'zoom' ? [1, 1.12, 0.95, 1] : 1,
@@ -437,6 +498,7 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
               )}
             </svg>
           </motion.div>
+          )}
 
           {/* =============== CINEMATIC LIGHT SWEEP (Scene 3: 4.8-7s) =============== */}
           {phase === 'hero' && (
@@ -462,23 +524,28 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
               }}
               onClick={e => e.stopPropagation()}
             >
-              <motion.button
-                onClick={toggleMute}
-                whileHover={{ scale: 1.05, background: 'rgba(200,166,90,0.15)' }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(200,166,90,0.12)',
-                  borderRadius: '50%', width: 36, height: 36,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', color: 'rgba(200,166,90,0.6)',
-                  backdropFilter: 'blur(12px)',
-                }}
-                aria-label={muted ? 'Unmute' : 'Mute'}
-              >
-                {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-              </motion.button>
+              {!prefersReduced && (
+                <motion.button
+                  type="button"
+                  onClick={toggleMute}
+                  whileHover={{ scale: 1.05, background: 'rgba(200,166,90,0.15)' }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(200,166,90,0.12)',
+                    borderRadius: '50%', width: 36, height: 36,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: 'pointer', color: 'rgba(200,166,90,0.6)',
+                    backdropFilter: 'blur(12px)',
+                  }}
+                  aria-label={muted ? 'Unmute' : 'Mute'}
+                >
+                  {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                </motion.button>
+              )}
 
               <motion.button
+                ref={skipButtonRef}
+                type="button"
                 onClick={handleSkip}
                 whileHover={{ scale: 1.05, background: 'rgba(200,166,90,0.15)' }}
                 whileTap={{ scale: 0.95 }}

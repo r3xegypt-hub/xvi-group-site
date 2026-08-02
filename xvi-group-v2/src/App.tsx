@@ -38,7 +38,7 @@ const ExecutiveTrainingPage = lazy(() => import('./pages/services/executive-trai
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         {children}
       </main>
       <Footer />
@@ -78,12 +78,20 @@ function AppContent({ pending }: { pending: boolean }) {
 
 function App() {
   const [pending, setPending] = useState(true);
-  const introSeenRef = useRef(localStorage.getItem('xviIntroDone') === 'true');
+  const introSeenRef = useRef(
+    localStorage.getItem('xviIntroDone') === 'true' ||
+      sessionStorage.getItem('xviIntroSeen') === 'true'
+  );
 
   const handleFinish = useCallback(() => {
     localStorage.setItem('xviIntroDone', 'true');
     localStorage.setItem('xviCinematicDate', String(Date.now()));
+    sessionStorage.setItem('xviIntroSeen', 'true');
     setPending(false);
+    setTimeout(() => {
+      const main = document.getElementById('main-content');
+      if (main) main.focus({ preventScroll: true });
+    }, 150);
   }, []);
 
   return (
@@ -100,6 +108,7 @@ function App() {
                 ? <LuxuryLoader onFinish={handleFinish} />
                 : <CinematicExecutiveLaunch onFinish={handleFinish} />
               )}
+              <div className="xvi-site" inert={pending ? true : undefined}>
               <CustomCursor />
               <MouseGlow color="#c8a65a" radius={250} />
               <ScrollProgress />
@@ -127,6 +136,7 @@ function App() {
                 </Suspense>
               </PageTransition>
               <AppContent pending={pending} />
+              </div>
             </div>
             </MotionConfig>
           </MotionProvider>
