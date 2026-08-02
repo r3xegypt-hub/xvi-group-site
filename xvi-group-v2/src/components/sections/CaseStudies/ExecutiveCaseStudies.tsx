@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -20,11 +20,13 @@ import {
   Sparkles,
   Target,
   TrendingUp,
+  X,
 } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useMotion } from '../../../motion/providers/MotionProvider';
 import { useCountUp } from '../../../motion/hooks/useCountUp';
 import { useCTA } from '../../../hooks/useCTA';
+import { playSound } from '../../../motion/audio/soundEngine';
 import styles from './ExecutiveCaseStudies.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -423,16 +425,239 @@ function KpiCounter({ kpi, reduced }: { kpi: Kpi; reduced: boolean }) {
   );
 }
 
+function KpiMini({ kpi, label, reduced }: { kpi: Kpi; label: string; reduced: boolean }) {
+  const { ref, count } = useCountUp({ end: kpi.value, startOnView: !reduced, duration: 1600 });
+  const value = reduced ? kpi.value : count;
+  return (
+    <div className={styles.cardKpi} ref={ref}>
+      <span className={styles.cardKpiValue}>
+        {kpi.prefix}
+        {value}
+        {kpi.suffix}
+      </span>
+      <span className={styles.cardKpiLabel}>{label}</span>
+    </div>
+  );
+}
+
+interface CaseDetailProps {
+  cs: CaseStudy;
+  reduced: boolean;
+  onClose: () => void;
+  closeBtnRef: React.RefObject<HTMLButtonElement | null>;
+}
+
+function CaseDetail({ cs, reduced, onClose, closeBtnRef }: CaseDetailProps) {
+  const { language } = useLanguage();
+  const ar = language === 'ar';
+  const handleCTA = useCTA();
+  const L = (v: Localized) => (ar ? v.ar : v.en);
+  const Icon = INDUSTRY_ICONS[cs.id] ?? Heart;
+
+  return (
+    <>
+      <button
+        type="button"
+        ref={closeBtnRef}
+        className={styles.modalClose}
+        onClick={onClose}
+        aria-label={ar ? 'إغلاق' : 'Close'}
+      >
+        <X size={19} />
+      </button>
+      <div className={styles.modalBody}>
+        <header className={styles.modalHeader}>
+          <div className={styles.modalMeta}>
+            <span className={styles.industryChip}>
+              <Icon size={13} /> {L(cs.industry)}
+            </span>
+            <span className={styles.metaItem}>
+              <MapPin size={13} /> {L(cs.region)}
+            </span>
+            <span className={styles.metaItem}>
+              <CalendarDays size={13} /> {L(cs.duration)}
+            </span>
+          </div>
+          <h3 className={styles.clientName}>{L(cs.client)}</h3>
+          <p className={styles.tagline}>{L(cs.title)}</p>
+        </header>
+
+        <div className={styles.blocks}>
+          <div className={styles.block}>
+            <span className={styles.blockLabel}>
+              <Target size={13} /> {ar ? 'التحدي' : 'THE CHALLENGE'}
+            </span>
+            <p className={styles.blockText}>{L(cs.challenge)}</p>
+          </div>
+          <div className={styles.block}>
+            <span className={styles.blockLabel}>
+              <Lightbulb size={13} /> {ar ? 'حل XVI' : 'THE XVI SOLUTION'}
+            </span>
+            <p className={styles.blockText}>{L(cs.solution)}</p>
+          </div>
+        </div>
+
+        <div className={styles.techWrap}>
+          <span className={styles.groupLabel}>{ar ? 'تقنيات الذكاء الاصطناعي' : 'AI TECHNOLOGIES'}</span>
+          <div className={styles.techChips}>
+            {cs.tech.map((t, i) => (
+              <motion.span
+                key={i}
+                className={styles.techChip}
+                initial={reduced ? false : { opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease, delay: reduced ? 0 : i * 0.06 }}
+              >
+                <Sparkles size={12} /> {L(t)}
+              </motion.span>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.timelineWrap}>
+          <span className={styles.groupLabel}>{ar ? 'مراحل التنفيذ' : 'IMPLEMENTATION PROCESS'}</span>
+          <ol className={styles.timeline}>
+            {cs.process.map((step, i) => (
+              <motion.li
+                key={i}
+                className={styles.timelineStep}
+                initial={reduced ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, ease, delay: reduced ? 0 : i * 0.08 }}
+              >
+                <span className={styles.stepNum}>0{i + 1}</span>
+                <span className={styles.stepDot} />
+                <div className={styles.stepBody}>
+                  <h4 className={styles.stepTitle}>{L(step.title)}</h4>
+                  <p className={styles.stepDesc}>{L(step.desc)}</p>
+                </div>
+              </motion.li>
+            ))}
+          </ol>
+        </div>
+
+        <div className={styles.baWrap}>
+          <span className={styles.groupLabel}>{ar ? 'قبل / بعد' : 'BEFORE / AFTER'}</span>
+          <div className={styles.baGrid}>
+            <div className={styles.before}>
+              <span className={styles.baTitle}>
+                <Minus size={13} /> {ar ? 'قبل' : 'Before'}
+              </span>
+              <ul className={styles.baList}>
+                {cs.before.map((p, i) => (
+                  <li key={i} className={styles.baItem}>
+                    <span className={styles.baBullet} />
+                    {L(p)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.after}>
+              <span className={styles.baTitle}>
+                <Check size={13} /> {ar ? 'بعد' : 'After'}
+              </span>
+              <ul className={styles.baList}>
+                {cs.after.map((p, i) => (
+                  <li key={i} className={styles.baItem}>
+                    <span className={styles.baCheck}>
+                      <Check size={11} />
+                    </span>
+                    {L(p)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.kpiWrap}>
+          <span className={styles.groupLabel}>{ar ? 'النتائج — مؤشرات تنفيذية' : 'RESULTS · EXECUTIVE KPIs'}</span>
+          <div className={styles.kpiGrid}>
+            {cs.kpis.map((k, i) => (
+              <KpiCounter key={i} kpi={k} reduced={reduced} />
+            ))}
+          </div>
+          <div className={styles.kpiLabels}>
+            {cs.kpis.map((k, i) => (
+              <div key={i} className={styles.kpiLabelBlock}>
+                <span className={styles.kpiLabel}>{L(k.label)}</span>
+                <span className={styles.kpiNote}>{L(k.note)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.impact}>
+          <TrendingUp size={18} className={styles.impactIcon} />
+          <p className={styles.impactText}>{L(cs.impact)}</p>
+        </div>
+
+        <aside className={styles.recommend}>
+          <span className={styles.recommendLabel}>
+            <Award size={14} /> {ar ? 'التوصية التنفيذية' : 'EXECUTIVE RECOMMENDATION'}
+          </span>
+          <p className={styles.recommendText}>{L(cs.recommendation)}</p>
+          <div className={styles.ctaRow}>
+            <Link to="/industries" className={styles.ctaGhost}>
+              {ar ? 'اعرف المزيد' : 'Learn More'}
+              <ArrowUpRight size={14} />
+            </Link>
+            <Link to={cs.to} className={styles.ctaPrimary}>
+              {ar ? 'الحل ذو الصلة' : 'Related Solution'}
+              <ArrowUpRight size={14} />
+            </Link>
+            <button type="button" className={styles.ctaGold} onClick={handleCTA}>
+              {ar ? 'تواصل مع خبير' : 'Contact Expert'}
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        </aside>
+      </div>
+    </>
+  );
+}
+
 export function ExecutiveCaseStudies() {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const { prefersReducedMotion } = useMotion();
   const reduced = prefersReducedMotion;
-  const handleCTA = useCTA();
-  const [activeId, setActiveId] = useState(CASES[0].id);
-  const active = CASES.find((c) => c.id === activeId) ?? CASES[0];
-
+  const [active, setActive] = useState<CaseStudy | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const lastTriggerRef = useRef<HTMLElement | null>(null);
   const L = (v: Localized) => (ar ? v.ar : v.en);
+
+  const open = useCallback((cs: CaseStudy, el: HTMLElement | null) => {
+    lastTriggerRef.current = el;
+    setActive(cs);
+    playSound('hologram');
+  }, []);
+
+  const close = useCallback(() => {
+    setActive(null);
+    lastTriggerRef.current?.focus?.();
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
+    document.body.style.overflow = 'hidden';
+    closeBtnRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [active, close]);
+
+  const onCardMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduced) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
 
   return (
     <section className={styles.section} aria-label={ar ? 'تجارب دراسة الحالة' : 'Executive case studies'}>
@@ -469,215 +694,116 @@ export function ExecutiveCaseStudies() {
           </motion.p>
         </header>
 
-        <div className={styles.layout}>
-          <motion.nav
-            className={styles.rail}
-            aria-label={ar ? 'دراسات الحالة' : 'Case studies'}
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease }}
-          >
-            {CASES.map((cs, i) => {
-              const Icon = INDUSTRY_ICONS[cs.id];
-              const isActive = cs.id === activeId;
-              return (
-                <button
-                  key={cs.id}
-                  type="button"
-                  className={`${styles.railItem} ${isActive ? styles.railActive : ''}`}
-                  onClick={() => setActiveId(cs.id)}
-                  aria-pressed={isActive}
-                >
-                  <span className={styles.railNum}>0{i + 1}</span>
-                  <span className={styles.railBody}>
-                    <span className={styles.railIndustry}>{L(cs.industry)}</span>
-                    <span className={styles.railClient}>{L(cs.client)}</span>
-                  </span>
-                  <Icon size={18} strokeWidth={1.5} className={styles.railIcon} />
-                  <span className={styles.railChevron} aria-hidden="true">
-                    {ar ? '‹' : '›'}
-                  </span>
-                </button>
-              );
-            })}
-          </motion.nav>
-
-          <motion.div
-            className={styles.detailWrap}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease, delay: 0.1 }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.article
-                key={active.id}
-                className={styles.detail}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.35, ease }}
+        <motion.div
+          className={styles.grid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+        >
+          {CASES.map((cs) => {
+            const Icon = INDUSTRY_ICONS[cs.id] ?? Heart;
+            return (
+              <motion.div
+                key={cs.id}
+                className={styles.card}
+                role="button"
+                tabIndex={0}
+                aria-haspopup="dialog"
+                aria-expanded={active?.id === cs.id}
+                aria-label={`${L(cs.client)} — ${L(cs.title)}`}
+                variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.55, ease }}
+                onClick={(e) => open(cs, e.currentTarget)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    open(cs, e.currentTarget);
+                  }
+                }}
+                onMouseMove={onCardMove}
+                onMouseEnter={() => playSound('ctaHover')}
               >
-                <header className={styles.detailHeader}>
-                  <div className={styles.metaRow}>
-                    <span className={styles.industryChip}>
-                      <IndustryIcon id={active.id} />
-                      {L(active.industry)}
-                    </span>
-                    <span className={styles.metaItem}>
-                      <MapPin size={13} /> {L(active.region)}
-                    </span>
-                    <span className={styles.metaItem}>
-                      <CalendarDays size={13} /> {L(active.duration)}
-                    </span>
-                  </div>
-                  <h3 className={styles.clientName}>{L(active.client)}</h3>
-                  <p className={styles.tagline}>{L(active.title)}</p>
-                </header>
-
-                <div className={styles.blocks}>
-                  <div className={styles.block}>
-                    <span className={styles.blockLabel}>
-                      <Target size={13} /> {ar ? 'التحدي' : 'THE CHALLENGE'}
-                    </span>
-                    <p className={styles.blockText}>{L(active.challenge)}</p>
-                  </div>
-                  <div className={styles.block}>
-                    <span className={styles.blockLabel}>
-                      <Lightbulb size={13} /> {ar ? 'حل XVI' : 'THE XVI SOLUTION'}
-                    </span>
-                    <p className={styles.blockText}>{L(active.solution)}</p>
-                  </div>
-                </div>
-
-                <div className={styles.techWrap}>
-                  <span className={styles.groupLabel}>{ar ? 'تقنيات الذكاء الاصطناعي' : 'AI TECHNOLOGIES'}</span>
-                  <div className={styles.techChips}>
-                    {active.tech.map((t, i) => (
-                      <motion.span
-                        key={i}
-                        className={styles.techChip}
-                        initial={{ opacity: 0, scale: 0.94 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, ease, delay: i * 0.06 }}
-                      >
-                        <Sparkles size={12} /> {L(t)}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={styles.timelineWrap}>
-                  <span className={styles.groupLabel}>{ar ? 'مراحل التنفيذ' : 'IMPLEMENTATION PROCESS'}</span>
-                  <ol className={styles.timeline}>
-                    {active.process.map((step, i) => (
-                      <motion.li
-                        key={i}
-                        className={styles.timelineStep}
-                        initial={{ opacity: 0, y: 14 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.45, ease, delay: i * 0.1 }}
-                      >
-                        <span className={styles.stepNum}>0{i + 1}</span>
-                        <span className={styles.stepDot} />
-                        <div className={styles.stepBody}>
-                          <h4 className={styles.stepTitle}>{L(step.title)}</h4>
-                          <p className={styles.stepDesc}>{L(step.desc)}</p>
-                        </div>
-                      </motion.li>
-                    ))}
-                  </ol>
-                </div>
-
-                <div className={styles.baWrap}>
-                  <span className={styles.groupLabel}>{ar ? 'قبل / بعد' : 'BEFORE / AFTER'}</span>
-                  <div className={styles.baGrid}>
-                    <div className={styles.before}>
-                      <span className={styles.baTitle}>
-                        <Minus size={13} /> {ar ? 'قبل' : 'Before'}
-                      </span>
-                      <ul className={styles.baList}>
-                        {active.before.map((p, i) => (
-                          <li key={i} className={styles.baItem}>
-                            <span className={styles.baBullet} />
-                            {L(p)}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className={styles.after}>
-                      <span className={styles.baTitle}>
-                        <Check size={13} /> {ar ? 'بعد' : 'After'}
-                      </span>
-                      <ul className={styles.baList}>
-                        {active.after.map((p, i) => (
-                          <li key={i} className={styles.baItem}>
-                            <span className={styles.baCheck}>
-                              <Check size={11} />
-                            </span>
-                            {L(p)}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.kpiWrap}>
-                  <span className={styles.groupLabel}>{ar ? 'النتائج — مؤشرات تنفيذية' : 'RESULTS · EXECUTIVE KPIs'}</span>
-                  <div className={styles.kpiGrid}>
-                    {active.kpis.map((k, i) => (
-                      <KpiCounter key={i} kpi={k} reduced={reduced} />
-                    ))}
-                  </div>
-                  <div className={styles.kpiLabels}>
-                    {active.kpis.map((k, i) => (
-                      <div key={i} className={styles.kpiLabelBlock}>
-                        <span className={styles.kpiLabel}>{L(k.label)}</span>
-                        <span className={styles.kpiNote}>{L(k.note)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={styles.impact}>
-                  <TrendingUp size={18} className={styles.impactIcon} />
-                  <p className={styles.impactText}>{L(active.impact)}</p>
-                </div>
-
-                <aside className={styles.recommend}>
-                  <span className={styles.recommendLabel}>
-                    <Award size={14} /> {ar ? 'التوصية التنفيذية' : 'EXECUTIVE RECOMMENDATION'}
+                <span className={styles.cardGlow} aria-hidden="true" />
+                <div className={styles.cardTop}>
+                  <span className={styles.industryChip}>
+                    <Icon size={13} /> {L(cs.industry)}
                   </span>
-                  <p className={styles.recommendText}>{L(active.recommendation)}</p>
-                  <div className={styles.ctaRow}>
-                    <Link to="/industries" className={styles.ctaGhost}>
-                      {ar ? 'اعرف المزيد' : 'Learn More'}
-                      <ArrowUpRight size={14} />
-                    </Link>
-                    <Link to={active.to} className={styles.ctaPrimary}>
-                      {ar ? 'الحل ذو الصلة' : 'Related Solution'}
-                      <ArrowUpRight size={14} />
-                    </Link>
-                    <button type="button" className={styles.ctaGold} onClick={handleCTA}>
-                      {ar ? 'تواصل مع خبير' : 'Contact Expert'}
-                      <ArrowRight size={14} />
-                    </button>
+                  <span className={styles.cardMeta}>
+                    <span className={styles.metaItem}>
+                      <MapPin size={12} /> {L(cs.region)}
+                    </span>
+                    <span className={styles.metaItem}>
+                      <CalendarDays size={12} /> {L(cs.duration)}
+                    </span>
+                  </span>
+                </div>
+
+                <h3 className={styles.cardClient}>{L(cs.client)}</h3>
+                <p className={styles.cardTagline}>{L(cs.title)}</p>
+
+                <div className={styles.cardBlocks}>
+                  <div>
+                    <span className={styles.blockLabel}>
+                      <Target size={12} /> {ar ? 'التحدي' : 'CHALLENGE'}
+                    </span>
+                    <p className={styles.cardText}>{L(cs.challenge)}</p>
                   </div>
-                </aside>
-              </motion.article>
-            </AnimatePresence>
-          </motion.div>
-        </div>
+                  <div>
+                    <span className={styles.blockLabel}>
+                      <Lightbulb size={12} /> {ar ? 'حل الذكاء الاصطناعي' : 'AI SOLUTION'}
+                    </span>
+                    <p className={styles.cardText}>{L(cs.solution)}</p>
+                  </div>
+                </div>
+
+                <div className={styles.cardKpis}>
+                  {cs.kpis.slice(0, 2).map((k, i) => (
+                    <KpiMini key={i} kpi={k} label={L(k.label)} reduced={reduced} />
+                  ))}
+                </div>
+
+                <div className={styles.cardFoot}>
+                  <span className={styles.cardImpact}>
+                    <TrendingUp size={14} /> {L(cs.impact)}
+                  </span>
+                  <span className={styles.cardCta}>
+                    {ar ? 'اقرأ قصة الحالة' : 'View case story'} <ArrowUpRight size={15} />
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
+
+      <AnimatePresence>
+        {active && (
+          <motion.div
+            className={styles.overlay}
+            role="presentation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0 : 0.25 }}
+            onClick={close}
+          >
+            <motion.div
+              className={styles.modal}
+              role="dialog"
+              aria-modal="true"
+              aria-label={L(active.client)}
+              onClick={(e) => e.stopPropagation()}
+              initial={reduced ? undefined : { scale: 0.96, y: 24, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={reduced ? undefined : { scale: 0.97, y: 16, opacity: 0 }}
+              transition={{ duration: reduced ? 0 : 0.32, ease }}
+            >
+              <CaseDetail cs={active} reduced={reduced} onClose={close} closeBtnRef={closeBtnRef} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
-}
-
-function IndustryIcon({ id }: { id: string }) {
-  const Icon = INDUSTRY_ICONS[id] ?? Heart;
-  return <Icon size={13} />;
 }
