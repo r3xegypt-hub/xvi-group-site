@@ -22,6 +22,7 @@ async function init(page) {
   await init(page);
 
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('div[class*="visualField"]', { state: 'attached', timeout: 20000 }).catch(() => {});
   const homeImgs = await page.evaluate(() =>
     Array.from(document.querySelectorAll('img'))
       .map((e) => e.getAttribute('src') || '')
@@ -33,6 +34,7 @@ async function init(page) {
   report(techDiamond >= 2, `Home: Technology diamond geometry present (${techDiamond} polygons)`);
 
   await page.goto(BASE + '/about', { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('section', { state: 'attached', timeout: 20000 }).catch(() => {});
   const aboutImgs = await page.evaluate(() =>
     Array.from(document.querySelectorAll('img'))
       .map((e) => e.getAttribute('src') || '')

@@ -45,6 +45,7 @@ async function settleOpacity(page, locator, targetAboveHalf) {
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
 
   const scene = page.locator('div[class*="scene"]:has([class*="holoBase"])');
+  await scene.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
   report(await scene.count() === 1, 'hero robot scene present');
   report(await scene.locator('[class*="holoBase"]').count() === 1, 'hologram base present');
   report(await scene.locator('svg[class*="head"]').count() === 1, 'robot face present');
@@ -149,6 +150,7 @@ async function settleOpacity(page, locator, targetAboveHalf) {
   await init(rPage);
   await rPage.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
   const rScene = rPage.locator('div[class*="scene"]:has([class*="holoBase"])');
+  await rScene.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
   report(await rScene.count() === 1, 'reduced motion: robot present');
   const rEyeAnim = await rScene.locator('[class*="eyes"]').evaluate((el) => getComputedStyle(el).animationName);
   report(rEyeAnim === 'none', `reduced motion: eye animation disabled (${rEyeAnim})`);
@@ -168,6 +170,7 @@ async function settleOpacity(page, locator, targetAboveHalf) {
   await init(mPage);
   await mPage.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
   const mScene = mPage.locator('div[class*="scene"]:has([class*="holoBase"])');
+  await mScene.first().waitFor({ state: 'attached', timeout: 20000 }).catch(() => {});
   report(await mScene.count() === 1, 'mobile: robot present');
   report(await mScene.locator('svg[class*="head"]').count() === 1, 'mobile: face present');
   const mOverflow = await mPage.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
