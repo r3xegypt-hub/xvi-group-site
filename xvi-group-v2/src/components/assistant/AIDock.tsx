@@ -12,6 +12,8 @@ import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
 import { loadMemory, persistMemory, extractMemory, isMemoryAsk, hasLearnedFields } from '../../hooks/executiveMemory';
 import type { ExecutiveMemory } from '../../hooks/executiveMemory';
+import { classifyInput, createState, beginIntake, advanceIntake, intakeQuestion } from '../../assistant/consultant';
+import type { ConversationState } from '../../assistant/consultant';
 import { useJourney } from '../../hooks/journeyContext';
 import { journeyMeta } from '../../hooks/journeyContext';
 import type { JourneyId } from '../../hooks/journeyContext';
@@ -527,6 +529,7 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
   const [memory, setMemory] = useState<ExecutiveMemory>(() => loadMemory());
   const memoryRef = useRef(memory);
+  const stateRef = useRef<ConversationState>(createState());
   const prevOpenRef = useRef(false);
   const { language } = useLanguage();
   const isAR = language === 'ar';
@@ -889,6 +892,14 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
       /\b(recommend(ation|s|ed)?|advise|suggest(ion)?|what should (i|we)|best solution|best path)\b/i.test(q) ||
       /(أوصي|نصيحة|تنصح|توصي(ة|ة)|ماذا تنصح|أفضل حل|أنسب مسار)/.test(q);
 
+    const classify = classifyInput(q);
+    const conv = stateRef.current;
+    const inIntake =
+      conv.stage === 'intake-industry' ||
+      conv.stage === 'intake-goal' ||
+      conv.stage === 'intake-timeline' ||
+      conv.stage === 'intake-size';
+
     const ackLines: string[] = [];
     const ackNodeParts: ReactNode[] = [];
     if (learned.name) {
@@ -959,6 +970,15 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
       );
     };
 
+    const textBlock = (text: string) => (
+      <div>
+        <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7, whiteSpace: 'pre-line' }}>
+          {text}
+        </div>
+        <PersonaSignature isAR={isAR} />
+      </div>
+    );
+
     if (memoryAsk) {
       const summary = [
         merged.name ? `${isAR ? 'الاسم' : 'Name'}: ${merged.name}` : '',
@@ -985,6 +1005,35 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
           <PersonaSignature isAR={isAR} />
         </div>
       );
+    } else if (inIntake) {
+      const recorded: ConversationState = { ...conv, exchanges: conv.exchanges + 1 };
+      switch (conv.stage) {
+        case 'intake-industry': recorded.industry = q; break;
+        case 'intake-goal': recorded.goal = q; break;
+        case 'intake-timeline': recorded.timeline = q; break;
+        case 'intake-size': recorded.size = q; break;
+      }
+      const nextState = advanceIntake(recorded);
+      stateRef.current = nextState;
+
+      if (nextState.stage === 'consult') {
+        const parts = [
+          recorded.industry ? (isAR ? `القطاع: ${recorded.industry}` : `industry: ${recorded.industry}`) : null,
+          recorded.goal ? (isAR ? `الهدف: ${recorded.goal}` : `goal: ${recorded.goal}`) : null,
+          recorded.timeline ? (isAR ? `الإطار الزمني: ${recorded.timeline}` : `timeline: ${recorded.timeline}`) : null,
+          recorded.size ? (isAR ? `الحجم: ${recorded.size}` : `size: ${recorded.size}`) : null,
+        ].filter(Boolean).join(' · ');
+        speechText = isAR
+          ? `شكراً — أصبحت الصورة واضحة الآن: ${parts}. سأبني توصية مخصصة بناءً على ذلك. قبل أن أفعل، هل توجد نتيجة محددة تريد مني أن أعطيها الأولوية؟`
+          : `Thank you — I now have a clear picture: ${parts}. I'll shape a tailored recommendation around this. Before I do, is there any specific outcome you want me to prioritize?`;
+        aiResponse = textBlock(speechText);
+      } else {
+        const step = intakeQuestion(nextState, isAR ? 'ar' : 'en');
+        speechText = isAR
+          ? `ممتاز — سجّلت ذلك. ${step.question}`
+          : `Great — noted. ${step.question}`;
+        aiResponse = textBlock(speechText);
+      }
     } else if (learnedFields) {
       if (match && match.score >= 2) {
         speechText = ackLines.join(' ') + ' ' + (typeof match.entry.response(isAR) === 'string' ? (match.entry.response(isAR) as string) : '');
@@ -1037,6 +1086,17 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
       speechText = typeof resp === 'string' ? resp : '';
       recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
       aiResponse = matchBody(entry);
+    } else if (classify.intent === 'project' && classify.projectType) {
+      const nextState = beginIntake(conv, classify.projectType);
+      stateRef.current = nextState;
+      const label = classify.projectLabel ? (isAR ? classify.projectLabel.ar : classify.projectLabel.en) : null;
+      const step = intakeQuestion(nextState, isAR ? 'ar' : 'en');
+      speechText = label
+        ? isAR
+          ? `فهمت — تخطط لإنشاء ${label}. ${step.question}`
+          : `Got it — you're planning ${/^[aeiou]/i.test(label) ? 'an' : 'a'} ${label}. ${step.question}`
+        : step.question;
+      aiResponse = textBlock(speechText);
     } else {
       speechText = isAR
         ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
@@ -1140,6 +1200,7 @@ export function AIDock({ hideDock = false }: { hideDock?: boolean }) {
       setShowResponse(false);
       setResponse(null);
       setMessageLog([]);
+      stateRef.current = createState();
     }
   }, [open]);
 
