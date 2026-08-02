@@ -58,6 +58,17 @@ export function SeoHead() {
     upsertMeta('meta[name="twitter:description"]', 'twitter:description', null, (el) => { el.setAttribute('content', localized.description); });
 
     upsertLink('canonical', (el) => { el.href = url; });
+
+    for (const hreflang of ['en', 'ar', 'x-default'] as const) {
+      let el = document.head.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${hreflang}"]`);
+      if (!el) {
+        el = document.createElement('link');
+        el.rel = 'alternate';
+        el.setAttribute('hreflang', hreflang);
+        document.head.appendChild(el);
+      }
+      el.href = url;
+    }
   }, [pathname, language]);
 
   return null;
