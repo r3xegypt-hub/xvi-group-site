@@ -44,10 +44,19 @@ function PageShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AppContent({ pending }: { pending: boolean }) {
+  const location = useLocation();
+  return (
+    <>
+      <AIDock hideDock={location.pathname === '/'} />
+      {!pending && <ExecutiveConcierge />}
+    </>
+  );
+}
+
 function App() {
   const [pending, setPending] = useState(true);
   const introSeenRef = useRef(localStorage.getItem('xviIntroDone') === 'true');
-  const location = useLocation();
 
   const handleFinish = useCallback(() => {
     localStorage.setItem('xviIntroDone', 'true');
@@ -93,8 +102,7 @@ function App() {
                   <Route path="*" element={<PageShell><Home /></PageShell>} />
                 </Routes>
               </PageTransition>
-              <AIDock hideDock={location.pathname === '/'} />
-              {!pending && <ExecutiveConcierge />}
+              <AppContent pending={pending} />
             </div>
             </MotionConfig>
           </MotionProvider>
