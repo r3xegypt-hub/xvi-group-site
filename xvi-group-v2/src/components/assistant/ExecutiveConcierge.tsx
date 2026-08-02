@@ -6,6 +6,7 @@ import { useLanguage } from '../../hooks/LanguageProvider';
 import { useJourney } from '../../hooks/journeyContext';
 import type { JourneyId } from '../../hooks/journeyContext';
 import { JOURNEYS } from '../../hooks/journeyContext';
+import { loadMemory } from '../../hooks/executiveMemory';
 import { ArrowRight, Bot, Sparkles } from 'lucide-react';
 import styles from './ExecutiveConcierge.module.scss';
 
@@ -53,6 +54,7 @@ export function ExecutiveConcierge() {
   const [speaking, setSpeaking] = useState(false);
   const [thinking, setThinking] = useState(false);
   const [selectedJourney, setSelectedJourney] = useState<JourneyId | null>(null);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const robotRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ sx: number; sy: number; ox: number; oy: number; moved: boolean } | null>(null);
@@ -60,10 +62,12 @@ export function ExecutiveConcierge() {
   phaseRef.current = phase;
 
   const onceRef = useRef(false);
+  const heroYieldRef = useRef(false);
   const seenState = useRef({
     ever: localStorage.getItem(SEEN_KEY) === 'true',
     session: sessionStorage.getItem(SESSION_KEY) === 'true',
   }).current;
+  const memoryRef = useRef(loadMemory()).current;
 
   // Initialise once: corner robot for repeat/other-page visits.
   useEffect(() => {
@@ -84,11 +88,16 @@ export function ExecutiveConcierge() {
     if (phaseRef.current === 'minimize' || phaseRef.current === 'robot') return;
     setPhase('minimize');
     setRobotOffset({ x: 0, y: 0, scale: 1, opacity: 1 });
-    // Signal the Hero robot to animate its exit (shrink, fade, fly toward bottom-right)
-    if (location.pathname === '/') {
-      window.dispatchEvent(new CustomEvent('xvi:hero-robot-transition'));
-    }
-  }, [location.pathname]);
+  }, []);
+
+  // Single robot entry: as the floating concierge arrives at the hero position,
+  // the Hero robot yields so only one robot represents the AI during the greeting.
+  useEffect(() => {
+    if (phase !== 'arrive' || heroYieldRef.current) return;
+    if (location.pathname !== '/') return;
+    heroYieldRef.current = true;
+    window.dispatchEvent(new CustomEvent('xvi:hero-robot-transition'));
+  }, [phase, location.pathname]);
 
   // Cinematic sequence: arrive -> selector -> confirm.
   useEffect(() => {
@@ -357,7 +366,10 @@ export function ExecutiveConcierge() {
              transition={isGreeting ? { duration: 1.2, ease } : phase === 'minimize' ? { duration: 1.2, ease: [0.16, 0.8, 0.3, 1] } : { duration: 0.6, ease }}
             onPointerDown={onRobotPointerDown}
             onMouseMove={onRobotHover}
-            onMouseLeave={() => setMag({ x: 0, y: 0 })}
+            onMouseEnter={() => setTooltipVisible(true)}
+            onMouseLeave={() => { setTooltipVisible(false); setMag({ x: 0, y: 0 }); }}
+            onFocus={() => setTooltipVisible(true)}
+            onBlur={() => setTooltipVisible(false)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -368,8 +380,12 @@ export function ExecutiveConcierge() {
              role="button"
              tabIndex={0}
            >
-             <div className={styles.tooltip}>
-               {isRTL ? 'كيف يمكنني مساعدتك؟' : 'Need help?'}
+             <div className={`${styles.tooltip} ${tooltipVisible ? styles.tooltipShow : ''}`}>
+               {memoryRef.name
+                 ? isRTL
+                   ? `مرحباً بعودتك، ${memoryRef.name}`
+                   : `Welcome back, ${memoryRef.name}`
+                 : isRTL ? 'كيف يمكنني مساعدتك؟' : 'Need help?'}
              </div>
              <div className={styles.floorShadow} />
             <motion.div

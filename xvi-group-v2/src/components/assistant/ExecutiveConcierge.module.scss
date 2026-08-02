@@ -467,6 +467,12 @@
         transform: translateX(-50%) translateY(-2px);
       }
     }
+
+    // JS-driven reveal (works everywhere, incl. keyboard focus & headless CI)
+    &.tooltipShow {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
   }
 
   .head {
