@@ -13,9 +13,9 @@ export const SITE_CONFIG = {
     en: 'A world-class advisory enterprise empowering organizations to transform vision into measurable sovereign performance.',
     ar: 'مشروع استشاري عالمي المستوى يمكّن المؤسسات من تحويل الرؤية إلى أداء سيادي قابل للقياس.',
   },
-  url: 'https://xvigroup.com',
+  url: 'https://r3xegypt-hub.github.io/xvi-group-site',
   locale: 'en',
-  ogImage: '/og-image.jpg',
+  ogImage: '/social-preview.png',
   favicon: '/identity/favicon.svg',
 } as const;
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://r3xegypt-hub.github.io/xvi-group-site/sitemap.xml

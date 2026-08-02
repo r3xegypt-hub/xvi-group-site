@@ -10,6 +10,7 @@ import { Navigation } from './components/navigation/Navigation';
 import { Footer } from './components/footer/Footer';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { PageTransition } from './components/ui/PageTransition';
+import { SeoHead } from './seo/SeoHead';
 import { CustomCursor } from './motion/CustomCursor';
 import { MouseGlow } from './motion/MouseGlow';
 import { ExecutiveBackground } from './components/scene/ExecutiveBackground';
@@ -48,6 +49,7 @@ function AppContent({ pending }: { pending: boolean }) {
   const location = useLocation();
   return (
     <>
+      <SeoHead />
       <AIDock hideDock={location.pathname === '/'} />
       {!pending && <ExecutiveConcierge />}
     </>
