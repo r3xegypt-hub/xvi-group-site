@@ -57,5 +57,5 @@ const ROUTES = ['/', '/services', '/industries', '/insights', '/about', '/techno
   await browser.close();
   const passed = results.filter(Boolean).length;
   console.log(`\n=== ${passed}/${results.length} CHECKS PASSED ===`);
-  process.exit(passed === results.length ? 1 : 0);
+  process.exit(passed === results.length ? 0 : 1);
 })().catch((e) => { console.error('Fatal:', e); process.exit(1); });

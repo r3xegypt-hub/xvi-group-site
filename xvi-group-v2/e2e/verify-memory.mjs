@@ -93,9 +93,9 @@ async function storedMemory(page) {
     await openDock(page, 'en');
     await submitText(page, 'My name is Omar.');
     await page.locator('div[style*="bottom: 100px"]').getByText('Nice to meet you, Omar', { exact: false }).waitFor({ state: 'visible', timeout: 12000 });
-    await page.locator('div[style*="bottom: 24px"] button').first().click();
+    await page.locator('div[style*="bottom: 100px"] button', { has: page.locator('svg.lucide-x') }).first().click();
     await page.locator('div[style*="bottom: 100px"]').waitFor({ state: 'hidden', timeout: 6000 }).catch(() => {});
-    await page.locator('div[style*="bottom: 24px"] button').first().click();
+    await page.locator(`[aria-label="Executive AI Concierge"]`).click();
     await page.locator('div[style*="bottom: 100px"]').waitFor({ state: 'visible', timeout: 10000 });
     await page.locator('div[style*="bottom: 100px"]').getByText('Welcome back, Omar', { exact: false }).waitFor({ state: 'visible', timeout: 6000 });
     report(true, 'EN: dock reopens with name-based greeting');

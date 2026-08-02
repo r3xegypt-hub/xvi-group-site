@@ -47,6 +47,7 @@ async function setupPage(browser, plays, errors) {
   const page = await setupPage(browser, plays, errors);
   await init(page);
   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('button:has-text("Explore our solutions")', { state: 'attached', timeout: 20000 });
 
   report((await page.locator('button:has-text("Explore our solutions")').count()) > 0, 'hero CTA present');
 
@@ -81,6 +82,7 @@ async function setupPage(browser, plays, errors) {
   const mPage = await setupPage(browser, mPlays, mErrors);
   await init(mPage, 'off');
   await mPage.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await mPage.waitForSelector('button:has-text("Talk to the Executive AI")', { state: 'attached', timeout: 20000 });
   await mPage.locator('button:has-text("Talk to the Executive AI")').hover();
   await mPage.waitForTimeout(200);
   await mPage.locator('button:has-text("Talk to the Executive AI")').click();
@@ -95,7 +97,10 @@ async function setupPage(browser, plays, errors) {
   const gPage = await setupPage(browser, gPlays, gErrors);
   await init(gPage);
   await gPage.goto(BASE + '/industries', { waitUntil: 'domcontentloaded' });
-  await gPage.waitForTimeout(1200);
+  await gPage.waitForFunction(
+    () => document.querySelectorAll('svg[role="group"] [role="button"][aria-label]').length >= 7,
+    { timeout: 20000 }
+  );
   const nodes = gPage.locator('svg[role="group"] [role="button"][aria-label]');
   const nodeCount = await nodes.count();
   report(nodeCount === 7, `industries: globe nodes present (${nodeCount})`);

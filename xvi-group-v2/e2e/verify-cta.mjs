@@ -13,9 +13,16 @@ async function waitStable(page) {
   await page.waitForTimeout(4000);
 }
 async function dockVisible(page) {
-  try { await page.locator('button[aria-label="Open Executive AI"]').first().waitFor({ state: 'visible', timeout: 3000 }); return true; } catch { return false; }
+  try { await page.locator('div[style*="bottom: 100px"]').first().waitFor({ state: 'visible', timeout: 3000 }); return true; } catch { return false; }
 }
-async function closeDock(page) { await page.keyboard.press('Escape'); await page.waitForTimeout(600); }
+async function closeDock(page) {
+  const closeBtn = page.locator('div[style*="bottom: 100px"] button', { has: page.locator('svg.lucide-x') }).first();
+  if (await closeBtn.isVisible().catch(() => false)) { await closeBtn.click({ force: true }); await page.waitForTimeout(600); }
+}
+async function openDockHome(page) {
+  await page.locator('[aria-label="Executive AI Concierge"]').first().click({ force: true });
+  await page.locator('div[style*="bottom: 100px"]').first().waitFor({ state: 'visible', timeout: 8000 });
+}
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -28,7 +35,10 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   // Set localStorage BEFORE any navigation to skip intro
   const skipIntro = async (page) => {
     await page.addInitScript(() => {
-      try { localStorage.setItem('xviIntroDone', 'true'); } catch {}
+      try {
+        localStorage.setItem('xviIntroDone', 'true');
+        localStorage.setItem('xviConciergeSeen', 'true');
+      } catch {}
     });
   };
   await skipIntro(desktop);
@@ -130,17 +140,15 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
 
-  const dt = desktop.locator('button[aria-label="Open Executive AI"]').first();
-  if (await dt.isVisible()) {
-    await dt.click(CLICK); await desktop.waitForTimeout(1200);
-    pass('AI Dock opened');
+  await openDockHome(desktop);
+  pass('AI Dock opened');
 
-    // The dock has quick action buttons inside. Target the one in the dock panel.
+  // The dock has quick action buttons inside. Target the one in the dock panel.
     const dockPane = desktop.locator('div[style*="border-radius: 28px"]');
     const dockExpert = dockPane.locator('button').filter({ hasText: 'Contact Expert' }).first();
     if (await dockExpert.isVisible()) {
       pass('"Contact Expert" found inside dock');
-      await dockExpert.click(CLICK); await desktop.waitForTimeout(1800);
+      await dockExpert.click(CLICK); await desktop.waitForTimeout(3200);
       const recCard = dockPane.getByText('Recommended Next Step', { exact: true });
       (await recCard.isVisible().catch(() => false)) ? pass('→ recommendation card rendered') : fail('→ recommendation card NOT rendered');
       // The consultant CTA inside the card navigates to /contact
@@ -158,12 +166,11 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
       pass(`Found ${count} 'Contact Expert' buttons after opening dock`);
       if (count > 0) {
         await allButtonsAfterOpen.nth(count - 1).click(CLICK);
-        await desktop.waitForTimeout(1800);
+        await desktop.waitForTimeout(3200);
         const recCard = dockPane.getByText('Recommended Next Step', { exact: true });
         (await recCard.isVisible().catch(() => false)) ? pass('→ recommendation card rendered') : fail('→ recommendation card NOT rendered');
       } else fail('No "Contact Expert" button found after dock open');
     }
-  } else fail('Dock toggle not found');
 
   // 9. Route verification
   console.log('\n🔗 ROUTES');
@@ -203,8 +210,7 @@ async function closeDock(page) { await page.keyboard.press('Escape'); await page
   console.log('\n🔍 NAV WITH DOCK OPEN');
   await desktop.goto(BASE + '/', { waitUntil: 'networkidle' });
   await waitStable(desktop);
-  const d2 = desktop.locator('button[aria-label="Open Executive AI"]').first();
-  if (await d2.isVisible()) { await d2.click(CLICK); await desktop.waitForTimeout(900); }
+  await openDockHome(desktop);
   const svcLink = desktop.locator('header a').filter({ hasText: /^Solutions$/ }).first();
   if (await svcLink.isVisible()) {
     await svcLink.click(CLICK); await desktop.waitForTimeout(1500);
