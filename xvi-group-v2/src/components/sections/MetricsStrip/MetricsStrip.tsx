@@ -4,6 +4,7 @@ import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useMotion } from '../../../motion/providers/MotionProvider';
 import { useCountUp } from '../../../motion/hooks/useCountUp';
+import { TiltCard } from '../../../motion/TiltCard';
 import styles from './MetricsStrip.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -46,10 +47,10 @@ const METRICS: MetricDef[] = [
   },
 ];
 
-function Metric({ def, reduced }: { def: MetricDef; reduced: boolean }) {
+function Metric({ def, reduced, index }: { def: MetricDef; reduced: boolean; index: number }) {
   const { language } = useLanguage();
   const ar = language === 'ar';
-  const { ref, count } = useCountUp({ end: def.end, startOnView: !reduced, duration: 2000 });
+  const { ref, count } = useCountUp({ end: def.end, startOnView: !reduced, duration: 2200 });
   const value = reduced ? def.end : count;
 
   const display = useMemo(() => {
@@ -60,19 +61,22 @@ function Metric({ def, reduced }: { def: MetricDef; reduced: boolean }) {
   return (
     <motion.div
       ref={ref}
-      className={styles.metric}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: reduced ? 0 : 0.6, ease }}
+      initial={{ opacity: 0, y: 28, rotateX: -10 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: reduced ? 0 : 0.65, ease, delay: index * 0.1 }}
     >
-      <span className={styles.value}>
-        {def.prefix && <span className={styles.prefix}>{def.prefix}</span>}
-        {display}
-        {def.suffix && <span className={styles.suffix}>{def.suffix}</span>}
-      </span>
-      <span className={styles.rule} aria-hidden="true" />
-      <span className={styles.label}>{ar ? def.label.ar : def.label.en}</span>
+      <TiltCard tiltDegree={8} glare={true} depthOffset={18}>
+        <div className={styles.metric}>
+          <span className={styles.value}>
+            {def.prefix && <span className={styles.prefix}>{def.prefix}</span>}
+            {display}
+            {def.suffix && <span className={styles.suffix}>{def.suffix}</span>}
+          </span>
+          <span className={styles.rule} aria-hidden="true" />
+          <span className={styles.label}>{ar ? def.label.ar : def.label.en}</span>
+        </div>
+      </TiltCard>
     </motion.div>
   );
 }
@@ -86,18 +90,25 @@ export function MetricsStrip() {
   return (
     <section className={styles.section} aria-label={ar ? 'مؤشرات الأداء' : 'Performance metrics'}>
       <div className={styles.inner}>
-        <div className={styles.head}>
+        <motion.div
+          className={styles.head}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+        >
           <span className={styles.eyebrow}>{ar ? 'الأثر بالأرقام' : 'IMPACT IN NUMBERS'}</span>
           <span className={styles.tagline}>
             {ar ? 'نتائج قابلة للقياس عبر كل تكليف.' : 'Measured results across every mandate.'}
           </span>
-        </div>
+        </motion.div>
         <div className={styles.grid}>
-          {METRICS.map((m) => (
-            <Metric key={m.id} def={m} reduced={reduced} />
+          {METRICS.map((m, idx) => (
+            <Metric key={m.id} def={m} reduced={reduced} index={idx} />
           ))}
         </div>
       </div>
     </section>
   );
 }
+

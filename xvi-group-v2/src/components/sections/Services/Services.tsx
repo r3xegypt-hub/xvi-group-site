@@ -4,7 +4,8 @@ import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import type { JourneyId } from '../../../hooks/journeyContext';
-import { MouseReactive } from '../../../motion/MouseReactive';
+import { TiltCard } from '../../../motion/TiltCard';
+import { MagneticButton } from '../../../motion/MagneticButton';
 import styles from './Services.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -54,7 +55,7 @@ export function Services({ focus }: Props) {
   const { language } = useLanguage();
   const ar = language === 'ar';
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   const focusIndex = focus ? FOCUS_INDEX[focus] : -1;
   const ordered = focusIndex >= 0
@@ -66,7 +67,7 @@ export function Services({ focus }: Props) {
       <div className={styles.container}>
         <motion.span
           className={styles.label}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
         >
@@ -75,7 +76,7 @@ export function Services({ focus }: Props) {
 
         <motion.h2
           className={styles.heading}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease, delay: 0.1 }}
         >
@@ -88,42 +89,49 @@ export function Services({ focus }: Props) {
           {ordered.map((service, i) => {
             const isFocus = focusIndex >= 0 && service === services[focusIndex];
             return (
-              <MouseReactive key={service.num} intensity={6} perspective={1000}>
               <motion.div
-                className={`${styles.card} ${styles[service.bg]} ${isFocus ? styles.focused : ''}`}
-                initial={{ opacity: 0, y: 24 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, ease, delay: 0.2 + i * 0.1 }}
+                key={service.num}
+                initial={{ opacity: 0, y: 28, rotateX: -12 }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ duration: 0.6, ease, delay: 0.2 + i * 0.12 }}
               >
-                {isFocus && (
-                  <span className={styles.focusTag}>
-                    {ar ? 'مسارك المختار' : 'Your journey'}
-                  </span>
-                )}
-                <span className={styles.cardNum}>{service.num}</span>
-                <h3 className={styles.cardTitle}>
-                  {ar ? service.title.ar : service.title.en}
-                </h3>
-                <p className={styles.cardDesc}>
-                  {ar ? service.desc.ar : service.desc.en}
-                </p>
+                <TiltCard tiltDegree={10} glare={true} depthOffset={20}>
+                  <div
+                    className={`${styles.card} ${styles[service.bg]} ${isFocus ? styles.focused : ''}`}
+                  >
+                    {isFocus && (
+                      <span className={styles.focusTag}>
+                        {ar ? 'مسارك المختار' : 'Your journey'}
+                      </span>
+                    )}
+                    <span className={styles.cardNum}>{service.num}</span>
+                    <h3 className={styles.cardTitle}>
+                      {ar ? service.title.ar : service.title.en}
+                    </h3>
+                    <p className={styles.cardDesc}>
+                      {ar ? service.desc.ar : service.desc.en}
+                    </p>
+                  </div>
+                </TiltCard>
               </motion.div>
-              </MouseReactive>
             );
           })}
         </div>
 
         <motion.div
           className={styles.ctaRow}
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease, delay: 0.5 }}
+          transition={{ duration: 0.55, ease, delay: 0.55 }}
         >
-          <Link to="/services" className={styles.ctaLink}>
-            {ar ? 'اعرف المزيد' : 'Learn More'}
-          </Link>
+          <MagneticButton strength={0.35}>
+            <Link to="/services" className={styles.ctaLink}>
+              {ar ? 'اعرف المزيد' : 'Learn More'}
+            </Link>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>
   );
 }
+
