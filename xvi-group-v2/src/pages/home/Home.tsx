@@ -1,4 +1,5 @@
 import { Hero } from '../../components/sections/Hero/Hero';
+import { MetricsStrip } from '../../components/sections/MetricsStrip/MetricsStrip';
 import { Services } from '../../components/sections/Services/Services';
 import { Technology } from '../../components/sections/Technology/Technology';
 import { Industries } from '../../components/sections/Industries/Industries';
@@ -22,6 +23,7 @@ export function Home() {
       </div>
       <Hero />
       <SectionSeparator variant="gold-bar" />
+      <MetricsStrip />
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
         {meta && <JourneyFocusBanner meta={meta} onClear={clear} />}
       </div>
