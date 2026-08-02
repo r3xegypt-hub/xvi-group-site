@@ -16,7 +16,7 @@
 .heroBg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0a0a0a 0%, #132238 45%, #0d1520 100%);
+  background: linear-gradient(135deg, #e7e4df 0%, #f2f2f0 45%, #e3e0da 100%);
 }
 
 .heroOrbs {
@@ -44,7 +44,7 @@
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(19, 34, 56, 0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(63, 67, 72, 0.12), transparent 70%);
   animation: orbFloat 10s ease-in-out infinite reverse;
 }
 
@@ -66,7 +66,7 @@
   font-weight: 600;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: #b7934c;
+  color: #a98533;
   margin-bottom: 20px;
 }
 
@@ -76,7 +76,7 @@
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: #f7f6f3;
+  color: #3f4348;
   margin: 0 0 20px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
@@ -86,7 +86,7 @@
   font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-size: 1.0625rem;
   line-height: 1.7;
-  color: #c8c3bb;
+  color: #676b70;
   margin: 0;
   max-width: 520px;
 
@@ -137,20 +137,20 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   font-weight: 500;
-  color: #6b6b68;
+  color: #676b70;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
 
   [dir='rtl'] & { text-align: right; font-family: 'Alexandria', sans-serif; }
 
-  &:hover { background: rgba(200, 166, 90, 0.06); color: #101010; }
+  &:hover { background: rgba(200, 166, 90, 0.06); color: #3f4348; }
 }
 
 .activeTab {
   background: #ffffff;
   border-color: rgba(200, 166, 90, 0.2);
-  color: #101010;
+  color: #3f4348;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 
   svg:first-child { color: #c8a65a; }
@@ -174,7 +174,7 @@
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
   border-radius: 20px;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   box-shadow:
     0 1px 2px rgba(10, 22, 40, 0.02),
     0 4px 12px rgba(10, 22, 40, 0.02),
@@ -221,7 +221,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
-  color: #101010;
+  color: #3f4348;
   margin: 0;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
@@ -231,7 +231,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.75;
-  color: #6b6b68;
+  color: #676b70;
   margin: 0 0 32px;
   max-width: 600px;
 
@@ -269,7 +269,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5;
-  color: #101010;
+  color: #3f4348;
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
@@ -321,7 +321,7 @@
   -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border-radius: 14px;
   text-align: center;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 2px rgba(10, 22, 40, 0.02);
   position: relative;
@@ -365,7 +365,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #101010;
+  color: #3f4348;
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
@@ -375,7 +375,7 @@
   align-items: center;
   gap: 6px;
   padding: 12px 24px;
-  background: #101010;
+  background: #2f3338;
   color: #ffffff;
   font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
@@ -384,13 +384,13 @@
   border-radius: 999px;
   transition: all 0.3s ease;
 
-  &:hover { background: #132238; transform: translateY(-1px); }
+  &:hover { background: #3b4046; transform: translateY(-1px); }
 }
 
 /* CTA */
 .ctaSection {
   padding: 64px 48px;
-  background: #101010;
+  background: #2f3338;
   text-align: center;
 
   @include mobile { padding: 48px 16px; }

@@ -30,7 +30,7 @@
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.025em;
-  color: #111111;
+  color: #3f4348;
   margin: 0 0 20px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
@@ -51,7 +51,7 @@
   font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 600;
-  color: #111111;
+  color: #3f4348;
   margin: 0 0 48px;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -73,7 +73,7 @@
 
 .valueCard {
   padding: 40px 32px;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   border-radius: 20px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.78) 100%);
   backdrop-filter: blur(16px) saturate(1.2);
@@ -135,7 +135,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111111;
+  color: #3f4348;
   margin: 0 0 12px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
@@ -172,7 +172,7 @@
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 100%);
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   border-radius: 20px;
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
@@ -264,7 +264,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111111;
+  color: #3f4348;
   margin: 0 0 12px;
   line-height: 1.3;
 
@@ -309,7 +309,7 @@
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 100%);
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   border-radius: 24px;
   padding: 64px 40px;
   text-align: center;
@@ -339,7 +339,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #111111;
+  color: #3f4348;
   margin: 0 0 16px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
@@ -362,7 +362,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #132238;
+  color: #2f3338;
   text-decoration: none;
   padding: 14px 28px;
   background: #c8a65a;

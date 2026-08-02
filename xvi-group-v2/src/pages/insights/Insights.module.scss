@@ -44,7 +44,7 @@
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: #101010;
+  color: #3f4348;
   margin: 0 0 20px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
@@ -84,14 +84,14 @@
   color: #6b6b68;
   padding: 10px 20px;
   background: #ffffff;
-  border: 1px solid rgba(17, 17, 17, 0.06);
+  border: 1px solid rgba(63, 67, 72, 0.10);
   border-radius: 999px;
   transition: all 0.3s ease;
 
   &:hover {
     background: rgba(200, 166, 90, 0.08);
     border-color: rgba(200, 166, 90, 0.2);
-    color: #101010;
+    color: #3f4348;
   }
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
@@ -114,7 +114,7 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.15;
-  color: #101010;
+  color: #3f4348;
   margin: 0 0 48px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', 'Noto Sans Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
@@ -134,7 +134,7 @@
   backdrop-filter: blur(16px) saturate(1.2);
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   border-radius: 20px;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   position: relative;
@@ -224,7 +224,7 @@
   font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #101010;
+  color: #3f4348;
   margin: 0 0 12px;
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -280,7 +280,7 @@
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
   border-radius: 20px;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   position: relative;
@@ -386,7 +386,7 @@
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
   border-radius: 24px;
-  border: 1px solid rgba(17, 17, 17, 0.04);
+  border: 1px solid rgba(63, 67, 72, 0.08);
   box-shadow:
     0 1px 2px rgba(10, 22, 40, 0.02),
     0 4px 12px rgba(10, 22, 40, 0.02),
@@ -423,7 +423,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
-  color: #101010;
+  color: #3f4348;
   margin: 0 0 16px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif; }
@@ -448,7 +448,7 @@
   gap: 6px;
   padding: 14px 28px;
   background: #c8a65a;
-  color: #132238;
+  color: #2f3338;
   font-family: 'Manrope', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;

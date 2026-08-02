@@ -93,7 +93,7 @@ export function LuxuryLoader({ onFinish }: LuxuryLoaderProps) {
             style={{
               fontFamily: "'Manrope', sans-serif",
               fontSize: '1.5rem',
-              color: '#111111',
+              color: '#3F4348',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
               margin: 0,

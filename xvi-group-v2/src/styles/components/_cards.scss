@@ -118,7 +118,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     font-weight: 600;
     font-size: 1.375rem;
     line-height: 1.25;
-    color: #0a1628;
+    color: #3f4348;
     margin-bottom: 8px;
   }
 
@@ -214,7 +214,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     font-weight: 600;
     font-size: 1.25rem;
     line-height: 1.25;
-    color: #0a1628;
+    color: #3f4348;
     margin-bottom: 8px;
   }
 
@@ -308,7 +308,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     font-weight: 600;
     font-size: 1.125rem;
     line-height: 1.3;
-    color: #0a1628;
+    color: #3f4348;
     margin-bottom: 8px;
   }
 
@@ -343,7 +343,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
 
     &-name {
       font-weight: 600;
-      color: #132238;
+      color: #2f3338;
     }
 
     &-read-time {
@@ -357,7 +357,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
 // ============================================
 
 .xvi-card--stat {
-  background: linear-gradient(145deg, #132238 0%, #1a2d45 100%);
+  background: linear-gradient(145deg, #2f3338 0%, #3b4046 100%);
   border-color: transparent;
   padding: 44px;
   text-align: center;
@@ -382,7 +382,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
       0 20px 56px rgba(19, 34, 56, 0.25),
       0 0 0 1px rgba(200, 166, 90, 0.2),
       0 0 40px rgba(200, 166, 90, 0.04);
-    background: linear-gradient(145deg, #1a2d45 0%, #132238 100%);
+    background: linear-gradient(145deg, #3b4046 0%, #2f3338 100%);
   }
 
   .xvi-card__number {
@@ -431,7 +431,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     font-style: italic;
     font-size: 1.0625rem;
     line-height: 1.618;
-    color: #0a1628;
+    color: #3f4348;
     margin-bottom: 24px;
     position: relative;
     z-index: 1;
@@ -454,7 +454,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     &-name {
       font-weight: 600;
       font-size: 1rem;
-      color: #0a1628;
+      color: #3f4348;
       margin-bottom: 2px;
     }
 
@@ -478,7 +478,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     width: 56px;
     height: 56px;
     margin: 0 auto 24px;
-    color: #132238;
+    color: #2f3338;
     transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
     svg {
@@ -496,7 +496,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
     font-weight: 600;
     font-size: 1.125rem;
     line-height: 1.25;
-    color: #0a1628;
+    color: #3f4348;
     margin-bottom: 8px;
   }
 
@@ -536,7 +536,7 @@ $xvi-card-shadow-hover: 0 8px 24px rgba(10, 22, 40, 0.05), 0 24px 64px rgba(10, 
   .xvi-card__name {
     font-weight: 600;
     font-size: 1.125rem;
-    color: #0a1628;
+    color: #3f4348;
     margin-bottom: 4px;
   }
 

@@ -20,7 +20,7 @@ const steps = [
     titleAr: 'تحليل',
     desc: 'Advanced analytics and AI-powered modeling to identify opportunities, risks, and optimal transformation pathways.',
     descAr: 'تحليلات متقدمة ونمذجة بالذكاء الاصطناعي لتحديد الفرص والمخاطر.',
-    color: '#132238',
+    color: '#2F3338',
   },
   {
     icon: GitBranch,
@@ -36,7 +36,7 @@ const steps = [
     titleAr: 'تحول',
     desc: 'Measurable business outcomes through operational integration, team capability transfer, and continuous intelligence.',
     descAr: 'نتائج أعمال قابلة للقياس من خلال التكامل التشغيلي ونقل القدرات.',
-    color: '#132238',
+    color: '#2F3338',
   },
 ];
 

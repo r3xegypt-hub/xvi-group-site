@@ -56,7 +56,7 @@ const services = [
       { en: 'Intelligent Document Processing', ar: 'معالجة المستندات الذكية' },
       { en: 'Decision Automation Flows', ar: 'تدفقات أتمتة القرارات' },
     ],
-    bg: '#132238',
+    bg: '#2F3338',
     dark: true,
   },
   {

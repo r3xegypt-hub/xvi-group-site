@@ -7,7 +7,7 @@ interface LogoProps {
 }
 
 export function LogoIcon({ size = 32, variant = 'dark', className }: LogoProps) {
-  const colors = { dark: '#111111', light: '#FFFFFF', gold: '#C8A65A' };
+  const colors = { dark: '#3F4348', light: '#FFFFFF', gold: '#C8A65A' };
   const fill = colors[variant];
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
@@ -29,7 +29,7 @@ interface FullLogoProps {
 }
 
 function LogoText({ variant, size }: { variant: string; size: string }) {
-  const textColor = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#111111';
+  const textColor = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#3F4348';
   const accentColor = variant === 'gold' ? '#C8A65A' : '#999999';
   const textSize = size === 'lg' ? '1.5rem' : size === 'md' ? '1.25rem' : '1rem';
   const groupSize = size === 'lg' ? '0.75rem' : '0.625rem';
@@ -71,7 +71,7 @@ export function LogoHorizontal({ variant = 'dark', size = 'md', className }: Ful
 }
 
 export function LogoVertical({ variant = 'dark', className }: FullLogoProps) {
-  const _fill = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#111111';
+  const _fill = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#3F4348';
   return (
     <div className={className} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
       <LogoIcon size={40} variant={variant} />
@@ -95,7 +95,7 @@ export function LogoMain({ type = 'horizontal', variant = 'dark', className }: F
 }
 
 export function LogoWordmark({ variant = 'dark', className }: { variant?: 'dark' | 'light' | 'gold'; className?: string }) {
-  const textColor = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#111111';
+  const textColor = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#3F4348';
   const accentColor = variant === 'gold' ? '#C8A65A' : '#999999';
   return (
     <span className={className} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>

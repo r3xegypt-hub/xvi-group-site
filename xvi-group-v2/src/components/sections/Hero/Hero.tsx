@@ -126,7 +126,7 @@ export function Hero() {
         style={{
           x: bgLayerX,
           y: bgLayerY,
-          background: 'linear-gradient(135deg, #0a1628 0%, #101010 35%, #1e1a14 65%, #0f0b06 100%)',
+          background: 'linear-gradient(135deg, #e7e4df 0%, #f2f2f0 38%, #e3e0da 68%, #ece8e2 100%)',
           backgroundSize: '200% 200%',
         }}
       />

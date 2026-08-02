@@ -4,7 +4,7 @@
   align-items: center;
   gap: 0;
   padding: 3px;
-  background: rgba(19, 34, 56, 0.05);
+  background: rgba(63, 67, 72, 0.05);
   border: 1px solid rgba(200, 166, 90, 0.16);
   border-radius: 999px;
   cursor: pointer;
@@ -46,10 +46,10 @@
 }
 
 .active {
-  color: #132238;
+  color: #2f3338;
 
   .toggle:hover & {
-    color: #132238;
+    color: #2f3338;
   }
 }
 

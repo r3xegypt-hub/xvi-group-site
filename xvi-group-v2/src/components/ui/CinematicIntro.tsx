@@ -239,7 +239,7 @@ export function CinematicIntro({ onFinish }: CinematicIntroProps) {
               position: 'absolute', bottom: '16%', zIndex: 1,
               fontFamily: "'Manrope', sans-serif",
               fontSize: '0.75rem', letterSpacing: '0.35em',
-              textTransform: 'uppercase', color: '#111111',
+              textTransform: 'uppercase', color: '#3F4348',
             }}
           >
             XVI GROUP

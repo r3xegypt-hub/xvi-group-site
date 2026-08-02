@@ -171,7 +171,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
               style={{
                 fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif",
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: ar ? 400 : 600, lineHeight: 1.05,
-                letterSpacing: ar ? 0 : '-0.03em', color: '#111111', margin: '0 0 20px',
+                letterSpacing: ar ? 0 : '-0.03em', color: '#3F4348', margin: '0 0 20px',
               }}
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.2 } } }}
             >
@@ -180,7 +180,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             <motion.p
               style={{
                 fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '1.125rem', lineHeight: 1.7,
-                color: '#666666', margin: 0, maxWidth: 520,
+                color: '#676B70', margin: 0, maxWidth: 520,
               }}
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.3 } } }}
             >
@@ -199,11 +199,11 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease }}
             >
-              <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
+              <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#3F4348', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.problem.title)}
               </h2>
-              <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
+              <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#676B70', margin: 0 }}>
                 {L(content.problem.desc)}
               </p>
             </motion.div>
@@ -213,11 +213,11 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease, delay: 0.15 }}
             >
-              <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '0 0 16px' }}>
+              <h2 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.75rem', fontWeight: ar ? 400 : 600, color: '#3F4348', margin: '0 0 16px' }}>
                 <span style={{ color: '#C8A65A', marginRight: 12 }}>//</span>
                 {L(content.solution.title)}
               </h2>
-              <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
+              <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', lineHeight: 1.7, color: '#676B70', margin: 0 }}>
                 {L(content.solution.desc)}
               </p>
             </motion.div>
@@ -230,7 +230,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
           <motion.h2
             style={{
               fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-              fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 48px',
+              fontWeight: ar ? 400 : 600, color: '#3F4348', textAlign: 'center', margin: '0 0 48px',
             }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -246,10 +246,10 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: '2.5rem', fontWeight: 700, opacity: 0.08, color: '#C8A65A', lineHeight: 1 }}>
                     {step.step}
                   </span>
-                  <h3 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.25rem', fontWeight: ar ? 400 : 600, color: '#111111', margin: '12px 0 8px' }}>
+                  <h3 style={{ fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: '1.25rem', fontWeight: ar ? 400 : 600, color: '#3F4348', margin: '12px 0 8px' }}>
                     {L(step.title)}
                   </h3>
-                  <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.875rem', lineHeight: 1.7, color: '#666666', margin: 0 }}>
+                  <p style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.875rem', lineHeight: 1.7, color: '#676B70', margin: 0 }}>
                     {L(step.desc)}
                   </p>
                 </div>
@@ -265,7 +265,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             <motion.h2
               style={{
                 fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-                fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
+                fontWeight: ar ? 400 : 600, color: '#3F4348', textAlign: 'center', margin: '0 0 36px',
               }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -290,7 +290,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   }}
                 >
                   <Check size={16} color="#C8A65A" />
-                  <span style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.875rem', color: '#444444' }}>
+                  <span style={{ fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.875rem', color: '#676B70' }}>
                     {L(b)}
                   </span>
                 </motion.div>
@@ -306,7 +306,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             <motion.h2
               style={{
                 fontFamily: ar ? "'Alexandria', 'Noto Naskh Arabic', 'Noto Sans Arabic', sans-serif" : "'Manrope', sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-                fontWeight: ar ? 400 : 600, color: '#111111', textAlign: 'center', margin: '0 0 36px',
+                fontWeight: ar ? 400 : 600, color: '#3F4348', textAlign: 'center', margin: '0 0 36px',
               }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -333,7 +333,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                     display: 'flex', alignItems: 'center', gap: 12,
                     padding: '18px 24px',
                     fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.9375rem', fontWeight: 500,
-                    color: '#111111', cursor: 'pointer',
+                    color: '#3F4348', cursor: 'pointer',
                     listStyle: 'none',
                   }}>
                     <HelpCircle size={16} color="#C8A65A" style={{ flexShrink: 0 }} />
@@ -342,7 +342,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
                   <p style={{
                     padding: '0 24px 18px 52px',
                     fontFamily: ar ? "'Alexandria', sans-serif" : "'Manrope', sans-serif", fontSize: '0.875rem', lineHeight: 1.7,
-                    color: '#666666', margin: 0,
+                    color: '#676B70', margin: 0,
                   }}>
                     {L(item.a)}
                   </p>

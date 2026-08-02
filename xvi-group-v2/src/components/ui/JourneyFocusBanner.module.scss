@@ -15,7 +15,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #111111;
+  color: #3F4348;
   letter-spacing: 0.01em;
 
   [dir='rtl'] & {
@@ -55,15 +55,15 @@
   height: 24px;
   border: none;
   border-radius: 50%;
-  background: rgba(17, 17, 17, 0.04);
-  color: #666666;
+  background: rgba(63, 67, 72, 0.04);
+  color: #676B70;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
   flex-shrink: 0;
 
   &:hover {
     background: rgba(200, 166, 90, 0.14);
-    color: #111111;
+    color: #3F4348;
     transform: rotate(90deg);
   }
 }

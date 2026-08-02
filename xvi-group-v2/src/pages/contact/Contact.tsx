@@ -21,7 +21,7 @@ export function ContactPage() {
   return (
     <>
       <Section variant="white" className={styles.pageHero}>
-        <FlowingWave color="#132238" opacity={0.03} speed={0.4} />
+        <FlowingWave color="#2F3338" opacity={0.03} speed={0.4} />
         <Container>
           <motion.div
             ref={ref}

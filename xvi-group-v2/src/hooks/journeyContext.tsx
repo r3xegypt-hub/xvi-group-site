@@ -20,7 +20,7 @@ export const JOURNEYS: JourneyMeta[] = [
   {
     id: 'executive',
     label: { en: 'Executive Strategy', ar: 'الاستراتيجية التنفيذية' },
-    color: '#132238',
+    color: '#2F3338',
     prompt: { en: 'A high-level view of XVI — strategy, capability, and partnership.', ar: 'نظرة شاملة عن XVI — الاستراتيجية والقدرات والشراكة.' },
     service: { label: { en: 'Strategic AI', ar: 'الذكاء الاستراتيجي' }, to: '/services/ai-transformation' },
     caseTitle: { en: 'Sovereign Banking Core', ar: 'نواة مصرفية سيادية' },

@@ -66,7 +66,7 @@
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: #101010;
+  color: #3f4348;
   margin: 0 0 16px;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
@@ -87,7 +87,7 @@
   display: inline-flex;
   align-items: center;
   padding: 16px 22px;
-  background: #101010;
+  background: #2f3338;
   color: #ffffff;
   font-family: 'Manrope', sans-serif;
   font-size: 14px;
@@ -113,7 +113,7 @@
   }
 
   &:hover {
-    background: #132238;
+    background: #2f3338;
     transform: translateY(-2px);
     box-shadow:
       0 8px 24px rgba(16, 16, 16, 0.15),
@@ -184,7 +184,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #101010;
+  color: #3f4348;
   margin: 0 0 8px;
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }

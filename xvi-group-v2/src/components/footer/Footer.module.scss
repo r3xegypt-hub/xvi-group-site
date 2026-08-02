@@ -1,7 +1,7 @@
 @import '../../styles/mixins/devices';
 
 .footer {
-  background: #132238;
+  background: #ECEAE6;
   padding: 56px 48px 32px;
 
   @include mobile { padding: 40px 20px 24px; }
@@ -35,7 +35,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background: linear-gradient(135deg, #c8a65a, #b7934c);
+  background: linear-gradient(135deg, #c8a65a, #a98533);
   border-radius: 5px;
   box-shadow: 0 1px 4px rgba(200, 166, 90, 0.15);
 }
@@ -44,7 +44,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 12px;
   font-weight: 700;
-  color: #132238;
+  color: #2F3338;
   line-height: 1;
 }
 
@@ -53,14 +53,14 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 1px;
-  color: #ffffff;
+  color: #3F4348;
 }
 
 .brandTagline {
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   font-weight: 400;
-  color: #c8c8c3;
+  color: #90949A;
 }
 
 .links {
@@ -73,7 +73,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  color: #676B70;
   text-decoration: none;
   transition: color 0.3s ease;
   position: relative;
@@ -122,19 +122,19 @@
 .copyright {
   font-family: 'Manrope', sans-serif;
   font-size: 12px;
-  color: #c8c3bb;
+  color: #90949A;
 }
 
 .metaTagline {
   font-family: 'Manrope', sans-serif;
   font-size: 12px;
-  color: #c8c8c3;
+  color: #90949A;
   letter-spacing: 0.02em;
 }
 
 .metaSub {
   font-family: 'Manrope', sans-serif;
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.4);
+  color: #676B70;
   letter-spacing: 0.04em;
 }

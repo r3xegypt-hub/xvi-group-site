@@ -52,7 +52,7 @@ export function AIDashboard() {
 
   return (
     <div ref={ref} style={{
-      background: '#111111',
+      background: '#ECEAE6',
       padding: '32px 0',
       overflow: 'hidden',
       position: 'relative',
@@ -85,7 +85,7 @@ export function AIDashboard() {
                 flexDirection: 'column',
                 gap: 4,
                 padding: '12px 16px',
-                borderRight: i < kpis.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none',
+                borderRight: i < kpis.length - 1 ? '1px solid rgba(63,67,72,0.06)' : 'none',
               }}
             >
               <div style={{
@@ -101,7 +101,7 @@ export function AIDashboard() {
                 fontFamily: "'Manrope', sans-serif",
                 fontSize: '0.625rem',
                 fontWeight: 500,
-                color: 'rgba(255,255,255,0.35)',
+                color: '#90949A',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
               }}>

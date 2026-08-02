@@ -162,14 +162,14 @@ export function PremiumServicePanel({
 
         <h3 style={{
           fontFamily: "'Manrope', sans-serif", fontSize: '1.375rem',
-          fontWeight: 400, color: '#111111', margin: 0,
+          fontWeight: 400, color: '#3F4348', margin: 0,
         }}>
           {title}
         </h3>
 
         <p style={{
           fontFamily: "'Manrope', sans-serif", fontSize: '0.875rem',
-          lineHeight: 1.7, color: '#666666', margin: 0, maxWidth: 480,
+          lineHeight: 1.7, color: '#676B70', margin: 0, maxWidth: 480,
         }}>
           {desc}
         </p>

@@ -1,14 +1,14 @@
 @import '../../../styles/mixins/devices';
 
-$ink: #101010;
+$ink: #3f4348;
 $gold: #c8a65a;
 $gold-light: #d4b76e;
 $gold-dark: #b7934c;
 $gold-muted: rgba(200, 166, 90, 0.12);
-$navy: #132238;
+$navy: #2f3338;
 $bg: #f7f6f3;
 $surface: #ffffff;
-$muted: #6b6b68;
+$muted: #676b70;
 $border-light: #e3e3e0;
 
 .section {
@@ -230,7 +230,7 @@ $border-light: #e3e3e0;
 .cardKpi {
   padding: 16px 16px 14px;
   border-radius: 13px;
-  background: linear-gradient(160deg, #132238 0%, #0e1a2d 100%);
+  background: linear-gradient(160deg, #2f3338 0%, #24282d 100%);
   border: 1px solid rgba(200, 166, 90, 0.35);
 }
 
@@ -629,7 +629,7 @@ $border-light: #e3e3e0;
 .kpi {
   padding: 22px 18px;
   border-radius: 14px;
-  background: linear-gradient(160deg, #132238 0%, #0e1a2d 100%);
+  background: linear-gradient(160deg, #2f3338 0%, #24282d 100%);
   border: 1px solid rgba(200, 166, 90, 0.35);
 }
 

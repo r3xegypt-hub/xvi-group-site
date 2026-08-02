@@ -163,11 +163,11 @@ function VoiceToggleRow({ row, settings, onToggle, isAR }: { row: { key: keyof V
         width: '100%', background: 'none', border: 'none', cursor: 'pointer', padding: '7px 0',
       }}
     >
-      <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#555', fontWeight: 500 }}>
+      <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#676B70', fontWeight: 500 }}>
         {isAR ? row.label.ar : row.label.en}
       </span>
       <motion.span
-        animate={{ background: on ? '#c8a65a' : 'rgba(17,17,17,0.1)' }}
+        animate={{ background: on ? '#c8a65a' : 'rgba(63,67,72,0.1)' }}
         transition={{ duration: 0.25 }}
         style={{
           width: 30, height: 18, borderRadius: 999, padding: 2,
@@ -185,8 +185,8 @@ function StrategyCard() {
   const phases = [
     { icon: Target, title: 'Assess', desc: 'Current state analysis, data audit, use case identification', color: '#C8A65A' },
     { icon: Lightbulb, title: 'Design', desc: 'AI vision, technology architecture, governance framework', color: '#C8A65A' },
-    { icon: Zap, title: 'Build', desc: 'Pilot development, testing, performance validation', color: '#132238' },
-    { icon: TrendingUp, title: 'Scale', desc: 'Production deployment, change management, optimization', color: '#132238' },
+    { icon: Zap, title: 'Build', desc: 'Pilot development, testing, performance validation', color: '#2F3338' },
+    { icon: TrendingUp, title: 'Scale', desc: 'Production deployment, change management, optimization', color: '#2F3338' },
   ];
   return (
     <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
@@ -200,13 +200,13 @@ function StrategyCard() {
               <phase.icon size={14} />
             </div>
             <div>
-              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{phase.title}</div>
-              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 2 }}>{phase.desc}</div>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{phase.title}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#676B70', marginTop: 2 }}>{phase.desc}</div>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 10, fontStyle: 'italic' }}>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginTop: 10, fontStyle: 'italic' }}>
         Each phase includes executive alignment, technical validation, and measurable milestones.
       </div>
     </div>
@@ -228,8 +228,8 @@ function KpiCard() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
         {metrics.map((m, i) => (
           <div key={i} style={{ padding: '10px', background: '#f7f6f3', borderRadius: 8, textAlign: 'center' }}>
-            <div style={{ fontFamily: font, fontSize: '0.625rem', color: '#999', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{m.label}</div>
-            <div style={{ fontFamily: font, fontSize: '1.25rem', fontWeight: 700, color: '#111111', marginTop: 4 }}>{m.value}</div>
+            <div style={{ fontFamily: font, fontSize: '0.625rem', color: '#90949A', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{m.label}</div>
+            <div style={{ fontFamily: font, fontSize: '1.25rem', fontWeight: 700, color: '#3F4348', marginTop: 4 }}>{m.value}</div>
             <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#2D6A4F', marginTop: 2 }}>{m.trend}</div>
           </div>
         ))}
@@ -255,9 +255,9 @@ function RoadmapCard() {
           <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
             <div style={{ minWidth: 52, fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#C8A65A', flexShrink: 0 }}>{p.phase}</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111111' }}>{p.title}</div>
-              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{p.duration}</div>
-              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 4 }}>{p.tasks.join(' · ')}</div>
+              <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{p.title}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginTop: 2 }}>{p.duration}</div>
+              <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#676B70', marginTop: 4 }}>{p.tasks.join(' · ')}</div>
             </div>
           </div>
         ))}
@@ -289,7 +289,7 @@ function RecommendationCard({ memory, isAR }: { memory: ExecutiveMemory; isAR: b
       <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 700, color: '#C8A65A', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
         {isAR ? 'الخطوة الموصى بها' : 'Recommended Next Step'}
       </div>
-      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginBottom: 12 }}>
         {intro}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f7f6f3', borderRadius: 8 }}>
@@ -297,9 +297,9 @@ function RecommendationCard({ memory, isAR }: { memory: ExecutiveMemory; isAR: b
           <Compass size={14} />
         </div>
         <div>
-          <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111' }}>{serviceLabel}</div>
+          <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{serviceLabel}</div>
           {caseTitle && (
-            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{caseTitle}</div>
+            <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginTop: 2 }}>{caseTitle}</div>
           )}
         </div>
       </div>
@@ -310,7 +310,7 @@ function RecommendationCard({ memory, isAR }: { memory: ExecutiveMemory; isAR: b
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.97 }}
           style={{
-            padding: '10px 16px', background: '#132238', color: '#fff', border: 'none',
+            padding: '10px 16px', background: '#2F3338', color: '#fff', border: 'none',
             borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
             display: 'inline-flex', alignItems: 'center', gap: 6, transition: 'all 0.25s ease',
           }}
@@ -323,7 +323,7 @@ function RecommendationCard({ memory, isAR }: { memory: ExecutiveMemory; isAR: b
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.97 }}
           style={{
-            padding: '10px 16px', background: 'transparent', color: '#132238', border: '1px solid rgba(200,166,90,0.25)',
+            padding: '10px 16px', background: 'transparent', color: '#2F3338', border: '1px solid rgba(200,166,90,0.25)',
             borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
             display: 'inline-flex', alignItems: 'center', gap: 6, transition: 'all 0.25s ease',
           }}
@@ -351,7 +351,7 @@ function WhatsAppFallback({ query, isAR }: { query: string; isAR: boolean }) {
         <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#075E54', marginBottom: 6 }}>
           {isAR ? 'تواصل معنا عبر واتساب' : 'Chat with us on WhatsApp'}
         </div>
-        <div style={{ fontFamily: font, fontSize: '0.7rem', color: '#666', marginBottom: 12, lineHeight: 1.6 }}>
+        <div style={{ fontFamily: font, fontSize: '0.7rem', color: '#676B70', marginBottom: 12, lineHeight: 1.6 }}>
           {isAR
             ? 'سنقوم بإنشاء رسالة مخصصة لك. فقط اضغط على الزر أدناه لإرسالها.'
             : 'We\'ll generate a custom message for you. Just tap the button below to send it.'}
@@ -567,7 +567,7 @@ export function AIDock() {
       const greeting = isAR
         ? `مرحباً بعودتك، ${memoryRef.current.name}. كيف يمكنني مساعدتك اليوم؟`
         : `Welcome back, ${memoryRef.current.name}. How can I help you today?`;
-      setMessageLog(prev => [...prev, { type: 'ai', content: <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{greeting}</span> }]);
+      setMessageLog(prev => [...prev, { type: 'ai', content: <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#3F4348' }}>{greeting}</span> }]);
     }
     prevOpenRef.current = open;
   }, [open, isAR]);
@@ -661,10 +661,10 @@ export function AIDock() {
     if (!action) return;
 
     const question = isAR ? action.label.ar : action.label.en;
-    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{question}</span>;
+    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#3F4348' }}>{question}</span>;
 
     let aiResponse: ReactNode;
-    const cmn = { fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12 };
+    const cmn = { fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', marginBottom: 12 };
 
     switch (actionId) {
       case 'strategy':
@@ -681,8 +681,8 @@ export function AIDock() {
                     <s.icon size={14} />
                   </div>
                   <div>
-                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111' }}>{isAR ? s.title.ar : s.title.en}</div>
-                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>{isAR ? s.desc.ar : s.desc.en}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{isAR ? s.title.ar : s.title.en}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginTop: 2 }}>{isAR ? s.desc.ar : s.desc.en}</div>
                   </div>
                 </div>
               ))}
@@ -702,8 +702,8 @@ export function AIDock() {
                 <div key={i} style={{ display: 'flex', gap: 10, padding: '8px 12px', background: '#f7f6f3', borderRadius: 8 }}>
                   <CheckCircle2 size={14} style={{ color: '#C8A65A', flexShrink: 0, marginTop: 2 }} />
                   <div>
-                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 500, color: '#111' }}>{isAR ? check.ar : check.en}</div>
-                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999' }}>{isAR ? check.desc.ar : check.desc.en}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 500, color: '#3F4348' }}>{isAR ? check.ar : check.en}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A' }}>{isAR ? check.desc.ar : check.desc.en}</div>
                   </div>
                 </div>
               ))}
@@ -722,8 +722,8 @@ export function AIDock() {
                 { type: 'Transformation Program', desc: 'End-to-end AI transformation', range: '3-6 months' },
               ].map((item, i) => (
                 <div key={i} style={{ padding: '10px 12px', background: '#f7f6f3', borderRadius: 8 }}>
-                  <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111' }}>{item.type}</div>
-                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#666', marginTop: 2 }}>{item.desc}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{item.type}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#676B70', marginTop: 2 }}>{item.desc}</div>
                   <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#C8A65A', marginTop: 2, fontWeight: 500 }}>{item.range}</div>
                 </div>
               ))}
@@ -745,8 +745,8 @@ export function AIDock() {
                 <div key={i} style={{ display: 'flex', gap: 10, padding: '8px 12px', background: '#f7f6f3', borderRadius: 8 }}>
                   <FileText size={14} style={{ color: '#C8A65A', flexShrink: 0, marginTop: 2 }} />
                   <div>
-                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 500, color: '#111' }}>{item.name}</div>
-                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999' }}>{item.desc}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 500, color: '#3F4348' }}>{item.name}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A' }}>{item.desc}</div>
                   </div>
                 </div>
               ))}
@@ -759,14 +759,14 @@ export function AIDock() {
           <div>
             <div style={cmn}>Automation opportunity scan results:</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '6px 10px', alignItems: 'center', padding: '4px 8px', background: '#f7f6f3', borderRadius: 8 }}>
-              <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: '#999', textTransform: 'uppercase' }}>Process</div>
-              <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: '#999', textTransform: 'uppercase' }}>Impact</div>
-              <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: '#999', textTransform: 'uppercase' }}>Effort</div>
+              <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: '#90949A', textTransform: 'uppercase' }}>Process</div>
+              <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: '#90949A', textTransform: 'uppercase' }}>Impact</div>
+              <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 600, color: '#90949A', textTransform: 'uppercase' }}>Effort</div>
               {automationOpps.map((opp, i) => (
                 <Fragment key={i}>
-                  <div style={{ fontFamily: font, fontSize: '0.75rem', color: '#111' }}>{isAR ? opp.ar : opp.en}</div>
-                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: opp.impact === 'High' ? '#2D6A4F' : '#666', fontWeight: 500 }}>{opp.impact}</div>
-                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: opp.effort === 'Low' ? '#2D6A4F' : opp.effort === 'Medium' ? '#D4A017' : '#666', fontWeight: 500 }}>{opp.effort}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.75rem', color: '#3F4348' }}>{isAR ? opp.ar : opp.en}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: opp.impact === 'High' ? '#2D6A4F' : '#676B70', fontWeight: 500 }}>{opp.impact}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.6875rem', color: opp.effort === 'Low' ? '#2D6A4F' : opp.effort === 'Medium' ? '#D4A017' : '#676B70', fontWeight: 500 }}>{opp.effort}</div>
                 </Fragment>
               ))}
             </div>
@@ -788,7 +788,7 @@ export function AIDock() {
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 10, padding: '8px 0', borderBottom: i < 5 ? '1px solid rgba(0,0,0,0.04)' : 'none' }}>
                   <div style={{ minWidth: 68, fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#C8A65A', flexShrink: 0 }}>{item.week}</div>
-                  <div style={{ fontFamily: font, fontSize: '0.75rem', color: '#111' }}>{item.activity}</div>
+                  <div style={{ fontFamily: font, fontSize: '0.75rem', color: '#3F4348' }}>{item.activity}</div>
                 </div>
               ))}
             </div>
@@ -810,8 +810,8 @@ export function AIDock() {
                     <Compass size={14} />
                   </div>
                   <div>
-                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#111' }}>{isAR ? meta.label.ar : meta.label.en}</div>
-                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginTop: 2 }}>
+                    <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#3F4348' }}>{isAR ? meta.label.ar : meta.label.en}</div>
+                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginTop: 2 }}>
                       {isAR ? meta.service.label.ar : meta.service.label.en} · {isAR ? meta.caseTitle.ar : meta.caseTitle.en}
                     </div>
                   </div>
@@ -869,7 +869,7 @@ export function AIDock() {
   const submitQuery = useCallback((query: string) => {
     const q = query.trim();
     if (!q) return;
-    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#111' }}>{q}</span>;
+    const userMsg = <span style={{ fontFamily: font, fontSize: '0.8125rem', color: '#3F4348' }}>{q}</span>;
 
     const learned = extractMemory(q);
     const learnedFields = hasLearnedFields(learned);
@@ -904,7 +904,7 @@ export function AIDock() {
     if (learned.name) {
       ackLines.push(isAR ? `سعدت بلقائك، ${learned.name}.` : `Nice to meet you, ${learned.name}.`);
       ackNodeParts.push(
-        <div key="name" style={{ color: '#111', fontWeight: 600 }}>
+        <div key="name" style={{ color: '#3F4348', fontWeight: 600 }}>
           {isAR ? `سعدت بلقائك، ${learned.name} 👋` : `Nice to meet you, ${learned.name} 👋`}
         </div>
       );
@@ -912,7 +912,7 @@ export function AIDock() {
     if (learned.company) {
       ackLines.push(isAR ? `فهمت أنك تعمل في ${learned.company}.` : `Got it — ${learned.company}.`);
       ackNodeParts.push(
-        <div key="company" style={{ color: '#666' }}>
+        <div key="company" style={{ color: '#676B70' }}>
           {isAR ? `سجّلت شركتك: ${learned.company}` : `I've noted your company: ${learned.company}`}
         </div>
       );
@@ -920,7 +920,7 @@ export function AIDock() {
     if (learned.industry) {
       ackLines.push(isAR ? `سجّلت القطاع: ${learned.industry}.` : `Noted: ${learned.industry} sector.`);
       ackNodeParts.push(
-        <div key="industry" style={{ color: '#666' }}>
+        <div key="industry" style={{ color: '#676B70' }}>
           {isAR ? `قطاعك: ${learned.industry}` : `Your sector: ${learned.industry}`}
         </div>
       );
@@ -928,7 +928,7 @@ export function AIDock() {
     if (learned.goal) {
       ackLines.push(isAR ? `تذكرت هدفك: ${learned.goal}.` : `Understood — goal: ${learned.goal}.`);
       ackNodeParts.push(
-        <div key="goal" style={{ color: '#666' }}>
+        <div key="goal" style={{ color: '#676B70' }}>
           {isAR ? `هدفك: ${learned.goal}` : `Your goal: ${learned.goal}`}
         </div>
       );
@@ -943,7 +943,7 @@ export function AIDock() {
       recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
       return (
         <div>
-          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7, whiteSpace: 'pre-line' }}>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', marginBottom: 12, lineHeight: 1.7, whiteSpace: 'pre-line' }}>
             {resp}
           </div>
           {entry.cta && (
@@ -951,15 +951,15 @@ export function AIDock() {
               href={entry.cta.to}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '10px 20px', background: '#132238', color: '#fff',
+                padding: '10px 20px', background: '#2F3338', color: '#fff',
                 borderRadius: 999, textDecoration: 'none',
                 fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
                 transition: 'all 0.25s ease',
                 boxShadow: '0 4px 12px rgba(19,34,56,0.15)',
                 marginTop: 8,
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#c8a65a'; e.currentTarget.style.color = '#132238'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = '#132238'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.transform = 'none'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = '#c8a65a'; e.currentTarget.style.color = '#2F3338'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = '#2F3338'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.transform = 'none'; }}
             >
               {isAR ? entry.cta.label.ar : entry.cta.label.en}
             </a>
@@ -971,7 +971,7 @@ export function AIDock() {
 
     const textBlock = (text: string) => (
       <div>
-        <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7, whiteSpace: 'pre-line' }}>
+        <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, whiteSpace: 'pre-line' }}>
           {text}
         </div>
         <PersonaSignature isAR={isAR} />
@@ -994,12 +994,12 @@ export function AIDock() {
       speechText = `${body}. ${counts}`;
       aiResponse = (
         <div>
-          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7 }}>
-            <div style={{ color: '#111', fontWeight: 600, marginBottom: 4 }}>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7 }}>
+            <div style={{ color: '#3F4348', fontWeight: 600, marginBottom: 4 }}>
               {isAR ? 'ذاكرة الجلسة' : 'Session Memory'}
             </div>
             <div style={{ whiteSpace: 'pre-line' }}>{body}</div>
-            <div style={{ color: '#999', marginTop: 4, fontSize: '0.6875rem' }}>{counts}</div>
+            <div style={{ color: '#90949A', marginTop: 4, fontSize: '0.6875rem' }}>{counts}</div>
           </div>
           <PersonaSignature isAR={isAR} />
         </div>
@@ -1038,7 +1038,7 @@ export function AIDock() {
         speechText = ackLines.join(' ') + ' ' + (typeof match.entry.response(isAR) === 'string' ? (match.entry.response(isAR) as string) : '');
         aiResponse = (
           <div>
-            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7, marginBottom: 12 }}>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginBottom: 12 }}>
               {ackNodeParts}
             </div>
             {matchBody(match.entry)}
@@ -1050,9 +1050,9 @@ export function AIDock() {
           : "I've noted these details for our session, and I'm here for any executive decision you need help with.");
         aiResponse = (
           <div>
-            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', lineHeight: 1.7 }}>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7 }}>
               {ackNodeParts}
-              <div style={{ color: '#999', marginTop: 6, fontSize: '0.6875rem' }}>
+              <div style={{ color: '#90949A', marginTop: 6, fontSize: '0.6875rem' }}>
                 {isAR
                   ? 'سأحتفظ بهذه التفاصيل لهذه الجلسة فقط.'
                   : "These details will be kept for this session only — they won't persist after you close the tab."}
@@ -1072,7 +1072,7 @@ export function AIDock() {
         : 'Let me recommend the best solution for your organization, based on what we know about your goals and journey focus.';
       aiResponse = (
         <div>
-          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 4, lineHeight: 1.7 }}>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', marginBottom: 4, lineHeight: 1.7 }}>
             {speechText}
           </div>
           <RecommendationCard memory={merged} isAR={isAR} />
@@ -1102,7 +1102,7 @@ export function AIDock() {
         : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.';
       aiResponse = (
         <div>
-          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#666', marginBottom: 12, lineHeight: 1.7 }}>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', marginBottom: 12, lineHeight: 1.7 }}>
             {isAR
               ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
               : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.'}
@@ -1112,7 +1112,7 @@ export function AIDock() {
             onClick={() => navigate('/contact')}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer',
-              padding: '10px 20px', background: 'transparent', color: '#132238',
+              padding: '10px 20px', background: 'transparent', color: '#2F3338',
               borderRadius: 999, border: '1px solid rgba(200,166,90,0.2)',
               fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
               transition: 'all 0.25s ease',
@@ -1204,7 +1204,7 @@ export function AIDock() {
             onClick={() => setOpen(false)}
             style={{
               position: 'fixed', inset: 0, zIndex: 598,
-              background: 'rgba(17,17,17,0.3)',
+              background: 'rgba(63,67,72,0.3)',
               backdropFilter: 'blur(8px)',
               WebkitBackdropFilter: 'blur(8px)',
             }}
@@ -1294,7 +1294,7 @@ export function AIDock() {
             {/* Header */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: 14,
-              padding: '12px 20px', borderBottom: '1px solid rgba(17,17,17,0.03)',
+              padding: '12px 20px', borderBottom: '1px solid rgba(63,67,72,0.03)',
               background: 'rgba(255,255,255,0.75)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
@@ -1302,7 +1302,7 @@ export function AIDock() {
             }}>
               <AIAvatar state={avatarState} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', color: '#111111', textTransform: 'uppercase' }}>
+                <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.06em', color: '#3F4348', textTransform: 'uppercase' }}>
                   {isAR ? 'المستشار الذكي' : 'XVI EXECUTIVE AI'}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
@@ -1311,7 +1311,7 @@ export function AIDock() {
                     animate={rm ? { scale: 1 } : { scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
                     transition={{ duration: 1.5, repeat: rm ? 0 : Infinity }}
                   />
-                  <span style={{ fontFamily: font, fontSize: '0.5625rem', color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: font, fontSize: '0.5625rem', color: '#90949A', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                     {isAR ? 'الذكاء التنفيذي · إشارة صوتية' : 'Executive Intelligence · VOICE SIGNAL'}
                   </span>
                 </div>
@@ -1321,9 +1321,9 @@ export function AIDock() {
               )}
               <motion.button
                 onClick={() => setOpen(false)}
-                whileHover={{ scale: 1.1, color: '#111111', background: 'rgba(200,166,90,0.08)' }}
+                whileHover={{ scale: 1.1, color: '#3F4348', background: 'rgba(200,166,90,0.08)' }}
                 whileTap={{ scale: 0.9 }}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#bbb', padding: 6, borderRadius: '50%', transition: 'all 0.3s ease' }}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#90949A', padding: 6, borderRadius: '50%', transition: 'all 0.3s ease' }}
               >
                 <X size={14} />
               </motion.button>
@@ -1372,7 +1372,7 @@ export function AIDock() {
                     onClick={() => updateMemory({ questions: [], recommendations: [] })}
                     whileHover={{ color: '#b45309' }}
                     aria-label={isAR ? 'مسح الذاكرة' : 'Clear session memory'}
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 8px', background: 'none', border: '1px solid rgba(17,17,17,0.08)', borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.625rem', color: '#999', transition: 'all 0.2s ease' }}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 8px', background: 'none', border: '1px solid rgba(63,67,72,0.08)', borderRadius: 999, cursor: 'pointer', fontFamily: font, fontSize: '0.625rem', color: '#90949A', transition: 'all 0.2s ease' }}
                   >
                     <X size={10} />
                     {isAR ? 'مسح الذاكرة' : 'Clear memory'}
@@ -1425,7 +1425,7 @@ export function AIDock() {
                         animate={{ rotate: 360 }}
                         transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
                       />
-                      <span style={{ fontFamily: font, fontSize: '0.75rem', color: '#666' }}>
+                      <span style={{ fontFamily: font, fontSize: '0.75rem', color: '#676B70' }}>
                         {isAR && thoughtStage === 'thinking' ? 'تفكير' : ''}
                         {thoughtStage === 'thinking' ? (isAR ? '' : 'Thinking') : ''}
                         {thoughtStage === 'synthesizing' ? (isAR ? 'جاري تجميع الموجز التنفيذي' : 'Synthesizing your executive brief') : ''}
@@ -1494,7 +1494,7 @@ export function AIDock() {
               {thoughtStage === 'ready' || thoughtStage === 'ready-again' ? (
                 <div>
                   {thoughtStage === 'ready' && (
-                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', marginBottom: 12, lineHeight: 1.6 }}>
+                    <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', marginBottom: 12, lineHeight: 1.6 }}>
                       {(() => {
                         const meta = journeyMeta(journey);
                         if (meta) return isAR ? meta.prompt.ar : meta.prompt.en;
@@ -1528,7 +1528,7 @@ export function AIDock() {
                           cursor: 'pointer',
                           fontFamily: font, fontSize: '0.6875rem',
                           fontWeight: action.id === 'journeyFocus' ? 700 : 500,
-                          color: '#111111',
+                          color: '#3F4348',
                           transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                           display: 'flex', alignItems: 'center', gap: 6,
                         }}
@@ -1555,7 +1555,7 @@ export function AIDock() {
                       animate={{ opacity: [0.2, 0.8, 0.2] }}
                       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                     />
-                    <span style={{ fontFamily: font, fontSize: '0.625rem', color: '#999' }}>
+                    <span style={{ fontFamily: font, fontSize: '0.625rem', color: '#90949A' }}>
                       {statusText}
                     </span>
                   </motion.div>
@@ -1566,7 +1566,7 @@ export function AIDock() {
             {/* Input */}
             <div style={{
               padding: '12px 16px 16px',
-              borderTop: '1px solid rgba(17,17,17,0.04)',
+              borderTop: '1px solid rgba(63,67,72,0.04)',
             }}>
               {showVoiceSettings && (
                 <motion.div
@@ -1581,7 +1581,7 @@ export function AIDock() {
                     background: 'rgba(200,166,90,0.03)',
                     borderRadius: 12, padding: '8px 12px',
                   }}>
-                    <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 700, color: '#132238', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+                    <div style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 700, color: '#2F3338', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
                       {isAR ? 'إعدادات الصوت' : 'Voice Settings'}
                     </div>
                     {VOICE_SETTING_ROWS.map((row) => (
@@ -1599,7 +1599,7 @@ export function AIDock() {
               {isListening && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
                   <VoiceWaveform />
-                  <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', fontWeight: 500 }}>
+                  <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', fontWeight: 500 }}>
                     {isAR ? `الاستماع... (${voiceLang})` : `Listening... (${voiceLang})`}
                   </span>
                   <span style={{ fontFamily: font, fontSize: '0.625rem', color: '#c8a65a', fontWeight: 500 }}>
@@ -1610,7 +1610,7 @@ export function AIDock() {
               {ttsSpeaking && !isListening && !voiceError && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
                   <Volume2 size={13} style={{ color: '#c8a65a', flexShrink: 0 }} />
-                  <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', fontWeight: 500 }}>
+                  <span style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', fontWeight: 500 }}>
                     {isAR ? 'جاري التحدث...' : 'Speaking…'}
                   </span>
                 </div>
@@ -1621,7 +1621,7 @@ export function AIDock() {
                 </div>
               )}
               {voiceNotice && (
-                <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#999', paddingBottom: 8 }}>
+                <div style={{ fontFamily: font, fontSize: '0.6875rem', color: '#90949A', paddingBottom: 8 }}>
                   {voiceNotice}
                 </div>
               )}
@@ -1637,7 +1637,7 @@ export function AIDock() {
                     background: 'rgba(200,166,90,0.03)',
                     border: '1px solid rgba(200,166,90,0.1)',
                     borderRadius: 12, outline: 'none',
-                    fontFamily: font, fontSize: '0.75rem', color: '#111',
+                    fontFamily: font, fontSize: '0.75rem', color: '#3F4348',
                     transition: 'all 0.25s ease',
                   }}
                   onFocus={(e) => { e.target.style.borderColor = '#C8A65A'; e.target.style.boxShadow = '0 0 0 3px rgba(200,166,90,0.08)'; }}
@@ -1656,10 +1656,10 @@ export function AIDock() {
                   aria-label={isAR ? 'تحدث للكتابة' : 'Speak to write'}
                   style={{
                     padding: '10px 12px',
-                    background: !micSupported ? 'rgba(17,17,17,0.04)' : isListening ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
-                    border: !micSupported ? '1px solid rgba(17,17,17,0.08)' : isListening ? '1px solid #c8a65a' : '1px solid rgba(200,166,90,0.2)',
+                    background: !micSupported ? 'rgba(63,67,72,0.04)' : isListening ? 'rgba(200,166,90,0.18)' : 'rgba(200,166,90,0.06)',
+                    border: !micSupported ? '1px solid rgba(63,67,72,0.08)' : isListening ? '1px solid #c8a65a' : '1px solid rgba(200,166,90,0.2)',
                     borderRadius: 12, cursor: micSupported ? 'pointer' : 'not-allowed',
-                    color: !micSupported ? '#aaa' : isListening ? '#c8a65a' : '#a98a45',
+                    color: !micSupported ? '#90949A' : isListening ? '#c8a65a' : '#a98a45',
                     display: 'flex', alignItems: 'center',
                     boxShadow: isListening ? '0 0 0 3px rgba(200,166,90,0.15)' : 'none',
                     transition: 'all 0.25s ease',
@@ -1696,7 +1696,7 @@ export function AIDock() {
                     padding: '10px 16px',
                     background: '#c8a65a', border: 'none',
                     borderRadius: 12, cursor: 'pointer',
-                    color: '#132238', display: 'flex', alignItems: 'center',
+                    color: '#2F3338', display: 'flex', alignItems: 'center',
                     boxShadow: '0 2px 8px rgba(200,166,90,0.15)',
                   }}
                 >

@@ -7,8 +7,8 @@
   color: #fff;
   background:
     radial-gradient(900px 640px at 88% -4%, rgba(200, 166, 90, 0.1), transparent 62%),
-    radial-gradient(1000px 720px at 8% 104%, rgba(56, 92, 143, 0.22), transparent 64%),
-    linear-gradient(164deg, #0a1628 0%, #0e1d34 52%, #081120 100%);
+    radial-gradient(1000px 720px at 8% 104%, rgba(120, 130, 142, 0.16), transparent 64%),
+    linear-gradient(164deg, #2f3338 0%, #3a3f45 52%, #26292d 100%);
 }
 
 .inner {
@@ -154,7 +154,7 @@
 }
 
 .chipActive {
-  color: #0a1628;
+  color: #2f3338;
   background: linear-gradient(135deg, #e5c880, #c8a65a);
   border-color: #e5c880;
 }
@@ -250,7 +250,7 @@
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #0a1628;
+  color: #2f3338;
   background: linear-gradient(135deg, #e5c880, #c8a65a);
   border-radius: 999px;
   text-decoration: none;
