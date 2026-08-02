@@ -12,8 +12,8 @@ import { useTTS } from '../../hooks/useTTS';
 import type { VoiceSettings } from '../../hooks/useTTS';
 import { loadMemory, persistMemory, extractMemory, isMemoryAsk, hasLearnedFields } from '../../hooks/executiveMemory';
 import type { ExecutiveMemory } from '../../hooks/executiveMemory';
-import { classifyInput, createState, beginIntake, advanceIntake, intakeQuestion, greetingResponse, recommendationsFor } from '../../assistant/consultant';
-import type { ConversationState, Recommendation } from '../../assistant/consultant';
+import { classifyInput, createState, beginIntake, advanceIntake, intakeQuestion, greetingResponse, recommendationsFor, unknownResponse, closestServices, buildEstimation, OFFER_LINE } from '../../assistant/consultant';
+import type { ConversationState, Recommendation, Estimation } from '../../assistant/consultant';
 import { useJourney } from '../../hooks/journeyContext';
 import { journeyMeta } from '../../hooks/journeyContext';
 import type { JourneyId } from '../../hooks/journeyContext';
@@ -335,50 +335,6 @@ function RecommendationCard({ memory, isAR }: { memory: ExecutiveMemory; isAR: b
   );
 }
 
-function WhatsAppFallback({ query, isAR }: { query: string; isAR: boolean }) {
-  const number = '971569220064';
-  const message = isAR
-    ? `مرحباً، أنا مهتم بـ: ${query}\n\nمن فضلكم أود معرفة المزيد عن خدمات XVI GROUP.`
-    : `Hello, I'm interested in: ${query}\n\nI'd like to learn more about XVI GROUP's services.`;
-  const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-
-  return (
-    <div style={{ marginTop: 12 }}>
-      <div style={{
-        padding: 16, background: 'linear-gradient(135deg, rgba(37,211,102,0.06), rgba(37,211,102,0.02))',
-        borderRadius: 14, border: '1px solid rgba(37,211,102,0.12)',
-      }}>
-        <div style={{ fontFamily: font, fontSize: '0.8125rem', fontWeight: 600, color: '#075E54', marginBottom: 6 }}>
-          {isAR ? 'تواصل معنا عبر واتساب' : 'Chat with us on WhatsApp'}
-        </div>
-        <div style={{ fontFamily: font, fontSize: '0.7rem', color: '#676B70', marginBottom: 12, lineHeight: 1.6 }}>
-          {isAR
-            ? 'سنقوم بإنشاء رسالة مخصصة لك. فقط اضغط على الزر أدناه لإرسالها.'
-            : 'We\'ll generate a custom message for you. Just tap the button below to send it.'}
-        </div>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '10px 20px', background: '#25D366', color: '#fff',
-            borderRadius: 999, textDecoration: 'none',
-            fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
-            boxShadow: '0 4px 16px rgba(37,211,102,0.25)',
-            transition: 'all 0.3s ease',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(37,211,102,0.35)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(37,211,102,0.25)'; }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          {isAR ? 'أرسل عبر واتساب' : 'Send via WhatsApp'}
-        </a>
-      </div>
-    </div>
-  );
-}
-
 function ServiceRecList({ recs }: { recs: Recommendation[] }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -393,6 +349,85 @@ function ServiceRecList({ recs }: { recs: Recommendation[] }) {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+const EST_SECTIONS: { key: keyof Estimation; icon: typeof FileText; label: { en: string; ar: string } }[] = [
+  { key: 'understanding', icon: Target, label: { en: 'Project Understanding', ar: 'فهم المشروع' } },
+  { key: 'phases', icon: Map, label: { en: 'Suggested Implementation Phases', ar: 'مراحل التنفيذ المقترحة' } },
+  { key: 'services', icon: Briefcase, label: { en: 'Recommended XVI GROUP Services', ar: 'خدمات XVI GROUP الموصى بها' } },
+  { key: 'team', icon: Users, label: { en: 'Suggested Implementation Team', ar: 'فريق التنفيذ المقترح' } },
+  { key: 'duration', icon: Clock, label: { en: 'Estimated Duration', ar: 'المدة التقديرية' } },
+  { key: 'technologies', icon: Zap, label: { en: 'Suggested Technologies', ar: 'التقنيات المقترحة' } },
+];
+
+function EstimationCard({ est, isAR }: { est: Estimation; isAR: boolean }) {
+  const sectionTitle = (label: { en: string; ar: string }) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontFamily: font, fontSize: '0.625rem', fontWeight: 700, color: '#C8A65A', textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: 12, marginBottom: 6 }}>
+      {isAR ? label.ar : label.en}
+    </div>
+  );
+  return (
+    <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.14)', padding: 16, marginTop: 8, boxShadow: '0 8px 24px rgba(19,34,56,0.06)' }}>
+      <div style={{ fontFamily: font, fontSize: '0.6875rem', fontWeight: 700, color: '#C8A65A', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        {isAR ? 'التقدير المبدئي الاستشاري' : 'Preliminary Executive Estimation'}
+      </div>
+
+      {sectionTitle(EST_SECTIONS[0].label)}
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7 }}>
+        {est.understanding}
+      </div>
+
+      {sectionTitle(EST_SECTIONS[1].label)}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {est.phases.map((p, i) => (
+          <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+            <div style={{ minWidth: 20, fontFamily: font, fontSize: '0.6875rem', fontWeight: 700, color: '#C8A65A', flexShrink: 0 }}>{i + 1}.</div>
+            <div style={{ fontFamily: font, fontSize: '0.75rem', color: '#3F4348', lineHeight: 1.6 }}>{p}</div>
+          </div>
+        ))}
+      </div>
+
+      {sectionTitle(EST_SECTIONS[2].label)}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {est.services.map((s, i) => (
+          <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '6px 12px', background: 'rgba(200,166,90,0.08)', borderRadius: 999, border: '1px solid rgba(200,166,90,0.14)', fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#8a7040' }}>
+            <Briefcase size={12} style={{ color: '#C8A65A' }} />
+            {s}
+          </span>
+        ))}
+      </div>
+
+      {sectionTitle(EST_SECTIONS[3].label)}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {est.team.map((t, i) => (
+          <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '6px 12px', background: '#f7f6f3', borderRadius: 999, border: '1px solid rgba(200,166,90,0.12)', fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#3F4348' }}>
+            <Users size={12} style={{ color: '#C8A65A' }} />
+            {t}
+          </span>
+        ))}
+      </div>
+
+      {sectionTitle(EST_SECTIONS[4].label)}
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'rgba(200,166,90,0.08)', borderRadius: 10, fontFamily: font, fontSize: '0.8125rem', fontWeight: 700, color: '#3F4348' }}>
+        <Clock size={15} style={{ color: '#C8A65A' }} />
+        {est.duration}
+        <span style={{ fontFamily: font, fontSize: '0.625rem', fontWeight: 500, color: '#90949A' }}>{isAR ? 'حسب درجة التعقيد' : 'depending on complexity'}</span>
+      </div>
+
+      {sectionTitle(EST_SECTIONS[5].label)}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {est.technologies.map((t, i) => (
+          <span key={i} style={{ padding: '5px 12px', background: '#ffffff', borderRadius: 999, border: '1px solid rgba(200,166,90,0.2)', fontFamily: font, fontSize: '0.6875rem', fontWeight: 600, color: '#a98a45' }}>
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#3F4348', lineHeight: 1.7, marginTop: 14, padding: '10px 12px', background: 'rgba(200,166,90,0.05)', borderRadius: 8 }}>
+        {isAR ? OFFER_LINE.ar : OFFER_LINE.en}
+      </div>
     </div>
   );
 }
@@ -1046,6 +1081,7 @@ export function AIDock() {
       if (nextState.stage === 'consult') {
         const type = nextState.projectType;
         const recs = recommendationsFor(type, isAR ? 'ar' : 'en');
+        const est = buildEstimation(type, isAR ? 'ar' : 'en');
         const parts = [
           recorded.industry ? (isAR ? `القطاع: ${recorded.industry}` : `industry: ${recorded.industry}`) : null,
           recorded.goal ? (isAR ? `الهدف: ${recorded.goal}` : `goal: ${recorded.goal}`) : null,
@@ -1053,12 +1089,10 @@ export function AIDock() {
           recorded.size ? (isAR ? `الحجم: ${recorded.size}` : `size: ${recorded.size}`) : null,
         ].filter(Boolean).join(' · ');
         const lead = isAR
-          ? 'شكراً — أصبحت الصورة واضحة الآن. هذه هي التوصية المخصصة لمشروعك:'
-          : 'Thank you — I now have a clear picture. Here is my tailored recommendation for your project:';
-        const follow = isAR
-          ? 'هل تريد أن أحوّل هذه التوصية إلى خطة تنفيذية مفصلة؟'
-          : 'Would you like me to turn this recommendation into a detailed execution plan?';
-        speechText = `${lead} ${recs.map(r => r.service).join(' · ')}. ${follow}`;
+          ? 'شكراً — أصبحت الصورة واضحة الآن. هذه هي التوصية المخصصة لمشروعك مع تقدير استشاري مبدئي:'
+          : 'Thank you — I now have a clear picture. Here is my tailored recommendation, with a preliminary consultation estimate:';
+        const offer = isAR ? OFFER_LINE.ar : OFFER_LINE.en;
+        speechText = `${lead} ${recs.map(r => r.service).join(' · ')}. ${offer}`;
         aiResponse = (
           <div>
             <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginBottom: 12 }}>
@@ -1068,9 +1102,7 @@ export function AIDock() {
               )}
             </div>
             <ServiceRecList recs={recs} />
-            <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginTop: 12 }}>
-              {follow}
-            </div>
+            <EstimationCard est={est} isAR={isAR} />
             <PersonaSignature isAR={isAR} />
           </div>
         );
@@ -1082,7 +1114,31 @@ export function AIDock() {
           : `Great — noted. ${step.question}`;
         aiResponse = textBlock(speechText);
       }
-    } else if (classify.intent === 'project' || classify.intent === 'estimation') {
+    } else if (classify.intent === 'estimation') {
+      const est = buildEstimation(classify.projectType, isAR ? 'ar' : 'en');
+      const label = classify.projectLabel ? (isAR ? classify.projectLabel.ar : classify.projectLabel.en) : null;
+      const intro = label
+        ? (isAR
+            ? `لن أضع سعراً مبدئياً لـ${label} قبل فهم المتطلبات — هذه استشارة تقديرية استرشادية:`
+            : `I don't set a fixed quote for ${/^[aeiou]/i.test(label) ? 'an' : 'a'} ${label} without understanding requirements — this is a preliminary consultation estimate:`)
+        : (isAR
+            ? 'لن أضع سعراً مبدئياً دون فهم المتطلبات — هذه استشارة تقديرية استرشادية:'
+            : "I don't quote exact figures without understanding requirements — this is a preliminary consultation estimate:");
+      const offer = isAR ? OFFER_LINE.ar : OFFER_LINE.en;
+      speechText = `${intro} ${est.understanding} ${offer}`;
+      stateRef.current = { ...conv, projectType: classify.projectType, exchanges: conv.exchanges + 1 };
+      aiResponse = (
+        <div>
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginBottom: 8 }}>
+            {ackNodeParts}
+            <div>{intro}</div>
+          </div>
+          <EstimationCard est={est} isAR={isAR} />
+          <PersonaSignature isAR={isAR} />
+        </div>
+      );
+      recommendation = est.services[0];
+    } else if (classify.intent === 'project') {
       const nextState = beginIntake(conv, classify.projectType);
       stateRef.current = nextState;
       const step = intakeQuestion(nextState, isAR ? 'ar' : 'en');
@@ -1176,31 +1232,38 @@ export function AIDock() {
       recommendation = isAR ? (entry.cta?.label?.ar || entry.keywords[0]) : (entry.cta?.label?.en || entry.keywords[0]);
       aiResponse = matchBody(entry);
     } else {
-      speechText = isAR
-        ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
-        : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.';
+      const convNext: ConversationState = { ...conv, exchanges: conv.exchanges + 1 };
+      stateRef.current = convNext;
+      const unknown = unknownResponse(convNext);
+      const recs = closestServices(convNext, isAR ? 'ar' : 'en');
+      const uText = isAR ? unknown.ar : unknown.en;
+      const uFollow = isAR ? unknown.followUp.ar : unknown.followUp.en;
+      speechText = `${uText} ${uFollow}`;
       aiResponse = (
         <div>
           <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', marginBottom: 12, lineHeight: 1.7 }}>
-            {isAR
-              ? 'شكراً لسؤالك. لم أجد إجابة محددة في قاعدة معرفتنا. يمكننا تحويل طلبك إلى فريق الاستشارات لدينا.'
-              : 'Thank you for your question. I couldn\'t find a specific answer in our knowledge base. I can forward your request to our consulting team.'}
+            {uText}
           </div>
-          <WhatsAppFallback query={q} isAR={isAR} />
-          <button
-            onClick={() => navigate('/contact')}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer',
-              padding: '10px 20px', background: 'transparent', color: '#2F3338',
-              borderRadius: 999, border: '1px solid rgba(200,166,90,0.2)',
-              fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
-              transition: 'all 0.25s ease',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(200,166,90,0.08)'; e.currentTarget.style.borderColor = '#c8a65a'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(200,166,90,0.2)'; }}
-          >
-            {isAR ? 'تواصل معنا ←' : 'Contact Us →'}
-          </button>
+          <ServiceRecList recs={recs} />
+          <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 500, color: '#676B70', lineHeight: 1.7, marginTop: 12 }}>
+            {uFollow}
+          </div>
+          {unknown.showContact && (
+            <button
+              onClick={() => navigate('/contact')}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer',
+                marginTop: 10, padding: '10px 20px', background: '#2F3338', color: '#fff',
+                borderRadius: 999, border: 'none',
+                fontFamily: font, fontSize: '0.75rem', fontWeight: 600,
+                transition: 'all 0.25s ease',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = '#c8a65a'; e.currentTarget.style.color = '#2F3338'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = '#2F3338'; e.currentTarget.style.color = '#fff'; }}
+            >
+              {isAR ? 'طلب استشارة رسمية ←' : 'Request a Formal Consultation →'}
+            </button>
+          )}
           <PersonaSignature isAR={isAR} />
         </div>
       );

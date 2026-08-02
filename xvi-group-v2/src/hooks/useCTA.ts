@@ -16,6 +16,9 @@ if (import.meta.env.DEV) {
   };
 }
 
+// Opens the Executive AI concierge (the in-page dock). Never navigates —
+// except when the dock genuinely cannot render, in which case it routes to
+// /contact as a resilience fallback.
 export function useCTA() {
   const navigate = useNavigate();
 
@@ -32,4 +35,18 @@ export function useCTA() {
   }, [navigate]);
 
   return handleCTA;
+}
+
+// Navigates to /contact. Never opens the AI dock.
+export function useContactCTA() {
+  const navigate = useNavigate();
+
+  const handleContact = useCallback((e?: React.MouseEvent | React.KeyboardEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    playSound('ctaClick');
+    navigate('/contact');
+  }, [navigate]);
+
+  return handleContact;
 }

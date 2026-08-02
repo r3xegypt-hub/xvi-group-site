@@ -1,12 +1,16 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useCTA } from '../../../hooks/useCTA';
+import { useLanguage } from '../../../hooks/LanguageProvider';
+import { useCTA, useContactCTA } from '../../../hooks/useCTA';
 import styles from './CTA.module.scss';
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function CTA() {
   const handleCTA = useCTA();
+  const handleContact = useContactCTA();
+  const { language } = useLanguage();
+  const ar = language === 'ar';
 
   return (
     <section className={styles.section}>
@@ -38,12 +42,15 @@ export function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease, delay: 0.25 }}
         >
-          <Link to="/contact" className={styles.cta} onClick={handleCTA}>
-            Begin a conversation
+          <button type="button" className={styles.cta} onClick={handleCTA}>
+            {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
+          </button>
+          <Link to="/contact" className={styles.ctaGhost} onClick={handleContact}>
+            {ar ? 'تواصل معنا' : 'Contact Us'}
           </Link>
         </motion.div>
       </div>

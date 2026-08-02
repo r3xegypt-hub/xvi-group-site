@@ -117,26 +117,32 @@ async function openDockHome(page) {
   await waitStable(desktop);
   desktop.url().includes('/contact') ? pass('Contact page loads') : fail('Contact page failed');
 
-  // 7. "Begin a conversation" on Contact/Careers page -> opens Dock
-  console.log('\n📄 "Begin a conversation"');
-  // On Contact page via CTA component
-  const beginC = desktop.locator('a').filter({ hasText: 'Begin a conversation' }).first();
-  if (await beginC.isVisible()) {
-    pass('"Begin a conversation" visible on Contact page');
-    await beginC.click(CLICK); await desktop.waitForTimeout(800);
-    (await dockVisible(desktop)) ? pass('→ Dock opened') : fail('→ Dock NOT opened');
-  } else fail('"Begin a conversation" not found on Contact');
+  // 7. "Talk to the Executive AI" (CTA section) opens Dock; "Contact Us" opens /contact
+  console.log('\n📄 CTA SECTION — AI vs Contact separation (T11)');
+  const aiCtaBtn = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' });
+  if (await aiCtaBtn.first().isVisible()) {
+    pass('"Talk to the Executive AI" visible on Contact page');
+    await aiCtaBtn.first().click(CLICK); await desktop.waitForTimeout(800);
+    (await dockVisible(desktop)) ? pass('→ AI CTA opens Dock (not /contact)') : fail('→ Dock NOT opened');
+  } else fail('"Talk to the Executive AI" not found on Contact');
   await closeDock(desktop);
 
-  // Also test on Careers page
+  const contactBtn = desktop.locator('a').filter({ hasText: 'Contact Us' }).first();
+  if (await contactBtn.isVisible()) {
+    pass('"Contact Us" visible on Contact page');
+    await contactBtn.click(CLICK); await desktop.waitForTimeout(1500);
+    desktop.url().includes('/contact') ? pass('→ opens /contact (not Dock)') : fail(`→ ${desktop.url()}`);
+  } else fail('"Contact Us" not found on Contact');
+
+  // On Careers page
   await desktop.goto(`${BASE}/careers`, { waitUntil: 'networkidle' });
   await waitStable(desktop);
-  const beginC2 = desktop.locator('a').filter({ hasText: 'Begin a conversation' }).first();
-  if (await beginC2.isVisible()) {
-    pass('"Begin a conversation" visible on Careers');
-    await beginC2.click(CLICK); await desktop.waitForTimeout(800);
+  const aiCtaBtn2 = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' });
+  if (await aiCtaBtn2.first().isVisible()) {
+    pass('"Talk to the Executive AI" visible on Careers');
+    await aiCtaBtn2.first().click(CLICK); await desktop.waitForTimeout(800);
     (await dockVisible(desktop)) ? pass('→ Dock opened') : fail('→ Dock NOT opened');
-  } else fail('"Begin a conversation" not found on Careers');
+  } else fail('"Talk to the Executive AI" not found on Careers');
   await closeDock(desktop);
 
   // 8. AI Dock internal "Contact Expert" -> journey-aware recommendation card

@@ -771,25 +771,36 @@ export const OFFER_LINE: Record<Lang, string> = {
 };
 
 // ---------------------------------------------------------------------------
-// UNKNOWN HANDLING
+// UNKNOWN HANDLING (T10): closest services first, contact only after exchanges
 // ---------------------------------------------------------------------------
 
-export function unknownResponse(state: ConversationState, lang: Lang): {
+export interface UnknownReply {
   en: string;
   ar: string;
+  followUp: { en: string; ar: string };
   showContact: boolean;
-} {
+}
+
+export function unknownResponse(state: ConversationState): UnknownReply {
   const showContact = state.exchanges >= 3 || state.contactOffered;
   if (showContact) {
     return {
-      en: "I haven't found an exact match yet, but I'd like to help. Could we set up a short consultation so I can understand the full picture and bring you the right recommendation?",
-      ar: 'لم أجد تطابقاً دقيقاً بعد، لكني أرغب في مساعدتك. هل نرتب استشارة قصيرة لأفهم الصورة كاملة وأقدم لك التوصية الصحيحة؟',
+      en: "I've considered the closest service lines, but I'd rather validate the full picture with you than guess. Rather than point you to our team immediately, here is how I would approach a project like this.",
+      ar: 'لقد درست أقرب الخدمات المناسبة، لكنني أفضل التحقق من الصورة كاملة معك بدلاً من التخمين. بدلاً من تحويلك إلى الفريق فوراً، إليك كيف سأتعامل مع مشروع مثل هذا.',
+      followUp: {
+        en: 'Would you like me to prepare a formal consultation request and connect you with our executive team?',
+        ar: 'هل ترغب في أن أجهّز طلب استشارة رسمي وأربطك مباشرة بفريق XVI GROUP؟',
+      },
       showContact: true,
     };
   }
   return {
-    en: 'Let me think about this differently. Tell me a little more — what outcome are you trying to achieve, and who is it for?',
-    ar: 'دعني أنظر إلى الأمر من زاوية أخرى. أخبرني المزيد — ما النتيجة التي تحاول تحقيقها، ولمن هي؟',
+    en: "This doesn't map to one exact service, so I would engage the closest matching lines for a project like yours — and here is why each one matters.",
+    ar: 'لا يندرج هذا تحت خدمة واحدة بالضبط، لذلك سأبدأ بأقرب الخدمات المناسبة لمشروع مثل مشروعك — وإليك لماذا تُحدث كل واحدة فرقاً.',
+    followUp: {
+      en: 'Could you tell me a little more — what outcome are you trying to achieve, and who is it for?',
+      ar: 'هل تخبرني المزيد — ما النتيجة التي تحاول تحقيقها، ولمن؟',
+    },
     showContact: false,
   };
 }
