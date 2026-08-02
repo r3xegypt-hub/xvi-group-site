@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Building2, Landmark, Factory, Globe, Heart, GraduationCap, Zap, ChevronRight, ArrowRight } from 'lucide-react';
+import { Building2, Landmark, Factory, Heart, GraduationCap, Zap, ChevronRight, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
 import { ExecutiveGlobe } from '../../components/sections/Industries/ExecutiveGlobe';

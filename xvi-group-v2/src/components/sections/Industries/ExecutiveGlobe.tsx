@@ -349,7 +349,7 @@ export function ExecutiveGlobe() {
 
               <circle cx={CENTER} cy={CENTER} r={RADIUS} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="2 10" />
 
-              {EDGES.map(([a, b], ei) => (
+              {EDGES.map(([_a, _b], ei) => (
                 <path
                   key={ei}
                   ref={(el) => { pathRefs.current[ei] = el; }}

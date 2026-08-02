@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,6 @@ import {
   Check,
   ConciergeBell,
   Factory,
-  GraduationCap,
   HardHat,
   Heart,
   Landmark,

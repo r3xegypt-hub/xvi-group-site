@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Briefcase, Users, Globe, ArrowUpRight, Heart, Zap, Shield, Target } from 'lucide-react';
+import { Users, Globe, ArrowUpRight, Zap, Shield, Target } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { Container } from '../../components/layout/Container';
 import { Section } from '../../components/layout/Section';

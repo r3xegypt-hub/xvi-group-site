@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
 
 interface Particle {

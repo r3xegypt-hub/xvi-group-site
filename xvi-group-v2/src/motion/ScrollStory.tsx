@@ -62,7 +62,7 @@ interface PinnedSceneProps {
 
 export function PinnedScene({ children, className, id }: PinnedSceneProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: _scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end end'],
   });

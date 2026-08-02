@@ -17,7 +17,7 @@ export function useCountUp({
   suffix = '',
 }: CountUpConfig) {
   const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [_hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const hasStartedRef = useRef(false);

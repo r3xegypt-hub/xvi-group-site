@@ -35,8 +35,6 @@ export function MagneticButton({
     el.style.transform = 'translate(0px, 0px)';
   };
 
-  const Tag = Component === 'a' ? 'a' : motion.button;
-
   const props: any = {
     ref,
     className,

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Brain, Workflow, Shield, BarChart3, Lightbulb, Target, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Brain, Workflow, Shield, BarChart3, Lightbulb, Target, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
 import styles from './Services.module.scss';
@@ -163,7 +163,7 @@ export function ServicesPage() {
       </section>
 
       {/* SERVICES — FULL BLEED EDITORIAL */}
-      {services.map((svc, idx) => (
+      {services.map((svc, _idx) => (
         <section
           key={svc.id}
           className={`${styles.serviceSection} ${svc.dark ? styles.dark : ''} ${svc.bordered ? styles.bordered : ''}`}

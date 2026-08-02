@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Eye, Compass, Users, Zap, Quote, ChevronDown, Target, Lightbulb, Shield, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Eye, Compass, Users, Zap, Quote, ChevronDown, Target, Lightbulb, Shield, TrendingUp, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './About.module.scss';
 

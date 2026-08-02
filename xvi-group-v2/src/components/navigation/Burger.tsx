@@ -9,7 +9,7 @@ interface BurgerProps {
   ariaExpanded?: boolean;
 }
 
-export function Burger({ isOpen, onClick, className, ariaLabel, ariaExpanded }: BurgerProps) {
+export function Burger({ isOpen: _isOpen, onClick, className, ariaLabel, ariaExpanded }: BurgerProps) {
   return (
     <button
       className={[className, 'xvi-burger'].filter(Boolean).join(' ')}

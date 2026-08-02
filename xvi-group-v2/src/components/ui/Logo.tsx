@@ -71,7 +71,7 @@ export function LogoHorizontal({ variant = 'dark', size = 'md', className }: Ful
 }
 
 export function LogoVertical({ variant = 'dark', className }: FullLogoProps) {
-  const fill = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#111111';
+  const _fill = variant === 'light' ? '#FFFFFF' : variant === 'gold' ? '#C8A65A' : '#111111';
   return (
     <div className={className} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
       <LogoIcon size={40} variant={variant} />

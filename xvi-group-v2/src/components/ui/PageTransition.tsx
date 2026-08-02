@@ -4,8 +4,6 @@ import type { Easing, Variants } from 'framer-motion';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-const transition = { duration: 0.6, ease };
-
 const pageVariants: Variants = {
   initial: { opacity: 0, y: 20, scale: 0.97 },
   animate: {

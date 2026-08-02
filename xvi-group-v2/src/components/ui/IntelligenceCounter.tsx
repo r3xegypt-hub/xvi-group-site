@@ -14,8 +14,6 @@ export function IntelligenceCounter({ value, label, labelAr, className, prefix }
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   const isNumeric = !isNaN(Number(value.replace(/[^0-9]/g, '')));
-  const numValue = isNumeric ? Number(value.replace(/[^0-9]/g, '')) : 0;
-  const suffix = value.replace(/[0-9]/g, '').replace(/\+/g, '+').replace(/\./g, '.');
 
   return (
     <div ref={ref} className={className}>
