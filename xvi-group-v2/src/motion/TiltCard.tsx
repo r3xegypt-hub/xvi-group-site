@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 
 interface TiltCardProps {
   children: ReactNode;
@@ -17,6 +17,7 @@ export function TiltCard({
   depthOffset = 25,
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
@@ -48,24 +49,24 @@ export function TiltCard({
     <motion.div
       ref={ref}
       className={className}
-      onMouseMove={handleMouse}
-      onMouseLeave={handleLeave}
+      onMouseMove={shouldReduceMotion ? undefined : handleMouse}
+      onMouseLeave={shouldReduceMotion ? undefined : handleLeave}
       style={{
         perspective: 1000,
         transformStyle: 'preserve-3d',
-        rotateX,
-        rotateY,
+        rotateX: shouldReduceMotion ? 0 : rotateX,
+        rotateY: shouldReduceMotion ? 0 : rotateY,
         willChange: 'transform',
       }}
-      whileHover={{
+      whileHover={shouldReduceMotion ? undefined : {
         scale: 1.015,
         z: depthOffset,
         transition: { type: 'spring', stiffness: 300, damping: 25 },
       }}
-      whileTap={{ scale: 0.985 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
     >
       {children}
-      {glare && (
+      {!shouldReduceMotion && glare && (
         <motion.div
           aria-hidden="true"
           style={{

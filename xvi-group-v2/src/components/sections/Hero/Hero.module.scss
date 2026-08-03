@@ -26,6 +26,21 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: linear-gradient(135deg, #111215 0%, #1a1c22 40%, #141519 70%, #0d0e11 100%);
+    animation: gradientDrift 20s ease-in-out infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes gradientDrift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-12%, -6%, 0); }
 }
 
 // ── Live photographic premium layer ──
@@ -527,6 +542,10 @@
     .ambientLight,
     .headlineSweep,
     .goldenReflection {
+      animation: none;
+    }
+
+    .bgGradient::before {
       animation: none;
     }
   }

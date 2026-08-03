@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import {
-  motion, useInView, useAnimationControls, useMotionValue, useSpring, useTransform, useScroll,
+  motion, useInView, useMotionValue, useSpring, useTransform, useScroll,
 } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,6 @@ export function Hero() {
   const isInView = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const [lettersVisible, setLettersVisible] = useState(false);
-  const bgControls = useAnimationControls();
 
   // Interactive mouse parallax (spring-smoothed, normalized -1..1)
   const mx = useMotionValue(0);
@@ -80,16 +79,10 @@ export function Hero() {
 
   useEffect(() => {
     if (isInView) {
-      if (!prefersReducedMotion) {
-        bgControls.start({
-          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-          transition: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
-        });
-      }
-      const timer = setTimeout(() => setLettersVisible(true), 300);
+      const timer = setTimeout(() => setLettersVisible(true), 250);
       return () => clearTimeout(timer);
     }
-  }, [isInView, bgControls, prefersReducedMotion]);
+  }, [isInView]);
 
   // The Executive AI Core is the hero centrepiece ΓÇö a slow, cinematic,
   // always-present ambient visual behind the headline.
@@ -120,16 +113,13 @@ export function Hero() {
       onPointerMove={prefersReducedMotion ? undefined : onPointerMove}
       onPointerLeave={prefersReducedMotion ? undefined : onPointerLeave}
     >
-      <motion.div
-        className={styles.bgGradient}
-        animate={bgControls}
-        style={{
-          x: bgLayerX,
-          y: bgLayerY,
-          background: 'linear-gradient(135deg, #e7e4df 0%, #f2f2f0 38%, #e3e0da 68%, #ece8e2 100%)',
-          backgroundSize: '200% 200%',
-        }}
-      />
+        <motion.div
+          className={styles.bgGradient}
+          style={{
+            x: bgLayerX,
+            y: bgLayerY,
+          }}
+        />
       {/* ── Premium photographic layer — moves with mouse parallax ── */}
       <motion.div
         className={styles.photoLayer}
@@ -137,7 +127,7 @@ export function Hero() {
         aria-hidden="true"
       >
         <img
-          src="/images/hero_ai_visual.jpg"
+          src={`${import.meta.env.BASE_URL}images/hero_ai_visual.jpg`}
           alt=""
           className={styles.photoLayerImg}
           loading="eager"

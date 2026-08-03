@@ -61,7 +61,7 @@ export function Technology() {
             {/* Real photo behind the AI network — visible & lively */}
             <div className={styles.photoBack} aria-hidden="true">
               <img
-                src="/images/technology_visual.jpg"
+                src={`${import.meta.env.BASE_URL}images/technology_visual.jpg`}
                 alt=""
                 className={styles.photoBackImg}
                 loading="lazy"

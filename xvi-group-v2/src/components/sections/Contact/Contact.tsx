@@ -25,7 +25,7 @@ export function Contact({ cta }: Props) {
       {/* ── Contact background photo ── */}
       <div className={styles.contactPhoto} aria-hidden="true">
         <img
-          src="/images/contact_visual.jpg"
+          src={`${import.meta.env.BASE_URL}images/contact_visual.jpg`}
           alt=""
           className={styles.contactPhotoImg}
           loading="lazy"

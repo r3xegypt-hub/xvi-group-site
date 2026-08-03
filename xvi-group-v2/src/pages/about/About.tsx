@@ -484,7 +484,6 @@ export function AboutPage() {
           </motion.p>
           <motion.div
             className={styles.ctaActions}
-            style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -494,7 +493,7 @@ export function AboutPage() {
               {ar ? 'تواصل معنا' : 'Contact Us'}
               <ArrowRight size={16} />
             </Link>
-            <button type="button" className={styles.ctaPrimary} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+            <button type="button" className={styles.ctaGhost} onClick={handleCTA}>
               {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
             </button>
           </motion.div>

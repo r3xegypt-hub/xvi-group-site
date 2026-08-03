@@ -797,6 +797,7 @@
   display: flex;
   justify-content: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .ctaPrimary {
@@ -840,6 +841,35 @@
 
   &:hover::before {
     opacity: 1;
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+}
+
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: transparent;
+  color: #c8a65a;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(200, 166, 90, 0.4);
+  border-radius: 999px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    background: rgba(200, 166, 90, 0.08);
+    border-color: #c8a65a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(200, 166, 90, 0.12);
   }
 
   &:active {

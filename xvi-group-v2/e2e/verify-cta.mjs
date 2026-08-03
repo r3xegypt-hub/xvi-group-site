@@ -80,36 +80,48 @@ async function openDockHome(page) {
   console.log('\n📄 SERVICES');
   await desktop.goto(`${BASE}/services`, { waitUntil: 'networkidle' });
   await waitStable(desktop);
-  const svcCta = desktop.locator('a').filter({ hasText: 'Start a conversation' }).first();
-  if (await svcCta.isVisible()) {
-    pass('"Start a conversation" on Services');
-    await svcCta.click(CLICK); await desktop.waitForTimeout(800);
+  const svcAi = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' }).first();
+  if (await svcAi.isVisible()) {
+    pass('"Talk to the Executive AI" on Services');
+    await svcAi.click(CLICK); await desktop.waitForTimeout(800);
     (await dockVisible(desktop)) ? pass('→ Dock opened') : fail('→ Dock NOT opened');
-  } else fail('"Start a conversation" not found on Services');
+  } else fail('"Talk to the Executive AI" not found on Services');
   await closeDock(desktop);
+  const svcCta = desktop.locator('a').filter({ hasText: 'Contact Us' }).first();
+  if (await svcCta.isVisible()) {
+    pass('"Contact Us" on Services');
+    await svcCta.click(CLICK); await desktop.waitForTimeout(2000);
+    desktop.url().includes('/contact') ? pass('→ navigates to /contact') : fail(`→ ${desktop.url()}`);
+  } else fail('"Contact Us" not found on Services');
 
   // 4. Industries page
   console.log('\n📄 INDUSTRIES');
   await desktop.goto(`${BASE}/industries`, { waitUntil: 'networkidle' });
   await waitStable(desktop);
-  const indPgCta = desktop.locator('a').filter({ hasText: 'Start a conversation' }).first();
-  if (await indPgCta.isVisible()) {
-    pass('"Start a conversation" on Industries');
-    await indPgCta.click(CLICK); await desktop.waitForTimeout(800);
+  const indPgAi = desktop.locator('button').filter({ hasText: 'Talk to the Executive AI' }).first();
+  if (await indPgAi.isVisible()) {
+    pass('"Talk to the Executive AI" on Industries');
+    await indPgAi.click(CLICK); await desktop.waitForTimeout(800);
     (await dockVisible(desktop)) ? pass('→ Dock opened') : fail('→ Dock NOT opened');
-  } else fail('"Start a conversation" not found on Industries');
+  } else fail('"Talk to the Executive AI" not found on Industries');
   await closeDock(desktop);
+  const indPgCta = desktop.locator('a').filter({ hasText: 'Contact Us' }).first();
+  if (await indPgCta.isVisible()) {
+    pass('"Contact Us" on Industries');
+    await indPgCta.click(CLICK); await desktop.waitForTimeout(2000);
+    desktop.url().includes('/contact') ? pass('→ navigates to /contact') : fail(`→ ${desktop.url()}`);
+  } else fail('"Contact Us" not found on Industries');
 
-  // 5. About — "Book your consultation" navigates to /contact
+  // 5. About — "Contact Us" navigates to /contact
   console.log('\n📄 ABOUT');
   await desktop.goto(`${BASE}/about`, { waitUntil: 'networkidle' });
   await waitStable(desktop);
-  const bookC = desktop.locator('a').filter({ hasText: 'Book your consultation' }).first();
+  const bookC = desktop.locator('a').filter({ hasText: 'Contact Us' }).first();
   if (await bookC.isVisible()) {
-    pass('"Book your consultation" visible');
+    pass('"Contact Us" visible');
     await bookC.click(CLICK); await desktop.waitForTimeout(2000);
     desktop.url().includes('/contact') ? pass('→ navigates to /contact') : fail(`→ ${desktop.url()}`);
-  } else fail('"Book your consultation" not found');
+  } else fail('"Contact Us" not found');
 
   // 6. Contact page loads
   console.log('\n📄 CONTACT');

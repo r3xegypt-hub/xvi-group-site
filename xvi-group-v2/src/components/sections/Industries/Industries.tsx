@@ -112,7 +112,7 @@ export function Industries({ focus }: Props) {
           transition={{ duration: 0.7, ease, delay: 0.25 }}
         >
           <img
-            src="/images/industries_visual.jpg"
+            src={`${import.meta.env.BASE_URL}images/industries_visual.jpg`}
             alt={ar ? 'القطاعات التي نخدمها' : 'Industries we serve'}
             className={styles.industryPhotoImg}
             loading="lazy"

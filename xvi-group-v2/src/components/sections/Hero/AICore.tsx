@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import styles from './AICore.module.scss';
 
 // Precision 3D Neural Constellation Nodes
@@ -29,16 +28,8 @@ export function AICore() {
       <span className={styles.ambientGlow} data-part="glow" />
 
       {/* Dynamic Rotating 3D Orbital Rings */}
-      <motion.span
-        className={styles.orbitRing}
-        animate={{ rotateZ: 360, rotateX: [60, 45, 60] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-      />
-      <motion.span
-        className={styles.orbitRingAlt}
-        animate={{ rotateZ: -360, rotateY: [40, 55, 40] }}
-        transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
-      />
+      <span className={styles.orbitRing} />
+      <span className={styles.orbitRingAlt} />
 
       {/* Floating Glass Neural Sphere Core */}
       <div className={styles.sphere} data-part="sphere">

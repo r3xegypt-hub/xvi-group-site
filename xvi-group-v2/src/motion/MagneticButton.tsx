@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -19,6 +19,7 @@ export function MagneticButton({
   strength = 0.35,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -46,18 +47,18 @@ export function MagneticButton({
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={handleLeave}
+      onMouseMove={shouldReduceMotion ? undefined : handleMouse}
+      onMouseLeave={shouldReduceMotion ? undefined : handleLeave}
       className={className}
       style={{
-        x: xSpring,
-        y: ySpring,
+        x: shouldReduceMotion ? 0 : xSpring,
+        y: shouldReduceMotion ? 0 : ySpring,
         willChange: 'transform',
         display: 'inline-block',
         position: 'relative',
       }}
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.96 }}
+      whileHover={shouldReduceMotion ? undefined : { scale: 1.04 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
       transition={{ type: 'spring', stiffness: 350, damping: 25 }}
       onClick={onClick}
     >

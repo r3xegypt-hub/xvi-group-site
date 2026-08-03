@@ -114,7 +114,7 @@ export function Services({ focus }: Props) {
           </div>
           <div className={styles.visualStripPhoto}>
             <img
-              src="/images/services_visual.jpg"
+              src={`${import.meta.env.BASE_URL}images/services_visual.jpg`}
               alt={ar ? 'فريق يعمل على حلول الذكاء الاصطناعي' : 'Team working on AI solutions'}
               className={styles.visualStripImg}
               loading="lazy"

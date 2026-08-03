@@ -264,7 +264,7 @@ export function IndustriesPage() {
                     {ar ? 'تواصل معنا' : 'Contact Us'}
                     <ArrowRight size={14} />
                   </Link>
-                  <button type="button" className={styles.detailCta} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+                  <button type="button" className={styles.detailCtaGhost} onClick={handleCTA}>
                     {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
                   </button>
                 </div>
@@ -301,7 +301,7 @@ export function IndustriesPage() {
               {ar ? 'تواصل معنا' : 'Contact Us'}
               <ArrowRight size={14} />
             </Link>
-            <button type="button" className={styles.detailCta} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+            <button type="button" className={styles.detailCtaGhost} onClick={handleCTA}>
               {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
             </button>
           </div>
