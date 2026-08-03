@@ -25,6 +25,20 @@
   max-width: 700px;
 }
 
+/* Premium editorial executive-dashboard watermark */
+.heroVisual {
+  position: absolute;
+  z-index: 1;
+  inset-inline-end: 5%;
+  bottom: 8%;
+  width: min(36vw, 440px);
+  opacity: 0.6;
+  pointer-events: none;
+
+  @include mobile { display: none; }
+  @include tablet-portrait { width: 34vw; opacity: 0.45; }
+}
+
 .label {
   display: block;
   font-family: 'Manrope', sans-serif;

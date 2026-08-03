@@ -10,7 +10,23 @@
 }
 
 .heroInner {
+  position: relative;
+  z-index: 2;
   max-width: 680px;
+}
+
+/* Premium editorial growth-curve watermark */
+.heroVisual {
+  position: absolute;
+  z-index: 1;
+  inset-inline-end: 5%;
+  bottom: 6%;
+  width: min(36vw, 460px);
+  opacity: 0.6;
+  pointer-events: none;
+
+  @include mobile { display: none; }
+  @include tablet-portrait { width: 34vw; opacity: 0.45; }
 }
 
 .overline {

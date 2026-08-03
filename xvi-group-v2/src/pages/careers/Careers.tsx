@@ -8,6 +8,7 @@ import { Container } from '../../components/layout/Container';
 import { Section } from '../../components/layout/Section';
 import { SectionReveal } from '../../motion/SectionReveal';
 import { GeometricShapes } from '../../components/ui/GeometricShapes';
+import { GrowthCurve } from '../../components/ui/visuals/GrowthCurve';
 import { CTA } from '../../components/sections/CTA';
 import styles from './Careers.module.scss';
 
@@ -94,6 +95,9 @@ export function CareersPage() {
     <>
       <Section variant="warm" className={styles.pageHero}>
         <GeometricShapes count={12} color="#C8A65A" />
+        <div className={styles.heroVisual} aria-hidden="true">
+          <GrowthCurve />
+        </div>
         <Container>
           <motion.div
             ref={ref}

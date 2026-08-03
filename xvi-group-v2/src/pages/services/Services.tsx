@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { Brain, Workflow, Shield, BarChart3, Lightbulb, Target, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
+import { EnterpriseOrchestration } from '../../components/ui/visuals/EnterpriseOrchestration';
+import { GovernanceShield } from '../../components/ui/visuals/GovernanceShield';
+import { DecisionArchitecture } from '../../components/ui/visuals/DecisionArchitecture';
 import styles from './Services.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -132,6 +135,9 @@ export function ServicesPage() {
             <div key={i} className={styles.gridLine} style={{ left: `${(i + 1) * 16.66}%` }} />
           ))}
         </div>
+        <div className={styles.heroVisual} aria-hidden="true">
+          <EnterpriseOrchestration />
+        </div>
         <motion.div className={styles.heroContent} ref={heroRef} style={{ opacity: heroOpacity }}>
           <motion.span
             className={styles.label}
@@ -169,6 +175,11 @@ export function ServicesPage() {
           className={`${styles.serviceSection} ${svc.dark ? styles.dark : ''} ${svc.bordered ? styles.bordered : ''}`}
           style={{ background: svc.dark ? svc.bg : svc.bordered ? '#fff' : svc.bg }}
         >
+          <div className={styles.serviceVisual} aria-hidden="true">
+            {svc.id === 'strategic-ai' && <DecisionArchitecture />}
+            {svc.id === 'automation-architecture' && <EnterpriseOrchestration />}
+            {svc.id === 'executive-adoption' && <GovernanceShield />}
+          </div>
           <div className={styles.serviceInner}>
             <div className={styles.serviceHeader}>
               <span className={styles.serviceNum}>{svc.num}</span>

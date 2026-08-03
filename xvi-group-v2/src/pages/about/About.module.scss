@@ -59,6 +59,20 @@
   max-width: 700px;
 }
 
+/* Premium editorial decision-architecture watermark */
+.heroVisual {
+  position: absolute;
+  z-index: 1;
+  inset-inline-end: 5%;
+  bottom: 8%;
+  width: min(36vw, 460px);
+  opacity: 0.6;
+  pointer-events: none;
+
+  @include mobile { display: none; }
+  @include tablet-portrait { width: 34vw; opacity: 0.45; }
+}
+
 .label {
   display: block;
   font-family: 'Manrope', sans-serif;
@@ -127,6 +141,27 @@
   margin-bottom: 24px;
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; letter-spacing: 0; }
+}
+
+/* Premium gold divider between vision and mission */
+.goldRule {
+  position: relative;
+  width: 220px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.55), transparent);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: #f2f2f0;
+    border: 1px solid #c8a65a;
+  }
 }
 
 .sectionHeading {

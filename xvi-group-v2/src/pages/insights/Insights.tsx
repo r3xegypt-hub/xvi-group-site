@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, BookOpen, FileText, Lightbulb, TrendingUp } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { ExecutiveCaseStudies } from '../../components/sections/CaseStudies/ExecutiveCaseStudies';
+import { ExecutiveDashboard } from '../../components/ui/visuals/ExecutiveDashboard';
 import styles from './Insights.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -75,6 +76,9 @@ export function InsightsPage() {
       {/* HERO */}
       <section className={styles.hero}>
         <div className={styles.heroBg} />
+        <div className={styles.heroVisual} aria-hidden="true">
+          <ExecutiveDashboard />
+        </div>
         <div className={styles.heroContent} ref={ref}>
           <motion.span
             className={styles.label}

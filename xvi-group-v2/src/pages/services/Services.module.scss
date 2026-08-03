@@ -40,6 +40,20 @@
   max-width: 800px;
 }
 
+/* Premium editorial orchestration watermark */
+.heroVisual {
+  position: absolute;
+  z-index: 1;
+  inset-inline-end: 5%;
+  bottom: 8%;
+  width: min(36vw, 460px);
+  opacity: 0.6;
+  pointer-events: none;
+
+  @include mobile { display: none; }
+  @include tablet-portrait { width: 34vw; opacity: 0.45; }
+}
+
 .label {
   display: block;
   font-family: 'Manrope', sans-serif;
@@ -76,17 +90,42 @@
 
 /* SERVICE SECTIONS */
 .serviceSection {
+  position: relative;
+  overflow: hidden;
   padding: 80px 48px;
+
+  & + & {
+    border-top: 1px solid rgba(200, 166, 90, 0.22);
+  }
 
   @include mobile { padding: 48px 16px; }
   @include tablet-portrait { padding: 64px 32px; }
   @include tablet-landscape { padding: 80px 40px; }
 }
 
+/* Faint editorial diagram supporting each service's story */
+.serviceVisual {
+  position: absolute;
+  z-index: 0;
+  inset-inline-end: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(26vw, 340px);
+  opacity: 0.14;
+  pointer-events: none;
+
+  .dark & { opacity: 0.2; }
+
+  @include mobile { display: none; }
+  @include tablet-portrait { width: 30vw; }
+}
+
 .dark { color: #f7f6f3; }
 .bordered { border-top: 1px solid #e3e3e0; }
 
 .serviceInner {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   display: grid;

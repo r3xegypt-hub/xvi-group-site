@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Eye, Compass, Users, Zap, Quote, ChevronDown, Target, Lightbulb, Shield, TrendingUp, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
+import { DecisionArchitecture } from '../../components/ui/visuals/DecisionArchitecture';
 import styles from './About.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -111,6 +112,9 @@ export function AboutPage() {
           <div className={styles.orb1} />
           <div className={styles.orb2} />
         </div>
+        <div className={styles.heroVisual} aria-hidden="true">
+          <DecisionArchitecture />
+        </div>
         <motion.div className={styles.heroContent} ref={ref} style={{ y: parallaxY }}>
           <motion.span
             className={styles.label}
@@ -158,6 +162,8 @@ export function AboutPage() {
                 : 'To be the leading strategic partner for AI transformation in the region.'}
             </h2>
           </motion.div>
+
+          <div className={styles.goldRule} aria-hidden="true" />
 
           <motion.div
             className={styles.missionBlock}

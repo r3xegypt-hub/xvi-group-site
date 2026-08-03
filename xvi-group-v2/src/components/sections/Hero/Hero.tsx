@@ -145,6 +145,7 @@ export function Hero() {
       <div className={styles.ambientLight} />
       <div className={styles.headlineSweep} />
       <div className={styles.goldenReflection} />
+      <div className={styles.lightStream} />
       <motion.div
         className={styles.robot}
         style={{ x: robotX, y: robotY }}
