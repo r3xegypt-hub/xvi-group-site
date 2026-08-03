@@ -4,6 +4,7 @@ import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Eye, Compass, Users, Zap, Quote, ChevronDown, Target, Lightbulb, Shield, TrendingUp, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { useCTA } from '../../hooks/useCTA';
 import styles from './About.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -94,6 +95,7 @@ const faqItems = [
 export function AboutPage() {
   const { language } = useLanguage();
   const ar = language === 'ar';
+  const handleCTA = useCTA();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll();
@@ -482,15 +484,19 @@ export function AboutPage() {
           </motion.p>
           <motion.div
             className={styles.ctaActions}
+            style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
             <Link to="/contact" className={styles.ctaPrimary}>
-              {ar ? 'احجز استشارتك' : 'Book your consultation'}
+              {ar ? 'تواصل معنا' : 'Contact Us'}
               <ArrowRight size={16} />
             </Link>
+            <button type="button" className={styles.ctaPrimary} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+              {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
+            </button>
           </motion.div>
         </div>
       </section>

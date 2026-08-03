@@ -217,10 +217,15 @@ export function ServicesPage() {
                 </div>
               </div>
 
-              <Link to="/contact" className={styles.serviceCta} onClick={handleCTA}>
-                {ar ? 'ابدأ المحادثة' : 'Start a conversation'}
-                <ArrowRight size={14} />
-              </Link>
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '24px', alignItems: 'center' }}>
+                <Link to="/contact" className={styles.serviceCta}>
+                  {ar ? 'تواصل معنا' : 'Contact Us'}
+                  <ArrowRight size={14} />
+                </Link>
+                <button type="button" className={styles.serviceCta} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+                  {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -305,15 +310,19 @@ export function ServicesPage() {
           </motion.p>
           <motion.div
             className={styles.ctaActions}
+            style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
             <Link to="/contact" className={styles.ctaBtn}>
-              {ar ? 'احجز استشارتك' : 'Book a Consultation'}
+              {ar ? 'تواصل معنا' : 'Contact Us'}
               <ArrowRight size={16} />
             </Link>
+            <button type="button" className={styles.ctaBtn} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+              {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
+            </button>
           </motion.div>
         </div>
       </section>

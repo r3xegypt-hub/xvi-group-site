@@ -259,10 +259,15 @@ export function IndustriesPage() {
                   </div>
                 </div>
 
-                <Link to="/contact" className={styles.detailCta} onClick={handleCTA}>
-                  {ar ? 'ابدأ المحادثة' : 'Start a conversation'}
-                  <ArrowRight size={14} />
-                </Link>
+                <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '24px', alignItems: 'center' }}>
+                  <Link to="/contact" className={styles.detailCta}>
+                    {ar ? 'تواصل معنا' : 'Contact Us'}
+                    <ArrowRight size={14} />
+                  </Link>
+                  <button type="button" className={styles.detailCta} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+                    {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
+                  </button>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -278,7 +283,7 @@ export function IndustriesPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            {ar ? 'sectors of expertise' : 'Sectors of expertise'}
+            {ar ? 'خبرات القطاعات' : 'Sectors of Expertise'}
           </motion.h2>
           <motion.p
             className={styles.ctaSub}
@@ -291,6 +296,15 @@ export function IndustriesPage() {
               ? 'القطاعات التي نعمل بها — الخدمات المالية، القطاع العام، المؤسسات المعقدة، الصحة، التعليم، والتكنولوجيا.'
               : 'Financial Services — Public Sector — Complex Enterprise — Healthcare — Education — Technology & Telecom'}
           </motion.p>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
+            <Link to="/contact" className={styles.detailCta}>
+              {ar ? 'تواصل معنا' : 'Contact Us'}
+              <ArrowRight size={14} />
+            </Link>
+            <button type="button" className={styles.detailCta} style={{ background: 'transparent', border: '1px solid rgba(200, 166, 90, 0.4)', color: '#c8a65a' }} onClick={handleCTA}>
+              {ar ? 'تحدث مع المستشار الذكي' : 'Talk to the Executive AI'}
+            </button>
+          </div>
         </div>
       </section>
     </>
