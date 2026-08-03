@@ -20,7 +20,13 @@ async function setupPage(browser, lang, errors) {
   return page;
 }
 
-const stripSel = 'section[aria-label="Performance metrics"], section[aria-label="مؤشرات الأداء"]';
+const stripSel = 'section[aria-label="Executive principles"], section[aria-label="المبادئ التنفيذية"]';
+const EN_VALUES = [
+  'Every transformation starts with one decision.',
+  'Strategy before technology.',
+  'Building the future with AI.',
+  'Your success story could be the next one.',
+];
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -32,24 +38,19 @@ const stripSel = 'section[aria-label="Performance metrics"], section[aria-label=
   const strip = page.locator(stripSel);
   await strip.first().waitFor({ state: 'attached', timeout: 20000 });
 
-  report(await strip.count() === 1, 'metrics strip present on home');
+  report(await strip.count() === 1, 'principles strip present on home');
   const metrics = strip.locator('[class*="metric"]');
-  report(await metrics.count() === 4, 'strip shows 4 metrics');
-  report((await strip.locator('[class*="eyebrow"]').innerText()).trim() === 'IMPACT IN NUMBERS', 'EN eyebrow correct');
+  report(await metrics.count() === 4, 'strip shows 4 principles');
+  report((await strip.locator('[class*="eyebrow"]').innerText()).trim() === 'EXECUTIVE PRINCIPLES', 'EN eyebrow correct');
 
-  // Counters animate on scroll into view
   await strip.first().scrollIntoViewIfNeeded();
   await page.waitForTimeout(400);
-  const firstValue = metrics.first().locator('[class*="value"]');
-  const mid = (await firstValue.innerText()).replace(/\s+/g, '');
-  await page.waitForTimeout(2500);
-  const final = (await firstValue.innerText()).replace(/\s+/g, '');
-  report(final === '14+', `counter lands on 14+ (got ${final})`);
-  report(mid !== final && mid !== '' && mid !== '14+', `counter animated through ${mid}`);
-
-  const values = await metrics.evaluateAll((els) => els.map((el) => el.querySelector('[class*="value"]')?.textContent.replace(/\s+/g, '')));
-  report(JSON.stringify(values) === JSON.stringify(['14+', '$2.4B', '40+', '92%']), `all counter values correct (${values.join(', ')})`);
-  report((await metrics.nth(1).locator('[class*="label"]').innerText()).trim() === 'Client value created', 'EN labels localized');
+  const values = await metrics.evaluateAll((els) =>
+    els.map((el) => el.querySelector('[class*="value"]')?.textContent.replace(/\s+/g, ' ').trim()),
+  );
+  report(JSON.stringify(values) === JSON.stringify(EN_VALUES), `all principle statements correct (${values.join(' | ')})`);
+  report((await metrics.nth(1).locator('[class*="label"]').innerText()).trim() === 'Intent and governance come first — the tools follow.', 'EN notes localized');
+  report((await strip.locator('[class*="value"]').count()) === 4, 'no counter animation nodes (static narrative)');
 
   const hscroll = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   report(hscroll <= 0, `no horizontal overflow on home (${hscroll})`);
@@ -70,8 +71,8 @@ const stripSel = 'section[aria-label="Performance metrics"], section[aria-label=
   const rStrip = rPage.locator(stripSel);
   await rStrip.first().waitFor({ state: 'attached', timeout: 20000 });
   await rPage.waitForTimeout(400);
-  const rFinal = (await rStrip.locator('[class*="metric"]').first().locator('[class*="value"]').innerText()).replace(/\s+/g, '');
-  report(rFinal === '14+', `reduced motion shows final value immediately (got ${rFinal})`);
+  const rFinal = (await rStrip.locator('[class*="metric"]').first().locator('[class*="value"]').innerText()).replace(/\s+/g, ' ').trim();
+  report(rFinal === EN_VALUES[0], `reduced motion renders narrative statically (got "${rFinal}")`);
   await rPage.close();
 
   // ============ ARABIC / RTL ============
@@ -80,8 +81,8 @@ const stripSel = 'section[aria-label="Performance metrics"], section[aria-label=
   await aPage.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
   const aStrip = aPage.locator(stripSel);
   await aStrip.first().waitFor({ state: 'attached', timeout: 20000 });
-  report((await aStrip.locator('[class*="eyebrow"]').innerText()).trim() === 'الأثر بالأرقام', 'AR eyebrow localized');
-  report((await aStrip.locator('[class*="metric"]').nth(3).locator('[class*="label"]').innerText()).trim() === 'معدل العملاء المتكررين', 'AR labels localized');
+  report((await aStrip.locator('[class*="eyebrow"]').innerText()).trim() === 'مبادئ تنفيذية', 'AR eyebrow localized');
+  report((await aStrip.locator('[class*="metric"]').nth(3).locator('[class*="label"]').innerText()).trim() === 'نكسب الثقة بالحكاية — لا بالأرقام.', 'AR notes localized');
   report((await aPage.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)) <= 0, 'AR: no horizontal overflow');
   report(aErrors.length === 0, `ar: zero console errors (${aErrors.length})`);
 

@@ -132,6 +132,62 @@ async function waitSvg(page, selector) {
     await ctx.close();
   }
 
+  // 3) Storytelling audit: no fabricated metrics, narrative instead.
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    await init(page, 'en');
+
+    // Home principles strip replaced numbers with narrative.
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    const strip = page.locator('section[aria-label="Executive principles"]');
+    await strip.waitFor({ state: 'attached', timeout: 20000 });
+    await strip.scrollIntoViewIfNeeded();
+    const stripText = await strip.innerText();
+    report(stripText.includes('Every transformation starts with one decision.'), 'home: narrative principle rendered');
+    report(stripText.includes('Strategy before technology.'), 'home: strategy principle rendered');
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(600);
+    const homeText = await page.locator('body').innerText();
+    const bannedHome = ['14+', '$2.4B', '40+', '92%', 'years of executive', 'معدل العملاء المتكررين'];
+    for (const t of bannedHome) {
+      report(!homeText.includes(t), `home: no fabricated "${t}"`);
+    }
+
+    // Insights scenarios: types present, fabricated clients/numbers gone.
+    await page.goto(BASE + '/insights', { waitUntil: 'domcontentloaded' });
+    await page.locator('div[class*="card"][role="button"]').first().waitFor({ state: 'attached', timeout: 20000 });
+    const insightsText = await page.locator('body').innerText();
+    for (const t of ['Prototype Solution', 'Reference Implementation', 'Executive Scenario', 'Concept Project']) {
+      report(insightsText.includes(t), `insights: ${t} scenario type present`);
+    }
+    for (const t of ['Nile Health Group', 'Atlas Infrastructure', '$4B', 'Mirah Retail', 'DeltaForge', 'Cedar City', 'Golden Horizon']) {
+      report(!insightsText.includes(t), `insights: no fabricated client "${t}"`);
+    }
+    await page.locator('div[class*="card"][role="button"]').first().click();
+    await page.locator('[class*="modal"][role="dialog"]').waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+    const modalText = await page.locator('[class*="modal"][role="dialog"]').innerText().catch(() => '');
+    report(modalText.includes('POSSIBLE OUTCOMES'), 'insights modal: narrative outcomes label');
+    report(modalText.includes('CURRENT REALITY / DESIGNED TARGET'), 'insights modal: reality/target framing');
+    report(!modalText.includes('EXECUTIVE KPIs'), 'insights modal: no KPI label');
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(400);
+
+    // Portfolio: blueprints framing, no fabricated stats.
+    await page.goto(BASE + '/portfolio', { waitUntil: 'domcontentloaded' });
+    await page.locator('button[class*="tile"]').first().waitFor({ state: 'attached', timeout: 20000 });
+    const resultCount = page.locator('[class*="resultCount"]').first();
+    await resultCount.waitFor({ state: 'attached', timeout: 20000 });
+    await resultCount.scrollIntoViewIfNeeded();
+    report((await resultCount.textContent())?.trim() === '09 concepts', 'portfolio: result count narrative');
+    const portfolioText = await page.locator('body').innerText();
+    report(portfolioText.includes('Blueprints for your next transformation.'), 'portfolio: blueprint title');
+    for (const t of ['90ms', '$1.8B', '1.2M', '12,000', '800 stores', 'Engagements that moved the needle']) {
+      report(!portfolioText.includes(t), `portfolio: no fabricated stat "${t}"`);
+    }
+    await ctx.close();
+  }
+
   await browser.close();
   const passed = results.filter(Boolean).length;
   console.log(`\n=== ${passed}/${results.length} CHECKS PASSED ===`);

@@ -266,8 +266,8 @@ export function ServicesPage() {
             transition={{ duration: 0.6, ease, delay: 0.1 }}
           >
             {ar
-              ? 'منهجية متكاملة مبنية على سنوات من الخبرة في تحويل المؤسسات بالذكاء الاصطناعي.'
-              : 'An integrated methodology built on years of experience transforming enterprises with AI.'}
+              ? 'منهجية متكاملة تجمع الاستراتيجية والتقنية والحوكمة لتحويل المؤسسات بالذكاء الاصطناعي.'
+              : 'An integrated methodology that fuses strategy, technology, and governance to transform enterprises with AI.'}
           </motion.p>
           <div className={styles.processGrid}>
             {processSteps.map((step, i) => (

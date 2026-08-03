@@ -619,6 +619,19 @@ $border-light: #e3e3e0;
   margin-top: 40px;
 }
 
+.outcome {
+  margin: 18px 0 0;
+  padding: 24px 26px;
+  font-size: 15px;
+  line-height: 1.75;
+  font-weight: 500;
+  color: $ink;
+  background: linear-gradient(150deg, rgba(200, 166, 90, 0.08), rgba(200, 166, 90, 0.02));
+  border: 1px solid rgba(200, 166, 90, 0.35);
+  border-inline-start: 2px solid $gold;
+  border-radius: 14px;
+}
+
 .kpiGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

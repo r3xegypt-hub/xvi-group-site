@@ -215,15 +215,15 @@ function StrategyCard() {
 
 function KpiCard() {
   const metrics = [
-    { label: 'AI Adoption Rate', value: '67%', trend: '+12%' },
-    { label: 'Automation Coverage', value: '43%', trend: '+8%' },
-    { label: 'Decision Speed', value: '2.4x', trend: '+0.6x' },
-    { label: 'Cost Reduction', value: '18%', trend: '+3%' },
+    { label: 'AI Adoption', value: 'Enabled', trend: 'Target' },
+    { label: 'Automation Coverage', value: 'Scaled', trend: 'Target' },
+    { label: 'Decision Speed', value: 'Governed', trend: 'Target' },
+    { label: 'Cost Discipline', value: 'Measured', trend: 'Target' },
   ];
   return (
     <div style={{ background: '#ffffff', borderRadius: 12, border: '1px solid rgba(200,166,90,0.1)', padding: 16, marginTop: 8 }}>
       <div style={{ fontFamily: font, fontSize: '0.75rem', fontWeight: 600, color: '#C8A65A', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        Executive Dashboard Preview
+        Strategic Preview
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
         {metrics.map((m, i) => (
@@ -849,7 +849,7 @@ export function AIDock() {
         );
         break;
       case 'reports':
-        aiResponse = <div><div style={cmn}>Here is an executive dashboard preview:</div><KpiCard /></div>;
+        aiResponse = <div><div style={cmn}>Here is a strategic preview:</div><KpiCard /></div>;
         break;
       case 'journeyFocus': {
         const meta = journeyMeta(memoryRef.current.journey as JourneyId | null);

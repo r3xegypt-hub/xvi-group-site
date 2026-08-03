@@ -255,10 +255,11 @@ $border-light: #e3e3e0;
 }
 
 .tileStat {
-  font-size: 24px;
-  font-weight: 300;
-  color: var(--tile, $gold);
-  letter-spacing: -0.02em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tile, $gold-dark);
 }
 
 .tileView {
@@ -339,34 +340,17 @@ $border-light: #e3e3e0;
   color: $muted;
 }
 
-.lightboxStats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.lightboxStat {
-  border: 1px solid $border-light;
-  border-radius: 10px;
-  padding: 14px 12px;
-  background: $surface;
-}
-
-.lightboxStatValue {
-  display: block;
-  font-size: 22px;
-  font-weight: 300;
-  color: var(--tile, $gold);
-  letter-spacing: -0.02em;
-}
-
-.lightboxStatLabel {
-  display: block;
-  margin-top: 6px;
-  font-size: 11px;
-  line-height: 1.4;
-  color: $muted;
+.lightboxOutcome {
+  margin: 22px 0 0;
+  padding: 18px 22px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 500;
+  color: $ink;
+  background: linear-gradient(150deg, rgba(200, 166, 90, 0.08), rgba(200, 166, 90, 0.02));
+  border: 1px solid rgba(200, 166, 90, 0.35);
+  border-inline-start: 2px solid var(--tile, $gold);
+  border-radius: 12px;
 }
 
 .lightboxLink {
@@ -451,10 +435,6 @@ $border-light: #e3e3e0;
 
   .lightboxInfo {
     padding: 28px 22px 32px;
-  }
-
-  .lightboxStats {
-    grid-template-columns: 1fr;
   }
 }
 

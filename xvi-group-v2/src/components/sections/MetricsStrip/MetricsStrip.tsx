@@ -1,81 +1,39 @@
-import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useMotion } from '../../../motion/providers/MotionProvider';
-import { useCountUp } from '../../../motion/hooks/useCountUp';
 import styles from './MetricsStrip.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-interface MetricDef {
+interface Principle {
   id: string;
-  end: number;
-  decimals?: number;
-  prefix?: string;
-  suffix?: string;
-  label: { en: string; ar: string };
+  value: { en: string; ar: string };
+  note: { en: string; ar: string };
 }
 
-const METRICS: MetricDef[] = [
+const PRINCIPLES: Principle[] = [
   {
-    id: 'years',
-    end: 14,
-    suffix: '+',
-    label: { en: 'Years of executive transformation', ar: 'عاماً من التحول التنفيذي' },
+    id: 'decision',
+    value: { en: 'Every transformation starts with one decision.', ar: 'كل تحوّل يبدأ بقرار واحد.' },
+    note: { en: 'Executive AI built for measurable impact.', ar: 'ذكاء اصطناعي تنفيذي مبنيٌّ لأثر قابل للقياس.' },
   },
   {
-    id: 'value',
-    end: 24,
-    decimals: 1,
-    prefix: '$',
-    suffix: 'B',
-    label: { en: 'Client value created', ar: 'قيمة عملاء مولّدة' },
+    id: 'strategy',
+    value: { en: 'Strategy before technology.', ar: 'الاستراتيجية قبل التقنية.' },
+    note: { en: 'Intent and governance come first — the tools follow.', ar: 'النية والحوكمة أولاً — ثم تأتي الأدوات.' },
   },
   {
-    id: 'programs',
-    end: 40,
-    suffix: '+',
-    label: { en: 'National programs delivered', ar: 'برنامجاً وطنياً منفّذاً' },
+    id: 'impact',
+    value: { en: 'Building the future with AI.', ar: 'نبني المستقبل بالذكاء الاصطناعي.' },
+    note: { en: 'Every blueprint is designed around outcomes, not features.', ar: 'كل مخطط مصمم حول النتائج، لا المزايا.' },
   },
   {
-    id: 'repeat',
-    end: 92,
-    suffix: '%',
-    label: { en: 'Repeat client rate', ar: 'معدل العملاء المتكررين' },
+    id: 'trust',
+    value: { en: 'Your success story could be the next one.', ar: 'قصة نجاحك قد تكون التالية.' },
+    note: { en: 'We earn trust through narrative — never statistics.', ar: 'نكسب الثقة بالحكاية — لا بالأرقام.' },
   },
 ];
-
-function Metric({ def, reduced }: { def: MetricDef; reduced: boolean }) {
-  const { language } = useLanguage();
-  const ar = language === 'ar';
-  const { ref, count } = useCountUp({ end: def.end, startOnView: !reduced, duration: 2000 });
-  const value = reduced ? def.end : count;
-
-  const display = useMemo(() => {
-    if (def.decimals) return (value / Math.pow(10, def.decimals)).toFixed(def.decimals);
-    return String(value);
-  }, [value, def.decimals]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className={styles.metric}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: reduced ? 0 : 0.6, ease }}
-    >
-      <span className={styles.value}>
-        {def.prefix && <span className={styles.prefix}>{def.prefix}</span>}
-        {display}
-        {def.suffix && <span className={styles.suffix}>{def.suffix}</span>}
-      </span>
-      <span className={styles.rule} aria-hidden="true" />
-      <span className={styles.label}>{ar ? def.label.ar : def.label.en}</span>
-    </motion.div>
-  );
-}
 
 export function MetricsStrip() {
   const { language } = useLanguage();
@@ -84,17 +42,28 @@ export function MetricsStrip() {
   const reduced = prefersReducedMotion;
 
   return (
-    <section className={styles.section} aria-label={ar ? 'مؤشرات الأداء' : 'Performance metrics'}>
+    <section className={styles.section} aria-label={ar ? 'المبادئ التنفيذية' : 'Executive principles'}>
       <div className={styles.inner}>
         <div className={styles.head}>
-          <span className={styles.eyebrow}>{ar ? 'الأثر بالأرقام' : 'IMPACT IN NUMBERS'}</span>
+          <span className={styles.eyebrow}>{ar ? 'مبادئ تنفيذية' : 'EXECUTIVE PRINCIPLES'}</span>
           <span className={styles.tagline}>
-            {ar ? 'نتائج قابلة للقياس عبر كل تكليف.' : 'Measured results across every mandate.'}
+            {ar ? 'كيف نفكر في الذكاء الاصطناعي المؤسسي.' : 'How we think about enterprise AI.'}
           </span>
         </div>
         <div className={styles.grid}>
-          {METRICS.map((m) => (
-            <Metric key={m.id} def={m} reduced={reduced} />
+          {PRINCIPLES.map((p) => (
+            <motion.div
+              key={p.id}
+              className={styles.metric}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: reduced ? 0 : 0.6, ease }}
+            >
+              <span className={styles.value}>{ar ? p.value.ar : p.value.en}</span>
+              <span className={styles.rule} aria-hidden="true" />
+              <span className={styles.label}>{ar ? p.note.ar : p.note.en}</span>
+            </motion.div>
           ))}
         </div>
       </div>

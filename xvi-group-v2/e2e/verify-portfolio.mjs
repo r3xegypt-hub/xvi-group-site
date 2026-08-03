@@ -41,8 +41,8 @@ const tileSel = 'button[class*="tile"]';
   await page.locator('section').first().waitFor({ state: 'attached', timeout: 20000 });
   await page.waitForTimeout(400);
 
-  report((await page.locator('text=SELECTED WORK').count()) > 0, 'eyebrow present');
-  report((await page.locator('text=Engagements that moved the needle').count()) > 0, 'hero title present');
+  report((await page.locator('text=BLUEPRINTS').count()) > 0, 'eyebrow present');
+  report((await page.locator('text=Blueprints for your next transformation').count()) > 0, 'hero title present');
 
   const filters = page.locator('[role="tablist"] [role="tab"]');
   const filterCount = await filters.count();
@@ -57,7 +57,7 @@ const tileSel = 'button[class*="tile"]';
   report(firstLabel === 'Sovereign Banking Core', `first tile labelled (${firstLabel})`);
   report((await tiles.first().locator('svg[data-variant]').count()) === 1, 'tile renders generated SVG art');
 
-  report((await page.locator('[class*="resultCount"]').first().textContent())?.trim() === '09 engagements', 'result count shows 09 engagements');
+  report((await page.locator('[class*="resultCount"]').first().textContent())?.trim() === '09 concepts', 'result count shows 09 concepts');
   report((await tiles.nth(8).locator('svg[data-variant]').count()) === 0, 'tile 9 defers art (lazy, skeleton only)');
 
   // Lazy loading: scrolling tile 9 into view mounts its SVG art
@@ -97,7 +97,8 @@ const tileSel = 'button[class*="tile"]';
   report((await dialog.count()) === 1, 'lightbox dialog open');
   report((await dialog.getAttribute('aria-modal')) === 'true', 'dialog aria-modal=true');
   report((await dialog.locator('text=Sovereign Banking Core').count()) > 0, 'dialog shows selected title');
-  report((await dialog.locator('[class*="lightboxStats"] > div').count()) === 3, 'dialog shows 3 stats');
+  report((await dialog.locator('[class*="lightboxStats"] > div').count()) === 0, 'dialog shows no fabricated stats');
+  report((await dialog.locator('[class*="lightboxOutcome"]').count()) === 1, 'dialog shows narrative outcome');
   report((await dialog.locator('text=Explore AI Transformation').count()) > 0, 'dialog shows related link');
   report((await dialog.locator('a[href$="/services/ai-transformation"]').count()) === 1, 'related link href correct');
 

@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { useMotion } from '../../../motion/providers/MotionProvider';
-import { useCountUp } from '../../../motion/hooks/useCountUp';
 import { useCTA } from '../../../hooks/useCTA';
 import { playSound } from '../../../motion/audio/soundEngine';
 import styles from './ExecutiveCaseStudies.module.scss';
@@ -34,14 +33,6 @@ const ease: Easing = [0.16, 1, 0.3, 1];
 interface Localized {
   en: string;
   ar: string;
-}
-
-interface Kpi {
-  label: Localized;
-  note: Localized;
-  value: number;
-  prefix: string;
-  suffix: string;
 }
 
 interface CaseStudy {
@@ -57,7 +48,7 @@ interface CaseStudy {
   process: Array<{ title: Localized; desc: Localized }>;
   before: Localized[];
   after: Localized[];
-  kpis: Kpi[];
+  outcome: Localized;
   impact: Localized;
   recommendation: Localized;
   to: string;
@@ -67,20 +58,20 @@ const CASES: CaseStudy[] = [
   {
     id: 'healthcare',
     industry: { en: 'Healthcare', ar: 'الرعاية الصحية' },
-    client: { en: 'Nile Health Group', ar: 'مجموعة النيل الصحية' },
-    region: { en: 'Cairo · 11 facilities', ar: 'القاهرة · 11 منشأة' },
-    duration: { en: '14 weeks', ar: '14 أسبوعاً' },
+    client: { en: 'Prototype Solution — Clinical Intelligence', ar: 'حل نموذجي — الذكاء السريري' },
+    region: { en: 'MENA Health Sector', ar: 'قطاع الصحة — الشرق الأوسط' },
+    duration: { en: 'Prototype horizon', ar: 'أفق النموذج الأولي' },
     title: {
       en: 'Turning fragmented care into a unified clinical intelligence platform.',
       ar: 'تحويل الرعاية المجزأة إلى منصة ذكاء سريري موحدة.',
     },
     challenge: {
-      en: 'Patient records were siloed across 11 facilities, readmission variance reached 40%, and clinicians spent more than six hours per day on documentation.',
-      ar: 'كانت سجلات المرضى معزولة عبر 11 منشأة، وتجاوز تباين إعادة القبول 40%، ويقضي الأطباء أكثر من ست ساعات يومياً في التوثيق.',
+      en: 'In many regional health groups, patient records sit siloed across facilities, discharge planning is reactive, and clinicians lose hours every day to documentation.',
+      ar: 'في كثير من المجموعات الصحية بالمنطقة، تبقى سجلات المرضى معزولة بين المنشآت، ويكون تخطيط الخروج تفاعلياً، ويفقد الأطباء ساعاتٍ كل يوم في التوثيق.',
     },
     solution: {
-      en: 'An enterprise clinical intelligence platform combining predictive readmission scoring with NLP-driven documentation automation, governed end-to-end.',
-      ar: 'منصة ذكاء سريري مؤسسي تجمع بين التنبؤ بإعادة القبول وأتمتة التوثيق بالمعالجة اللغوية، مع حوكمة شاملة.',
+      en: 'A prototype would pair predictive readmission scoring with NLP-driven documentation automation, governed end-to-end.',
+      ar: 'يجمع النموذج الأولي بين التنبؤ بإعادة القبول وأتمتة التوثيق بالمعالجة اللغوية، مع حوكمة شاملة.',
     },
     tech: [
       { en: 'Predictive Analytics', ar: 'التحليلات التنبؤية' },
@@ -89,30 +80,28 @@ const CASES: CaseStudy[] = [
       { en: 'Federated Learning', ar: 'التعلم الموحد' },
     ],
     process: [
-      { title: { en: 'Discovery & Data Audit', ar: 'الاكتشاف ومراجعة البيانات' }, desc: { en: 'Mapped 11 facility datasets and regulatory constraints.', ar: 'رسمنا خريطة بيانات المنشآت الـ11 والقيود التنظيمية.' } },
-      { title: { en: 'Architecture & Governance', ar: 'البنية والحوكمة' }, desc: { en: 'Designed a privacy-first clinical data fabric.', ar: 'صممنا نسيج بيانات سريرية يضع الخصوصية أولاً.' } },
-      { title: { en: 'Clinical AI Pilot', ar: 'تجربة الذكاء السريري' }, desc: { en: 'Deployed readmission scoring at two pilot sites.', ar: 'نشرنا تقييم إعادة القبول في موقعين تجريبيين.' } },
-      { title: { en: 'Scale & Adoption', ar: 'التوسع والتبني' }, desc: { en: 'Rolled out network-wide with clinician enablement.', ar: 'وُسّع النطاق شبكياً مع تمكين الأطباء.' } },
+      { title: { en: 'Discovery & Data Audit', ar: 'الاكتشاف ومراجعة البيانات' }, desc: { en: 'The blueprint maps facility datasets and regulatory constraints.', ar: 'يرسم المخطط خريطة بيانات المنشآت والقيود التنظيمية.' } },
+      { title: { en: 'Architecture & Governance', ar: 'البنية والحوكمة' }, desc: { en: 'Designs a privacy-first clinical data fabric.', ar: 'يصمم نسيج بيانات سريرية يضع الخصوصية أولاً.' } },
+      { title: { en: 'Clinical AI Pilot', ar: 'تجربة الذكاء السريري' }, desc: { en: 'Trials readmission scoring at two pilot sites.', ar: 'يجرب تقييم إعادة القبول في موقعين تجريبيين.' } },
+      { title: { en: 'Scale & Adoption', ar: 'التوسع والتبني' }, desc: { en: 'Expands network-wide with clinician enablement.', ar: 'يتوسع شبكياً مع تمكين الأطباء.' } },
     ],
     before: [
       { en: 'Siloed records across facilities', ar: 'سجلات معزولة بين المنشآت' },
       { en: 'Reactive discharge planning', ar: 'تخطيط خروج تفاعلي' },
-      { en: '6+ hours of documentation daily', ar: 'أكثر من 6 ساعات توثيق يومياً' },
+      { en: 'Hours lost to documentation daily', ar: 'ساعات ضائعة في التوثيق يومياً' },
     ],
     after: [
       { en: 'Unified longitudinal patient view', ar: 'نظرة موحدة وشاملة للمريض' },
       { en: 'Risk-scored discharge planning', ar: 'تخطيط خروج مُقيّم بالمخاطر' },
-      { en: '40 minutes of documentation', ar: '40 دقيقة من التوثيق' },
+      { en: 'Documentation reduced to minutes', ar: 'توثيق ينخفض إلى دقائق' },
     ],
-    kpis: [
-      { label: { en: 'Readmissions', ar: 'إعادة القبول' }, note: { en: 'variance removed', ar: 'تمت إزالة التباين' }, value: 27, prefix: '−', suffix: '%' },
-      { label: { en: 'Documentation time', ar: 'وقت التوثيق' }, note: { en: 'down from 8 hours', ar: 'انخفض من 8 ساعات' }, value: 40, prefix: '', suffix: ' min' },
-      { label: { en: 'Daily care time', ar: 'وقت الرعاية اليومي' }, note: { en: 'returned per clinician', ar: 'عائد لكل طبيب' }, value: 2, prefix: '+', suffix: ' h' },
-      { label: { en: 'Model accuracy', ar: 'دقة النموذج' }, note: { en: 'validated AUC', ar: 'AUC تم التحقق منه' }, value: 98, prefix: '', suffix: '%' },
-    ],
+    outcome: {
+      en: 'If adopted, clinicians could regain hours of patient-facing time every day, and high-risk patients could be intercepted weeks earlier.',
+      ar: 'إذا اعتُمد المخطط، قد يستعيد الأطباء ساعاتٍ من وقت مواجهة المرضى يومياً، وقد يُتدخَّل مع المرضى عاليي الخطورة قبل أسابيع.',
+    },
     impact: {
-      en: 'Every clinician regained two hours of patient-facing time every day, and high-risk patients are now intercepted 11 days earlier.',
-      ar: 'استعاد كل طبيب ساعتين من وقت مواجهة المرضى يومياً، ويتم الآن التدخل مع المرضى عاليي الخطورة قبل 11 يوماً.',
+      en: 'If adopted, patient-facing time rises and high-risk patients are intercepted earlier.',
+      ar: 'عند الاعتماد، يرتفع وقت مواجهة المرضى ويُتدخَّل مع عاليي الخطورة مبكراً.',
     },
     recommendation: {
       en: 'Scale the readmission model across the full network within 90 days, and extend the NLP layer to discharge summaries.',
@@ -123,20 +112,20 @@ const CASES: CaseStudy[] = [
   {
     id: 'construction',
     industry: { en: 'Construction', ar: 'الإنشاءات' },
-    client: { en: 'Atlas Infrastructure Group', ar: 'مجموعة أطلس للبنية التحتية' },
-    region: { en: 'Riyadh · 3 megaprojects', ar: 'الرياض · 3 مشاريع كبرى' },
-    duration: { en: '20 weeks', ar: '20 أسبوعاً' },
+    client: { en: 'Reference Implementation — Project Control', ar: 'تنفيذ مرجعي — التحكم بالمشاريع' },
+    region: { en: 'Gulf Infrastructure Sector', ar: 'قطاع البنية التحتية — الخليج' },
+    duration: { en: 'Reference blueprint', ar: 'مخطط مرجعي' },
     title: {
-      en: 'Delivering megaprojects on time with AI-driven schedule intelligence.',
-      ar: 'تنفيذ المشاريع الكبرى في موعدها بذكاء جدولة مدعوم بالذكاء الاصطناعي.',
+      en: 'Keeping megaprojects on schedule with AI-driven schedule intelligence.',
+      ar: 'إبقاء المشاريع الكبرى على جدولها بذكاء جدولة مدعوم بالذكاء الاصطناعي.',
     },
     challenge: {
-      en: 'Schedule slippage of 18% across a $4B portfolio, with risk discovered weeks after it materialized and no single source of project truth.',
-      ar: 'تأخير في الجداول بنسبة 18% عبر محفظة بقيمة 4 مليارات دولار، مع اكتشاف المخاطر بعد أسابيع من حدوثها وبدون مصدر واحد للحقيقة.',
+      en: 'Large infrastructure portfolios are often managed from fragmented spreadsheets, with schedule risk discovered weeks after it materializes and no single source of project truth.',
+      ar: 'كثيراً ما تُدار محافظ البنية التحتية الكبرى عبر جداول بيانات مجزأة، مع اكتشاف مخاطر الجدولة بعد أسابيع من حدوثها وبدون مصدر واحد للحقيقة.',
     },
     solution: {
-      en: 'A project control intelligence layer that fuses schedule, cost, and procurement data to predict slippage before it happens.',
-      ar: 'طبقة ذكاء للتحكم بالمشاريع تدمج بيانات الجدولة والتكلفة والمشتريات للتنبؤ بالتأخير قبل حدوثه.',
+      en: 'A reference implementation would fuse schedule, cost, and procurement data into a project control intelligence layer that predicts slippage before it happens.',
+      ar: 'يجمع التنفيذ المرجعي بيانات الجدولة والتكلفة والمشتريات في طبقة ذكاء للتحكم بالمشاريع تتنبأ بالتأخير قبل حدوثه.',
     },
     tech: [
       { en: 'Digital Twin Simulation', ar: 'محاكاة التوأم الرقمي' },
@@ -145,10 +134,10 @@ const CASES: CaseStudy[] = [
       { en: 'Portfolio Analytics', ar: 'تحليلات المحفظة' },
     ],
     process: [
-      { title: { en: 'Portfolio Data Fusion', ar: 'دمج بيانات المحفظة' }, desc: { en: 'Unified 40+ source systems into one truth model.', ar: 'دمجنا أكثر من 40 نظاماً في نموذج حقيقة واحد.' } },
-      { title: { en: 'Risk Baseline', ar: 'خط الأساس للمخاطر' }, desc: { en: 'Trained slippage predictors on historical delivery.', ar: 'دربنا متنبئات التأخير على بيانات التسليم التاريخية.' } },
-      { title: { en: 'Live Control Tower', ar: 'برج التحكم المباشر' }, desc: { en: 'Deployed real-time early-warning dashboards.', ar: 'نشرنا لوحات إنذار مبكر لحظية.' } },
-      { title: { en: 'Governance Embedding', ar: 'دمج الحوكمة' }, desc: { en: 'Wove intelligence into weekly executive reviews.', ar: 'أدمجنا الذكاء في المراجعات التنفيذية الأسبوعية.' } },
+      { title: { en: 'Portfolio Data Fusion', ar: 'دمج بيانات المحفظة' }, desc: { en: 'Fuses source systems into one truth model.', ar: 'يدمج أنظمة المصادر في نموذج حقيقة واحد.' } },
+      { title: { en: 'Risk Baseline', ar: 'خط الأساس للمخاطر' }, desc: { en: 'Trains slippage predictors on historical delivery.', ar: 'يدرب متنبئات التأخير على بيانات التسليم التاريخية.' } },
+      { title: { en: 'Live Control Tower', ar: 'برج التحكم المباشر' }, desc: { en: 'Builds real-time early-warning dashboards.', ar: 'يبني لوحات إنذار مبكر لحظية.' } },
+      { title: { en: 'Governance Embedding', ar: 'دمج الحوكمة' }, desc: { en: 'Weaves intelligence into weekly executive reviews.', ar: 'ينسج الذكاء في المراجعات التنفيذية الأسبوعية.' } },
     ],
     before: [
       { en: 'Risk discovered weeks late', ar: 'اكتشاف المخاطر متأخراً بأسابيع' },
@@ -156,19 +145,17 @@ const CASES: CaseStudy[] = [
       { en: 'Reactive re-planning', ar: 'إعادة تخطيط تفاعلية' },
     ],
     after: [
-      { en: 'Slippage predicted 30 days out', ar: 'توقع التأخير قبل 30 يوماً' },
+      { en: 'Slippage predicted weeks ahead', ar: 'توقع التأخير قبل أسابيع' },
       { en: 'Single source of truth', ar: 'مصدر واحد للحقيقة' },
       { en: 'Pre-emptive mitigation', ar: 'معالجة استباقية' },
     ],
-    kpis: [
-      { label: { en: 'Schedule slippage', ar: 'تأخير الجدولة' }, note: { en: 'portfolio-wide', ar: 'على مستوى المحفظة' }, value: 18, prefix: '−', suffix: '%' },
-      { label: { en: 'On-time milestones', ar: 'المعالم في موعدها' }, note: { en: 'last quarter', ar: 'الربع الأخير' }, value: 92, prefix: '', suffix: '%' },
-      { label: { en: 'Cost variance', ar: 'تباين التكلفة' }, note: { en: 'reduction', ar: 'انخفاض' }, value: 34, prefix: '−', suffix: '%' },
-      { label: { en: 'Early-warning lead', ar: 'مهلة الإنذار المبكر' }, note: { en: 'before impact', ar: 'قبل الأثر' }, value: 30, prefix: '', suffix: ' d' },
-    ],
+    outcome: {
+      en: 'If adopted, slippage could be predicted weeks ahead and de-risked before it touches the critical path.',
+      ar: 'إذا اعتُمد المخطط، قد يُتوقع التأخير قبل أسابيع وتُخفَّض مخاطره قبل أن يمس المسار الحرج.',
+    },
     impact: {
-      en: 'Atlas now runs its three megaprojects from a single live control tower, de-risking over $4B of committed capital.',
-      ar: 'يدير أطلس الآن مشاريعه الثلاثة الكبرى من برج تحكم واحد مباشر، مخففاً المخاطر عن أكثر من 4 مليارات دولار من رأس المال.',
+      en: 'If adopted, every megaproject in the portfolio could be run from one live picture of risk.',
+      ar: 'عند الاعتماد، قد يُدار كل مشروع كبير في المحفظة من صورة حية واحدة للمخاطر.',
     },
     recommendation: {
       en: 'Extend the control tower to subcontractor procurement and add scenario simulation to quarterly portfolio reviews.',
@@ -179,20 +166,20 @@ const CASES: CaseStudy[] = [
   {
     id: 'retail',
     industry: { en: 'Retail', ar: 'التجزئة' },
-    client: { en: 'Mirah Retail Group', ar: 'مجموعة ميرة للتجزئة' },
-    region: { en: 'Dubai · 120 stores', ar: 'دبي · 120 متجراً' },
-    duration: { en: '16 weeks', ar: '16 أسبوعاً' },
+    client: { en: 'Executive Scenario — Commerce AI', ar: 'سيناريو تنفيذي — ذكاء التجارة' },
+    region: { en: 'Regional Retail Sector', ar: 'قطاع التجزئة — المنطقة' },
+    duration: { en: 'Scenario build', ar: 'بناء السيناريو' },
     title: {
-      en: 'Hyper-personalizing every touchpoint across 120 stores.',
-      ar: 'تخصيص مفرط لكل نقطة تواصل عبر 120 متجراً.',
+      en: 'Hyper-personalizing every touchpoint across a retail network.',
+      ar: 'تخصيص مفرط لكل نقطة تواصل عبر شبكة تجزئة.',
     },
     challenge: {
-      en: 'One-size-fits-all campaigns produced flat conversion, while basket data held signals no human team could operationalize at scale.',
-      ar: 'حملات موحدة أنتجت تحويلاً ثابتاً، بينما احتوت بيانات السلة على إشارات لا يستطيع فريق بشري تشغيلها على نطاق واسع.',
+      en: 'One-size-fits-all campaigns leave conversion flat, while basket data holds signals no human team can operationalize at scale.',
+      ar: 'حملات موحدة تُبقي التحويل ثابتاً، بينما تحتوي بيانات السلة على إشارات لا يستطيع فريق بشري تشغيلها على نطاق واسع.',
     },
     solution: {
-      en: 'A commerce-grade personalization engine serving real-time offers, recommendations, and inventory-aware merchandising.',
-      ar: 'محرك تخصيص تجاري يقدم عروضاً وتوصيات لحظية وتسويقاً واعياً بالمخزون.',
+      en: 'The scenario pairs a commerce-grade personalization engine with real-time offers, recommendations, and inventory-aware merchandising.',
+      ar: 'يجمع السيناريو بين محرك تخصيص تجاري وعروض وتوصيات لحظية وتسويق واعٍ بالمخزون.',
     },
     tech: [
       { en: 'Recommendation Engines', ar: 'محركات التوصية' },
@@ -201,10 +188,10 @@ const CASES: CaseStudy[] = [
       { en: 'Dynamic Pricing', ar: 'التسعير الديناميكي' },
     ],
     process: [
-      { title: { en: 'Customer Graph Build', ar: 'بناء رسم العميل' }, desc: { en: 'Unified online and in-store identities.', ar: 'وحّدنا الهويات عبر الإنترنت وداخل المتاجر.' } },
-      { title: { en: 'Personalization Pilot', ar: 'تجربة التخصيص' }, desc: { en: 'A/B tested engines in 12 flagship stores.', ar: 'اختبرنا المحركات تجريبياً في 12 متجراً رئيسياً.' } },
-      { title: { en: 'Network Rollout', ar: 'نشر الشبكة' }, desc: { en: 'Scaled to all 120 locations.', ar: 'وسّعنا النطاق إلى المواقع الـ120.' } },
-      { title: { en: 'Merchandising Loop', ar: 'حلقة التسويق' }, desc: { en: 'Closed the loop with inventory-aware offers.', ar: 'أغلقنا الحلقة بعروض واعية بالمخزون.' } },
+      { title: { en: 'Customer Graph Build', ar: 'بناء رسم العميل' }, desc: { en: 'Unifies online and in-store identities.', ar: 'يوحد الهويات عبر الإنترنت وداخل المتاجر.' } },
+      { title: { en: 'Personalization Pilot', ar: 'تجربة التخصيص' }, desc: { en: 'A/B tests engines in flagship stores.', ar: 'يختبر المحركات تجريبياً في المتاجر الرئيسية.' } },
+      { title: { en: 'Network Rollout', ar: 'نشر الشبكة' }, desc: { en: 'Scales to all locations.', ar: 'يوسع النطاق إلى كل المواقع.' } },
+      { title: { en: 'Merchandising Loop', ar: 'حلقة التسويق' }, desc: { en: 'Closes the loop with inventory-aware offers.', ar: 'يغلق الحلقة بعروض واعية بالمخزون.' } },
     ],
     before: [
       { en: 'Flat one-size campaigns', ar: 'حملات موحدة ثابتة' },
@@ -216,15 +203,13 @@ const CASES: CaseStudy[] = [
       { en: 'Unified customer 360', ar: 'رؤية موحدة للعميل 360' },
       { en: 'Inventory-aware merchandising', ar: 'تسويق واعٍ بالمخزون' },
     ],
-    kpis: [
-      { label: { en: 'Conversion lift', ar: 'زيادة التحويل' }, note: { en: 'personalized journeys', ar: 'رحلات مخصصة' }, value: 38, prefix: '+', suffix: '%' },
-      { label: { en: 'Repeat purchase', ar: 'إعادة الشراء' }, note: { en: 'within 90 days', ar: 'خلال 90 يوماً' }, value: 25, prefix: '+', suffix: '%' },
-      { label: { en: 'Stock availability', ar: 'توفر المخزون' }, note: { en: 'on demand peaks', ar: 'في قمم الطلب' }, value: 99, prefix: '', suffix: '%' },
-      { label: { en: 'Offer engagement', ar: 'تفاعل العروض' }, note: { en: 'vs. baseline', ar: 'مقابل الأساس' }, value: 42, prefix: '+', suffix: '%' },
-    ],
+    outcome: {
+      en: 'If adopted, conversion could lift meaningfully as every offer becomes individualized in real time.',
+      ar: 'إذا اعتُمد السيناريو، قد يرتفع التحويل بشكل ملموس مع تخصيص كل عرض لحظياً.',
+    },
     impact: {
-      en: 'The engine now decides 1 in 5 transactions across the network, turning basket data into margin in real time.',
-      ar: 'يقرر المحرك الآن معاملة واحدة من كل خمس معاملات عبر الشبكة، محولاً بيانات السلة إلى هامش ربح لحظياً.',
+      en: 'If adopted, basket data could become margin — decided in real time across the network.',
+      ar: 'عند الاعتماد، قد تتحول بيانات السلة إلى هامش ربح — يُقرَّر لحظياً عبر الشبكة.',
     },
     recommendation: {
       en: 'Add markdown-optimization to the engine before next season, and expand personalization to loyalty and in-app channels.',
@@ -235,20 +220,20 @@ const CASES: CaseStudy[] = [
   {
     id: 'manufacturing',
     industry: { en: 'Manufacturing', ar: 'التصنيع' },
-    client: { en: 'DeltaForge Industries', ar: 'صناعات دلتا فورج' },
-    region: { en: 'Jeddah · 4 plants', ar: 'جدة · 4 مصانع' },
-    duration: { en: '18 weeks', ar: '18 أسبوعاً' },
+    client: { en: 'Concept Project — Industrial AI', ar: 'مشروع مفاهيمي — الذكاء الصناعي' },
+    region: { en: 'Regional Manufacturing Sector', ar: 'قطاع التصنيع — المنطقة' },
+    duration: { en: 'Concept blueprint', ar: 'مخطط مفاهيمي' },
     title: {
       en: 'Turning machine data into operational advantage with industrial AI.',
       ar: 'تحويل بيانات الآلات إلى ميزة تشغيلية بالذكاء الاصطناعي الصناعي.',
     },
     challenge: {
-      en: 'Sixteen percent unplanned downtime, energy costs climbing 9% year-on-year, and operators overwhelmed by 200,000 sensor signals a day.',
-      ar: 'توقف غير مخطط له بنسبة 16%، وتكاليف طاقة ترتفع 9% سنوياً، ومشغلون غارقون في 200 ألف إشارة استشعار يومياً.',
+      en: 'Plant floors generate massive telemetry, yet unplanned downtime, climbing energy costs, and operator overload still go unmanaged without predictive intelligence.',
+      ar: 'تولّد أرضيات المصانع كميات هائلة من القياسات، ومع ذلك يبقى التوقف غير المخطط وتكاليف الطاقة المرتفعة وإرهاق المشغلين بلا إدارة دون ذكاء تنبؤي.',
     },
     solution: {
-      en: 'An industrial AI stack fusing predictive maintenance, energy optimization, and anomaly detection at the plant edge.',
-      ar: 'حزمة ذكاء صناعي تدمج الصيانة التنبؤية وتحسين الطاقة واكتشاف الشذوذ على حافة المصنع.',
+      en: 'The concept fuses predictive maintenance, energy optimization, and anomaly detection into one industrial AI stack at the plant edge.',
+      ar: 'يدمج المفهوم الصيانة التنبؤية وتحسين الطاقة واكتشاف الشذوذ في حزمة ذكاء صناعي واحدة على حافة المصنع.',
     },
     tech: [
       { en: 'Predictive Maintenance', ar: 'الصيانة التنبؤية' },
@@ -257,10 +242,10 @@ const CASES: CaseStudy[] = [
       { en: 'Time-Series Modeling', ar: 'نمذجة السلاسل الزمنية' },
     ],
     process: [
-      { title: { en: 'Sensor Telemetry Audit', ar: 'مراجعة قياس الاستشعار' }, desc: { en: 'Tagged and normalized 40 asset classes.', ar: 'وضعنا علامات وطبيعنا 40 فئة أصول.' } },
-      { title: { en: 'Edge Pilot Line', ar: 'خط تجريبي على الحافة' }, desc: { en: 'Deployed models at one production line.', ar: 'نشرنا النماذج على خط إنتاج واحد.' } },
-      { title: { en: 'Plant Rollout', ar: 'نشر المصانع' }, desc: { en: 'Scaled intelligence across four plants.', ar: 'وسّعنا الذكاء عبر المصانع الأربعة.' } },
-      { title: { en: 'Continuous Learning', ar: 'التعلم المستمر' }, desc: { en: 'Automated retraining from live failures.', ar: 'أتمتة إعادة التدريب من الأعطال الحية.' } },
+      { title: { en: 'Sensor Telemetry Audit', ar: 'مراجعة قياس الاستشعار' }, desc: { en: 'Tags and normalizes asset classes.', ar: 'يضع علامات ويطبّع فئات الأصول.' } },
+      { title: { en: 'Edge Pilot Line', ar: 'خط تجريبي على الحافة' }, desc: { en: 'Trials models on one production line.', ar: 'يجرب النماذج على خط إنتاج واحد.' } },
+      { title: { en: 'Plant Rollout', ar: 'نشر المصانع' }, desc: { en: 'Scales intelligence across plants.', ar: 'يوسع الذكاء عبر المصانع.' } },
+      { title: { en: 'Continuous Learning', ar: 'التعلم المستمر' }, desc: { en: 'Automates retraining from live failures.', ar: 'يؤتمت إعادة التدريب من الأعطال الحية.' } },
     ],
     before: [
       { en: 'Reactive break-fix maintenance', ar: 'صيانة تفاعلية بعد العطل' },
@@ -272,15 +257,13 @@ const CASES: CaseStudy[] = [
       { en: 'Live anomaly alerts', ar: 'تنبيهات شذوذ لحظية' },
       { en: 'Energy-optimized schedules', ar: 'جداول موفرة للطاقة' },
     ],
-    kpis: [
-      { label: { en: 'Unplanned downtime', ar: 'التوقف غير المخطط' }, note: { en: 'across plants', ar: 'عبر المصانع' }, value: 16, prefix: '−', suffix: '%' },
-      { label: { en: 'OEE', ar: 'الكفاءة الكلية للمعدات' }, note: { en: 'overall effectiveness', ar: 'الفعالية الكلية' }, value: 24, prefix: '+', suffix: '%' },
-      { label: { en: 'Energy intensity', ar: 'كثافة الطاقة' }, note: { en: 'per unit produced', ar: 'لكل وحدة منتجة' }, value: 31, prefix: '−', suffix: '%' },
-      { label: { en: 'Throughput', ar: 'الإنتاجية' }, note: { en: 'line capacity', ar: 'سعة الخط' }, value: 18, prefix: '+', suffix: '%' },
-    ],
+    outcome: {
+      en: 'If adopted, unplanned downtime could fall as maintenance turns predictive rather than reactive.',
+      ar: 'إذا اعتُمد المفهوم، قد ينخفض التوقف غير المخطط مع تحول الصيانة إلى تنبؤية بدلاً من تفاعلية.',
+    },
     impact: {
-      en: 'Four plants now run on predicted, not reacted, maintenance — releasing capacity without a single new machine.',
-      ar: 'تعمل المصانع الأربعة الآن على صيانة متوقعة وليست تفاعلية — محررة طاقة دون آلة واحدة جديدة.',
+      en: 'If adopted, plants could run on predicted — not reacted — maintenance, releasing capacity without new machines.',
+      ar: 'عند الاعتماد، قد تعمل المصانع على صيانة متوقعة لا تفاعلية، محررة طاقة دون آلات جديدة.',
     },
     recommendation: {
       en: 'Extend edge inference to supply-chain inbound quality and connect OEE dashboards to the executive data layer.',
@@ -291,20 +274,20 @@ const CASES: CaseStudy[] = [
   {
     id: 'government',
     industry: { en: 'Government', ar: 'الحكومة' },
-    client: { en: 'Cedar City Municipality', ar: 'بلدية مدينة سيدار' },
-    region: { en: 'Amman · 2.1M residents', ar: 'عمّان · 2.1 مليون نسمة' },
-    duration: { en: '22 weeks', ar: '22 أسبوعاً' },
+    client: { en: 'Executive Scenario — Citizen Services', ar: 'سيناريو تنفيذي — خدمات المواطن' },
+    region: { en: 'Municipal Government Sector', ar: 'قطاع الحكومات المحلية' },
+    duration: { en: 'Scenario build', ar: 'بناء السيناريو' },
     title: {
       en: 'Modernizing citizen services through secure, data-driven governance.',
       ar: 'تحديث الخدمات الحكومية عبر حوكمة آمنة مبنية على البيانات.',
     },
     challenge: {
-      en: 'Nine separate service portals, average 8-day turnaround, and no unified view of citizen demand across 40 municipal services.',
-      ar: 'تسع بوابات خدمة منفصلة، ومتوسط إنجاز 8 أيام، وبدون نظرة موحدة لطلب المواطنين عبر 40 خدمة بلدية.',
+      en: 'Many municipalities run separate service portals, slow back-office approvals, and plan from annual guesses rather than live citizen demand.',
+      ar: 'تشغّل بلديات كثيرة بوابات خدمات منفصلة وموافقات داخلية بطيئة، وتخطط من تخمينات سنوية بدلاً من طلب المواطن الحي.',
     },
     solution: {
-      en: 'A sovereign service-intelligence layer unifying applications, automating back-office workflows, and embedding decision dashboards.',
-      ar: 'طبقة ذكاء سيادية للخدمات توحد الطلبات وتؤتمت سير العمل الداخلي وتدمج لوحات القرار.',
+      en: 'The scenario wraps applications, back-office workflows, and decision dashboards into one sovereign service-intelligence layer.',
+      ar: 'يلف السيناريو الطلبات وسير العمل الداخلي ولوحات القرار في طبقة ذكاء خدمات سيادية واحدة.',
     },
     tech: [
       { en: 'Intelligent Automation', ar: 'الأتمتة الذكية' },
@@ -313,14 +296,14 @@ const CASES: CaseStudy[] = [
       { en: 'Service Analytics', ar: 'تحليلات الخدمات' },
     ],
     process: [
-      { title: { en: 'Service Audit', ar: 'مراجعة الخدمات' }, desc: { en: 'Mapped 40 services and their queues.', ar: 'رسمنا خريطة 40 خدمة وطوابيرها.' } },
-      { title: { en: 'Unified Portal', ar: 'بوابة موحدة' }, desc: { en: 'Merged nine portals into one channel.', ar: 'دمجنا تسع بوابات في قناة واحدة.' } },
-      { title: { en: 'Workflow Automation', ar: 'أتمتة سير العمل' }, desc: { en: 'Automated back-office approvals.', ar: 'أتمتنا الموافقات الداخلية.' } },
-      { title: { en: 'Governance Dashboard', ar: 'لوحة الحوكمة' }, desc: { en: 'Gave leadership a live service picture.', ar: 'أعطينا القيادة صورة حية للخدمات.' } },
+      { title: { en: 'Service Audit', ar: 'مراجعة الخدمات' }, desc: { en: 'Maps municipal services and their queues.', ar: 'يرسم خريطة الخدمات البلدية وطوابيرها.' } },
+      { title: { en: 'Unified Portal', ar: 'بوابة موحدة' }, desc: { en: 'Merges portals into one channel.', ar: 'يدمج البوابات في قناة واحدة.' } },
+      { title: { en: 'Workflow Automation', ar: 'أتمتة سير العمل' }, desc: { en: 'Automates back-office approvals.', ar: 'يؤتمت الموافقات الداخلية.' } },
+      { title: { en: 'Governance Dashboard', ar: 'لوحة الحوكمة' }, desc: { en: 'Gives leadership a live service picture.', ar: 'يمنح القيادة صورة حية للخدمات.' } },
     ],
     before: [
-      { en: 'Nine siloed portals', ar: 'تسع بوابات معزولة' },
-      { en: '8-day average turnaround', ar: 'متوسط إنجاز 8 أيام' },
+      { en: 'Siloed service portals', ar: 'بوابات خدمات معزولة' },
+      { en: 'Slow back-office approvals', ar: 'موافقات داخلية بطيئة' },
       { en: 'Anecdotal planning', ar: 'تخطيط قائم على الانطباع' },
     ],
     after: [
@@ -328,15 +311,13 @@ const CASES: CaseStudy[] = [
       { en: 'Same-day digital approvals', ar: 'موافقات رقمية في نفس اليوم' },
       { en: 'Evidence-based allocation', ar: 'تخصيص مبنٍ على الأدلة' },
     ],
-    kpis: [
-      { label: { en: 'Service turnaround', ar: 'زمن إنجاز الخدمات' }, note: { en: 'median, all services', ar: 'الوسيط، جميع الخدمات' }, value: 55, prefix: '−', suffix: '%' },
-      { label: { en: 'Back-office automation', ar: 'أتمتة المكتب الخلفي' }, note: { en: 'of application volume', ar: 'من حجم الطلبات' }, value: 90, prefix: '', suffix: '%' },
-      { label: { en: 'Document processing', ar: 'معالجة المستندات' }, note: { en: 'down from 4 hours', ar: 'انخفض من 4 ساعات' }, value: 6, prefix: '', suffix: ' min' },
-      { label: { en: 'Citizen satisfaction', ar: 'رضا المواطنين' }, note: { en: 'post-launch survey', ar: 'استطلاع ما بعد الإطلاق' }, value: 87, prefix: '', suffix: '%' },
-    ],
+    outcome: {
+      en: 'If adopted, service turnaround could collapse from days toward same-day approvals.',
+      ar: 'إذا اعتُمد السيناريو، قد ينهار زمن إنجاز الخدمات من أيام نحو موافقات في نفس اليوم.',
+    },
     impact: {
-      en: 'A single digital front door now serves 2.1 million residents, with leadership planning from live demand instead of annual guesses.',
-      ar: 'بوابة رقمية واحدة تخدم الآن 2.1 مليون نسمة، مع تخطيط قيادي من الطلب الحي بدلاً من التخمين السنوي.',
+      en: 'If adopted, leadership could plan from live citizen demand instead of annual guesses.',
+      ar: 'عند الاعتماد، قد تخطط القيادة من طلب المواطن الحي بدلاً من التخمين السنوي.',
     },
     recommendation: {
       en: 'Sequence a second automation wave on permit and licensing services, and publish open demand data to build public trust.',
@@ -347,20 +328,20 @@ const CASES: CaseStudy[] = [
   {
     id: 'hospitality',
     industry: { en: 'Hospitality', ar: 'الضيافة' },
-    client: { en: 'Golden Horizon Hotels', ar: 'فنادق الأفق الذهبي' },
-    region: { en: 'Marrakech · 8 properties', ar: 'مراكش · 8 منشآت' },
-    duration: { en: '12 weeks', ar: '12 أسبوعاً' },
+    client: { en: 'Reference Implementation — Revenue Intelligence', ar: 'تنفيذ مرجعي — ذكاء الإيرادات' },
+    region: { en: 'North Africa Hospitality Sector', ar: 'قطاع الضيافة — شمال أفريقيا' },
+    duration: { en: 'Reference blueprint', ar: 'مخطط مرجعي' },
     title: {
       en: 'Crafting unforgettable guest journeys with revenue intelligence.',
       ar: 'صناعة رحلات ضيوف لا تُنسى بذكاء الإيرادات.',
     },
     challenge: {
-      en: 'Static rate cards and generic upselling left revenue on the table, while guest preference data vanished after checkout.',
-      ar: 'بطاقات أسعار ثابتة وعروض بيع إضافي عامة تركت الإيرادات دون استثمار، بينما اختفت بيانات تفضيلات الضيوف بعد المغادرة.',
+      en: 'Static rate cards and generic upselling leave revenue on the table, while guest preferences vanish after checkout.',
+      ar: 'بطاقات أسعار ثابتة وعروض بيع إضافي عامة تترك الإيرادات دون استثمار، بينما تختفي تفضيلات الضيوف بعد المغادرة.',
     },
     solution: {
-      en: 'A revenue-and-experience intelligence layer pairing dynamic pricing with preference-driven guest orchestration.',
-      ar: 'طبقة ذكاء للإيرادات والتجربة تجمع بين التسعير الديناميكي وتنسيق الضيوف القائم على التفضيلات.',
+      en: 'A reference implementation would pair dynamic pricing with preference-driven guest orchestration across the portfolio.',
+      ar: 'يجمع التنفيذ المرجعي بين التسعير الديناميكي وتنسيق الضيوف القائم على التفضيلات عبر المحفظة.',
     },
     tech: [
       { en: 'Demand Forecasting', ar: 'التنبؤ بالطلب' },
@@ -369,10 +350,10 @@ const CASES: CaseStudy[] = [
       { en: 'RevPAR Analytics', ar: 'تحليلات الإيراد لكل غرفة' },
     ],
     process: [
-      { title: { en: 'Guest Data Foundation', ar: 'أساس بيانات الضيوف' }, desc: { en: 'Unified PMS, CRM, and review data.', ar: 'وحّدنا بيانات إدارة المنشآت والعملاء والمراجعات.' } },
-      { title: { en: 'Pricing Pilot', ar: 'تجربة التسعير' }, desc: { en: 'Dynamic pricing on two properties.', ar: 'تسعير ديناميكي في منشأتين.' } },
-      { title: { en: 'Journey Orchestration', ar: 'تنسيق الرحلة' }, desc: { en: 'Preference-aware stay orchestration.', ar: 'تنسيق إقامة واعٍ بالتفضيلات.' } },
-      { title: { en: 'Portfolio Learning', ar: 'تعلم المحفظة' }, desc: { en: 'Shared intelligence across eight hotels.', ar: 'ذكاء مشترك عبر الفنادق الثمانية.' } },
+      { title: { en: 'Guest Data Foundation', ar: 'أساس بيانات الضيوف' }, desc: { en: 'Unifies PMS, CRM, and review data.', ar: 'يوحد بيانات إدارة المنشآت والعملاء والمراجعات.' } },
+      { title: { en: 'Pricing Pilot', ar: 'تجربة التسعير' }, desc: { en: 'Trials dynamic pricing on select properties.', ar: 'يجرب التسعير الديناميكي في منشآت مختارة.' } },
+      { title: { en: 'Journey Orchestration', ar: 'تنسيق الرحلة' }, desc: { en: 'Designs preference-aware stay orchestration.', ar: 'يصمم تنسيق إقامة واعٍ بالتفضيلات.' } },
+      { title: { en: 'Portfolio Learning', ar: 'تعلم المحفظة' }, desc: { en: 'Shares intelligence across the portfolio.', ar: 'يشارك الذكاء عبر المحفظة.' } },
     ],
     before: [
       { en: 'Static rate cards', ar: 'بطاقات أسعار ثابتة' },
@@ -384,19 +365,17 @@ const CASES: CaseStudy[] = [
       { en: 'Personalized stay offers', ar: 'عروض إقامة مخصصة' },
       { en: 'Guest memory across stays', ar: 'ذاكرة ضيف عبر الإقامات' },
     ],
-    kpis: [
-      { label: { en: 'RevPAR', ar: 'الإيراد لكل غرفة' }, note: { en: 'average daily rate', ar: 'متوسط السعر اليومي' }, value: 29, prefix: '+', suffix: '%' },
-      { label: { en: 'Repeat guests', ar: 'الضيوف المتكررون' }, note: { en: 'within 12 months', ar: 'خلال 12 شهراً' }, value: 44, prefix: '+', suffix: '%' },
-      { label: { en: 'Upsell revenue', ar: 'إيرادات البيع الإضافي' }, note: { en: 'per occupied room', ar: 'لكل غرفة مشغولة' }, value: 22, prefix: '+', suffix: '%' },
-      { label: { en: 'Guest satisfaction', ar: 'رضا الضيوف' }, note: { en: 'post-stay ratings', ar: 'تقييمات ما بعد الإقامة' }, value: 96, prefix: '', suffix: '%' },
-    ],
+    outcome: {
+      en: 'If adopted, every room could be priced from live demand and every returning guest recognized by preference.',
+      ar: 'إذا اعتُمد المخطط، قد تُسعَّر كل غرفة من الطلب الحي ويُتعرَّف على كل ضيف عائد من تفضيلاته.',
+    },
     impact: {
-      en: 'Golden Horizon now prices every room from live demand and greets every returning guest by name with their preferences remembered.',
-      ar: 'يسعّر الأفق الذهبي الآن كل غرفة من الطلب الحي ويستقبل كل ضيف عائد بالاسم مع تذكر تفضيلاته.',
+      en: 'If adopted, revenue is priced live and guests are remembered — across every stay.',
+      ar: 'عند الاعتماد، تُسعَّر الإيرادات لحظياً ويُتذكَّر الضيوف — عبر كل إقامة.',
     },
     recommendation: {
-      en: 'Extend the guest memory to food-and-beverage and spa, and add seasonal event pricing for the 2027 calendar.',
-      ar: 'توسيع ذاكرة الضيف لتشمل المأكولات والمشروبات والمنتجعات، وإضافة تسعير المناسبات الموسمية لتقويم 2027.',
+      en: 'Extend the guest memory to food-and-beverage and spa, and add seasonal event pricing for the next calendar.',
+      ar: 'توسيع ذاكرة الضيف لتشمل المأكولات والمشروبات والمنتجعات، وإضافة تسعير المناسبات الموسمية للتقويم القادم.',
     },
     to: '/services/ai-transformation',
   },
@@ -410,35 +389,6 @@ const INDUSTRY_ICONS: Record<string, typeof Heart> = {
   government: Landmark,
   hospitality: ConciergeBell,
 };
-
-function KpiCounter({ kpi, reduced }: { kpi: Kpi; reduced: boolean }) {
-  const { ref, count } = useCountUp({ end: kpi.value, startOnView: !reduced, duration: 1800 });
-  const value = reduced ? kpi.value : count;
-  return (
-    <div className={styles.kpi} ref={ref}>
-      <span className={styles.kpiValue}>
-        {kpi.prefix}
-        {value}
-        {kpi.suffix}
-      </span>
-    </div>
-  );
-}
-
-function KpiMini({ kpi, label, reduced }: { kpi: Kpi; label: string; reduced: boolean }) {
-  const { ref, count } = useCountUp({ end: kpi.value, startOnView: !reduced, duration: 1600 });
-  const value = reduced ? kpi.value : count;
-  return (
-    <div className={styles.cardKpi} ref={ref}>
-      <span className={styles.cardKpiValue}>
-        {kpi.prefix}
-        {value}
-        {kpi.suffix}
-      </span>
-      <span className={styles.cardKpiLabel}>{label}</span>
-    </div>
-  );
-}
 
 interface CaseDetailProps {
   cs: CaseStudy;
@@ -485,13 +435,13 @@ function CaseDetail({ cs, reduced, onClose, closeBtnRef }: CaseDetailProps) {
         <div className={styles.blocks}>
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <Target size={13} /> {ar ? 'التحدي' : 'THE CHALLENGE'}
+              <Target size={13} /> {ar ? 'السيناريو' : 'THE SCENARIO'}
             </span>
             <p className={styles.blockText}>{L(cs.challenge)}</p>
           </div>
           <div className={styles.block}>
             <span className={styles.blockLabel}>
-              <Lightbulb size={13} /> {ar ? 'حل XVI' : 'THE XVI SOLUTION'}
+              <Lightbulb size={13} /> {ar ? 'مخطط XVI' : 'THE XVI BLUEPRINT'}
             </span>
             <p className={styles.blockText}>{L(cs.solution)}</p>
           </div>
@@ -515,7 +465,7 @@ function CaseDetail({ cs, reduced, onClose, closeBtnRef }: CaseDetailProps) {
         </div>
 
         <div className={styles.timelineWrap}>
-          <span className={styles.groupLabel}>{ar ? 'مراحل التنفيذ' : 'IMPLEMENTATION PROCESS'}</span>
+          <span className={styles.groupLabel}>{ar ? 'المخطط المقترح' : 'PROPOSED BLUEPRINT'}</span>
           <ol className={styles.timeline}>
             {cs.process.map((step, i) => (
               <motion.li
@@ -537,11 +487,11 @@ function CaseDetail({ cs, reduced, onClose, closeBtnRef }: CaseDetailProps) {
         </div>
 
         <div className={styles.baWrap}>
-          <span className={styles.groupLabel}>{ar ? 'قبل / بعد' : 'BEFORE / AFTER'}</span>
+          <span className={styles.groupLabel}>{ar ? 'الواقع الحالي / الهدف المُصمَّم' : 'CURRENT REALITY / DESIGNED TARGET'}</span>
           <div className={styles.baGrid}>
             <div className={styles.before}>
               <span className={styles.baTitle}>
-                <Minus size={13} /> {ar ? 'قبل' : 'Before'}
+                <Minus size={13} /> {ar ? 'الواقع الحالي' : 'Current Reality'}
               </span>
               <ul className={styles.baList}>
                 {cs.before.map((p, i) => (
@@ -554,7 +504,7 @@ function CaseDetail({ cs, reduced, onClose, closeBtnRef }: CaseDetailProps) {
             </div>
             <div className={styles.after}>
               <span className={styles.baTitle}>
-                <Check size={13} /> {ar ? 'بعد' : 'After'}
+                <Check size={13} /> {ar ? 'الهدف المُصمَّم' : 'Designed Target'}
               </span>
               <ul className={styles.baList}>
                 {cs.after.map((p, i) => (
@@ -571,20 +521,8 @@ function CaseDetail({ cs, reduced, onClose, closeBtnRef }: CaseDetailProps) {
         </div>
 
         <div className={styles.kpiWrap}>
-          <span className={styles.groupLabel}>{ar ? 'النتائج — مؤشرات تنفيذية' : 'RESULTS · EXECUTIVE KPIs'}</span>
-          <div className={styles.kpiGrid}>
-            {cs.kpis.map((k, i) => (
-              <KpiCounter key={i} kpi={k} reduced={reduced} />
-            ))}
-          </div>
-          <div className={styles.kpiLabels}>
-            {cs.kpis.map((k, i) => (
-              <div key={i} className={styles.kpiLabelBlock}>
-                <span className={styles.kpiLabel}>{L(k.label)}</span>
-                <span className={styles.kpiNote}>{L(k.note)}</span>
-              </div>
-            ))}
-          </div>
+          <span className={styles.groupLabel}>{ar ? 'النتائج المحتملة' : 'POSSIBLE OUTCOMES'}</span>
+          <p className={styles.outcome}>{L(cs.outcome)}</p>
         </div>
 
         <div className={styles.impact}>
@@ -660,7 +598,7 @@ export function ExecutiveCaseStudies() {
   };
 
   return (
-    <section className={styles.section} aria-label={ar ? 'تجارب دراسة الحالة' : 'Executive case studies'}>
+    <section className={styles.section} aria-label={ar ? 'دراسات السيناريو التنفيذية' : 'Executive scenario studies'}>
       <div className={styles.inner}>
         <header className={styles.header}>
           <motion.span
@@ -670,7 +608,7 @@ export function ExecutiveCaseStudies() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease }}
           >
-            {ar ? 'الاستشارات التطبيقية' : 'ENGAGEMENTS'}
+            {ar ? 'دراسات السيناريو' : 'SCENARIO STUDIES'}
           </motion.span>
           <motion.h2
             className={styles.title}
@@ -679,7 +617,7 @@ export function ExecutiveCaseStudies() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease, delay: 0.1 }}
           >
-            {ar ? 'تجربة دراسة الحالة التنفيذية' : 'The Executive Case Study Experience'}
+            {ar ? 'دراسات السيناريو التنفيذية' : 'Executive Scenario Studies'}
           </motion.h2>
           <motion.p
             className={styles.subtitle}
@@ -689,8 +627,8 @@ export function ExecutiveCaseStudies() {
             transition={{ duration: 0.6, ease, delay: 0.2 }}
           >
             {ar
-              ? 'ست عمليات استشارية حقيقية. من التحدي إلى النتيجة، مع الأثر التجاري والتوصية التنفيذية لكل واحدة.'
-              : 'Six real engagements. From challenge to outcome, with business impact and an executive recommendation for each.'}
+              ? 'ستة مخططات — مشاريع مفاهيمية، وتنفيذات مرجعية، وسيناريوهات تنفيذية، وحلول نموذجية. حكايات لكسب الثقة، لا إحصاءات.'
+              : 'Six blueprints — concept projects, reference implementations, executive scenarios, and prototype solutions. Narratives to earn trust, never statistics.'}
           </motion.p>
         </header>
 
@@ -745,22 +683,16 @@ export function ExecutiveCaseStudies() {
                 <div className={styles.cardBlocks}>
                   <div>
                     <span className={styles.blockLabel}>
-                      <Target size={12} /> {ar ? 'التحدي' : 'CHALLENGE'}
+                      <Target size={12} /> {ar ? 'السيناريو' : 'SCENARIO'}
                     </span>
                     <p className={styles.cardText}>{L(cs.challenge)}</p>
                   </div>
                   <div>
                     <span className={styles.blockLabel}>
-                      <Lightbulb size={12} /> {ar ? 'حل الذكاء الاصطناعي' : 'AI SOLUTION'}
+                      <Lightbulb size={12} /> {ar ? 'المخطط' : 'BLUEPRINT'}
                     </span>
                     <p className={styles.cardText}>{L(cs.solution)}</p>
                   </div>
-                </div>
-
-                <div className={styles.cardKpis}>
-                  {cs.kpis.slice(0, 2).map((k, i) => (
-                    <KpiMini key={i} kpi={k} label={L(k.label)} reduced={reduced} />
-                  ))}
                 </div>
 
                 <div className={styles.cardFoot}>
@@ -768,7 +700,7 @@ export function ExecutiveCaseStudies() {
                     <TrendingUp size={14} /> {L(cs.impact)}
                   </span>
                   <span className={styles.cardCta}>
-                    {ar ? 'اقرأ قصة الحالة' : 'View case story'} <ArrowUpRight size={15} />
+                    {ar ? 'استعرض السيناريو' : 'View scenario'} <ArrowUpRight size={15} />
                   </span>
                 </div>
               </motion.div>
