@@ -6,6 +6,7 @@ import { Building2, Landmark, Factory, Heart, GraduationCap, Zap, ChevronRight, 
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { useCTA } from '../../hooks/useCTA';
 import { ExecutiveGlobe } from '../../components/sections/Industries/ExecutiveGlobe';
+import { SectorNetwork } from '../../components/ui/visuals/SectorNetwork';
 import styles from './Industries.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -177,6 +178,10 @@ export function IndustriesPage() {
               ? 'نفهم التعقيدات الفريدة لكل قطاع ونصمم حلولاً ذكية مخصصة تحقق نتائج حقيقية.'
               : 'We understand the unique complexities of each sector and design bespoke intelligent solutions that deliver real results.'}
           </motion.p>
+        </div>
+
+        <div className={styles.heroVisual}>
+          <SectorNetwork />
         </div>
       </section>
 

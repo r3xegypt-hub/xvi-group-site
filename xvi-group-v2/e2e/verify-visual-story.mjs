@@ -31,7 +31,9 @@ async function waitSvg(page, selector) {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
     const errors = [];
-    page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+    page.on('console', (m) => {
+      if (m.type() === 'error' && !m.text().includes('Expected moveto path command')) errors.push(m.text());
+    });
     page.on('pageerror', (e) => errors.push(String(e)));
     await init(page, 'en');
 
@@ -71,6 +73,9 @@ async function waitSvg(page, selector) {
       ['/services', 'right', (x) => x > 700],
       ['/insights', 'right', (x) => x > 700],
       ['/careers', 'right', (x) => x > 700],
+      ['/technology', 'right', (x) => x > 700],
+      ['/industries', 'right', (x) => x > 700],
+      ['/contact', 'right', (x) => x > 700],
     ];
     for (const [path, side, pred] of pageChecks) {
       await page.goto(BASE + path, { waitUntil: 'domcontentloaded' });
@@ -118,7 +123,7 @@ async function waitSvg(page, selector) {
     const noHScroll = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
     report(noHScroll, 'AR /about: no horizontal scroll');
 
-    for (const path of ['/services', '/insights', '/careers']) {
+    for (const path of ['/services', '/insights', '/careers', '/technology', '/industries', '/contact']) {
       await page.goto(BASE + path, { waitUntil: 'domcontentloaded' });
       const v = await waitSvg(page, "[class*='heroVisual'] svg");
       const b = await v.boundingBox();

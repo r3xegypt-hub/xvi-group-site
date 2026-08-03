@@ -8,6 +8,7 @@ import { Contact } from '../../components/sections/Contact';
 import { MapSection } from '../../components/sections/Map/MapSection';
 import { CTA } from '../../components/sections/CTA';
 import { FlowingWave } from '../../motion/FlowingWave';
+import { SignalLines } from '../../components/ui/visuals/SignalLines';
 import styles from './Contact.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -22,6 +23,9 @@ export function ContactPage() {
     <>
       <Section variant="white" className={styles.pageHero}>
         <FlowingWave color="#2F3338" opacity={0.03} speed={0.4} />
+        <div className={styles.heroVisual}>
+          <SignalLines />
+        </div>
         <Container>
           <motion.div
             ref={ref}
