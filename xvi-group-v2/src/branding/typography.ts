@@ -246,8 +246,8 @@ export class TypographyEngine {
     
     return {
       '--font-body': fontFamily,
-      '--font-heading': '"Space Grotesk", "Manrope", -apple-system, BlinkMacSystemFont, sans-serif',
-      '--font-monospace': '"JetBrains Mono", "Fira Code", monospace',
+      '--font-heading': this.getFontFamily('heading'),
+      '--font-monospace': this.getFontFamily('monospace'),
       '--text-display-size': scale.display.fontSize,
       '--text-display-height': scale.display.lineHeight,
       '--text-display-spacing': scale.display.letterSpacing,
