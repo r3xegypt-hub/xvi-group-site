@@ -1,64 +1,40 @@
 @import '../../../styles/mixins/devices';
 
-// ── Light Premium Palette ──
-$bg-section:   #EEE9DF;        // warm sandy / dusty beige
-$bg-section-2: #F4F1EB;
-$gold:         #C8A65A;
-$gold-pale:    #F0E4C0;
-$text-dark:    #282B30;
-$text-body:    #5A5750;
-$text-muted:   #8A877E;
-$smoke-border: rgba(200,166,90,0.18);
-
 .section {
-  padding: 96px 48px;
-  background: linear-gradient(145deg, $bg-section 0%, $bg-section-2 60%, #EBE6DC 100%);
+  padding: 72px 48px;
+  background: #2f3338;
   position: relative;
   overflow: hidden;
 
-  @include mobile { padding: 56px 20px; }
-  @include tablet-portrait { padding: 72px 32px; }
-  @include tablet-landscape { padding: 80px 40px; }
-}
+  @include mobile {
+    padding: 48px 20px;
+  }
 
-// Ambient decorative blobs
-.ambientBlob1 {
-  position: absolute;
-  top: -120px;
-  right: -80px;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,166,90,0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(40px);
-}
+  @include tablet-portrait {
+    padding: 64px 32px;
+  }
 
-.ambientBlob2 {
-  position: absolute;
-  bottom: -80px;
-  left: -60px;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,166,90,0.05) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(50px);
+  @include tablet-landscape {
+    padding: 72px 40px;
+  }
 }
 
 .container {
-  position: relative;
-  z-index: 1;
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 72px;
+  gap: 64px;
 
-  @include mobile { flex-direction: column; gap: 48px; }
-  @include tablet-portrait { flex-direction: column; gap: 52px; }
+  @include mobile {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  @include tablet-portrait {
+    flex-direction: column;
+    gap: 48px;
+  }
 }
 
 .textSide {
@@ -69,76 +45,37 @@ $smoke-border: rgba(200,166,90,0.18);
 .label {
   display: block;
   font-family: 'Manrope', sans-serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: $gold;
+  color: #b7934c;
   margin-bottom: 20px;
-  padding-inline-start: 14px;
-  border-inline-start: 2px solid $gold;
 }
 
 .heading {
   font-family: 'Space Grotesk', 'Manrope', sans-serif;
-  font-size: clamp(1.625rem, 3.2vw, 2.25rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.15;
   letter-spacing: -0.02em;
-  color: $text-dark;
+  color: #f7f6f3;
   margin: 0 0 20px;
 
-  [dir='rtl'] & {
-    font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
+  [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
 
 .body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-size: 0.9375rem;
   line-height: 1.75;
-  color: $text-body;
-  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  max-width: 520px;
 
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; line-height: 1.9; }
+  [dir='rtl'] & { font-family: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif; line-height: 1.9; }
 }
 
-// Feature pills
-.pillRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 16px;
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(200,166,90,0.22);
-  border-radius: 999px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: #6B5520;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 8px rgba(40,43,48,0.04);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(200,166,90,0.12);
-    border-color: rgba(200,166,90,0.4);
-    transform: translateY(-1px);
-  }
-
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
-}
-
-// ── Visual (Image) Side ──
 .imageSide {
   flex: 1;
   max-width: 560px;
@@ -147,56 +84,26 @@ $smoke-border: rgba(200,166,90,0.18);
 
 .imageCard {
   position: relative;
-  border-radius: 24px;
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow:
-    0 4px 16px rgba(40,43,48,0.08),
-    0 16px 56px rgba(40,43,48,0.12),
-    0 0 0 1px rgba(200,166,90,0.12);
-  transition: box-shadow 0.5s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    box-shadow:
-      0 8px 24px rgba(40,43,48,0.1),
-      0 24px 80px rgba(40,43,48,0.16),
-      0 0 0 1px rgba(200,166,90,0.22);
+    transform: translateY(-4px);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
   }
-}
-
-// Real photo background
-.photoLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-.photoOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(238,233,223,0.65) 0%,
-    rgba(238,233,223,0.3) 40%,
-    rgba(20,22,28,0.7) 100%
-  );
 }
 
 .visualField {
   position: relative;
-  z-index: 1;
   width: 100%;
   aspect-ratio: 4 / 3;
   display: block;
   overflow: hidden;
-  background: transparent;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(200, 166, 90, 0.08) 0%, transparent 70%),
+    linear-gradient(150deg, #2f3338 0%, #3b4046 45%, #2a2e33 75%, #1f2226 100%);
 }
 
 .visualCore {
@@ -208,15 +115,15 @@ $smoke-border: rgba(200,166,90,0.18);
 }
 
 .visualDiamond {
-  width: 200px;
-  height: 200px;
-  filter: drop-shadow(0 0 20px rgba(200,166,90,0.25));
-  animation: diamondPulse 5s cubic-bezier(0.16,1,0.3,1) infinite;
+  width: 220px;
+  height: 220px;
+  filter: drop-shadow(0 0 24px rgba(200, 166, 90, 0.18));
+  animation: diamondPulse 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 @keyframes diamondPulse {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.85; }
-  50% { transform: scale(1.04) rotate(2deg); opacity: 1; }
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
 }
 
 .visualAxis {
@@ -225,97 +132,74 @@ $smoke-border: rgba(200,166,90,0.18);
   right: 12%;
   top: 50%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(200,166,90,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.35), transparent);
 }
 
-// Glass panel at bottom
 .glassPanel {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  z-index: 3;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.82);
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(200,166,90,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(40,43,48,0.08), inset 0 1px 0 rgba(255,255,255,0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .glassLabel {
   font-family: 'Manrope', sans-serif;
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 600;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: $gold;
+  color: #b7934c;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .glassText {
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   line-height: 1.5;
-  color: $text-body;
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
-
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
-// ── Floating metric badges ──
-.badge1,
-.badge2 {
+// ═══════════════════════════════════════════
+// PHOTO LAYER — behind AINetwork
+// ═══════════════════════════════════════════
+
+.photoBack {
   position: absolute;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 16px;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(200,166,90,0.22);
-  border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(40,43,48,0.1), inset 0 1px 0 white;
-  animation: badgeFloat 4s ease-in-out infinite;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
 }
 
-.badge1 {
-  top: 18px;
-  right: 18px;
-  animation-delay: 0s;
+.photoBackImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .imageCard:hover & {
+    transform: scale(1.05);
+  }
 }
 
-.badge2 {
-  top: 18px;
-  left: 18px;
-  animation-delay: -2s;
-}
-
-@keyframes badgeFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.badgeValue {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: $text-dark;
-  line-height: 1;
-}
-
-.badgeLabel {
-  font-family: 'Manrope', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: $text-muted;
-  text-transform: uppercase;
-  margin-top: 3px;
-
-  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
+.photoBackOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 233, 223, 0.72) 0%,
+    rgba(238, 233, 223, 0.45) 50%,
+    rgba(200, 166, 90, 0.1) 100%
+  );
 }

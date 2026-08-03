@@ -22,8 +22,19 @@ export function Contact({ cta }: Props) {
 
   return (
     <section id="contact-cta" className={styles.section} ref={ref}>
+      {/* ── Contact background photo ── */}
+      <div className={styles.contactPhoto} aria-hidden="true">
+        <img
+          src="/images/contact_visual.jpg"
+          alt=""
+          className={styles.contactPhotoImg}
+          loading="lazy"
+        />
+        <div className={styles.contactPhotoOverlay} />
+      </div>
       <FloatingParticles count={15} color="#C8A65A" speed={0.8} />
       <div className={styles.container}>
+
         <motion.h2
           className={styles.heading}
           initial={{ opacity: 0, y: 20 }}

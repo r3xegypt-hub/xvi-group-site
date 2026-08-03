@@ -132,3 +132,33 @@
 
   &:hover { color: #c8a65a; }
 }
+
+// ════════════════════════════════════════════
+// CONTACT PHOTO BACKGROUND
+// ════════════════════════════════════════════
+
+.contactPhoto {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.contactPhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+}
+
+.contactPhotoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(20, 16, 8, 0.82) 0%,
+    rgba(40, 30, 12, 0.75) 50%,
+    rgba(60, 45, 15, 0.70) 100%
+  );
+}

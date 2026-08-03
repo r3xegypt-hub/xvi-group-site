@@ -28,6 +28,26 @@
   z-index: 0;
 }
 
+// ── Live photographic premium layer ──
+.photoLayer {
+  position: absolute;
+  inset: -8%;          // slightly oversized so parallax shift doesn't show edges
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.photoLayerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.26;
+  mix-blend-mode: luminosity;
+  filter: contrast(1.08) saturate(0.85);
+  transform: scale(1.04); // slight scale so movement stays within bounds
+}
+
 .lightRays {
   position: absolute;
   inset: 0;
@@ -122,7 +142,7 @@
     50% { transform: translateX(-38%) rotate(4deg); opacity: 0.9; }
   }
 
-  /* Moving ambient lighting layer — slow cinematic drift */
+  /* Moving ambient lighting layer ΓÇö slow cinematic drift */
   .ambientLight {
     position: absolute;
     inset: 0;
@@ -172,7 +192,7 @@
     }
   }
 
-  /* Light sweep behind headline — elegant golden glint */
+  /* Light sweep behind headline ΓÇö elegant golden glint */
   .headlineSweep {
     position: absolute;
     z-index: 1;
