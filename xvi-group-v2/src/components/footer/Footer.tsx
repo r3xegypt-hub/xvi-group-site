@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
-import { LogoHorizontal } from '../ui/Logo';
+import { XVILogo } from '../../branding/logo/XVILogo';
 import { MagneticButton } from '../../motion/MagneticButton';
 import styles from './Footer.module.scss';
 
@@ -17,7 +17,7 @@ export function Footer() {
       <div className={styles.inner}>
         <div className={styles.brand}>
           <div className={styles.logoRow}>
-            <LogoHorizontal variant="gold" size="md" />
+            <XVILogo size={38} variant="full" animated={false} />
           </div>
           <span className={styles.brandTagline}>
             {ar ? 'ذكاء — أتمتة — تحول' : 'AI — Automation — Transformation'}

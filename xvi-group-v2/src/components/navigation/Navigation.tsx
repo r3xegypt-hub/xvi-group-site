@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { LanguageToggle } from './LanguageToggle';
-import { LogoHorizontal } from '../ui/Logo';
+import { XVILogo } from '../../branding/logo/XVILogo';
 import { MagneticButton } from '../../motion/MagneticButton';
 import styles from './Navigation.module.scss';
 
@@ -14,7 +14,7 @@ export function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const isActive = (path: string) =>
-    location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
+    location.pathname === path || location.pathname.startsWith(path + '/');
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -47,8 +47,8 @@ export function Navigation() {
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <nav className={styles.nav}>
-          <Link to="/" className={styles.logo} aria-label="XVI GROUP Home">
-            <LogoHorizontal variant="gold" size="sm" />
+          <Link to="/" className={styles.logo} aria-label="XVI GROUP Home" style={{ display: 'inline-flex', transition: 'transform 0.35s cubic-bezier(0.16,1,0.3,1)' }}>
+            <XVILogo size={34} variant="full" />
           </Link>
 
           <div className={styles.links}>

@@ -139,10 +139,45 @@ export function Hero() {
           style={{
             x: bgLayerX,
             y: bgLayerY,
-            background: 'linear-gradient(135deg, #111215 0%, #1a1c22 40%, #141519 70%, #0d0e11 100%)',
+            background: 'linear-gradient(135deg, #080810 0%, #0e1018 40%, #0a0c12 70%, #060708 100%)',
             backgroundSize: '200% 200%',
           }}
         />
+
+        {/* ── Rich Photographic Background ── */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 0,
+            x: bgLayerX,
+            y: bgLayerY,
+          }}
+        >
+          <img
+            src="/images/hero_ai_visual.jpg"
+            alt=""
+            aria-hidden="true"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              opacity: 0.32,
+              mixBlendMode: 'luminosity',
+              pointerEvents: 'none',
+              display: 'block',
+            }}
+          />
+          {/* Dark vignette to integrate photo with design */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(ellipse 80% 70% at 70% 50%, transparent 20%, rgba(6,7,8,0.7) 80%), linear-gradient(to right, rgba(6,7,8,0.9) 0%, rgba(6,7,8,0.3) 60%, rgba(6,7,8,0.5) 100%)',
+            pointerEvents: 'none',
+          }} />
+        </motion.div>
+
         <motion.div className={styles.sceneLayer} style={{ x: sceneX, y: sceneY }}>
           <ExecutiveScene density={60} interactive={!prefersReducedMotion} />
         </motion.div>

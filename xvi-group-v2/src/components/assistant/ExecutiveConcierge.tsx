@@ -265,34 +265,49 @@ export function ExecutiveConcierge() {
               transition={{ type: 'spring', stiffness: 260, damping: 22 }}
             >
                <div className={styles.glow} />
-              <svg className={styles.head} viewBox="0 0 64 64" fill="none">
-                <defs>
-                  <linearGradient id="xviFace" x1="32" y1="10" x2="32" y2="52" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#ffffff" />
-                    <stop offset="0.55" stopColor="#f8f6f1" />
-                    <stop offset="1" stopColor="#efede6" />
-                  </linearGradient>
-                </defs>
-                <line x1="32" y1="6" x2="32" y2="14" stroke="rgba(17,17,17,0.4)" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="32" cy="5" r="2.5" fill="#c8a65a" stroke="rgba(17,17,17,0.35)" strokeWidth="0.75" />
-                <rect x="8" y="24" width="6" height="12" rx="3" fill="#ffffff" stroke="rgba(17,17,17,0.35)" strokeWidth="1" />
-                <rect x="50" y="24" width="6" height="12" rx="3" fill="#ffffff" stroke="rgba(17,17,17,0.35)" strokeWidth="1" />
-                <path
-                  d="M20 12 H44 A10 10 0 0 1 54 22 V36 A14 14 0 0 1 40 50 H24 A14 14 0 0 1 10 36 V22 A10 10 0 0 1 20 12 Z"
-                  stroke="rgba(0,0,0,0.45)"
-                  strokeWidth="1.5"
-                  fill="url(#xviFace)"
-                />
-                <g className={styles.eyes}>
-                  <rect x="20" y="24" width="8" height="9" rx="3.5" fill="#c8a65a" stroke="rgba(0,0,0,0.3)" strokeWidth="0.75" />
-                  <rect x="36" y="24" width="8" height="9" rx="3.5" fill="#c8a65a" stroke="rgba(0,0,0,0.3)" strokeWidth="0.75" />
-                  <g className={styles.pupils}>
-                    <circle cx="24.5" cy="28.5" r="1.6" fill="#ffffff" />
-                    <circle cx="40.5" cy="28.5" r="1.6" fill="#ffffff" />
-                  </g>
-                </g>
-                <path className={styles.mouth} d="M26 40 H38" stroke="rgba(17,17,17,0.4)" strokeWidth="1.2" strokeLinecap="round" />
-              </svg>
+
+               {/* Outer orbit ring */}
+               <motion.div className={styles.orbitRing} animate={{ rotateZ: 360 }} transition={{ duration: 14, repeat: Infinity, ease: "linear" }} />
+               {/* Counter-orbit ring */}
+               <motion.div className={styles.orbitRingAlt} animate={{ rotateZ: -360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
+
+               {/* Crystal glass sphere with neural mesh */}
+               <div className={styles.sphere}>
+                 <span className={styles.sphereSheen} />
+                 <span className={styles.sphereReflect} />
+                 <svg className={styles.orbNeural} viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                   <defs>
+                     <linearGradient id="orbGoldG" x1="0%" y1="0%" x2="100%" y2="100%">
+                       <stop offset="0%" stopColor="#F5E4B5" stopOpacity="0.9" />
+                       <stop offset="50%" stopColor="#C8A65A" stopOpacity="0.5" />
+                       <stop offset="100%" stopColor="#8C6E2E" stopOpacity="0.8" />
+                     </linearGradient>
+                   </defs>
+                   <line x1="32" y1="10" x2="20" y2="24" stroke="url(#orbGoldG)" strokeWidth="0.7" strokeOpacity="0.5" />
+                   <line x1="32" y1="10" x2="44" y2="24" stroke="url(#orbGoldG)" strokeWidth="0.7" strokeOpacity="0.5" />
+                   <line x1="20" y1="24" x2="32" y2="38" stroke="url(#orbGoldG)" strokeWidth="0.7" strokeOpacity="0.5" />
+                   <line x1="44" y1="24" x2="32" y2="38" stroke="url(#orbGoldG)" strokeWidth="0.7" strokeOpacity="0.5" />
+                   <line x1="32" y1="38" x2="14" y2="44" stroke="url(#orbGoldG)" strokeWidth="0.7" strokeOpacity="0.4" />
+                   <line x1="32" y1="38" x2="50" y2="44" stroke="url(#orbGoldG)" strokeWidth="0.7" strokeOpacity="0.4" />
+                   <circle cx="32" cy="10" r="1.6" fill="#C8A65A" />
+                   <circle cx="20" cy="24" r="1.2" fill="#C8A65A" fillOpacity="0.8" />
+                   <circle cx="44" cy="24" r="1.2" fill="#C8A65A" fillOpacity="0.8" />
+                   <circle cx="32" cy="38" r="2.4" fill="#FFFFFF" />
+                   <circle cx="14" cy="44" r="1.1" fill="#C8A65A" fillOpacity="0.7" />
+                   <circle cx="50" cy="44" r="1.1" fill="#C8A65A" fillOpacity="0.7" />
+                 </svg>
+                 <span className={styles.nucleus} />
+               </div>
+
+               {/* Pulse rings */}
+               <motion.span className={styles.pulseRing}
+                 animate={{ scale: [1, 1.8, 1], opacity: [0.35, 0, 0.35] }}
+                 transition={{ duration: 2.8, repeat: Infinity, ease: "easeOut" }}
+               />
+               <motion.span className={styles.pulseRingB}
+                 animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.5, 0.2] }}
+                 transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+               />
             </motion.div>
           </motion.div>
         )}

@@ -1,21 +1,36 @@
 @import '../../../styles/mixins/devices';
 
-$navy: #2f3338;
-$navy-deep: #1f2226;
-$gold: #c8a65a;
-$gold-light: #d4b76e;
-$muted: #aab0b8;
+$bg:      #F8F5EF;          // warm cream
+$border:  rgba(200,166,90,0.22);
+$gold:    #C8A65A;
+$gold-v:  #A07830;          // value number — darker gold for readability on light
+$text:    #282B30;
+$muted:   #7A7770;
 
 .section {
   position: relative;
-  padding: 56px 24px 64px;
+  padding: 64px 24px 72px;
   background:
-    radial-gradient(720px 380px at 10% 0%, rgba(200, 166, 90, 0.16), transparent 62%),
-    radial-gradient(620px 360px at 94% 100%, rgba(200, 166, 90, 0.1), transparent 60%),
-    linear-gradient(180deg, $navy 0%, $navy-deep 100%);
-  border-top: 1px solid rgba(200, 166, 90, 0.28);
-  border-bottom: 1px solid rgba(200, 166, 90, 0.28);
+    radial-gradient(680px 280px at 8% 0%, rgba(200,166,90,0.1), transparent 65%),
+    radial-gradient(500px 240px at 96% 100%, rgba(200,166,90,0.07), transparent 65%),
+    linear-gradient(180deg, $bg 0%, #F2EDE4 100%);
+  border-top: 1px solid $border;
+  border-bottom: 1px solid $border;
   overflow: hidden;
+}
+
+// Subtle decorative circle
+.section::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(200,166,90,0.05) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .inner {
@@ -29,24 +44,29 @@ $muted: #aab0b8;
 
 .head {
   flex: 0 0 auto;
-  max-width: 280px;
+  max-width: 260px;
 }
 
 .eyebrow {
   display: block;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: $gold;
+  padding-inline-start: 10px;
+  border-inline-start: 2px solid $gold;
 }
 
 .tagline {
   display: block;
   margin-top: 12px;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 14.5px;
+  line-height: 1.65;
   color: $muted;
+  font-family: 'Manrope', sans-serif;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 .grid {
@@ -58,103 +78,78 @@ $muted: #aab0b8;
 
 .metric {
   position: relative;
-  padding-inline: 26px;
+  padding-inline: 28px;
   text-align: start;
 }
 
-.metric:first-child {
-  padding-inline-start: 0;
-}
-
-.metric:last-child {
-  padding-inline-end: 0;
-}
+.metric:first-child { padding-inline-start: 0; }
+.metric:last-child  { padding-inline-end: 0; }
 
 .metric + .metric::before {
   content: '';
   position: absolute;
-  inset-block: 8px;
+  inset-block: 6px;
   inset-inline-start: 0;
   width: 1px;
-  background: linear-gradient(180deg, transparent 0%, rgba(200, 166, 90, 0.45) 50%, transparent 100%);
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(200,166,90,0.35) 50%,
+    transparent 100%
+  );
 }
 
 .value {
   display: flex;
   align-items: baseline;
   gap: 2px;
-  font-size: clamp(32px, 3.4vw, 52px);
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
+  font-size: clamp(30px, 3.2vw, 48px);
   font-weight: 300;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1;
-  color: $gold-light;
+  color: $gold-v;
 }
 
 .prefix,
 .suffix {
-  font-size: 0.42em;
-  font-weight: 500;
+  font-size: 0.44em;
+  font-weight: 600;
   color: $gold;
 }
 
 .rule {
   display: block;
-  width: 38px;
-  height: 1px;
+  width: 36px;
+  height: 1.5px;
   margin-block: 13px 11px;
   background: linear-gradient(90deg, $gold 0%, transparent 100%);
 }
 
 .label {
   display: block;
-  max-width: 220px;
+  max-width: 200px;
+  font-family: 'Manrope', sans-serif;
   font-size: 12.5px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   line-height: 1.55;
   color: $muted;
+
+  [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
 
 @include tablet-landscape {
-  .inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 28px;
-  }
-
-  .head {
-    max-width: none;
-  }
+  .inner { flex-direction: column; align-items: stretch; gap: 28px; }
+  .head { max-width: none; }
 }
 
 @include tablet-portrait {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 40px 28px;
-  }
-
-  .metric {
-    padding-inline: 0;
-  }
-
-  .metric:nth-child(3) {
-    padding-inline-start: 0;
-  }
-
-  .metric + .metric::before {
-    display: none;
-  }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
+  .metric { padding-inline: 0; }
+  .metric + .metric::before { display: none; }
 }
 
 @include mobile {
-  .section {
-    padding: 44px 18px 50px;
-  }
-
-  .value {
-    font-size: clamp(30px, 9vw, 40px);
-  }
-
-  .label {
-    font-size: 11.5px;
-  }
+  .section { padding: 44px 18px 52px; }
+  .value { font-size: clamp(28px, 9vw, 38px); }
+  .label { font-size: 11.5px; }
 }

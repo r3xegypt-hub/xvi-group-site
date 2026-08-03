@@ -208,17 +208,17 @@ export function CinematicExecutiveLaunch({ onFinish }: CinematicExecutiveLaunchP
       }, 1400);
       return () => clearTimeout(t);
     }
-    const t1 = setTimeout(() => setPhase('form'), 2500);
-    const t2 = setTimeout(() => setPhase('hero'), 4800);
-    const t3 = setTimeout(() => setPhase('zoom'), 7800);
+    const t1 = setTimeout(() => setPhase('form'), 1200);
+    const t2 = setTimeout(() => setPhase('hero'), 2400);
+    const t3 = setTimeout(() => setPhase('zoom'), 4000);
     const t4 = setTimeout(() => {
       if (!finishedRef.current) {
         finishedRef.current = true;
         setPhase('exit');
         stop();
-        setTimeout(onFinish, 800);
+        setTimeout(onFinish, 600);
       }
-    }, 10600);
+    }, 5500);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, [skipped, prefersReduced, onFinish, stop]);
 

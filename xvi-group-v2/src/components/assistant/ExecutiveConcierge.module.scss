@@ -386,3 +386,117 @@
     animation: none;
   }
 }
+
+// ══════════════════════════════════════════
+// CRYSTAL AI ORB — premium visual shell
+// ══════════════════════════════════════════
+
+.orbitRing {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 166, 90, 0.3);
+  border-top-color: rgba(200, 166, 90, 0.7);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.orbitRingAlt {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 0.8px solid rgba(200, 166, 90, 0.15);
+  border-right-color: rgba(200, 166, 90, 0.45);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.sphere {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 28%,
+    rgba(255,255,255,0.96) 0%,
+    rgba(240,235,220,0.82) 35%,
+    rgba(200,166,90,0.12) 70%,
+    rgba(120,90,40,0.18) 100%
+  );
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow:
+    0 8px 24px rgba(40,30,10,0.2),
+    0 2px 8px rgba(40,30,10,0.1),
+    0 0 30px rgba(200,166,90,0.18),
+    inset 0 -4px 12px rgba(120,80,20,0.1);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sphereSheen {
+  position: absolute;
+  top: 8%;
+  left: 10%;
+  width: 55%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 40% 30%,
+    rgba(255,255,255,0.85) 0%,
+    rgba(255,255,255,0.3) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.sphereReflect {
+  position: absolute;
+  bottom: 8%;
+  right: 8%;
+  width: 35%;
+  height: 28%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(200,166,90,0.22) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.orbNeural {
+  width: 72%;
+  height: 72%;
+  position: relative;
+  z-index: 3;
+  opacity: 0.85;
+}
+
+.nucleus {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFFFFF 0%, #F5E4B5 50%, #C8A65A 100%);
+  box-shadow: 0 0 10px rgba(255,255,255,0.95), 0 0 20px rgba(200,166,90,0.5);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.pulseRing,
+.pulseRingB {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 166, 90, 0.4);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.pulseRingB {
+  border-color: rgba(200, 166, 90, 0.22);
+}
