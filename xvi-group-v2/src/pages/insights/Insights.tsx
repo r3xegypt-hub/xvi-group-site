@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, BookOpen, FileText, Lightbulb, TrendingUp } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { ExecutiveCaseStudies } from '../../components/sections/CaseStudies/ExecutiveCaseStudies';
+import { ExecutiveDashboard } from '../../components/ui/visuals/ExecutiveDashboard';
 import styles from './Insights.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -102,6 +103,10 @@ export function InsightsPage() {
               ? 'رؤى واستشارات حول الذكاء الاصطناعي والتحول الرقمي. أطر عمل وتحليلات للمديرين التنفيذيين.'
               : 'Perspectives and advisory on AI and enterprise transformation. Frameworks and analysis for executives.'}
           </motion.p>
+        </div>
+
+        <div className={styles.heroVisual}>
+          <ExecutiveDashboard />
         </div>
       </section>
 

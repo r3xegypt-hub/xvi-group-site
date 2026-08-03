@@ -4,6 +4,7 @@ import type { Easing } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Eye, Compass, Users, Zap, Quote, ChevronDown, Target, Lightbulb, Shield, TrendingUp, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../hooks/LanguageProvider';
+import { DecisionArchitecture } from '../../components/ui/visuals/DecisionArchitecture';
 import styles from './About.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -137,6 +138,10 @@ export function AboutPage() {
               : 'XVI GROUP is an executive advisory firm specializing in AI transformation. We combine strategic vision with technical depth to transform enterprises.'}
           </motion.p>
         </motion.div>
+
+        <div className={styles.heroVisual}>
+          <DecisionArchitecture />
+        </div>
       </section>
 
       {/* VISION & MISSION */}
@@ -156,6 +161,8 @@ export function AboutPage() {
                 : 'To be the leading strategic partner for AI transformation in the region.'}
             </h2>
           </motion.div>
+
+          <div className={styles.goldRule} aria-hidden="true" />
 
           <motion.div
             className={styles.missionBlock}

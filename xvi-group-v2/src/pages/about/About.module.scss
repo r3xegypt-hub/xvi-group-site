@@ -59,6 +59,20 @@
   max-width: 700px;
 }
 
+.heroVisual {
+  position: absolute;
+  inset-inline-end: 5%;
+  bottom: 8%;
+  width: min(36vw, 460px);
+  z-index: 1;
+  opacity: 0.6;
+  pointer-events: none;
+
+  @include tablet-landscape { opacity: 0.45; width: min(40vw, 420px); }
+  @include tablet-portrait { opacity: 0.4; }
+  @include mobile { display: none; }
+}
+
 .label {
   display: block;
   font-family: 'Manrope', sans-serif;
@@ -114,6 +128,30 @@
 
 .visionBlock, .missionBlock {
   text-align: center;
+}
+
+.goldRule {
+  width: 220px;
+  height: 1px;
+  margin: -40px auto 0;
+  background: linear-gradient(90deg, transparent, rgba(200, 166, 90, 0.75), transparent);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 7px;
+    height: 7px;
+    background: #c8a65a;
+    opacity: 0.8;
+  }
+
+  [dir='rtl'] & {
+    &::after { left: auto; right: 50%; transform: translateX(50%) rotate(45deg); }
+  }
 }
 
 .sectionLabel {
