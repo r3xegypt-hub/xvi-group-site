@@ -174,7 +174,7 @@ export function AboutPage() {
             <span className={styles.sectionLabel}>{ar ? 'المهمة' : 'MISSION'}</span>
             <h2 className={styles.sectionHeading}>
               {ar
-                ? 'تمكين المؤسسات من اتخاذ قرارات ذكية hơn عبر تحويل الذكاء الاصطناعي إلى نتائج حقيقية.'
+                ? 'تمكين المؤسسات من اتخاذ قرارات أذكى عبر تحويل الذكاء الاصطناعي إلى نتائج حقيقية.'
                 : 'Empowering enterprises to make smarter decisions by turning AI into real outcomes.'}
             </h2>
           </motion.div>

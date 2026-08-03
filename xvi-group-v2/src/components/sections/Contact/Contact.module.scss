@@ -61,11 +61,12 @@
 .heading {
   font-family: 'Space Grotesk', 'Manrope', sans-serif;
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: #3f4348;
   margin: 0 0 28px;
+  text-wrap: balance;
 
   [dir='rtl'] & { font-family: 'Alexandria', 'Noto Kufi Arabic', sans-serif; font-weight: 700; letter-spacing: 0; }
 }
@@ -139,7 +140,7 @@
 .contactItem {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
@@ -150,16 +151,17 @@
 .contactLabel {
   font-family: 'Manrope', sans-serif;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.4px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: #a98533;
 }
 
 .contactValue {
   font-family: 'Manrope', sans-serif;
-  font-size: 0.9375rem;
-  color: #676b70;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5f6368;
   text-decoration: none;
   transition: color 0.3s ease;
 
