@@ -34,18 +34,14 @@ const SECTOR_META = SECTORS.reduce<Record<string, SectorMeta>>((acc, s) => {
   return acc;
 }, {});
 
-interface PortfolioStat {
-  value: string;
-  label: { en: string; ar: string };
-}
-
 interface PortfolioItem {
   id: string;
   sector: string;
+  phase: { en: string; ar: string };
   title: { en: string; ar: string };
   client: { en: string; ar: string };
   desc: { en: string; ar: string };
-  stats: PortfolioStat[];
+  outcome: { en: string; ar: string };
   related: { en: string; ar: string };
   to: string;
   art: number;
@@ -55,17 +51,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'sovereign-banking-core',
     sector: 'finance',
+    phase: { en: 'Prototype', ar: 'نموذجي' },
     title: { en: 'Sovereign Banking Core', ar: 'نواة مصرفية سيادية' },
-    client: { en: 'National Retail Bank — Gulf', ar: 'بنك تجزئة وطني — الخليج' },
+    client: { en: 'Prototype Solution — Banking Core', ar: 'حل نموذجي — النواة المصرفية' },
     desc: {
-      en: 'Unified 14 legacy systems into a single regulatory-ready AI decision core, cutting fraud-detection latency from minutes to 90 milliseconds.',
-      ar: 'وحّدنا 14 نظاماً قديماً في نواة قرار ذكية واحدة جاهزة للامتثال، وخفضنا زمن كشف الاحتيال من دقائق إلى 90 ميلي ثانية.',
+      en: 'A prototype core that would unify legacy banking systems into a single regulatory-ready AI decision layer, bringing fraud detection from minutes toward milliseconds.',
+      ar: 'نواة نموذجية توحّد الأنظمة المصرفية القديمة في طبقة قرار ذكية واحدة جاهزة للامتثال، تقرّب كشف الاحتيال من الدقائق إلى الميلي ثانية.',
     },
-    stats: [
-      { value: '90ms', label: { en: 'Fraud latency', ar: 'زمن كشف الاحتيال' } },
-      { value: '+38%', label: { en: 'Decision accuracy', ar: 'دقة القرار' } },
-      { value: '14', label: { en: 'Systems unified', ar: 'أنظمة موحدة' } },
-    ],
+    outcome: {
+      en: 'If pursued, fraud detection could move from minutes toward milliseconds — without replacing the core.',
+      ar: 'إذا نُفذ، قد ينتقل كشف الاحتيال من الدقائق إلى الميلي ثانية — دون استبدال النواة.',
+    },
     related: { en: 'Explore AI Transformation', ar: 'استكشف التحول بالذكاء الاصطناعي' },
     to: '/services/ai-transformation',
     art: 0,
@@ -73,17 +69,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'national-control-tower',
     sector: 'government',
+    phase: { en: 'Scenario', ar: 'سيناريو' },
     title: { en: 'National Logistics Control Tower', ar: 'برج التحكم اللوجستي الوطني' },
-    client: { en: 'Federal Transport Authority', ar: 'هيئة النقل الاتحادية' },
+    client: { en: 'Executive Scenario — Logistics Control', ar: 'سيناريو تنفيذي — التحكم اللوجستي' },
     desc: {
-      en: 'A country-scale supply-chain command layer federating 40+ operator feeds into one predictive view, reaching 92% shipment ETD accuracy.',
-      ar: 'طبقة قيادة لوجستية على مستوى الدولة تدمج أكثر من 40 مصدراً في رؤية تنبؤية واحدة بدقة وصول 92%.',
+      en: 'An executive scenario for a country-scale supply-chain command layer that federates operator feeds into one predictive view.',
+      ar: 'سيناريو تنفيذي لطبقة قيادة لوجستية على مستوى الدولة تدمج مصادر المشغلين في رؤية تنبؤية واحدة.',
     },
-    stats: [
-      { value: '92%', label: { en: 'ETD accuracy', ar: 'دقة موعد الوصول' } },
-      { value: '40+', label: { en: 'Sources fused', ar: 'مصادر مدمجة' } },
-      { value: '-27%', label: { en: 'Response time', ar: 'زمن الاستجابة' } },
-    ],
+    outcome: {
+      en: 'If pursued, shipment ETD accuracy could climb while response time falls.',
+      ar: 'إذا نُفذ، قد ترتفع دقة مواعيد الوصول بينما ينخفض زمن الاستجابة.',
+    },
     related: { en: 'Explore Business Consulting', ar: 'استكشف الاستشارات الاستراتيجية' },
     to: '/services/business-consulting',
     art: 1,
@@ -91,17 +87,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'clinical-command',
     sector: 'healthcare',
+    phase: { en: 'Reference', ar: 'مرجعي' },
     title: { en: 'Clinical Command Center', ar: 'مركز القيادة السريرية' },
-    client: { en: 'National Health Network', ar: 'شبكة صحية وطنية' },
+    client: { en: 'Reference Implementation — Clinical Command', ar: 'تنفيذ مرجعي — القيادة السريرية' },
     desc: {
-      en: 'Bed, staffing, and sepsis-risk intelligence across 12 hospitals, raising early-intervention rates by 41% in the first year.',
-      ar: 'ذكاء الأسرة والطواقم ومخاطر تعفن الدم عبر 12 مستشفى، رفع معدلات التدخل المبكر 41% في السنة الأولى.',
+      en: 'A reference implementation for bed, staffing, and sepsis-risk intelligence across a hospital network, designed to raise early-intervention rates.',
+      ar: 'تنفيذ مرجعي لذكاء الأسرة والطواقم ومخاطر تعفن الدم عبر شبكة مستشفيات، مصمم لرفع معدلات التدخل المبكر.',
     },
-    stats: [
-      { value: '12', label: { en: 'Hospitals', ar: 'مستشفى' } },
-      { value: '+41%', label: { en: 'Early intervention', ar: 'التدخل المبكر' } },
-      { value: '-23%', label: { en: 'Readmissions', ar: 'العودة للرعاية' } },
-    ],
+    outcome: {
+      en: 'If pursued, early intervention could rise while readmissions fall across the network.',
+      ar: 'إذا نُفذ، قد يرتفع التدخل المبكر بينما تنخفض العودة للرعاية عبر الشبكة.',
+    },
     related: { en: 'Explore AI Transformation', ar: 'استكشف التحول بالذكاء الاصطناعي' },
     to: '/services/ai-transformation',
     art: 2,
@@ -109,17 +105,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'metro-risk',
     sector: 'construction',
+    phase: { en: 'Concept', ar: 'مفهوم' },
     title: { en: 'Metro Risk Intelligence', ar: 'ذكاء مخاطر المترو' },
-    client: { en: 'Urban Transit Authority', ar: 'هيئة النقل الحضري' },
+    client: { en: 'Concept Project — Metro Risk', ar: 'مشروع مفاهيمي — مخاطر المترو' },
     desc: {
-      en: 'AI-driven schedule and risk modeling for a 42-station metro build, recovering 18% of slippage and de-risking $1.8B of spend.',
-      ar: 'نمذجة جدولة ومخاطر ذكية لمشروع مترو من 42 محطة، استعادت 18% من التأخير وخفّضت مخاطر 1.8 مليار دولار.',
+      en: 'A concept project for AI-driven schedule and risk modeling on a large metro build, designed to recover slippage before it reaches the critical path.',
+      ar: 'مشروع مفاهيمي لنمذجة جدولة ومخاطر ذكية في مشروع مترو كبير، مصمم لاستعادة التأخير قبل أن يمس المسار الحرج.',
     },
-    stats: [
-      { value: '18%', label: { en: 'Slippage recovered', ar: 'تأخير مستعاد' } },
-      { value: '$1.8B', label: { en: 'Spend de-risked', ar: 'مخاطر مغطاة' } },
-      { value: '42', label: { en: 'Stations', ar: 'محطة' } },
-    ],
+    outcome: {
+      en: 'If pursued, slippage could be recovered before it reaches the critical path.',
+      ar: 'إذا نُفذ، قد يُستعاد التأخير قبل أن يصل إلى المسار الحرج.',
+    },
     related: { en: 'Explore Business Consulting', ar: 'استكشف الاستشارات الاستراتيجية' },
     to: '/services/business-consulting',
     art: 3,
@@ -127,17 +123,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'retail-mesh',
     sector: 'retail',
+    phase: { en: 'Scenario', ar: 'سيناريو' },
     title: { en: 'Retail Personalization Mesh', ar: 'شبكة التخصيص في التجزئة' },
-    client: { en: 'Omnichannel Retail Group', ar: 'مجموعة تجزئة متعددة القنوات' },
+    client: { en: 'Executive Scenario — Retail Personalization', ar: 'سيناريو تنفيذي — تخصيص التجزئة' },
     desc: {
-      en: 'Hyper-personalized commerce across 800 stores and web, lifting conversion 22% while halving abandoned-cart volume.',
-      ar: 'تجزئة مفرطة التخصيص عبر 800 متجر ومنصة رقمية، رفعت التحويل 22% وخفضت عربات التسوق المهجورة للنصف.',
+      en: 'An executive scenario for hyper-personalized commerce across stores and web, designed to lift conversion while shrinking abandoned carts.',
+      ar: 'سيناريو تنفيذي لتجارة مفرطة التخصيص عبر المتاجر والمنصات الرقمية، مصمم لرفع التحويل وتقليص العربات المهجورة.',
     },
-    stats: [
-      { value: '+22%', label: { en: 'Conversion', ar: 'التحويل' } },
-      { value: '-50%', label: { en: 'Cart abandonment', ar: 'العربات المهجورة' } },
-      { value: '800', label: { en: 'Stores', ar: 'متجر' } },
-    ],
+    outcome: {
+      en: 'If pursued, conversion could lift and abandoned-cart volume could halve.',
+      ar: 'إذا نُفذ، قد يرتفع التحويل وقد تنخفض العربات المهجورة إلى النصف.',
+    },
     related: { en: 'Explore AI Transformation', ar: 'استكشف التحول بالذكاء الاصطناعي' },
     to: '/services/ai-transformation',
     art: 4,
@@ -145,17 +141,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'industrial-grid',
     sector: 'manufacturing',
+    phase: { en: 'Reference', ar: 'مرجعي' },
     title: { en: 'Industrial Intelligence Grid', ar: 'شبكة الذكاء الصناعي' },
-    client: { en: 'Defence Manufacturing Partner', ar: 'شريك التصنيع الدفاعي' },
+    client: { en: 'Reference Implementation — Industrial Grid', ar: 'تنفيذ مرجعي — الشبكة الصناعية' },
     desc: {
-      en: 'Machine-floor telemetry fused into a predictive maintenance grid, eliminating 12,000 downtime hours per year across nine plants.',
-      ar: 'دمج تيليمتري أرضية المصانع في شبكة صيانة تنبؤية، ألغت 12,000 ساعة توقف سنوياً عبر تسعة مصانع.',
+      en: 'A reference implementation for fusing machine-floor telemetry into a predictive maintenance grid across a plant network.',
+      ar: 'تنفيذ مرجعي لدمج تيليمتري أرضية المصانع في شبكة صيانة تنبؤية عبر شبكة المصانع.',
     },
-    stats: [
-      { value: '12K', label: { en: 'Hours saved', ar: 'ساعة موفرة' } },
-      { value: '9', label: { en: 'Plants', ar: 'مصنع' } },
-      { value: '-31%', label: { en: 'Downtime', ar: 'التوقف غير المخطط' } },
-    ],
+    outcome: {
+      en: 'If pursued, downtime hours could be eliminated across the plant network.',
+      ar: 'إذا نُفذ، قد تُلغى ساعات التوقف عبر شبكة المصانع.',
+    },
     related: { en: 'Explore Technology Consulting', ar: 'استكشف الاستشارات التقنية' },
     to: '/services/technology-consulting',
     art: 5,
@@ -163,17 +159,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'guest-intelligence',
     sector: 'hospitality',
+    phase: { en: 'Prototype', ar: 'نموذجي' },
     title: { en: 'Guest Revenue Intelligence', ar: 'ذكاء إيرادات الضيافة' },
-    client: { en: 'Eight-Hotel Luxury Group', ar: 'مجموعة ضيافة فاخرة من 8 فنادق' },
+    client: { en: 'Prototype Solution — Guest Intelligence', ar: 'حل نموذجي — ذكاء الضيوف' },
     desc: {
-      en: 'Revenue and experience intelligence that raised RevPAR 14% and Net Promoter Score 19 points without raising rates.',
-      ar: 'ذكاء إيرادات وتجربة رفع العائد على الغرفة 14% وصافي المروّجين 19 نقطة دون رفع الأسعار.',
+      en: 'A prototype solution pairing revenue and experience intelligence — dynamic pricing with preference-driven guest orchestration.',
+      ar: 'حل نموذجي يجمع ذكاء الإيرادات والتجربة — تسعير ديناميكي مع تنسيق ضيوف قائم على التفضيلات.',
     },
-    stats: [
-      { value: '+14%', label: { en: 'RevPAR', ar: 'العائد على الغرفة' } },
-      { value: '+19', label: { en: 'NPS points', ar: 'نقاط المروّجين' } },
-      { value: '8', label: { en: 'Hotels', ar: 'فندق' } },
-    ],
+    outcome: {
+      en: 'If pursued, RevPAR could rise without raising rates — and guests remembered by preference.',
+      ar: 'إذا نُفذ، قد يرتفع العائد على الغرفة دون رفع الأسعار — ويتذكر الضيوف من تفضيلاتهم.',
+    },
     related: { en: 'Explore AI Transformation', ar: 'استكشف التحول بالذكاء الاصطناعي' },
     to: '/services/ai-transformation',
     art: 6,
@@ -181,17 +177,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'adapt-engine',
     sector: 'education',
+    phase: { en: 'Concept', ar: 'مفهوم' },
     title: { en: 'National Adaptation Engine', ar: 'محرك التعلم التكيفي الوطني' },
-    client: { en: 'Ministry of Education', ar: 'وزارة التعليم' },
+    client: { en: 'Concept Project — Adaptive Learning', ar: 'مشروع مفاهيمي — التعلم التكيفي' },
     desc: {
-      en: 'Personalized learning at national scale — 1.2M learners, adaptive pathways tuned every minute across the full curriculum.',
-      ar: 'تعلّم مخصص على مستوى الدولة — 1.2 مليون متعلم، ومسارات تكيفية تُضبط كل دقيقة عبر المنهج كاملاً.',
+      en: 'A concept project for personalized learning at national scale — adaptive pathways tuned across the full curriculum.',
+      ar: 'مشروع مفاهيمي لتعلّم مخصص على مستوى الدولة — مسارات تكيفية تُضبط عبر المنهج كاملاً.',
     },
-    stats: [
-      { value: '1.2M', label: { en: 'Learners', ar: 'متعلم' } },
-      { value: '×3', label: { en: 'Engagement', ar: 'المشاركة' } },
-      { value: '-26%', label: { en: 'Attainment gaps', ar: 'فجوات التحصيل' } },
-    ],
+    outcome: {
+      en: 'If pursued, engagement could multiply and attainment gaps could narrow.',
+      ar: 'إذا نُفذ، قد تتضاعف المشاركة وتضيق فجوات التحصيل.',
+    },
     related: { en: 'Explore Technology Consulting', ar: 'استكشف الاستشارات التقنية' },
     to: '/services/technology-consulting',
     art: 7,
@@ -199,17 +195,17 @@ const ITEMS: PortfolioItem[] = [
   {
     id: 'sovereign-stack',
     sector: 'energy',
+    phase: { en: 'Reference', ar: 'مرجعي' },
     title: { en: 'Sovereign AI Energy Stack', ar: 'منصة الطاقة الذكية السيادية' },
-    client: { en: 'National Energy Authority', ar: 'هيئة الطاقة الوطنية' },
+    client: { en: 'Reference Implementation — Sovereign Stack', ar: 'تنفيذ مرجعي — المنصة السيادية' },
     desc: {
-      en: 'Fully owned AI infrastructure across the national grid — forecasting, trading, and asset health with zero external data flow.',
-      ar: 'بنية ذكية مملوكة بالكامل عبر الشبكة الوطنية — تنبؤ وتداول وصحة أصول مع صفر تدفق بيانات خارجي.',
+      en: 'A reference implementation for fully owned AI infrastructure across a national grid — forecasting, trading, and asset health with zero external data flow.',
+      ar: 'تنفيذ مرجعي لبنية ذكية مملوكة بالكامل عبر الشبكة الوطنية — تنبؤ وتداول وصحة أصول مع صفر تدفق بيانات خارجي.',
     },
-    stats: [
-      { value: '100%', label: { en: 'Owned stack', ar: 'بنية مملوكة' } },
-      { value: '+8%', label: { en: 'Grid efficiency', ar: 'كفاءة الشبكة' } },
-      { value: '0', label: { en: 'External calls', ar: 'استدعاءات خارجية' } },
-    ],
+    outcome: {
+      en: 'If pursued, grid efficiency could rise with zero external data flow.',
+      ar: 'إذا نُفذ، قد ترتفع كفاءة الشبكة مع صفر تدفق بيانات خارجي.',
+    },
     related: { en: 'Explore AI Transformation', ar: 'استكشف التحول بالذكاء الاصطناعي' },
     to: '/services/ai-transformation',
     art: 8,
@@ -458,7 +454,7 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
   };
 
   return (
-    <section className={styles.section} aria-label={ar ? 'أعمالنا' : 'Selected work'}>
+    <section className={styles.section} aria-label={ar ? 'مكتبة المخططات' : 'Blueprint portfolio'}>
       <div className={styles.inner}>
         <div className={styles.header}>
           <motion.span
@@ -468,7 +464,7 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease, delay: 0.1 }}
           >
-            {ar ? 'أعمال مختارة' : 'SELECTED WORK'}
+            {ar ? 'مخططات' : 'BLUEPRINTS'}
           </motion.span>
           <motion.h1
             className={styles.title}
@@ -477,7 +473,7 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease, delay: 0.2 }}
           >
-            {ar ? 'مشاريع تحدث فرقاً' : 'Engagements that moved the needle.'}
+            {ar ? 'مخططات لتحولك القادم.' : 'Blueprints for your next transformation.'}
           </motion.h1>
           <motion.p
             className={styles.subtitle}
@@ -487,8 +483,8 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
             transition={{ duration: 0.6, ease, delay: 0.35 }}
           >
             {ar
-              ? 'مختارات من العمل الاستشاري والتنفيذي عبر القطاعات. أثر مُقاس، بلا صور فوتوغرافية — كل تصوّر مُولَّد بدقة.'
-              : 'A curated selection of advisory and delivery work across sectors. Measured impact — every visual generated, never stock.'}
+              ? 'مشاريع مفاهيمية، وتنفيذات مرجعية، وسيناريوهات تنفيذية، وحلول نموذجية — عبر القطاعات. كل تصوّر مُولَّد، لا مخزون.'
+              : 'Concept projects, reference implementations, executive scenarios, and prototype solutions — across sectors. Every visual generated, never stock.'}
           </motion.p>
         </div>
 
@@ -522,11 +518,11 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
 
         <div className={styles.filterMeta}>
           <span className={styles.resultCount} aria-live="polite">
-            {ar ? `${filtered.length} مهمة مختارة` : `${String(filtered.length).padStart(2, '0')} engagements`}
+            {ar ? `${filtered.length} مفهوم مختار` : `${String(filtered.length).padStart(2, '0')} concepts`}
           </span>
           {filtered.length === 0 && (
             <span className={styles.emptyHint}>
-              {ar ? 'لا توجد أعمال منشورة لهذا القطاع حالياً.' : 'No published work for this sector yet.'}
+              {ar ? 'لا توجد مفاهيم لهذا القطاع حالياً.' : 'No concepts for this sector yet.'}
             </span>
           )}
         </div>
@@ -566,7 +562,7 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
                   <h3 className={styles.tileTitle}>{ar ? item.title.ar : item.title.en}</h3>
                   <span className={styles.tileClient}>{ar ? item.client.ar : item.client.en}</span>
                   <div className={styles.tileMeta}>
-                    <span className={styles.tileStat}>{item.stats[0].value}</span>
+                    <span className={styles.tileStat}>{ar ? item.phase.ar : item.phase.en}</span>
                     <span className={styles.tileView}>
                       {ar ? 'عرض' : 'View'}
                       <ArrowUpRight size={14} />
@@ -628,14 +624,7 @@ export function ExecutivePortfolio() {  const { language } = useLanguage();
                     </span>
                     <h2 className={styles.lightboxTitle}>{ar ? selected.title.ar : selected.title.en}</h2>
                     <p className={styles.lightboxDesc}>{ar ? selected.desc.ar : selected.desc.en}</p>
-                    <div className={styles.lightboxStats}>
-                      {selected.stats.map((s) => (
-                        <div key={s.label.en} className={styles.lightboxStat}>
-                          <span className={styles.lightboxStatValue}>{s.value}</span>
-                          <span className={styles.lightboxStatLabel}>{ar ? s.label.ar : s.label.en}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <p className={styles.lightboxOutcome}>{ar ? selected.outcome.ar : selected.outcome.en}</p>
                     <Link to={selected.to} className={styles.lightboxLink} onClick={() => playSound('ctaClick')}>
                       <span>{ar ? selected.related.ar : selected.related.en}</span>
                       <ArrowUpRight size={16} />

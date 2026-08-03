@@ -4,6 +4,7 @@ import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../../hooks/LanguageProvider';
 import { ConstellationParticles } from '../../../motion/ConstellationParticles';
 import { AINetwork } from '../../ui/AINetwork';
+import { AIWorkflowGraphics } from '../../ui/AIWorkflowGraphics';
 import styles from './Technology.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -16,6 +17,7 @@ export function Technology() {
 
   return (
     <section className={styles.section} ref={ref}>
+      <AIWorkflowGraphics />
       <ConstellationParticles count={20} color="#C8A65A" connectionDistance={30} />
       <div className={styles.container}>
         <div className={styles.textSide}>
@@ -59,6 +61,16 @@ export function Technology() {
         >
           <div className={styles.imageCard}>
             <div className={styles.visualField} aria-hidden="true">
+              {/* ── Real photo behind the AI network — subtle & premium ── */}
+              <div className={styles.photoBack}>
+                <img
+                  src={`${import.meta.env.BASE_URL}images/technology_visual.jpg`}
+                  alt=""
+                  className={styles.photoBackImg}
+                  loading="lazy"
+                />
+                <div className={styles.photoBackOverlay} />
+              </div>
               <AINetwork nodeCount={34} color="#C8A65A" pulseSpeed={3} />
               <div className={styles.visualCore}>
                 <svg viewBox="0 0 100 100" className={styles.visualDiamond}>

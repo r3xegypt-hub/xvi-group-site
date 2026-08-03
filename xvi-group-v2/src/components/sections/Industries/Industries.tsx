@@ -105,6 +105,28 @@ export function Industries({ focus }: Props) {
         </div>
 
         <div className={styles.list}>
+          {/* ── Industry visual banner ── */}
+          <div className={styles.industryPhoto}>
+            <img
+              src={`${import.meta.env.BASE_URL}images/industries_visual.jpg`}
+              alt={ar ? 'القطاعات التي نخدمها' : 'Industries we serve'}
+              className={styles.industryPhotoImg}
+              loading="lazy"
+            />
+            <div className={styles.industryPhotoOverlay} />
+            <div className={styles.industryChips}>
+              <span className={styles.industryChip}>
+                <strong>3</strong> {ar ? 'قطاعات أساسية' : 'Core sectors'}
+              </span>
+              <span className={styles.industryChip}>
+                <strong>6</strong> {ar ? 'ممارسات قطاعية' : 'Industry practices'}
+              </span>
+              <span className={styles.industryChip}>
+                <strong>100%</strong> {ar ? 'قيادة تنفيذية' : 'Executive-led engagements'}
+              </span>
+            </div>
+          </div>
+
           {ordered.map((item, i) => {
             const isFocus = focusIndex >= 0 && item === industries[focusIndex];
             return (

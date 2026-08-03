@@ -199,3 +199,88 @@
 
   [dir='rtl'] & { font-family: 'Alexandria', sans-serif; }
 }
+
+// ════════════════════════════════════════════
+// INDUSTRY PHOTO BANNER — premium card
+// ════════════════════════════════════════════
+
+.industryPhoto {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid rgba(200, 166, 90, 0.18);
+  box-shadow:
+    0 4px 24px rgba(40, 30, 10, 0.07),
+    0 1px 4px rgba(40, 30, 10, 0.04);
+
+  @media (max-width: 768px) {
+    height: 220px;
+    margin-bottom: 28px;
+  }
+}
+
+.industryPhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+
+.industryPhotoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 25, 15, 0.08) 0%,
+    rgba(30, 25, 15, 0.35) 60%,
+    rgba(30, 25, 15, 0.65) 100%
+  );
+  pointer-events: none;
+}
+
+.industryChips {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  [dir='rtl'] & {
+    left: 24px;
+    right: 24px;
+    flex-direction: row-reverse;
+  }
+}
+
+.industryChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+
+  strong {
+    font-weight: 700;
+    color: #F5E4B5;
+  }
+
+  [dir='rtl'] & {
+    font-family: 'Alexandria', sans-serif;
+  }
+}

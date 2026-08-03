@@ -234,6 +234,78 @@
     50% { opacity: 0.7; }
   }
 
+  /* Cinematic intelligent light stream sweeping across the hero */
+  .lightStream {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      102deg,
+      transparent 0%,
+      rgba(200, 166, 90, 0.055) 28%,
+      rgba(212, 183, 110, 0.16) 45%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(212, 183, 110, 0.16) 55%,
+      rgba(200, 166, 90, 0.055) 72%,
+      transparent 100%
+    );
+    background-size: 260% 100%;
+    background-position: 120% 0;
+    filter: blur(6px);
+    animation: lightStreamSweep 26s ease-in-out infinite;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        102deg,
+        transparent 0%,
+        transparent 49.6%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 50.4%,
+        transparent 100%
+      );
+      mix-blend-mode: screen;
+    }
+
+    [dir='rtl'] & {
+      background: linear-gradient(
+        78deg,
+        transparent 0%,
+        rgba(200, 166, 90, 0.055) 28%,
+        rgba(212, 183, 110, 0.16) 45%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(212, 183, 110, 0.16) 55%,
+        rgba(200, 166, 90, 0.055) 72%,
+        transparent 100%
+      );
+
+      &::after {
+        background: linear-gradient(
+          78deg,
+          transparent 0%,
+          transparent 49.6%,
+          rgba(255, 255, 255, 0.5) 50%,
+          transparent 50.4%,
+          transparent 100%
+        );
+      }
+    }
+  }
+
+  @keyframes lightStreamSweep {
+    0%, 100% {
+      background-position: 130% 0;
+      opacity: 0.35;
+    }
+    50% {
+      background-position: -30% 0;
+      opacity: 0.85;
+    }
+  }
+
   .robot {
     position: absolute;
     inset-block: 0;
@@ -506,7 +578,8 @@
     .spotlight,
     .ambientLight,
     .headlineSweep,
-    .goldenReflection {
+    .goldenReflection,
+    .lightStream {
       animation: none;
     }
   }

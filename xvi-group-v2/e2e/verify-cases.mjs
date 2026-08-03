@@ -27,10 +27,11 @@ const BASE = 'http://localhost:5173/xvi-group-site';
 
   const cards = page.locator('div[class*="card"][role="button"]');
   report(await cards.count() === 6, `six case cards present (${await cards.count()})`);
-  report((await cards.first().locator('h3').innerText()).length > 0, 'card shows client name');
-  report(await cards.first().locator('[class*="cardKpiValue"]').count() === 2, 'card shows 2 animated KPIs');
-  report(await cards.first().locator('[class*="cardText"]').count() === 2, 'card shows challenge + AI solution');
-  report(await cards.first().locator('[class*="cardImpact"]').count() === 1, 'card shows business impact');
+  report((await cards.first().locator('h3').innerText()).length > 0, 'card shows scenario type label');
+  report(await cards.first().locator('[class*="cardKpiValue"]').count() === 0, 'card shows no fabricated KPIs');
+  report((await cards.first().innerText()).includes('Prototype Solution'), 'first card labelled a Prototype Solution');
+  report(await cards.first().locator('[class*="cardText"]').count() === 2, 'card shows scenario + blueprint');
+  report(await cards.first().locator('[class*="cardImpact"]').count() === 1, 'card shows narrative impact');
   report(await cards.first().locator('[class*="cardCta"]').count() === 1, 'card has CTA');
   report(await page.locator('div[class*="grid"]').first().isVisible(), 'card grid visible');
 
@@ -62,8 +63,9 @@ const BASE = 'http://localhost:5173/xvi-group-site';
   report(await modal.count() === 1, 'modal opens on card click');
   report(await modal.locator('[class*="timeline"] li').count() === 4, 'modal timeline has 4 steps');
   report(await modal.locator('span[class*="techChip"]').count() === 4, 'modal technologies shown');
-  report(await modal.locator('[class*="kpiGrid"] > [class*="kpi"]').count() === 4, 'modal results KPIs (4)');
-  report(await modal.locator('[class*="baGrid"]').count() === 1, 'modal before/after results shown');
+  report(await modal.locator('[class*="kpiGrid"] > [class*="kpi"]').count() === 0, 'modal shows no fabricated KPI counters');
+  report(await modal.locator('[class*="outcome"]').count() === 1, 'modal shows narrative possible outcomes');
+  report(await modal.locator('[class*="baGrid"]').count() === 1, 'modal current reality / designed target shown');
   report(await modal.locator('aside[class*="recommend"]').count() === 1, 'modal recommendation shown');
   report(await modal.locator('a[class*="ctaPrimary"]').count() === 1, 'modal related service link');
   report(await modal.locator('button[class*="ctaGold"]').count() === 1, 'modal contact expert button');

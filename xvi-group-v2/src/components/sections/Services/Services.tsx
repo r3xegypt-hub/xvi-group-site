@@ -84,6 +84,40 @@ export function Services({ focus }: Props) {
             : 'Move from isolated use cases to a connected intelligence system.'}
         </motion.h2>
 
+        {/* ── Visual strip: photo + executive caption + stats ── */}
+        <div className={styles.visualStrip}>
+          <div className={styles.visualStripText}>
+            <p className={styles.visualStripBody}>
+              {ar
+                ? 'لا يثمر الذكاء إلا حين يغيّر طريقة اتخاذ القرار — صياغة استراتيجية، وعمليات مهندَسة، وتبنٍّ تنفيذي.'
+                : 'Intelligence only pays off when it changes how decisions are made — strategic framing, engineered operations, executive adoption.'}
+            </p>
+            <div className={styles.visualStripStats}>
+              <div className={styles.visualStat}>
+                <span className={styles.visualStatNum}>3</span>
+                <span className={styles.visualStatLabel}>{ar ? 'ركائز الخدمة' : 'Service pillars'}</span>
+              </div>
+              <div className={styles.visualStat}>
+                <span className={styles.visualStatNum}>1</span>
+                <span className={styles.visualStatLabel}>{ar ? 'نظام متصل' : 'Connected system'}</span>
+              </div>
+              <div className={styles.visualStat}>
+                <span className={styles.visualStatNum}>100%</span>
+                <span className={styles.visualStatLabel}>{ar ? 'تركيز تنفيذي' : 'Executive-grade focus'}</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.visualStripPhoto}>
+            <img
+              src={`${import.meta.env.BASE_URL}images/services_visual.jpg`}
+              alt={ar ? 'فريق يطوّر حلول ذكاء اصطناعي' : 'Team developing AI solutions'}
+              className={styles.visualStripImg}
+              loading="lazy"
+            />
+            <div className={styles.visualStripImgOverlay} />
+          </div>
+        </div>
+
         <div className={styles.grid}>
           {ordered.map((service, i) => {
             const isFocus = focusIndex >= 0 && service === services[focusIndex];

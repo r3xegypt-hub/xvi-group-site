@@ -3,44 +3,40 @@ import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { Container } from '../layout/Container';
+import styles from './AIDashboard.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
-const kpis = [
+const pillars = [
   {
-    value: '99.9%',
-    label: 'Uptime',
-    labelAr: 'وقت التشغيل',
-    trend: '+0.4',
-    trendAr: '٠٫٤+',
+    value: 'Sovereign',
+    valueAr: 'سيادي',
+    label: 'Owned infrastructure',
+    labelAr: 'بنية مملوكة',
   },
   {
-    value: '2.4s',
-    label: 'Avg Response',
-    labelAr: 'متوسط الاستجابة',
-    trend: '-0.8s',
-    trendAr: '٠٫٨ث-',
+    value: 'Governed',
+    valueAr: 'محكوم',
+    label: 'End-to-end governance',
+    labelAr: 'حوكمة شاملة',
   },
   {
-    value: '96%',
-    label: 'Accuracy',
-    labelAr: 'الدقة',
-    trend: '+2.1',
-    trendAr: '٢٫١+',
+    value: 'Measured',
+    valueAr: 'مُقاس',
+    label: 'Outcome-driven design',
+    labelAr: 'تصميم مدفوع بالنتائج',
   },
   {
-    value: '7',
-    label: 'Active Models',
-    labelAr: 'نماذج نشطة',
-    trend: '+2',
-    trendAr: '٢+',
+    value: 'Scalable',
+    valueAr: 'قابل للتوسع',
+    label: 'Built for growth',
+    labelAr: 'مصمم للنمو',
   },
   {
-    value: '12.4K',
-    label: 'Data Points',
-    labelAr: 'نقطة بيانات',
-    trend: '+1.2K',
-    trendAr: '١٫٢ك+',
+    value: 'Secure',
+    valueAr: 'آمن',
+    label: 'Privacy by default',
+    labelAr: 'الخصوصية افتراضياً',
   },
 ];
 
@@ -67,59 +63,21 @@ export function AIDashboard() {
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
       <Container>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: 24,
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          {kpis.map((kpi, i) => (
+        <div className={styles.grid}>
+          {pillars.map((p, i) => (
             <motion.div
               key={i}
+              className={styles.cell}
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               transition={{ duration: 0.5, ease, delay: i * 0.08 }}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-                padding: '12px 16px',
-                borderRight: i < kpis.length - 1 ? '1px solid rgba(63,67,72,0.06)' : 'none',
-              }}
             >
-              <div style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: 'clamp(1.25rem, 2vw, 1.75rem)',
-                fontWeight: 400,
-                color: '#C8A65A',
-                lineHeight: 1,
-              }}>
-                {kpi.value}
+              <div className={styles.value}>
+                {ar ? p.valueAr : p.value}
               </div>
-              <div style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: '0.625rem',
-                fontWeight: 500,
-                color: '#90949A',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-              }}>
-                {ar ? kpi.labelAr : kpi.label}
+              <div className={styles.label}>
+                {ar ? p.labelAr : p.label}
               </div>
-              <motion.div
-                style={{
-                  fontFamily: "'Manrope', sans-serif",
-                  fontSize: '0.5625rem',
-                  fontWeight: 500,
-                  color: kpi.trend.startsWith('+') ? '#2D6A4F' : '#C8A65A',
-                  letterSpacing: '0.04em',
-                }}
-                animate={isInView ? { opacity: [0.4, 1, 0.4] } : {}}
-                transition={{ duration: 2, delay: i * 0.08, repeat: Infinity }}
-              >
-                {ar ? kpi.trendAr : kpi.trend}
-              </motion.div>
             </motion.div>
           ))}
         </div>

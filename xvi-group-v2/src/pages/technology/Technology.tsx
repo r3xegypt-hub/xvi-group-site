@@ -10,6 +10,7 @@ import { Technology } from '../../components/sections/Technology';
 import { AIDashboard } from '../../components/ui/AIDashboard';
 import { CTA } from '../../components/sections/CTA';
 import { FlowingWave } from '../../motion/FlowingWave';
+import { TechnologyStack } from '../../components/ui/visuals/TechnologyStack';
 import styles from './Technology.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
@@ -24,6 +25,9 @@ export function TechnologyPage() {
     <>
       <Section variant="white" className={styles.pageHero}>
         <FlowingWave color="#C8A65A" opacity={0.04} speed={0.5} />
+        <div className={styles.heroVisual}>
+          <TechnologyStack />
+        </div>
         <Container>
           <motion.div
             ref={ref}
