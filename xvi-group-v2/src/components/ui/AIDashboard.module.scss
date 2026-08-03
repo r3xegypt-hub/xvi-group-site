@@ -1,0 +1,63 @@
+@import '../../styles/mixins/devices';
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+
+  @include tablet-portrait {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 24px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  border-inline-end: 1px solid rgba(63, 67, 72, 0.06);
+
+  &:last-child {
+    border-inline-end: none;
+  }
+
+  @include tablet-portrait {
+    border-inline-end: none;
+  }
+
+  @include mobile {
+    border-inline-end: none;
+    border-bottom: 1px solid rgba(63, 67, 72, 0.06);
+    padding: 16px 4px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.value {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 400;
+  color: #c8a65a;
+  line-height: 1.15;
+}
+
+.label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: #90949a;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}

@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Easing } from 'framer-motion';
 import { useLanguage } from '../../hooks/LanguageProvider';
 import { Container } from '../layout/Container';
+import styles from './AIDashboard.module.scss';
 
 const ease: Easing = [0.16, 1, 0.3, 1];
 
@@ -62,45 +63,19 @@ export function AIDashboard() {
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
       <Container>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: 24,
-          position: 'relative',
-          zIndex: 1,
-        }}>
+        <div className={styles.grid}>
           {pillars.map((p, i) => (
             <motion.div
               key={i}
+              className={styles.cell}
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               transition={{ duration: 0.5, ease, delay: i * 0.08 }}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-                padding: '12px 16px',
-                borderRight: i < pillars.length - 1 ? '1px solid rgba(63,67,72,0.06)' : 'none',
-              }}
             >
-              <div style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: 'clamp(1.15rem, 1.8vw, 1.5rem)',
-                fontWeight: 400,
-                color: '#C8A65A',
-                lineHeight: 1.15,
-              }}>
+              <div className={styles.value}>
                 {ar ? p.valueAr : p.value}
               </div>
-              <div style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: '0.625rem',
-                fontWeight: 500,
-                color: '#90949A',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                marginTop: 4,
-              }}>
+              <div className={styles.label}>
                 {ar ? p.labelAr : p.label}
               </div>
             </motion.div>
