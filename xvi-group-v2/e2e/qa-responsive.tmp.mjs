@@ -87,6 +87,28 @@ const report = (ok, msg) => { results.push(ok); console.log(`  [${ok ? 'ok' : 'F
           if (dims.scrollW > dims.clientW + 1) { ok = false; issues.push(`html overflow: scrollW=${dims.scrollW} clientW=${dims.clientW}`); }
           if (dims.bodyScrollW > dims.clientW + 1) { ok = false; issues.push(`body overflow: bodyScrollW=${dims.bodyScrollW}`); }
 
+          const clipped = await page.evaluate(() => {
+            const out = [];
+            document.querySelectorAll('main *').forEach((el) => {
+              const cs = getComputedStyle(el);
+              if (!/(hidden|clip|auto|scroll)/.test(cs.overflowX) && !/(hidden|clip|auto|scroll)/.test(cs.overflowY)) return;
+              if (el.scrollWidth <= el.clientWidth + 2) return;
+              const er = el.getBoundingClientRect();
+              el.querySelectorAll('p,span,h1,h2,h3,h4,h5,h6,a,button,li,strong,em,label').forEach((t) => {
+                const tcs = getComputedStyle(t);
+                if (parseFloat(tcs.opacity) < 0.6) return;
+                const tr = t.getBoundingClientRect();
+                if (tr.width < 24 || tr.height < 10 || tr.height > 90) return;
+                if ((t.textContent || '').trim().length < 5) return;
+                if (tr.right > er.right + 2) {
+                  out.push(`${t.tagName.toLowerCase()} "${(t.textContent || '').trim().slice(0, 30)}"`);
+                }
+              });
+            });
+            return out.slice(0, 6);
+          });
+          if (clipped.length) { ok = false; issues.push(`clipped text: ${clipped.join(' | ')}`); }
+
           const contentVisible = await page.evaluate(() => {
             const main = document.getElementById('main-content');
             return main ? main.getBoundingClientRect().height > 50 : false;
