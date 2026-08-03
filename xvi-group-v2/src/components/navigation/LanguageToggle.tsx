@@ -1,5 +1,4 @@
 // XVI GROUP — Language Toggle Component
-// EN/AR language switcher per COMPONENT_LIBRARY.md
 
 import { useLanguage } from '../../hooks/LanguageProvider';
 import styles from './LanguageToggle.module.scss';

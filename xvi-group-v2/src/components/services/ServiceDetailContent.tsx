@@ -274,7 +274,7 @@ export function ServiceDetailContent({ serviceId }: { serviceId: ServiceId }) {
             >
               {ar ? 'الفوائد الرئيسية' : 'Key Benefits'}
             </motion.h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 16 }}>
               {content.benefits.map((b, i) => (
                 <motion.div
                   key={i}

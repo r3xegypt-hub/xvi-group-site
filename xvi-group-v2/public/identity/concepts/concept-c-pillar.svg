@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <rect x="28" y="40" width="16" height="72" fill="#0A1628" opacity="0.85"/>
-  <rect x="56" y="24" width="16" height="88" fill="#C9A96E"/>
-  <rect x="84" y="52" width="16" height="60" fill="#0A1628" opacity="0.65"/>
-  <line x1="20" y1="112" x2="108" y2="112" stroke="#0A1628" stroke-width="1.5"/>
-  <text x="64" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#0A1628">XVI</text>
-</svg>
